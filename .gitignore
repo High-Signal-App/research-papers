@@ -16,3 +16,15 @@ data/pdfs/
 # Tool caches
 .pytest_cache/
 .ruff_cache/
+
+# Web build artifacts
+web/node_modules/
+web/dist/
+web/.astro/
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
