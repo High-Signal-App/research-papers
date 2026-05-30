@@ -1,0 +1,1395 @@
+{
+  "papers_per_year": [
+    {
+      "year": 1970,
+      "n": 3
+    },
+    {
+      "year": 1971,
+      "n": 1
+    },
+    {
+      "year": 1975,
+      "n": 1
+    },
+    {
+      "year": 1977,
+      "n": 1
+    },
+    {
+      "year": 1985,
+      "n": 2
+    },
+    {
+      "year": 1986,
+      "n": 1
+    },
+    {
+      "year": 1987,
+      "n": 1
+    },
+    {
+      "year": 1989,
+      "n": 4
+    },
+    {
+      "year": 1990,
+      "n": 2
+    },
+    {
+      "year": 1991,
+      "n": 5
+    },
+    {
+      "year": 1992,
+      "n": 5
+    },
+    {
+      "year": 1993,
+      "n": 23
+    },
+    {
+      "year": 1994,
+      "n": 19
+    },
+    {
+      "year": 1995,
+      "n": 25
+    },
+    {
+      "year": 1996,
+      "n": 20
+    },
+    {
+      "year": 1997,
+      "n": 36
+    },
+    {
+      "year": 1998,
+      "n": 43
+    },
+    {
+      "year": 1999,
+      "n": 67
+    },
+    {
+      "year": 2000,
+      "n": 77
+    },
+    {
+      "year": 2001,
+      "n": 81
+    },
+    {
+      "year": 2002,
+      "n": 105
+    },
+    {
+      "year": 2003,
+      "n": 140
+    },
+    {
+      "year": 2004,
+      "n": 166
+    },
+    {
+      "year": 2005,
+      "n": 310
+    },
+    {
+      "year": 2006,
+      "n": 300
+    },
+    {
+      "year": 2007,
+      "n": 2486
+    },
+    {
+      "year": 2008,
+      "n": 3855
+    },
+    {
+      "year": 2009,
+      "n": 5500
+    },
+    {
+      "year": 2010,
+      "n": 7938
+    },
+    {
+      "year": 2011,
+      "n": 8999
+    },
+    {
+      "year": 2012,
+      "n": 11600
+    },
+    {
+      "year": 2013,
+      "n": 13468
+    },
+    {
+      "year": 2014,
+      "n": 14551
+    },
+    {
+      "year": 2015,
+      "n": 16045
+    },
+    {
+      "year": 2016,
+      "n": 20090
+    },
+    {
+      "year": 2017,
+      "n": 25150
+    },
+    {
+      "year": 2018,
+      "n": 32808
+    },
+    {
+      "year": 2019,
+      "n": 41323
+    },
+    {
+      "year": 2020,
+      "n": 50022
+    },
+    {
+      "year": 2021,
+      "n": 45118
+    },
+    {
+      "year": 2022,
+      "n": 36466
+    },
+    {
+      "year": 2023,
+      "n": 33132
+    },
+    {
+      "year": 2024,
+      "n": 23912
+    },
+    {
+      "year": 2025,
+      "n": 4854
+    },
+    {
+      "year": 2026,
+      "n": 1147
+    }
+  ],
+  "top_communities": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "community_years": [
+    {
+      "year": 1985,
+      "community_id": 4,
+      "n": 1
+    },
+    {
+      "year": 1994,
+      "community_id": 3,
+      "n": 1
+    },
+    {
+      "year": 1995,
+      "community_id": 4,
+      "n": 1
+    },
+    {
+      "year": 1998,
+      "community_id": 4,
+      "n": 1
+    },
+    {
+      "year": 1999,
+      "community_id": 0,
+      "n": 1
+    },
+    {
+      "year": 1999,
+      "community_id": 1,
+      "n": 2
+    },
+    {
+      "year": 1999,
+      "community_id": 2,
+      "n": 2
+    },
+    {
+      "year": 1999,
+      "community_id": 4,
+      "n": 2
+    },
+    {
+      "year": 1999,
+      "community_id": 5,
+      "n": 1
+    },
+    {
+      "year": 2000,
+      "community_id": 2,
+      "n": 1
+    },
+    {
+      "year": 2000,
+      "community_id": 4,
+      "n": 2
+    },
+    {
+      "year": 2001,
+      "community_id": 0,
+      "n": 3
+    },
+    {
+      "year": 2002,
+      "community_id": 0,
+      "n": 4
+    },
+    {
+      "year": 2002,
+      "community_id": 3,
+      "n": 2
+    },
+    {
+      "year": 2002,
+      "community_id": 4,
+      "n": 1
+    },
+    {
+      "year": 2003,
+      "community_id": 0,
+      "n": 3
+    },
+    {
+      "year": 2003,
+      "community_id": 1,
+      "n": 1
+    },
+    {
+      "year": 2003,
+      "community_id": 3,
+      "n": 1
+    },
+    {
+      "year": 2003,
+      "community_id": 4,
+      "n": 3
+    },
+    {
+      "year": 2004,
+      "community_id": 0,
+      "n": 2
+    },
+    {
+      "year": 2004,
+      "community_id": 2,
+      "n": 1
+    },
+    {
+      "year": 2004,
+      "community_id": 3,
+      "n": 1
+    },
+    {
+      "year": 2004,
+      "community_id": 4,
+      "n": 4
+    },
+    {
+      "year": 2005,
+      "community_id": 0,
+      "n": 2
+    },
+    {
+      "year": 2005,
+      "community_id": 2,
+      "n": 2
+    },
+    {
+      "year": 2005,
+      "community_id": 4,
+      "n": 4
+    },
+    {
+      "year": 2006,
+      "community_id": 0,
+      "n": 3
+    },
+    {
+      "year": 2006,
+      "community_id": 1,
+      "n": 2
+    },
+    {
+      "year": 2006,
+      "community_id": 2,
+      "n": 1
+    },
+    {
+      "year": 2006,
+      "community_id": 5,
+      "n": 6
+    },
+    {
+      "year": 2007,
+      "community_id": 0,
+      "n": 6
+    },
+    {
+      "year": 2007,
+      "community_id": 1,
+      "n": 5
+    },
+    {
+      "year": 2007,
+      "community_id": 2,
+      "n": 12
+    },
+    {
+      "year": 2007,
+      "community_id": 3,
+      "n": 7
+    },
+    {
+      "year": 2007,
+      "community_id": 4,
+      "n": 52
+    },
+    {
+      "year": 2007,
+      "community_id": 5,
+      "n": 9
+    },
+    {
+      "year": 2008,
+      "community_id": 0,
+      "n": 13
+    },
+    {
+      "year": 2008,
+      "community_id": 1,
+      "n": 7
+    },
+    {
+      "year": 2008,
+      "community_id": 2,
+      "n": 7
+    },
+    {
+      "year": 2008,
+      "community_id": 3,
+      "n": 3
+    },
+    {
+      "year": 2008,
+      "community_id": 4,
+      "n": 100
+    },
+    {
+      "year": 2008,
+      "community_id": 5,
+      "n": 39
+    },
+    {
+      "year": 2009,
+      "community_id": 0,
+      "n": 23
+    },
+    {
+      "year": 2009,
+      "community_id": 1,
+      "n": 10
+    },
+    {
+      "year": 2009,
+      "community_id": 2,
+      "n": 24
+    },
+    {
+      "year": 2009,
+      "community_id": 3,
+      "n": 19
+    },
+    {
+      "year": 2009,
+      "community_id": 4,
+      "n": 229
+    },
+    {
+      "year": 2009,
+      "community_id": 5,
+      "n": 54
+    },
+    {
+      "year": 2010,
+      "community_id": 0,
+      "n": 24
+    },
+    {
+      "year": 2010,
+      "community_id": 1,
+      "n": 20
+    },
+    {
+      "year": 2010,
+      "community_id": 2,
+      "n": 28
+    },
+    {
+      "year": 2010,
+      "community_id": 3,
+      "n": 27
+    },
+    {
+      "year": 2010,
+      "community_id": 4,
+      "n": 395
+    },
+    {
+      "year": 2010,
+      "community_id": 5,
+      "n": 90
+    },
+    {
+      "year": 2011,
+      "community_id": 0,
+      "n": 34
+    },
+    {
+      "year": 2011,
+      "community_id": 1,
+      "n": 42
+    },
+    {
+      "year": 2011,
+      "community_id": 2,
+      "n": 59
+    },
+    {
+      "year": 2011,
+      "community_id": 3,
+      "n": 27
+    },
+    {
+      "year": 2011,
+      "community_id": 4,
+      "n": 439
+    },
+    {
+      "year": 2011,
+      "community_id": 5,
+      "n": 99
+    },
+    {
+      "year": 2012,
+      "community_id": 0,
+      "n": 89
+    },
+    {
+      "year": 2012,
+      "community_id": 1,
+      "n": 80
+    },
+    {
+      "year": 2012,
+      "community_id": 2,
+      "n": 104
+    },
+    {
+      "year": 2012,
+      "community_id": 3,
+      "n": 72
+    },
+    {
+      "year": 2012,
+      "community_id": 4,
+      "n": 476
+    },
+    {
+      "year": 2012,
+      "community_id": 5,
+      "n": 188
+    },
+    {
+      "year": 2013,
+      "community_id": 0,
+      "n": 102
+    },
+    {
+      "year": 2013,
+      "community_id": 1,
+      "n": 99
+    },
+    {
+      "year": 2013,
+      "community_id": 2,
+      "n": 168
+    },
+    {
+      "year": 2013,
+      "community_id": 3,
+      "n": 90
+    },
+    {
+      "year": 2013,
+      "community_id": 4,
+      "n": 570
+    },
+    {
+      "year": 2013,
+      "community_id": 5,
+      "n": 269
+    },
+    {
+      "year": 2014,
+      "community_id": 0,
+      "n": 210
+    },
+    {
+      "year": 2014,
+      "community_id": 1,
+      "n": 308
+    },
+    {
+      "year": 2014,
+      "community_id": 2,
+      "n": 236
+    },
+    {
+      "year": 2014,
+      "community_id": 3,
+      "n": 131
+    },
+    {
+      "year": 2014,
+      "community_id": 4,
+      "n": 629
+    },
+    {
+      "year": 2014,
+      "community_id": 5,
+      "n": 378
+    },
+    {
+      "year": 2015,
+      "community_id": 0,
+      "n": 473
+    },
+    {
+      "year": 2015,
+      "community_id": 1,
+      "n": 711
+    },
+    {
+      "year": 2015,
+      "community_id": 2,
+      "n": 384
+    },
+    {
+      "year": 2015,
+      "community_id": 3,
+      "n": 237
+    },
+    {
+      "year": 2015,
+      "community_id": 4,
+      "n": 615
+    },
+    {
+      "year": 2015,
+      "community_id": 5,
+      "n": 487
+    },
+    {
+      "year": 2016,
+      "community_id": 0,
+      "n": 1254
+    },
+    {
+      "year": 2016,
+      "community_id": 1,
+      "n": 1181
+    },
+    {
+      "year": 2016,
+      "community_id": 2,
+      "n": 580
+    },
+    {
+      "year": 2016,
+      "community_id": 3,
+      "n": 522
+    },
+    {
+      "year": 2016,
+      "community_id": 4,
+      "n": 722
+    },
+    {
+      "year": 2016,
+      "community_id": 5,
+      "n": 649
+    },
+    {
+      "year": 2017,
+      "community_id": 0,
+      "n": 1772
+    },
+    {
+      "year": 2017,
+      "community_id": 1,
+      "n": 1871
+    },
+    {
+      "year": 2017,
+      "community_id": 2,
+      "n": 1024
+    },
+    {
+      "year": 2017,
+      "community_id": 3,
+      "n": 1095
+    },
+    {
+      "year": 2017,
+      "community_id": 4,
+      "n": 840
+    },
+    {
+      "year": 2017,
+      "community_id": 5,
+      "n": 791
+    },
+    {
+      "year": 2018,
+      "community_id": 0,
+      "n": 2898
+    },
+    {
+      "year": 2018,
+      "community_id": 1,
+      "n": 2559
+    },
+    {
+      "year": 2018,
+      "community_id": 2,
+      "n": 1835
+    },
+    {
+      "year": 2018,
+      "community_id": 3,
+      "n": 1978
+    },
+    {
+      "year": 2018,
+      "community_id": 4,
+      "n": 964
+    },
+    {
+      "year": 2018,
+      "community_id": 5,
+      "n": 1066
+    },
+    {
+      "year": 2019,
+      "community_id": 0,
+      "n": 4066
+    },
+    {
+      "year": 2019,
+      "community_id": 1,
+      "n": 3467
+    },
+    {
+      "year": 2019,
+      "community_id": 2,
+      "n": 3044
+    },
+    {
+      "year": 2019,
+      "community_id": 3,
+      "n": 2680
+    },
+    {
+      "year": 2019,
+      "community_id": 4,
+      "n": 1244
+    },
+    {
+      "year": 2019,
+      "community_id": 5,
+      "n": 1553
+    },
+    {
+      "year": 2020,
+      "community_id": 0,
+      "n": 5338
+    },
+    {
+      "year": 2020,
+      "community_id": 1,
+      "n": 3632
+    },
+    {
+      "year": 2020,
+      "community_id": 2,
+      "n": 4277
+    },
+    {
+      "year": 2020,
+      "community_id": 3,
+      "n": 3357
+    },
+    {
+      "year": 2020,
+      "community_id": 4,
+      "n": 1635
+    },
+    {
+      "year": 2020,
+      "community_id": 5,
+      "n": 1997
+    },
+    {
+      "year": 2021,
+      "community_id": 0,
+      "n": 4380
+    },
+    {
+      "year": 2021,
+      "community_id": 1,
+      "n": 3130
+    },
+    {
+      "year": 2021,
+      "community_id": 2,
+      "n": 3737
+    },
+    {
+      "year": 2021,
+      "community_id": 3,
+      "n": 2645
+    },
+    {
+      "year": 2021,
+      "community_id": 4,
+      "n": 1903
+    },
+    {
+      "year": 2021,
+      "community_id": 5,
+      "n": 1725
+    },
+    {
+      "year": 2022,
+      "community_id": 0,
+      "n": 1414
+    },
+    {
+      "year": 2022,
+      "community_id": 1,
+      "n": 734
+    },
+    {
+      "year": 2022,
+      "community_id": 2,
+      "n": 903
+    },
+    {
+      "year": 2022,
+      "community_id": 3,
+      "n": 844
+    },
+    {
+      "year": 2022,
+      "community_id": 4,
+      "n": 1488
+    },
+    {
+      "year": 2022,
+      "community_id": 5,
+      "n": 623
+    },
+    {
+      "year": 2023,
+      "community_id": 0,
+      "n": 1624
+    },
+    {
+      "year": 2023,
+      "community_id": 1,
+      "n": 406
+    },
+    {
+      "year": 2023,
+      "community_id": 2,
+      "n": 423
+    },
+    {
+      "year": 2023,
+      "community_id": 3,
+      "n": 597
+    },
+    {
+      "year": 2023,
+      "community_id": 4,
+      "n": 733
+    },
+    {
+      "year": 2023,
+      "community_id": 5,
+      "n": 289
+    },
+    {
+      "year": 2024,
+      "community_id": 0,
+      "n": 561
+    },
+    {
+      "year": 2024,
+      "community_id": 1,
+      "n": 190
+    },
+    {
+      "year": 2024,
+      "community_id": 2,
+      "n": 193
+    },
+    {
+      "year": 2024,
+      "community_id": 3,
+      "n": 250
+    },
+    {
+      "year": 2024,
+      "community_id": 4,
+      "n": 256
+    },
+    {
+      "year": 2024,
+      "community_id": 5,
+      "n": 135
+    },
+    {
+      "year": 2025,
+      "community_id": 0,
+      "n": 71
+    },
+    {
+      "year": 2025,
+      "community_id": 1,
+      "n": 28
+    },
+    {
+      "year": 2025,
+      "community_id": 2,
+      "n": 42
+    },
+    {
+      "year": 2025,
+      "community_id": 3,
+      "n": 35
+    },
+    {
+      "year": 2025,
+      "community_id": 4,
+      "n": 167
+    },
+    {
+      "year": 2025,
+      "community_id": 5,
+      "n": 22
+    },
+    {
+      "year": 2026,
+      "community_id": 0,
+      "n": 23
+    },
+    {
+      "year": 2026,
+      "community_id": 1,
+      "n": 8
+    },
+    {
+      "year": 2026,
+      "community_id": 2,
+      "n": 14
+    },
+    {
+      "year": 2026,
+      "community_id": 3,
+      "n": 18
+    },
+    {
+      "year": 2026,
+      "community_id": 4,
+      "n": 92
+    },
+    {
+      "year": 2026,
+      "community_id": 5,
+      "n": 8
+    }
+  ],
+  "top_paper_per_year": [
+    {
+      "year": 1970,
+      "arxiv_id": "1008.3288",
+      "title": "Reversible Logic Synthesis of Fault Tolerant Carry Skip BCD Adder",
+      "pagerank_score": 2e-06,
+      "citation_count": 11
+    },
+    {
+      "year": 1971,
+      "arxiv_id": "1704.01036",
+      "title": "Objective Criteria for the Evaluation of Clustering Methods",
+      "pagerank_score": 0.000308,
+      "citation_count": 5900
+    },
+    {
+      "year": 1975,
+      "arxiv_id": "2305.00968",
+      "title": "The Monadic Theory of Order",
+      "pagerank_score": 3.7e-05,
+      "citation_count": 323
+    },
+    {
+      "year": 1977,
+      "arxiv_id": "1711.09341",
+      "title": "Circuit preserving edge maps",
+      "pagerank_score": 1e-06,
+      "citation_count": 0
+    },
+    {
+      "year": 1985,
+      "arxiv_id": "2404.05743",
+      "title": "Constructive Mathematics",
+      "pagerank_score": 1.4e-05,
+      "citation_count": 12
+    },
+    {
+      "year": 1986,
+      "arxiv_id": "1609.09636",
+      "title": "Stochastic pure state representation for open quantum systems",
+      "pagerank_score": 1.4e-05,
+      "citation_count": 86
+    },
+    {
+      "year": 1987,
+      "arxiv_id": "1304.2728",
+      "title": "Coefficients of relation for probabilistic reasoning",
+      "pagerank_score": 1e-06,
+      "citation_count": 0
+    },
+    {
+      "year": 1989,
+      "arxiv_id": "1304.1518",
+      "title": "Defeasible Decisions: What the Proposal Is and Isn't",
+      "pagerank_score": 1e-06,
+      "citation_count": 0
+    },
+    {
+      "year": 1990,
+      "arxiv_id": "1405.6885",
+      "title": "On the design of an expert help system for computer algebra systems",
+      "pagerank_score": 1e-06,
+      "citation_count": 4
+    },
+    {
+      "year": 1991,
+      "arxiv_id": "1303.5723",
+      "title": "Non-monotonic Reasoning and the Reversibility of Belief Change",
+      "pagerank_score": 3e-06,
+      "citation_count": 1
+    },
+    {
+      "year": 1992,
+      "arxiv_id": "1303.5435",
+      "title": "An Algorithm for Deciding if a Set of Observed Independencies Has a Causal Explanation",
+      "pagerank_score": 2e-06,
+      "citation_count": 13
+    },
+    {
+      "year": 1993,
+      "arxiv_id": "2306.05835",
+      "title": "A Complete Proof Synthesis Method for the Cube of Type Systems",
+      "pagerank_score": 3e-06,
+      "citation_count": 33
+    },
+    {
+      "year": 1994,
+      "arxiv_id": "1801.00442",
+      "title": "O(lgN) line clipping algorithm in E2",
+      "pagerank_score": 6e-06,
+      "citation_count": 34
+    },
+    {
+      "year": 1995,
+      "arxiv_id": "1312.3303",
+      "title": "A uniform self-stabilizing minimum diameter spanning tree algorithm",
+      "pagerank_score": 8e-06,
+      "citation_count": 9
+    },
+    {
+      "year": 1996,
+      "arxiv_id": "1608.07519",
+      "title": "Phase diagram of the two-dimensional complex Ginzburg-Landau equation",
+      "pagerank_score": 8e-06,
+      "citation_count": 166
+    },
+    {
+      "year": 1997,
+      "arxiv_id": "1901.11004",
+      "title": "Experimental quantum teleportation",
+      "pagerank_score": 0.000463,
+      "citation_count": 5466
+    },
+    {
+      "year": 1998,
+      "arxiv_id": "1105.5451",
+      "title": "The Automatic Inference of State Invariants in TIM",
+      "pagerank_score": 4.6e-05,
+      "citation_count": 195
+    },
+    {
+      "year": 1999,
+      "arxiv_id": "1105.5460",
+      "title": "Decision-Theoretic Planning: Structural Assumptions and Computational Leverage",
+      "pagerank_score": 0.000123,
+      "citation_count": 1099
+    },
+    {
+      "year": 2000,
+      "arxiv_id": "quant-ph/0005055",
+      "title": "Quantum Amplitude Amplification and Estimation",
+      "pagerank_score": 0.000103,
+      "citation_count": 554
+    },
+    {
+      "year": 2001,
+      "arxiv_id": "1106.0675",
+      "title": "The FF Planning System: Fast Plan Generation Through Heuristic Search",
+      "pagerank_score": 0.000136,
+      "citation_count": 1850
+    },
+    {
+      "year": 2002,
+      "arxiv_id": "1106.1813",
+      "title": "SMOTE: Synthetic Minority Over-sampling Technique",
+      "pagerank_score": 0.00045,
+      "citation_count": 30787
+    },
+    {
+      "year": 2003,
+      "arxiv_id": "1106.5998",
+      "title": "The 3rd International Planning Competition: Results and Analysis",
+      "pagerank_score": 9.5e-05,
+      "citation_count": 292
+    },
+    {
+      "year": 2004,
+      "arxiv_id": "1107.0023",
+      "title": "CP-nets: A Tool for Representing and Reasoning withConditional Ceteris Paribus Preference Statements",
+      "pagerank_score": 4.9e-05,
+      "citation_count": 878
+    },
+    {
+      "year": 2005,
+      "arxiv_id": "1109.2146",
+      "title": "CIXL2: A Crossover Operator for Evolutionary Algorithms Based on Population Features",
+      "pagerank_score": 3e-05,
+      "citation_count": 157
+    },
+    {
+      "year": 2006,
+      "arxiv_id": "1109.6341",
+      "title": "Domain Adaptation for Statistical Classifiers",
+      "pagerank_score": 0.00021,
+      "citation_count": 830
+    },
+    {
+      "year": 2007,
+      "arxiv_id": "0705.0174",
+      "title": "Experimental Realization of One-Way Quantum Computing with Two-Photon Four-Qubit Cluster States",
+      "pagerank_score": 0.000126,
+      "citation_count": 202
+    },
+    {
+      "year": 2008,
+      "arxiv_id": "0807.3806",
+      "title": "On the Rate of Channel Polarization",
+      "pagerank_score": 0.000336,
+      "citation_count": 32
+    },
+    {
+      "year": 2009,
+      "arxiv_id": "0807.3917",
+      "title": "Channel Polarization: A Method for Constructing Capacity-Achieving Codes for Symmetric Binary-Input Memoryless Channels",
+      "pagerank_score": 0.000407,
+      "citation_count": 4391
+    },
+    {
+      "year": 2010,
+      "arxiv_id": "1003.0358",
+      "title": "Deep, Big, Simple Neural Nets for Handwritten Digit Recognition",
+      "pagerank_score": 0.000589,
+      "citation_count": 1060
+    },
+    {
+      "year": 2011,
+      "arxiv_id": "1102.1523",
+      "title": "The NumPy Array: A Structure for Efficient Numerical Computation",
+      "pagerank_score": 0.001865,
+      "citation_count": 11008
+    },
+    {
+      "year": 2012,
+      "arxiv_id": "1207.0580",
+      "title": "Improving neural networks by preventing co-adaptation of feature detectors",
+      "pagerank_score": 0.00333,
+      "citation_count": 6651
+    },
+    {
+      "year": 2013,
+      "arxiv_id": "1308.0850",
+      "title": "Generating Sequences With Recurrent Neural Networks",
+      "pagerank_score": 0.001965,
+      "citation_count": 3096
+    },
+    {
+      "year": 2014,
+      "arxiv_id": "1412.6980",
+      "title": "Adam: A Method for Stochastic Optimization",
+      "pagerank_score": 0.004888,
+      "citation_count": 84666
+    },
+    {
+      "year": 2015,
+      "arxiv_id": "1502.03167",
+      "title": "Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift",
+      "pagerank_score": 0.001299,
+      "citation_count": 24342
+    },
+    {
+      "year": 2016,
+      "arxiv_id": "1603.04467",
+      "title": "TensorFlow: Large-Scale Machine Learning on Heterogeneous Distributed Systems",
+      "pagerank_score": 0.001041,
+      "citation_count": 9771
+    },
+    {
+      "year": 2017,
+      "arxiv_id": "1707.06347",
+      "title": "Diagnosing Non-Intermittent Anomalies in Reinforcement Learning Policy Executions (Short Paper)",
+      "pagerank_score": 0.000472,
+      "citation_count": 11298
+    },
+    {
+      "year": 2018,
+      "arxiv_id": "1810.04805",
+      "title": "AI-Assisted Pipeline for Dynamic Generation of Trustworthy Health Supplement Content at Scale",
+      "pagerank_score": 0.000663,
+      "citation_count": 45574
+    },
+    {
+      "year": 2019,
+      "arxiv_id": "1907.11692",
+      "title": "HISTORIAE, History of Socio-Cultural Transformation as Linguistic Data Science. A Humanities Use Case",
+      "pagerank_score": 0.000795,
+      "citation_count": 17296
+    },
+    {
+      "year": 2020,
+      "arxiv_id": "2003.06557",
+      "title": "Quantum cryptography: Public key distribution and coin tossing",
+      "pagerank_score": 0.000646,
+      "citation_count": 5384
+    },
+    {
+      "year": 2021,
+      "arxiv_id": "2103.00020",
+      "title": "Learning Transferable Visual Models From Natural Language Supervision",
+      "pagerank_score": 5.1e-05,
+      "citation_count": 5296
+    },
+    {
+      "year": 2022,
+      "arxiv_id": "2201.05989",
+      "title": "Instant neural graphics primitives with a multiresolution hash encoding",
+      "pagerank_score": 3.3e-05,
+      "citation_count": 3612
+    },
+    {
+      "year": 2023,
+      "arxiv_id": "1908.04756",
+      "title": "A Scalable Verification Solution for Blockchains",
+      "pagerank_score": 3e-05,
+      "citation_count": 68
+    },
+    {
+      "year": 2024,
+      "arxiv_id": "1611.09268",
+      "title": "Analysis of Points of Interests Recommended for Leisure Walk Descriptions",
+      "pagerank_score": 0.000125,
+      "citation_count": 1289
+    },
+    {
+      "year": 2025,
+      "arxiv_id": "1706.03762",
+      "title": "Attention Is All You Need",
+      "pagerank_score": 0.000736,
+      "citation_count": 6551
+    },
+    {
+      "year": 2026,
+      "arxiv_id": "2605.04664",
+      "title": "Evidence-based anomaly detection in clinical domains",
+      "pagerank_score": 9e-06,
+      "citation_count": 35
+    }
+  ],
+  "cites_per_year_by_year": [
+    {
+      "year": 2005,
+      "n": 310,
+      "mean_cpy": 1.0,
+      "p90_cpy": 2.8
+    },
+    {
+      "year": 2006,
+      "n": 300,
+      "mean_cpy": 1.8,
+      "p90_cpy": 3.5
+    },
+    {
+      "year": 2007,
+      "n": 2486,
+      "mean_cpy": 0.5,
+      "p90_cpy": 1.0
+    },
+    {
+      "year": 2008,
+      "n": 3855,
+      "mean_cpy": 0.7,
+      "p90_cpy": 1.2
+    },
+    {
+      "year": 2009,
+      "n": 5500,
+      "mean_cpy": 1.0,
+      "p90_cpy": 2.1
+    },
+    {
+      "year": 2010,
+      "n": 7938,
+      "mean_cpy": 1.4,
+      "p90_cpy": 2.8
+    },
+    {
+      "year": 2011,
+      "n": 8999,
+      "mean_cpy": 1.4,
+      "p90_cpy": 2.6
+    },
+    {
+      "year": 2012,
+      "n": 11600,
+      "mean_cpy": 2.0,
+      "p90_cpy": 2.9
+    },
+    {
+      "year": 2013,
+      "n": 13468,
+      "mean_cpy": 1.8,
+      "p90_cpy": 3.1
+    },
+    {
+      "year": 2014,
+      "n": 14551,
+      "mean_cpy": 3.6,
+      "p90_cpy": 3.3
+    },
+    {
+      "year": 2015,
+      "n": 16045,
+      "mean_cpy": 2.7,
+      "p90_cpy": 4.1
+    },
+    {
+      "year": 2016,
+      "n": 20090,
+      "mean_cpy": 3.3,
+      "p90_cpy": 4.5
+    },
+    {
+      "year": 2017,
+      "n": 25150,
+      "mean_cpy": 3.3,
+      "p90_cpy": 5.6
+    },
+    {
+      "year": 2018,
+      "n": 32808,
+      "mean_cpy": 3.2,
+      "p90_cpy": 4.9
+    },
+    {
+      "year": 2019,
+      "n": 41323,
+      "mean_cpy": 2.9,
+      "p90_cpy": 5.3
+    },
+    {
+      "year": 2020,
+      "n": 50022,
+      "mean_cpy": 2.8,
+      "p90_cpy": 4.6
+    },
+    {
+      "year": 2021,
+      "n": 45118,
+      "mean_cpy": 2.4,
+      "p90_cpy": 4.4
+    },
+    {
+      "year": 2022,
+      "n": 36466,
+      "mean_cpy": 2.8,
+      "p90_cpy": 4.7
+    },
+    {
+      "year": 2023,
+      "n": 33132,
+      "mean_cpy": 2.2,
+      "p90_cpy": 4.0
+    },
+    {
+      "year": 2024,
+      "n": 23912,
+      "mean_cpy": 1.9,
+      "p90_cpy": 3.5
+    },
+    {
+      "year": 2025,
+      "n": 4854,
+      "mean_cpy": 5.4,
+      "p90_cpy": 3.8
+    },
+    {
+      "year": 2026,
+      "n": 1147,
+      "mean_cpy": 15.7,
+      "p90_cpy": 16.0
+    }
+  ]
+}

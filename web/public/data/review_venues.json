@@ -1,0 +1,42 @@
+[
+  {
+    "venue": "ICLR-2025",
+    "n_reviews": 46748,
+    "n_papers": 11520,
+    "avg_rating": 5.15,
+    "avg_confidence": 3.67,
+    "oral_accepts": 857,
+    "poster_accepts": 12612,
+    "rejects": 20396
+  },
+  {
+    "venue": "ICLR-2024",
+    "n_reviews": 28028,
+    "n_papers": 7262,
+    "avg_rating": 5.15,
+    "avg_confidence": 3.64,
+    "oral_accepts": 0,
+    "poster_accepts": 0,
+    "rejects": 13612
+  },
+  {
+    "venue": "NeurIPS-2024",
+    "n_reviews": 16644,
+    "n_papers": 4236,
+    "avg_rating": 5.87,
+    "avg_confidence": 3.6,
+    "oral_accepts": 0,
+    "poster_accepts": 0,
+    "rejects": 789
+  },
+  {
+    "venue": "NeurIPS-2023",
+    "n_reviews": 15175,
+    "n_papers": 3395,
+    "avg_rating": 5.9,
+    "avg_confidence": 3.54,
+    "oral_accepts": 0,
+    "poster_accepts": 0,
+    "rejects": 786
+  }
+]

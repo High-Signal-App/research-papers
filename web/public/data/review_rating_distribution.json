@@ -1,0 +1,162 @@
+[
+  {
+    "venue": "ICLR-2024",
+    "rating": 1,
+    "n": 621
+  },
+  {
+    "venue": "ICLR-2024",
+    "rating": 3,
+    "n": 6974
+  },
+  {
+    "venue": "ICLR-2024",
+    "rating": 5,
+    "n": 8102
+  },
+  {
+    "venue": "ICLR-2024",
+    "rating": 6,
+    "n": 8341
+  },
+  {
+    "venue": "ICLR-2024",
+    "rating": 8,
+    "n": 3887
+  },
+  {
+    "venue": "ICLR-2024",
+    "rating": 10,
+    "n": 103
+  },
+  {
+    "venue": "ICLR-2025",
+    "rating": 1,
+    "n": 1029
+  },
+  {
+    "venue": "ICLR-2025",
+    "rating": 3,
+    "n": 11537
+  },
+  {
+    "venue": "ICLR-2025",
+    "rating": 5,
+    "n": 13101
+  },
+  {
+    "venue": "ICLR-2025",
+    "rating": 6,
+    "n": 14695
+  },
+  {
+    "venue": "ICLR-2025",
+    "rating": 8,
+    "n": 6214
+  },
+  {
+    "venue": "ICLR-2025",
+    "rating": 10,
+    "n": 172
+  },
+  {
+    "venue": "NeurIPS-2023",
+    "rating": 1,
+    "n": 8
+  },
+  {
+    "venue": "NeurIPS-2023",
+    "rating": 2,
+    "n": 50
+  },
+  {
+    "venue": "NeurIPS-2023",
+    "rating": 3,
+    "n": 477
+  },
+  {
+    "venue": "NeurIPS-2023",
+    "rating": 4,
+    "n": 1199
+  },
+  {
+    "venue": "NeurIPS-2023",
+    "rating": 5,
+    "n": 3469
+  },
+  {
+    "venue": "NeurIPS-2023",
+    "rating": 6,
+    "n": 5074
+  },
+  {
+    "venue": "NeurIPS-2023",
+    "rating": 7,
+    "n": 3935
+  },
+  {
+    "venue": "NeurIPS-2023",
+    "rating": 8,
+    "n": 887
+  },
+  {
+    "venue": "NeurIPS-2023",
+    "rating": 9,
+    "n": 66
+  },
+  {
+    "venue": "NeurIPS-2023",
+    "rating": 10,
+    "n": 10
+  },
+  {
+    "venue": "NeurIPS-2024",
+    "rating": 1,
+    "n": 8
+  },
+  {
+    "venue": "NeurIPS-2024",
+    "rating": 2,
+    "n": 45
+  },
+  {
+    "venue": "NeurIPS-2024",
+    "rating": 3,
+    "n": 506
+  },
+  {
+    "venue": "NeurIPS-2024",
+    "rating": 4,
+    "n": 1316
+  },
+  {
+    "venue": "NeurIPS-2024",
+    "rating": 5,
+    "n": 4164
+  },
+  {
+    "venue": "NeurIPS-2024",
+    "rating": 6,
+    "n": 5436
+  },
+  {
+    "venue": "NeurIPS-2024",
+    "rating": 7,
+    "n": 4143
+  },
+  {
+    "venue": "NeurIPS-2024",
+    "rating": 8,
+    "n": 932
+  },
+  {
+    "venue": "NeurIPS-2024",
+    "rating": 9,
+    "n": 80
+  },
+  {
+    "venue": "NeurIPS-2024",
+    "rating": 10,
+    "n": 14
+  }
+]

@@ -1,0 +1,2302 @@
+[
+  {
+    "id": 0,
+    "size": 24393,
+    "anchor_arxiv_id": "1212.5701",
+    "anchor_title": "ADADELTA: An Adaptive Learning Rate Method",
+    "year_range": [
+      1999,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1212.5701",
+        "title": "ADADELTA: An Adaptive Learning Rate Method",
+        "pagerank": 0.002128
+      },
+      {
+        "arxiv_id": "1308.0850",
+        "title": "Generating Sequences With Recurrent Neural Networks",
+        "pagerank": 0.001965
+      },
+      {
+        "arxiv_id": "1409.3215",
+        "title": "Sequence to Sequence Learning with Neural Networks",
+        "pagerank": 0.001284
+      },
+      {
+        "arxiv_id": "1103.0398",
+        "title": "Natural Language Processing (almost) from Scratch",
+        "pagerank": 0.000955
+      },
+      {
+        "arxiv_id": "1406.1078",
+        "title": "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation",
+        "pagerank": 0.000808
+      }
+    ],
+    "labels": [
+      "language",
+      "learning",
+      "neural",
+      "models",
+      "text",
+      "language models"
+    ]
+  },
+  {
+    "id": 1,
+    "size": 18493,
+    "anchor_arxiv_id": "1409.1556",
+    "anchor_title": "Very Deep Convolutional Networks for Large-Scale Image Recognition",
+    "year_range": [
+      1999,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1409.1556",
+        "title": "Very Deep Convolutional Networks for Large-Scale Image Recognition",
+        "pagerank": 0.004271
+      },
+      {
+        "arxiv_id": "1408.5093",
+        "title": "Caffe: Convolutional Architecture for Fast Feature Embedding",
+        "pagerank": 0.001431
+      },
+      {
+        "arxiv_id": "1409.4842",
+        "title": "Going Deeper with Convolutions",
+        "pagerank": 0.001282
+      },
+      {
+        "arxiv_id": "1603.04467",
+        "title": "TensorFlow: Large-Scale Machine Learning on Heterogeneous Distributed Systems",
+        "pagerank": 0.001041
+      },
+      {
+        "arxiv_id": "1311.2901",
+        "title": "Visualizing and Understanding Convolutional Neural Networks",
+        "pagerank": 0.000864
+      }
+    ],
+    "labels": [
+      "learning",
+      "segmentation",
+      "object",
+      "deep",
+      "detection",
+      "image"
+    ]
+  },
+  {
+    "id": 2,
+    "size": 17101,
+    "anchor_arxiv_id": "1207.0580",
+    "anchor_title": "Improving neural networks by preventing co-adaptation of feature detectors",
+    "year_range": [
+      1999,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1207.0580",
+        "title": "Improving neural networks by preventing co-adaptation of feature detectors",
+        "pagerank": 0.00333
+      },
+      {
+        "arxiv_id": "1502.03167",
+        "title": "Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift",
+        "pagerank": 0.001299
+      },
+      {
+        "arxiv_id": "1503.02531",
+        "title": "Distilling the Knowledge in a Neural Network",
+        "pagerank": 0.001053
+      },
+      {
+        "arxiv_id": "1912.01703",
+        "title": "PyTorch: An Imperative Style, High-Performance Deep Learning Library",
+        "pagerank": 0.000704
+      },
+      {
+        "arxiv_id": "1404.7828",
+        "title": "Deep learning in neural networks: An overview",
+        "pagerank": 0.000654
+      }
+    ],
+    "labels": [
+      "learning",
+      "neural",
+      "deep",
+      "networks",
+      "neural networks",
+      "training"
+    ]
+  },
+  {
+    "id": 3,
+    "size": 14639,
+    "anchor_arxiv_id": "1412.6980",
+    "anchor_title": "Adam: A Method for Stochastic Optimization",
+    "year_range": [
+      1994,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1412.6980",
+        "title": "Adam: A Method for Stochastic Optimization",
+        "pagerank": 0.004888
+      },
+      {
+        "arxiv_id": "1511.06434",
+        "title": "Unsupervised Representation Learning with Deep Convolutional Generative\\n Adversarial Networks",
+        "pagerank": 0.00082
+      },
+      {
+        "arxiv_id": "1411.1784",
+        "title": "Conditional Generative Adversarial Nets",
+        "pagerank": 0.000556
+      },
+      {
+        "arxiv_id": "1608.03981",
+        "title": "Beyond a Gaussian Denoiser: Residual Learning of Deep CNN for Image Denoising",
+        "pagerank": 0.000342
+      },
+      {
+        "arxiv_id": "1502.04623",
+        "title": "DRAW: A Recurrent Neural Network For Image Generation",
+        "pagerank": 0.000338
+      }
+    ],
+    "labels": [
+      "image",
+      "learning",
+      "generative",
+      "deep",
+      "adversarial",
+      "generative adversarial"
+    ]
+  },
+  {
+    "id": 4,
+    "size": 13568,
+    "anchor_arxiv_id": "1009.2267",
+    "anchor_title": "Quantum computers",
+    "year_range": [
+      1985,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1009.2267",
+        "title": "Quantum computers",
+        "pagerank": 0.000276
+      },
+      {
+        "arxiv_id": "1304.3061",
+        "title": "A variational eigenvalue solver on a photonic quantum processor",
+        "pagerank": 0.000218
+      },
+      {
+        "arxiv_id": "1208.0928",
+        "title": "Surface codes: Towards practical large-scale quantum computation",
+        "pagerank": 0.000201
+      },
+      {
+        "arxiv_id": "0810.0312",
+        "title": "On the Relationship Between Continuous- and Discrete-Time Quantum Walk",
+        "pagerank": 0.000175
+      },
+      {
+        "arxiv_id": "1004.4324",
+        "title": "Preparation and measurement of three-qubit entanglement in a superconducting circuit",
+        "pagerank": 0.000171
+      }
+    ],
+    "labels": [
+      "quantum",
+      "qubit",
+      "mml",
+      "superconducting",
+      "qubits",
+      "photon"
+    ]
+  },
+  {
+    "id": 5,
+    "size": 10478,
+    "anchor_arxiv_id": "1311.2115",
+    "anchor_title": "Fast large-scale optimization by unifying stochastic gradient and quasi-Newton methods",
+    "year_range": [
+      1999,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1311.2115",
+        "title": "Fast large-scale optimization by unifying stochastic gradient and quasi-Newton methods",
+        "pagerank": 0.000875
+      },
+      {
+        "arxiv_id": "1106.5730",
+        "title": "HOGWILD!: A Lock-Free Approach to Parallelizing Stochastic Gradient Descent",
+        "pagerank": 0.000526
+      },
+      {
+        "arxiv_id": "1702.05373",
+        "title": "EMNIST: an extension of MNIST to handwritten letters",
+        "pagerank": 0.000403
+      },
+      {
+        "arxiv_id": "1602.05629",
+        "title": "Communication-Efficient Learning of Deep Networks from Decentralized\\n Data",
+        "pagerank": 0.000353
+      },
+      {
+        "arxiv_id": "1607.00133",
+        "title": "Deep Learning with Differential Privacy",
+        "pagerank": 0.000344
+      }
+    ],
+    "labels": [
+      "learning",
+      "federated",
+      "federated learning",
+      "privacy",
+      "distributed",
+      "data"
+    ]
+  },
+  {
+    "id": 6,
+    "size": 9992,
+    "anchor_arxiv_id": "1312.5602",
+    "anchor_title": "Playing Atari with Deep Reinforcement Learning",
+    "year_range": [
+      1998,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1312.5602",
+        "title": "Playing Atari with Deep Reinforcement Learning",
+        "pagerank": 0.000807
+      },
+      {
+        "arxiv_id": "1707.06347",
+        "title": "Diagnosing Non-Intermittent Anomalies in Reinforcement Learning Policy Executions (Short Paper)",
+        "pagerank": 0.000472
+      },
+      {
+        "arxiv_id": "1509.02971",
+        "title": "Continuous control with deep reinforcement learning",
+        "pagerank": 0.000471
+      },
+      {
+        "arxiv_id": "1502.05477",
+        "title": "Trust Region Policy Optimization",
+        "pagerank": 0.000329
+      },
+      {
+        "arxiv_id": "1011.0686",
+        "title": "A Reduction of Imitation Learning and Structured Prediction to No-Regret\\n Online Learning",
+        "pagerank": 0.00029
+      }
+    ],
+    "labels": [
+      "learning",
+      "reinforcement",
+      "reinforcement learning",
+      "planning",
+      "deep",
+      "policy"
+    ]
+  },
+  {
+    "id": 7,
+    "size": 9435,
+    "anchor_arxiv_id": "1102.2318",
+    "anchor_title": "Advances in quantum metrology",
+    "year_range": [
+      1986,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1102.2318",
+        "title": "Advances in quantum metrology",
+        "pagerank": 0.000277
+      },
+      {
+        "arxiv_id": "0809.3972",
+        "title": "Superadditivity of communication capacity using entangled inputs",
+        "pagerank": 0.000225
+      },
+      {
+        "arxiv_id": "0908.0238",
+        "title": "Measure for the Degree of Non-Markovian Behavior of Quantum Processes in Open Systems",
+        "pagerank": 0.000185
+      },
+      {
+        "arxiv_id": "1009.6126",
+        "title": "14-Qubit Entanglement: Creation and Coherence",
+        "pagerank": 0.00017
+      },
+      {
+        "arxiv_id": "0911.5417",
+        "title": "Unified View of Quantum and Classical Correlations",
+        "pagerank": 0.000169
+      }
+    ],
+    "labels": [
+      "quantum",
+      "entanglement",
+      "states",
+      "mml",
+      "qubit",
+      "multipartite"
+    ]
+  },
+  {
+    "id": 8,
+    "size": 9204,
+    "anchor_arxiv_id": "2105.10386",
+    "anchor_title": "Analysis of Boolean Functions",
+    "year_range": [
+      1975,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "2105.10386",
+        "title": "Analysis of Boolean Functions",
+        "pagerank": 0.000179
+      },
+      {
+        "arxiv_id": "1207.1394",
+        "title": "Near-optimal Nonmyopic Value of Information in Graphical Models",
+        "pagerank": 0.000139
+      },
+      {
+        "arxiv_id": "1401.7714",
+        "title": "Algebraic complexity theory and matrix multiplication",
+        "pagerank": 9.5e-05
+      },
+      {
+        "arxiv_id": "1511.06773",
+        "title": "Unifying and Strengthening Hardness for Dynamic Problems via the Online Matrix-Vector Multiplication Conjecture",
+        "pagerank": 6.8e-05
+      },
+      {
+        "arxiv_id": "0705.0552",
+        "title": "Succinct indexable dictionaries with applications to encoding <i>k</i> -ary trees, prefix sums and multisets",
+        "pagerank": 6.8e-05
+      }
+    ],
+    "labels": [
+      "graphs",
+      "algorithms",
+      "graph",
+      "mml",
+      "complexity",
+      "problems"
+    ]
+  },
+  {
+    "id": 9,
+    "size": 9158,
+    "anchor_arxiv_id": "1312.6199",
+    "anchor_title": "Intriguing properties of neural networks",
+    "year_range": [
+      2002,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1312.6199",
+        "title": "Intriguing properties of neural networks",
+        "pagerank": 0.000402
+      },
+      {
+        "arxiv_id": "1708.07747",
+        "title": "Fashion-MNIST: a Novel Image Dataset for Benchmarking Machine Learning Algorithms",
+        "pagerank": 0.000382
+      },
+      {
+        "arxiv_id": "1412.6806",
+        "title": "Striving for Simplicity: The All Convolutional Net",
+        "pagerank": 0.000353
+      },
+      {
+        "arxiv_id": "1412.6572",
+        "title": "Explaining and Harnessing Adversarial Examples",
+        "pagerank": 0.000334
+      },
+      {
+        "arxiv_id": "1607.02533",
+        "title": "Adversarial Examples in the Physical World",
+        "pagerank": 0.000318
+      }
+    ],
+    "labels": [
+      "adversarial",
+      "learning",
+      "neural",
+      "deep",
+      "attacks",
+      "networks"
+    ]
+  },
+  {
+    "id": 10,
+    "size": 8597,
+    "anchor_arxiv_id": "1609.02907",
+    "anchor_title": "Semi-Supervised Classification with Graph Convolutional Networks",
+    "year_range": [
+      1999,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1609.02907",
+        "title": "Semi-Supervised Classification with Graph Convolutional Networks",
+        "pagerank": 0.000482
+      },
+      {
+        "arxiv_id": "1205.2618",
+        "title": "BPR: Bayesian Personalized Ranking from Implicit Feedback",
+        "pagerank": 0.000458
+      },
+      {
+        "arxiv_id": "1605.05273",
+        "title": "Learning Convolutional Neural Networks for Graphs",
+        "pagerank": 0.000298
+      },
+      {
+        "arxiv_id": "1403.6652",
+        "title": "DeepWalk",
+        "pagerank": 0.000294
+      },
+      {
+        "arxiv_id": "1301.7363",
+        "title": "Empirical Analysis of Predictive Algorithms for Collaborative Filtering",
+        "pagerank": 0.000254
+      }
+    ],
+    "labels": [
+      "graph",
+      "learning",
+      "neural",
+      "recommendation",
+      "networks",
+      "graph neural"
+    ]
+  },
+  {
+    "id": 11,
+    "size": 7858,
+    "anchor_arxiv_id": "1102.1523",
+    "anchor_title": "The NumPy Array: A Structure for Efficient Numerical Computation",
+    "year_range": [
+      1995,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1102.1523",
+        "title": "The NumPy Array: A Structure for Efficient Numerical Computation",
+        "pagerank": 0.001865
+      },
+      {
+        "arxiv_id": "1201.0490",
+        "title": "Scikit-learn: Machine Learning in Python",
+        "pagerank": 0.001758
+      },
+      {
+        "arxiv_id": "1106.1813",
+        "title": "SMOTE: Synthetic Minority Over-sampling Technique",
+        "pagerank": 0.00045
+      },
+      {
+        "arxiv_id": "1301.2279",
+        "title": "A Bayesian Approach to Tackling Hard Computational Problems",
+        "pagerank": 0.000112
+      },
+      {
+        "arxiv_id": "1207.6437",
+        "title": "Statistical topological data analysis using persistence landscapes",
+        "pagerank": 0.000104
+      }
+    ],
+    "labels": [
+      "learning",
+      "data",
+      "software",
+      "based",
+      "analysis",
+      "using"
+    ]
+  },
+  {
+    "id": 12,
+    "size": 7194,
+    "anchor_arxiv_id": "2003.06557",
+    "anchor_title": "Quantum cryptography: Public key distribution and coin tossing",
+    "year_range": [
+      1994,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "2003.06557",
+        "title": "Quantum cryptography: Public key distribution and coin tossing",
+        "pagerank": 0.000646
+      },
+      {
+        "arxiv_id": "1901.11004",
+        "title": "Experimental quantum teleportation",
+        "pagerank": 0.000463
+      },
+      {
+        "arxiv_id": "1003.3928",
+        "title": "Photonic quantum technologies",
+        "pagerank": 0.00019
+      },
+      {
+        "arxiv_id": "1008.4593",
+        "title": "Hacking commercial quantum cryptography systems by tailored bright illumination",
+        "pagerank": 0.000178
+      },
+      {
+        "arxiv_id": "0910.1116",
+        "title": "Measurement-based quantum computation",
+        "pagerank": 0.00016
+      }
+    ],
+    "labels": [
+      "quantum",
+      "quantum key",
+      "photon",
+      "key distribution",
+      "entanglement",
+      "key"
+    ]
+  },
+  {
+    "id": 13,
+    "size": 5681,
+    "anchor_arxiv_id": "1704.01036",
+    "anchor_title": "Objective Criteria for the Evaluation of Clustering Methods",
+    "year_range": [
+      1971,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1704.01036",
+        "title": "Objective Criteria for the Evaluation of Clustering Methods",
+        "pagerank": 0.000308
+      },
+      {
+        "arxiv_id": "1301.6705",
+        "title": "Probabilistic Latent Semantic Analysis",
+        "pagerank": 0.000141
+      },
+      {
+        "arxiv_id": "1003.0783",
+        "title": "Supervised Topic Models",
+        "pagerank": 0.000127
+      },
+      {
+        "arxiv_id": "1304.5634",
+        "title": "A Survey on Multi-view Learning",
+        "pagerank": 0.000112
+      },
+      {
+        "arxiv_id": "1205.2662",
+        "title": "On Smoothing and Inference for Topic Models",
+        "pagerank": 9.3e-05
+      }
+    ],
+    "labels": [
+      "clustering",
+      "bayesian",
+      "models",
+      "data",
+      "based",
+      "learning"
+    ]
+  },
+  {
+    "id": 14,
+    "size": 5074,
+    "anchor_arxiv_id": "0711.0708",
+    "anchor_title": "A Rank-Metric Approach to Error Control in Random Network Coding",
+    "year_range": [
+      2001,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "0711.0708",
+        "title": "A Rank-Metric Approach to Error Control in Random Network Coding",
+        "pagerank": 0.000243
+      },
+      {
+        "arxiv_id": "0805.3824",
+        "title": "On Metrics for Error Correction in Network Coding",
+        "pagerank": 0.000201
+      },
+      {
+        "arxiv_id": "0906.5394",
+        "title": "Wireless Network Information Flow: A Deterministic Approach",
+        "pagerank": 0.000128
+      },
+      {
+        "arxiv_id": "0704.2475",
+        "title": "Physical Layer Network Coding",
+        "pagerank": 0.000116
+      },
+      {
+        "arxiv_id": "0710.3777",
+        "title": "A Deterministic Approach to Wireless Relay Networks",
+        "pagerank": 9.3e-05
+      }
+    ],
+    "labels": [
+      "codes",
+      "caching",
+      "networks",
+      "coding",
+      "relay",
+      "network coding"
+    ]
+  },
+  {
+    "id": 15,
+    "size": 4646,
+    "anchor_arxiv_id": "0903.3276",
+    "anchor_title": "De-anonymizing Social Networks",
+    "year_range": [
+      1995,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "0903.3276",
+        "title": "De-anonymizing Social Networks",
+        "pagerank": 0.000141
+      },
+      {
+        "arxiv_id": "1710.09437",
+        "title": "Casper the Friendly Finality Gadget",
+        "pagerank": 9.7e-05
+      },
+      {
+        "arxiv_id": "1407.3561",
+        "title": "A Privacy-Preserving and Transparent Certification System for Digital Credentials",
+        "pagerank": 9.1e-05
+      },
+      {
+        "arxiv_id": "2003.08567",
+        "title": "Apps Gone Rogue: Maintaining Personal Privacy in an Epidemic",
+        "pagerank": 8.8e-05
+      },
+      {
+        "arxiv_id": "1802.06038",
+        "title": "Finding The Greedy, Prodigal, and Suicidal Contracts at Scale",
+        "pagerank": 8.6e-05
+      }
+    ],
+    "labels": [
+      "blockchain",
+      "smart",
+      "based",
+      "iot",
+      "bitcoin",
+      "contracts"
+    ]
+  },
+  {
+    "id": 16,
+    "size": 4158,
+    "anchor_arxiv_id": "1211.3711",
+    "anchor_title": "Sequence Transduction with Recurrent Neural Networks",
+    "year_range": [
+      2000,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1211.3711",
+        "title": "Sequence Transduction with Recurrent Neural Networks",
+        "pagerank": 0.00039
+      },
+      {
+        "arxiv_id": "1512.02595",
+        "title": "Deep Speech 2: End-to-End Speech Recognition in English and Mandarin",
+        "pagerank": 0.000293
+      },
+      {
+        "arxiv_id": "1412.5567",
+        "title": "Deep Speech: Scaling up end-to-end speech recognition",
+        "pagerank": 0.000212
+      },
+      {
+        "arxiv_id": "1904.08779",
+        "title": "SpecAugment: A Simple Data Augmentation Method for Automatic Speech Recognition",
+        "pagerank": 0.000177
+      },
+      {
+        "arxiv_id": "1506.07503",
+        "title": "Attention-Based Models for Speech Recognition",
+        "pagerank": 0.000161
+      }
+    ],
+    "labels": [
+      "speech",
+      "end",
+      "speaker",
+      "recognition",
+      "speech recognition",
+      "end end"
+    ]
+  },
+  {
+    "id": 17,
+    "size": 3515,
+    "anchor_arxiv_id": "0806.0594",
+    "anchor_title": "Solvable Model for Chimera States of Coupled Oscillators",
+    "year_range": [
+      1996,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "0806.0594",
+        "title": "Solvable Model for Chimera States of Coupled Oscillators",
+        "pagerank": 0.000174
+      },
+      {
+        "arxiv_id": "0902.2773",
+        "title": "Long time evolution of phase oscillator systems",
+        "pagerank": 0.000129
+      },
+      {
+        "arxiv_id": "1610.02365",
+        "title": "Deep learning with coherent nanophotonic circuits",
+        "pagerank": 0.000104
+      },
+      {
+        "arxiv_id": "1111.7219",
+        "title": "Optoelectronic Reservoir Computing",
+        "pagerank": 9.7e-05
+      },
+      {
+        "arxiv_id": "1208.0045",
+        "title": "Synchronization in complex oscillator networks and smart grids",
+        "pagerank": 8.7e-05
+      }
+    ],
+    "labels": [
+      "oscillators",
+      "synchronization",
+      "networks",
+      "kuramoto",
+      "coupled",
+      "kuramoto model"
+    ]
+  },
+  {
+    "id": 18,
+    "size": 3474,
+    "anchor_arxiv_id": "0907.1815",
+    "anchor_title": "Frustratingly Easy Domain Adaptation",
+    "year_range": [
+      1992,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "0907.1815",
+        "title": "Frustratingly Easy Domain Adaptation",
+        "pagerank": 0.000216
+      },
+      {
+        "arxiv_id": "1412.3474",
+        "title": "Deep Domain Confusion: Maximizing for Domain Invariance",
+        "pagerank": 0.000213
+      },
+      {
+        "arxiv_id": "1109.6341",
+        "title": "Domain Adaptation for Statistical Classifiers",
+        "pagerank": 0.00021
+      },
+      {
+        "arxiv_id": "1502.02791",
+        "title": "Learning Transferable Features with Deep Adaptation Networks",
+        "pagerank": 0.000154
+      },
+      {
+        "arxiv_id": "0902.3430",
+        "title": "Domain Adaptation: Learning Bounds and Algorithms",
+        "pagerank": 0.000141
+      }
+    ],
+    "labels": [
+      "domain",
+      "domain adaptation",
+      "adaptation",
+      "learning",
+      "causal",
+      "unsupervised domain"
+    ]
+  },
+  {
+    "id": 19,
+    "size": 2957,
+    "anchor_arxiv_id": "1301.6725",
+    "anchor_title": "Loopy Belief Propagation for Approximate Inference: An Empirical Study",
+    "year_range": [
+      1997,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1301.6725",
+        "title": "Loopy Belief Propagation for Approximate Inference: An Empirical Study",
+        "pagerank": 0.000267
+      },
+      {
+        "arxiv_id": "1202.3732",
+        "title": "Sum-Product Networks: A New Deep Architecture",
+        "pagerank": 9.6e-05
+      },
+      {
+        "arxiv_id": "1312.2372",
+        "title": "Labeled Random Finite Sets and the Bayes Multi-Target Tracking Filter",
+        "pagerank": 7.5e-05
+      },
+      {
+        "arxiv_id": "1301.6709",
+        "title": "A General Algorithm for Approximate Inference and its Application to Hybrid Bayes Nets",
+        "pagerank": 6.3e-05
+      },
+      {
+        "arxiv_id": "1401.6312",
+        "title": "Predicate Logic as a Modelling Language: The IDP System",
+        "pagerank": 5.8e-05
+      }
+    ],
+    "labels": [
+      "logic",
+      "learning",
+      "answer set",
+      "inference",
+      "probabilistic",
+      "based"
+    ]
+  },
+  {
+    "id": 20,
+    "size": 2856,
+    "anchor_arxiv_id": "0801.1656",
+    "anchor_title": "Palindromic richness",
+    "year_range": [
+      1995,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "0801.1656",
+        "title": "Palindromic richness",
+        "pagerank": 6.3e-05
+      },
+      {
+        "arxiv_id": "0802.1332",
+        "title": "A connection between palindromic and factor complexity using return words",
+        "pagerank": 5.4e-05
+      },
+      {
+        "arxiv_id": "1007.3624",
+        "title": "Unbounded-error quantum computation with small space bounds",
+        "pagerank": 4.5e-05
+      },
+      {
+        "arxiv_id": "1007.2989",
+        "title": "Ackermannian and Primitive-Recursive Bounds with Dickson's Lemma",
+        "pagerank": 4.3e-05
+      },
+      {
+        "arxiv_id": "1409.6620",
+        "title": "Model-driven Development of Complex Software: A Research Roadmap",
+        "pagerank": 3.6e-05
+      }
+    ],
+    "labels": [
+      "automata",
+      "words",
+      "logic",
+      "games",
+      "systems",
+      "synthesis"
+    ]
+  },
+  {
+    "id": 21,
+    "size": 2555,
+    "anchor_arxiv_id": "0905.2485",
+    "anchor_title": "Minimizing Communication in Numerical Linear Algebra",
+    "year_range": [
+      2004,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "0905.2485",
+        "title": "Minimizing Communication in Numerical Linear Algebra",
+        "pagerank": 6.9e-05
+      },
+      {
+        "arxiv_id": "1801.01203",
+        "title": "Spectre Attacks: Exploiting Speculative Execution",
+        "pagerank": 4.5e-05
+      },
+      {
+        "arxiv_id": "1407.3859",
+        "title": "D4M 2.0 schema: A general purpose high performance schema for the Accumulo database",
+        "pagerank": 4.4e-05
+      },
+      {
+        "arxiv_id": "1702.08719",
+        "title": "Malware Guard Extension: Using SGX to Conceal Cache Attacks",
+        "pagerank": 4.4e-05
+      },
+      {
+        "arxiv_id": "1202.5150",
+        "title": "Path ORAM: An Extremely Simple Oblivious RAM Protocol",
+        "pagerank": 3.8e-05
+      }
+    ],
+    "labels": [
+      "data",
+      "performance",
+      "based",
+      "memory",
+      "using",
+      "matrix"
+    ]
+  },
+  {
+    "id": 22,
+    "size": 1830,
+    "anchor_arxiv_id": "0704.0839",
+    "anchor_title": "Moduli spaces of rational tropical curves",
+    "year_range": [
+      1995,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "0704.0839",
+        "title": "Moduli spaces of rational tropical curves",
+        "pagerank": 5.8e-05
+      },
+      {
+        "arxiv_id": "0708.2268",
+        "title": "Tropical fans and the moduli spaces of tropical curves",
+        "pagerank": 5.2e-05
+      },
+      {
+        "arxiv_id": "0706.1918",
+        "title": "AFFINE BUILDINGS AND TROPICAL CONVEXITY",
+        "pagerank": 4e-05
+      },
+      {
+        "arxiv_id": "0808.1992",
+        "title": "On visualization scaling, subeigenvectors and Kleene stars in max algebra",
+        "pagerank": 2.9e-05
+      },
+      {
+        "arxiv_id": "1203.1017",
+        "title": "On the asymptotic and practical complexity of solving bivariate systems over the reals",
+        "pagerank": 2.8e-05
+      }
+    ],
+    "labels": [
+      "tropical",
+      "mml",
+      "curves",
+      "polynomial",
+      "algebraic",
+      "systems"
+    ]
+  },
+  {
+    "id": 23,
+    "size": 1461,
+    "anchor_arxiv_id": "0904.4214",
+    "anchor_title": "Quantum Walk of a Trapped Ion in Phase Space",
+    "year_range": [
+      2002,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "0904.4214",
+        "title": "Quantum Walk of a Trapped Ion in Phase Space",
+        "pagerank": 0.000147
+      },
+      {
+        "arxiv_id": "0910.2197",
+        "title": "Photons Walking the Line: A Quantum Walk with Adjustable Coin Operations",
+        "pagerank": 0.000123
+      },
+      {
+        "arxiv_id": "1006.4764",
+        "title": "Quantum Walks of Correlated Photons",
+        "pagerank": 0.000111
+      },
+      {
+        "arxiv_id": "0911.1876",
+        "title": "Realization of a Quantum Walk with One and Two Trapped Ions",
+        "pagerank": 0.000102
+      },
+      {
+        "arxiv_id": "1201.4780",
+        "title": "Quantum walks: a comprehensive review",
+        "pagerank": 8.1e-05
+      }
+    ],
+    "labels": [
+      "quantum",
+      "quantum walks",
+      "walks",
+      "quantum walk",
+      "walk",
+      "time quantum"
+    ]
+  },
+  {
+    "id": 24,
+    "size": 1364,
+    "anchor_arxiv_id": "0807.3917",
+    "anchor_title": "Channel Polarization: A Method for Constructing Capacity-Achieving Codes for Symmetric Binary-Input Memoryless Channels",
+    "year_range": [
+      2004,
+      2025
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "0807.3917",
+        "title": "Channel Polarization: A Method for Constructing Capacity-Achieving Codes for Symmetric Binary-Input Memoryless Channels",
+        "pagerank": 0.000407
+      },
+      {
+        "arxiv_id": "0807.3806",
+        "title": "On the Rate of Channel Polarization",
+        "pagerank": 0.000336
+      },
+      {
+        "arxiv_id": "1001.1826",
+        "title": "Threshold Saturation via Spatial Coupling: Why Convolutional LDPC Ensembles Perform So Well over the BEC",
+        "pagerank": 6.6e-05
+      },
+      {
+        "arxiv_id": "1706.07043",
+        "title": "Deep Learning Methods for Improved Decoding of Linear Codes",
+        "pagerank": 5.6e-05
+      },
+      {
+        "arxiv_id": "1307.7154",
+        "title": "Fast Polar Decoders: Algorithm and Implementation",
+        "pagerank": 4.6e-05
+      }
+    ],
+    "labels": [
+      "codes",
+      "polar codes",
+      "polar",
+      "decoding",
+      "ldpc",
+      "ldpc codes"
+    ]
+  },
+  {
+    "id": 25,
+    "size": 1237,
+    "anchor_arxiv_id": "1301.2866",
+    "anchor_title": "Generalized multiscale finite element methods (GMsFEM)",
+    "year_range": [
+      2005,
+      2025
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1301.2866",
+        "title": "Generalized multiscale finite element methods (GMsFEM)",
+        "pagerank": 0.000118
+      },
+      {
+        "arxiv_id": "1104.1291",
+        "title": "An optimal variance estimate in stochastic homogenization of discrete elliptic equations",
+        "pagerank": 8.6e-05
+      },
+      {
+        "arxiv_id": "1302.7071",
+        "title": "Generalized multiscale finite element method. Symmetric interior penalty coupling",
+        "pagerank": 7.2e-05
+      },
+      {
+        "arxiv_id": "1203.0908",
+        "title": "An optimal error estimate in stochastic homogenization of discrete elliptic equations",
+        "pagerank": 7.2e-05
+      },
+      {
+        "arxiv_id": "1109.1908",
+        "title": "INTERIOR ERROR ESTIMATE FOR PERIODIC HOMOGENIZATION",
+        "pagerank": 7.1e-05
+      }
+    ],
+    "labels": [
+      "homogenization",
+      "elliptic",
+      "multiscale",
+      "equations",
+      "problems",
+      "finite element"
+    ]
+  },
+  {
+    "id": 26,
+    "size": 1026,
+    "anchor_arxiv_id": "1311.2852",
+    "anchor_title": "Quantifying Unique Information",
+    "year_range": [
+      1999,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1311.2852",
+        "title": "Quantifying Unique Information",
+        "pagerank": 3.2e-05
+      },
+      {
+        "arxiv_id": "1004.2515",
+        "title": "Nonnegative Decomposition of Multivariate Information",
+        "pagerank": 3e-05
+      },
+      {
+        "arxiv_id": "1201.1162",
+        "title": "A graph theoretical Poincare-Hopf Theorem",
+        "pagerank": 2.5e-05
+      },
+      {
+        "arxiv_id": "1604.07970",
+        "title": "Stationary measures and phase transition for a class of Probabilistic Cellular Automata",
+        "pagerank": 2.4e-05
+      },
+      {
+        "arxiv_id": "0910.2415",
+        "title": "Fixed-point tile sets and their applications",
+        "pagerank": 2.4e-05
+      }
+    ],
+    "labels": [
+      "automata",
+      "cellular automata",
+      "cellular",
+      "semigroups",
+      "monoids",
+      "groups"
+    ]
+  },
+  {
+    "id": 27,
+    "size": 987,
+    "anchor_arxiv_id": "0901.3933",
+    "anchor_title": "Kolmogorov complexity and the Recursion Theorem",
+    "year_range": [
+      1985,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "0901.3933",
+        "title": "Kolmogorov complexity and the Recursion Theorem",
+        "pagerank": 3.7e-05
+      },
+      {
+        "arxiv_id": "1305.2657",
+        "title": "Recent Results on Douglas\u2013Rachford Methods for Combinatorial Optimization Problems",
+        "pagerank": 3.5e-05
+      },
+      {
+        "arxiv_id": "0905.4679",
+        "title": "Weihrauch degrees, omniscience principles and weak computability",
+        "pagerank": 3.4e-05
+      },
+      {
+        "arxiv_id": "1611.08257",
+        "title": "Optimality Conditions for Disjunctive Programs Based on Generalized Differentiation with Application to Mathematical Programs with Equilibrium Constraints",
+        "pagerank": 3e-05
+      },
+      {
+        "arxiv_id": "1405.1130",
+        "title": "Error bounds and metric subregularity",
+        "pagerank": 3e-05
+      }
+    ],
+    "labels": [
+      "problems",
+      "monotone",
+      "convergence",
+      "spaces",
+      "convex",
+      "variational"
+    ]
+  },
+  {
+    "id": 28,
+    "size": 819,
+    "anchor_arxiv_id": "1307.2579",
+    "anchor_title": "Tuned Models of Peer Assessment in MOOCs",
+    "year_range": [
+      2004,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1307.2579",
+        "title": "Tuned Models of Peer Assessment in MOOCs",
+        "pagerank": 3.5e-05
+      },
+      {
+        "arxiv_id": "1310.5764",
+        "title": "Minimax Optimal Convergence Rates for Estimating Ground Truth from Crowdsourced Labels",
+        "pagerank": 3.4e-05
+      },
+      {
+        "arxiv_id": "1206.6386",
+        "title": "How To Grade a Test Without Knowing the Answers --- A Bayesian Graphical Model for Adaptive Crowdsourcing and Aptitude Testing",
+        "pagerank": 3.3e-05
+      },
+      {
+        "arxiv_id": "1303.3257",
+        "title": "Ranking and combining multiple predictors without labeled data",
+        "pagerank": 3.3e-05
+      },
+      {
+        "arxiv_id": "1112.6045",
+        "title": "Comparing intermittency and network measurements of words and their dependence on authorship",
+        "pagerank": 3e-05
+      }
+    ],
+    "labels": [
+      "crowdsourcing",
+      "reality",
+      "visualization",
+      "data",
+      "crowd",
+      "virtual"
+    ]
+  },
+  {
+    "id": 29,
+    "size": 500,
+    "anchor_arxiv_id": "1305.0510",
+    "anchor_title": "Probe and Adapt: Rate Adaptation for HTTP Video Streaming At Scale",
+    "year_range": [
+      1998,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1305.0510",
+        "title": "Probe and Adapt: Rate Adaptation for HTTP Video Streaming At Scale",
+        "pagerank": 5.7e-05
+      },
+      {
+        "arxiv_id": "1105.5449",
+        "title": "AntNet: Distributed Stigmergetic Control for Communications Networks",
+        "pagerank": 2e-05
+      },
+      {
+        "arxiv_id": "1407.8372",
+        "title": "Assessment model for opportunistic routing",
+        "pagerank": 1.8e-05
+      },
+      {
+        "arxiv_id": "1407.8368",
+        "title": "Opportunistic routing based on daily routines",
+        "pagerank": 1.7e-05
+      },
+      {
+        "arxiv_id": "0707.0909",
+        "title": "Spectrum Sensing in Cognitive Radios Based on Multiple Cyclic Frequencies",
+        "pagerank": 1.7e-05
+      }
+    ],
+    "labels": [
+      "video",
+      "streaming",
+      "video streaming",
+      "networks",
+      "360",
+      "based"
+    ]
+  },
+  {
+    "id": 30,
+    "size": 453,
+    "anchor_arxiv_id": "1207.6231",
+    "anchor_title": "Touchalytics: On the Applicability of Touchscreen Input as a Behavioral Biometric for Continuous Authentication",
+    "year_range": [
+      2005,
+      2026
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1207.6231",
+        "title": "Touchalytics: On the Applicability of Touchscreen Input as a Behavioral Biometric for Continuous Authentication",
+        "pagerank": 5.8e-05
+      },
+      {
+        "arxiv_id": "0709.4063",
+        "title": "The Importance and Criticality of Spreadsheets in the City of London",
+        "pagerank": 3.1e-05
+      },
+      {
+        "arxiv_id": "0805.4224",
+        "title": "Classification of Spreadsheet Errors",
+        "pagerank": 2.1e-05
+      },
+      {
+        "arxiv_id": "1610.07930",
+        "title": "Active user authentication for smartphones: A challenge data set and benchmark results",
+        "pagerank": 2.1e-05
+      },
+      {
+        "arxiv_id": "2111.03472",
+        "title": "BiosecurID: a multimodal biometric database",
+        "pagerank": 2e-05
+      }
+    ],
+    "labels": [
+      "spreadsheet",
+      "authentication",
+      "signature",
+      "verification",
+      "using",
+      "based"
+    ]
+  },
+  {
+    "id": 31,
+    "size": 445,
+    "anchor_arxiv_id": "1601.02284",
+    "anchor_title": "Update or Wait: How to Keep Your Data Fresh",
+    "year_range": [
+      2007,
+      2024
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1601.02284",
+        "title": "Update or Wait: How to Keep Your Data Fresh",
+        "pagerank": 8e-05
+      },
+      {
+        "arxiv_id": "1705.02521",
+        "title": "Status Updates Over Unreliable Multiaccess Channels",
+        "pagerank": 2.5e-05
+      },
+      {
+        "arxiv_id": "1801.04907",
+        "title": "Sending Information Through Status Updates",
+        "pagerank": 2.2e-05
+      },
+      {
+        "arxiv_id": "1604.01286",
+        "title": "Age of Information: The Gamma Awakening",
+        "pagerank": 2.2e-05
+      },
+      {
+        "arxiv_id": "1804.06543",
+        "title": "Average Peak Age-of-Information Minimization in UAV-Assisted IoT Networks",
+        "pagerank": 2.1e-05
+      }
+    ],
+    "labels": [
+      "age information",
+      "age",
+      "information",
+      "status",
+      "networks",
+      "scheduling"
+    ]
+  },
+  {
+    "id": 32,
+    "size": 366,
+    "anchor_arxiv_id": "1408.5316",
+    "anchor_title": "Cuckoo search: recent advances and applications",
+    "year_range": [
+      2003,
+      2025
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1408.5316",
+        "title": "Cuckoo search: recent advances and applications",
+        "pagerank": 3.2e-05
+      },
+      {
+        "arxiv_id": "1706.04399",
+        "title": "Enhanced discrete particle swarm optimization path planning for UAV vision-based surface inspection",
+        "pagerank": 2.4e-05
+      },
+      {
+        "arxiv_id": "1810.08669",
+        "title": "Ockham\u2019s Razor in memetic computing: Three stage optimal memetic exploration",
+        "pagerank": 2.3e-05
+      },
+      {
+        "arxiv_id": "1701.00879",
+        "title": "PlatEMO: A MATLAB Platform for Evolutionary Multi-Objective Optimization",
+        "pagerank": 2.1e-05
+      },
+      {
+        "arxiv_id": "1312.6609",
+        "title": "A comprehensive review of firefly algorithms",
+        "pagerank": 2.1e-05
+      }
+    ],
+    "labels": [
+      "optimization",
+      "algorithm",
+      "objective",
+      "evolutionary",
+      "multi",
+      "based"
+    ]
+  },
+  {
+    "id": 33,
+    "size": 262,
+    "anchor_arxiv_id": "1902.02755",
+    "anchor_title": "Significance of Episodes Based on Minimal Windows",
+    "year_range": [
+      2004,
+      2024
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1902.02755",
+        "title": "Significance of Episodes Based on Minimal Windows",
+        "pagerank": 2.4e-05
+      },
+      {
+        "arxiv_id": "0912.5434",
+        "title": "A Complete Theory of Everything (Will Be Subjective)",
+        "pagerank": 2e-05
+      },
+      {
+        "arxiv_id": "1811.07389",
+        "title": "Privacy Preserving Utility Mining: A Survey",
+        "pagerank": 2e-05
+      },
+      {
+        "arxiv_id": "1105.5721",
+        "title": "A Philosophical Treatise of Universal Induction",
+        "pagerank": 1.8e-05
+      },
+      {
+        "arxiv_id": "1902.02834",
+        "title": "The Long and the Short of It: Summarising Event Sequences with Serial Episodes",
+        "pagerank": 1.7e-05
+      }
+    ],
+    "labels": [
+      "mining",
+      "lattices",
+      "utility",
+      "pattern",
+      "formal",
+      "data"
+    ]
+  },
+  {
+    "id": 34,
+    "size": 181,
+    "anchor_arxiv_id": "1312.7793",
+    "anchor_title": "Direction of Arrival Estimation Using Co-Prime Arrays: A Super Resolution Viewpoint",
+    "year_range": [
+      2009,
+      2024
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1312.7793",
+        "title": "Direction of Arrival Estimation Using Co-Prime Arrays: A Super Resolution Viewpoint",
+        "pagerank": 2.6e-05
+      },
+      {
+        "arxiv_id": "1108.5838",
+        "title": "Off-Grid Direction of Arrival Estimation Using Sparse Bayesian Inference",
+        "pagerank": 2.6e-05
+      },
+      {
+        "arxiv_id": "1402.2936",
+        "title": "R-dimensional esprit-type algorithms for strictly second-order non-circular sources and their performance analysis",
+        "pagerank": 1.7e-05
+      },
+      {
+        "arxiv_id": "1202.5159",
+        "title": "Semiparametrically efficient inference based on signed ranks in symmetric independent component models",
+        "pagerank": 1.6e-05
+      },
+      {
+        "arxiv_id": "1408.0145",
+        "title": "A Convergence and Asymptotic Analysis of the Generalized Symmetric FastICA Algorithm",
+        "pagerank": 1.4e-05
+      }
+    ],
+    "labels": [
+      "estimation",
+      "analysis",
+      "component analysis",
+      "arrays",
+      "sparse",
+      "component"
+    ]
+  },
+  {
+    "id": 35,
+    "size": 177,
+    "anchor_arxiv_id": "1410.4191",
+    "anchor_title": "Propagation time for zero forcing on a graph",
+    "year_range": [
+      2008,
+      2023
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1410.4191",
+        "title": "Propagation time for zero forcing on a graph",
+        "pagerank": 3.5e-05
+      },
+      {
+        "arxiv_id": "1105.1492",
+        "title": "Iteration Index of a Zero Forcing Set in a Graph",
+        "pagerank": 3.3e-05
+      },
+      {
+        "arxiv_id": "1611.10007",
+        "title": "Structural controllability of multi-agent networks: Robustness against simultaneous failures",
+        "pagerank": 1.9e-05
+      },
+      {
+        "arxiv_id": "1701.06012",
+        "title": "An evasion game on a graph",
+        "pagerank": 1.4e-05
+      },
+      {
+        "arxiv_id": "1205.3058",
+        "title": "A tight lower bound on the controllability of networks with multiple leaders",
+        "pagerank": 1.4e-05
+      }
+    ],
+    "labels": [
+      "forcing",
+      "graphs",
+      "number",
+      "zero",
+      "domination",
+      "graph"
+    ]
+  },
+  {
+    "id": 36,
+    "size": 153,
+    "anchor_arxiv_id": "0712.1345",
+    "anchor_title": "Sequential operators in computability logic",
+    "year_range": [
+      2007,
+      2022
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "0712.1345",
+        "title": "Sequential operators in computability logic",
+        "pagerank": 5.5e-05
+      },
+      {
+        "arxiv_id": "0709.1308",
+        "title": "Cirquent Calculus Deepened",
+        "pagerank": 4.1e-05
+      },
+      {
+        "arxiv_id": "0706.0103",
+        "title": "Many Concepts and Two Logics of Algorithmic Reduction",
+        "pagerank": 3.3e-05
+      },
+      {
+        "arxiv_id": "0707.1059",
+        "title": "Projection semantics for rigid loops",
+        "pagerank": 1.5e-05
+      },
+      {
+        "arxiv_id": "0707.1639",
+        "title": "Interface groups and financial transfer architectures",
+        "pagerank": 1.2e-05
+      }
+    ],
+    "labels": [
+      "instruction",
+      "logic",
+      "sequences",
+      "calculus",
+      "logic programming",
+      "programming"
+    ]
+  },
+  {
+    "id": 37,
+    "size": 85,
+    "anchor_arxiv_id": "1310.0337",
+    "anchor_title": "A Class of Binomial Permutation Polynomials",
+    "year_range": [
+      2007,
+      2025
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1310.0337",
+        "title": "A Class of Binomial Permutation Polynomials",
+        "pagerank": 3.4e-05
+      },
+      {
+        "arxiv_id": "1310.0776",
+        "title": "Permutation polynomials on F_q induced from bijective Redei functions on subgroups of the multiplicative group of F_q",
+        "pagerank": 2.3e-05
+      },
+      {
+        "arxiv_id": "1612.08823",
+        "title": "Several classes of permutation trinomials from Niho exponents",
+        "pagerank": 1.6e-05
+      },
+      {
+        "arxiv_id": "1508.07590",
+        "title": "New Classes of Permutation Binomials and Permutation Trinomials over Finite Fields",
+        "pagerank": 9e-06
+      },
+      {
+        "arxiv_id": "0707.1110",
+        "title": "On some permutation polynomials over F_q of the form x^r*h(x^((q-1)/d)))",
+        "pagerank": 8e-06
+      }
+    ],
+    "labels": [
+      "finite fields",
+      "permutation",
+      "polynomials",
+      "fields",
+      "finite",
+      "mml"
+    ]
+  },
+  {
+    "id": 38,
+    "size": 82,
+    "anchor_arxiv_id": "0910.4668",
+    "anchor_title": "Computing modular correspondences for abelian varieties",
+    "year_range": [
+      2007,
+      2025
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "0910.4668",
+        "title": "Computing modular correspondences for abelian varieties",
+        "pagerank": 1.1e-05
+      },
+      {
+        "arxiv_id": "1009.1082",
+        "title": "Accelerating the CM method",
+        "pagerank": 1.1e-05
+      },
+      {
+        "arxiv_id": "1107.1140",
+        "title": "Identifying supersingular elliptic curves",
+        "pagerank": 9e-06
+      },
+      {
+        "arxiv_id": "0708.2584",
+        "title": "Claw finding algorithms using quantum walk",
+        "pagerank": 8e-06
+      },
+      {
+        "arxiv_id": "1001.2016",
+        "title": "Computing isogenies between abelian varieties",
+        "pagerank": 8e-06
+      }
+    ],
+    "labels": [
+      "curves",
+      "elliptic",
+      "computing",
+      "multiplication",
+      "abelian",
+      "varieties"
+    ]
+  },
+  {
+    "id": 39,
+    "size": 66,
+    "anchor_arxiv_id": "1102.3866",
+    "anchor_title": "Treatment of Semantic Heterogeneity in Information Retrieval",
+    "year_range": [
+      2007,
+      2025
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1102.3866",
+        "title": "Treatment of Semantic Heterogeneity in Information Retrieval",
+        "pagerank": 1.5e-05
+      },
+      {
+        "arxiv_id": "1106.1523",
+        "title": "A Novel Combined Term Suggestion Service for Domain-Specific Digital Libraries",
+        "pagerank": 1.3e-05
+      },
+      {
+        "arxiv_id": "0712.2449",
+        "title": "Reducing semantic complexity in distributed Digital Libraries: treatment of term vagueness and document re-ranking",
+        "pagerank": 1.1e-05
+      },
+      {
+        "arxiv_id": "1212.5711",
+        "title": "Normalized Compression Distance of Multisets with Applications",
+        "pagerank": 1.1e-05
+      },
+      {
+        "arxiv_id": "1209.5850",
+        "title": "TheSoz: A SKOS representation of the thesaurus for the social sciences",
+        "pagerank": 8e-06
+      }
+    ],
+    "labels": [
+      "search",
+      "information",
+      "retrieval",
+      "normalized",
+      "digital",
+      "distance"
+    ]
+  },
+  {
+    "id": 40,
+    "size": 63,
+    "anchor_arxiv_id": "1011.1584",
+    "anchor_title": "Interference and bandwidth adjusted ETX in wireless multi-hop networks",
+    "year_range": [
+      2009,
+      2020
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1011.1584",
+        "title": "Interference and bandwidth adjusted ETX in wireless multi-hop networks",
+        "pagerank": 1.9e-05
+      },
+      {
+        "arxiv_id": "1012.4688",
+        "title": "Performance study of ETX based wireless routing metrics",
+        "pagerank": 1.8e-05
+      },
+      {
+        "arxiv_id": "1108.3706",
+        "title": "Identifying Design Requirements for Wireless Routing Link Metrics",
+        "pagerank": 1.5e-05
+      },
+      {
+        "arxiv_id": "1109.2028",
+        "title": "Modeling routing overhead generated by wireless proactive routing protocols",
+        "pagerank": 1.4e-05
+      },
+      {
+        "arxiv_id": "1207.2609",
+        "title": "Survey of Extended LEACH-Based Clustering Routing Protocols for Wireless Sensor Networks",
+        "pagerank": 6e-06
+      }
+    ],
+    "labels": [
+      "routing",
+      "wireless",
+      "energy",
+      "wireless sensor",
+      "sensor networks",
+      "protocols"
+    ]
+  },
+  {
+    "id": 41,
+    "size": 59,
+    "anchor_arxiv_id": "1311.1044",
+    "anchor_title": "Rigidity theory in SE(2) for unscaled relative position estimation using only bearing measurements",
+    "year_range": [
+      2012,
+      2023
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1311.1044",
+        "title": "Rigidity theory in SE(2) for unscaled relative position estimation using only bearing measurements",
+        "pagerank": 3e-05
+      },
+      {
+        "arxiv_id": "1408.6552",
+        "title": "Bearing Rigidity and Almost Global Bearing-Only Formation Stabilization",
+        "pagerank": 2.7e-05
+      },
+      {
+        "arxiv_id": "1309.0535",
+        "title": "Decentralized rigidity maintenance control with range measurements for multi-robot systems",
+        "pagerank": 2e-05
+      },
+      {
+        "arxiv_id": "1609.06435",
+        "title": "Controlling Rigid Formations of Mobile Agents Under Inconsistent Measurements",
+        "pagerank": 9e-06
+      },
+      {
+        "arxiv_id": "1808.04612",
+        "title": "Motion Feasibility Conditions for Multiagent Control Systems on Lie Groups",
+        "pagerank": 5e-06
+      }
+    ],
+    "labels": [
+      "formation",
+      "control",
+      "based",
+      "distributed",
+      "systems",
+      "agent"
+    ]
+  },
+  {
+    "id": 42,
+    "size": 53,
+    "anchor_arxiv_id": "2403.19859",
+    "anchor_title": "Secure link state routing for mobile ad hoc networks",
+    "year_range": [
+      2003,
+      2024
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "2403.19859",
+        "title": "Secure link state routing for mobile ad hoc networks",
+        "pagerank": 9e-06
+      },
+      {
+        "arxiv_id": "1012.2519",
+        "title": "A Distributed Trust and Reputation Framework for Mobile Ad Hoc Networks",
+        "pagerank": 8e-06
+      },
+      {
+        "arxiv_id": "1101.3076",
+        "title": "A Robust and Secure Aggregation Protocol for Wireless Sensor Networks",
+        "pagerank": 6e-06
+      },
+      {
+        "arxiv_id": "1111.0386",
+        "title": "A mechanism for detection of gray hole attack in mobile Ad Hoc networks",
+        "pagerank": 6e-06
+      },
+      {
+        "arxiv_id": "1502.07808",
+        "title": "A Secure Cyclic Steganographic Technique for Color Images using Randomization",
+        "pagerank": 6e-06
+      }
+    ],
+    "labels": [
+      "networks",
+      "wireless",
+      "secure",
+      "wireless sensor",
+      "sensor networks",
+      "ad hoc"
+    ]
+  },
+  {
+    "id": 43,
+    "size": 42,
+    "anchor_arxiv_id": "1511.00117",
+    "anchor_title": "Topological chaos and chaotic iterations application to hash functions",
+    "year_range": [
+      2008,
+      2017
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1511.00117",
+        "title": "Topological chaos and chaotic iterations application to hash functions",
+        "pagerank": 2.6e-05
+      },
+      {
+        "arxiv_id": "1005.0704",
+        "title": "A chaos-based approach for information hiding security",
+        "pagerank": 1e-05
+      },
+      {
+        "arxiv_id": "1005.0705",
+        "title": "Chaotic Iterations versus Spread-Spectrum: Chaos and Stego Security",
+        "pagerank": 9e-06
+      },
+      {
+        "arxiv_id": "1112.0941",
+        "title": "Randomness Quality of CI Chaotic Generators: Applications to Internet Security",
+        "pagerank": 8e-06
+      },
+      {
+        "arxiv_id": "1012.4620",
+        "title": "Improving random number generators by chaotic iterations application in data hiding",
+        "pagerank": 7e-06
+      }
+    ],
+    "labels": [
+      "chaotic",
+      "generators",
+      "chaos",
+      "security",
+      "watermarking",
+      "random"
+    ]
+  },
+  {
+    "id": 44,
+    "size": 39,
+    "anchor_arxiv_id": "0906.5285",
+    "anchor_title": "Regularity of solutions of linear second order elliptic and parabolic boundary value problems on Lipschitz domains",
+    "year_range": [
+      2005,
+      2025
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "0906.5285",
+        "title": "Regularity of solutions of linear second order elliptic and parabolic boundary value problems on Lipschitz domains",
+        "pagerank": 1.9e-05
+      },
+      {
+        "arxiv_id": "1008.0293",
+        "title": "Abstract wave equations with acoustic boundary conditions",
+        "pagerank": 7e-06
+      },
+      {
+        "arxiv_id": "1001.3642",
+        "title": "Heat equation with dynamical boundary conditions of reactive\u2013diffusive type",
+        "pagerank": 6e-06
+      },
+      {
+        "arxiv_id": "1707.05556",
+        "title": "The Dirichlet-to-Neumann operator on $C(\\partial \u03a9)$",
+        "pagerank": 6e-06
+      },
+      {
+        "arxiv_id": "0709.2080",
+        "title": "Well-posedness and symmetries of strongly coupled network equations",
+        "pagerank": 5e-06
+      }
+    ],
+    "labels": [
+      "boundary",
+      "conditions",
+      "equation",
+      "problems",
+      "neumann",
+      "equations"
+    ]
+  },
+  {
+    "id": 46,
+    "size": 36,
+    "anchor_arxiv_id": "0706.0195",
+    "anchor_title": "Equivalence of operations with respect to discriminator clones",
+    "year_range": [
+      2008,
+      2017
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "0706.0195",
+        "title": "Equivalence of operations with respect to discriminator clones",
+        "pagerank": 1.2e-05
+      },
+      {
+        "arxiv_id": "0712.1753",
+        "title": "Generalizations of \u015awierczkowski\u2019s lemma and the arity gap of finite functions",
+        "pagerank": 1e-05
+      },
+      {
+        "arxiv_id": "1105.3452",
+        "title": "On the lattice of equational classes of Boolean functions and its closed intervals",
+        "pagerank": 8e-06
+      },
+      {
+        "arxiv_id": "0902.2323",
+        "title": "Associative Polynomial Functions over Bounded Distributive Lattices",
+        "pagerank": 7e-06
+      },
+      {
+        "arxiv_id": "0812.1979",
+        "title": "Essential Variables and Separable Sets in Universal Algebra",
+        "pagerank": 7e-06
+      }
+    ],
+    "labels": [
+      "functions",
+      "boolean",
+      "lattices",
+      "gap",
+      "bounded",
+      "polynomial"
+    ]
+  },
+  {
+    "id": 45,
+    "size": 36,
+    "anchor_arxiv_id": "0907.2640",
+    "anchor_title": "Towards Hybrid Intensional Programming with JLucid, Objective Lucid, and General Imperative Compiler Framework in the GIPSY",
+    "year_range": [
+      2008,
+      2015
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "0907.2640",
+        "title": "Towards Hybrid Intensional Programming with JLucid, Objective Lucid, and General Imperative Compiler Framework in the GIPSY",
+        "pagerank": 2.3e-05
+      },
+      {
+        "arxiv_id": "0905.1235",
+        "title": "Introducing MARF: a Modular Audio Recognition Framework and its Applications for Scientific and Software Engineering Research",
+        "pagerank": 1.1e-05
+      },
+      {
+        "arxiv_id": "0906.4837",
+        "title": "Advances in the Design and Implementation of a Multi-tier Architecture in the GIPSY Environment with Java",
+        "pagerank": 9e-06
+      },
+      {
+        "arxiv_id": "1002.4392",
+        "title": "Complete Context Calculus Design and Implementation in GIPSY",
+        "pagerank": 6e-06
+      },
+      {
+        "arxiv_id": "0909.0764",
+        "title": "Object-Oriented Intensional Programming: Intensional Java/Lucid Classes",
+        "pagerank": 6e-06
+      }
+    ],
+    "labels": [
+      "case",
+      "team",
+      "project",
+      "studies",
+      "report",
+      "design"
+    ]
+  },
+  {
+    "id": 48,
+    "size": 34,
+    "anchor_arxiv_id": "0906.0798",
+    "anchor_title": "Single Neuron Memories and the Network's Proximity Matrix",
+    "year_range": [
+      2009,
+      2014
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "0906.0798",
+        "title": "Single Neuron Memories and the Network's Proximity Matrix",
+        "pagerank": 1.3e-05
+      },
+      {
+        "arxiv_id": "0907.4176",
+        "title": "The Basic Discrete Hilbert Transform with an Information Hiding Application",
+        "pagerank": 1.1e-05
+      },
+      {
+        "arxiv_id": "1010.5421",
+        "title": "On the Mesh Array for Matrix Multiplication",
+        "pagerank": 8e-06
+      },
+      {
+        "arxiv_id": "0908.3148",
+        "title": "Another Look at Quantum Neural Computing",
+        "pagerank": 4e-06
+      },
+      {
+        "arxiv_id": "1009.4495",
+        "title": "Unary Coding for Neural Network Learning",
+        "pagerank": 4e-06
+      }
+    ],
+    "labels": [
+      "neural",
+      "matrix",
+      "sequences",
+      "network",
+      "capacity",
+      "random"
+    ]
+  },
+  {
+    "id": 47,
+    "size": 34,
+    "anchor_arxiv_id": "1402.6034",
+    "anchor_title": "A DCT Approximation for Image Compression",
+    "year_range": [
+      2010,
+      2024
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1402.6034",
+        "title": "A DCT Approximation for Image Compression",
+        "pagerank": 2.9e-05
+      },
+      {
+        "arxiv_id": "2007.02232",
+        "title": "An Integer Approximation Method for Discrete Sinusoidal Transforms",
+        "pagerank": 1.6e-05
+      },
+      {
+        "arxiv_id": "1502.01377",
+        "title": "The Arithmetic Cosine Transform: Exact and Approximate Algorithms",
+        "pagerank": 1.6e-05
+      },
+      {
+        "arxiv_id": "1702.00817",
+        "title": "DCT-like transform for image compression requires 14 additions only",
+        "pagerank": 1e-05
+      },
+      {
+        "arxiv_id": "1501.02995",
+        "title": "Improved 8-Point Approximate DCT for Image and Video Compression Requiring Only 14 Additions",
+        "pagerank": 7e-06
+      }
+    ],
+    "labels": [
+      "low complexity",
+      "image",
+      "video",
+      "low",
+      "complexity",
+      "image compression"
+    ]
+  },
+  {
+    "id": 49,
+    "size": 31,
+    "anchor_arxiv_id": "1111.4739",
+    "anchor_title": "HelloWorld! An Instructive Case for the Transformation Tool Contest",
+    "year_range": [
+      2011,
+      2021
+    ],
+    "top_hosts": [],
+    "top_papers": [
+      {
+        "arxiv_id": "1111.4739",
+        "title": "HelloWorld! An Instructive Case for the Transformation Tool Contest",
+        "pagerank": 1.2e-05
+      },
+      {
+        "arxiv_id": "1111.4742",
+        "title": "Solving the TTC 2011 Compiler Optimization Case with GrGen.NET",
+        "pagerank": 1.1e-05
+      },
+      {
+        "arxiv_id": "1510.02836",
+        "title": "A Model for Interactive Scores with Temporal Constraints and Conditional Branching",
+        "pagerank": 1e-05
+      },
+      {
+        "arxiv_id": "1508.05559",
+        "title": "Structured Interactive Music Scores",
+        "pagerank": 1e-05
+      },
+      {
+        "arxiv_id": "1111.4737",
+        "title": "Compiler Optimization: A Case for the Transformation Tool Contest",
+        "pagerank": 9e-06
+      }
+    ],
+    "labels": [
+      "case",
+      "solving",
+      "compiler",
+      "solution",
+      "world",
+      "optimization"
+    ]
+  }
+]

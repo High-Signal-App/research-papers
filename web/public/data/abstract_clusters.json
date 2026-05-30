@@ -1,0 +1,927 @@
+[
+  {
+    "id": 1,
+    "size": 17804,
+    "anchor_arxiv_id": "0807.3806",
+    "anchor_title": "On the Rate of Channel Polarization",
+    "top_papers": [
+      {
+        "arxiv_id": "0807.3806",
+        "title": "On the Rate of Channel Polarization"
+      },
+      {
+        "arxiv_id": "1101.5211",
+        "title": "The Weisfeiler-Lehman Method and Graph Isomorphism Testing"
+      },
+      {
+        "arxiv_id": "1207.4404",
+        "title": "Better Mixing via Deep Representations"
+      },
+      {
+        "arxiv_id": "2105.10386",
+        "title": "Analysis of Boolean Functions"
+      },
+      {
+        "arxiv_id": "0806.0594",
+        "title": "Solvable Model for Chimera States of Coupled Oscillators"
+      }
+    ],
+    "labels": [
+      "oscillators",
+      "max",
+      "unbiased bases",
+      "states",
+      "logic",
+      "bases",
+      "mutually unbiased"
+    ]
+  },
+  {
+    "id": 19,
+    "size": 16515,
+    "anchor_arxiv_id": "1102.1523",
+    "anchor_title": "The NumPy Array: A Structure for Efficient Numerical Computation",
+    "top_papers": [
+      {
+        "arxiv_id": "1102.1523",
+        "title": "The NumPy Array: A Structure for Efficient Numerical Computation"
+      },
+      {
+        "arxiv_id": "1603.04467",
+        "title": "TensorFlow: Large-Scale Machine Learning on Heterogeneous Distributed Systems"
+      },
+      {
+        "arxiv_id": "1912.01703",
+        "title": "PyTorch: An Imperative Style, High-Performance Deep Learning Library"
+      },
+      {
+        "arxiv_id": "1702.05373",
+        "title": "EMNIST: an extension of MNIST to handwritten letters"
+      },
+      {
+        "arxiv_id": "1308.4214",
+        "title": "Pylearn2: a machine learning research library"
+      }
+    ],
+    "labels": [
+      "bitcoin",
+      "smart",
+      "contracts",
+      "tensorflow",
+      "interfaces",
+      "smart contracts",
+      "paper"
+    ]
+  },
+  {
+    "id": 16,
+    "size": 13322,
+    "anchor_arxiv_id": "1308.0850",
+    "anchor_title": "Generating Sequences With Recurrent Neural Networks",
+    "top_papers": [
+      {
+        "arxiv_id": "1308.0850",
+        "title": "Generating Sequences With Recurrent Neural Networks"
+      },
+      {
+        "arxiv_id": "1201.0490",
+        "title": "Scikit-learn: Machine Learning in Python"
+      },
+      {
+        "arxiv_id": "1503.02531",
+        "title": "Distilling the Knowledge in a Neural Network"
+      },
+      {
+        "arxiv_id": "1907.11692",
+        "title": "HISTORIAE, History of Socio-Cultural Transformation as Linguistic Data Science. A Humanities Use Case"
+      },
+      {
+        "arxiv_id": "1411.1784",
+        "title": "Conditional Generative Adversarial Nets"
+      }
+    ],
+    "labels": [
+      "learning",
+      "data",
+      "models",
+      "latent",
+      "generative",
+      "model",
+      "views"
+    ]
+  },
+  {
+    "id": 18,
+    "size": 9680,
+    "anchor_arxiv_id": "1409.3215",
+    "anchor_title": "Sequence to Sequence Learning with Neural Networks",
+    "top_papers": [
+      {
+        "arxiv_id": "1409.3215",
+        "title": "Sequence to Sequence Learning with Neural Networks"
+      },
+      {
+        "arxiv_id": "1103.0398",
+        "title": "Natural Language Processing (almost) from Scratch"
+      },
+      {
+        "arxiv_id": "1301.3781",
+        "title": "Efficient Estimation of Word Representations in Vector Space"
+      },
+      {
+        "arxiv_id": "1609.08144",
+        "title": "Google's Neural Machine Translation System: Bridging the Gap between Human and Machine Translation"
+      },
+      {
+        "arxiv_id": "1409.0473",
+        "title": "Neural Machine Translation by Jointly Learning to Align and Translate"
+      }
+    ],
+    "labels": [
+      "word",
+      "language",
+      "translation",
+      "model",
+      "models",
+      "sentence",
+      "neural"
+    ]
+  },
+  {
+    "id": 4,
+    "size": 8373,
+    "anchor_arxiv_id": "1206.2944",
+    "anchor_title": "Practical Bayesian Optimization of Machine Learning Algorithms",
+    "top_papers": [
+      {
+        "arxiv_id": "1206.2944",
+        "title": "Practical Bayesian Optimization of Machine Learning Algorithms"
+      },
+      {
+        "arxiv_id": "0802.3922",
+        "title": "Constrained Consensus and Optimization in Multi-Agent Networks"
+      },
+      {
+        "arxiv_id": "0912.3995",
+        "title": "Gaussian Process Optimization in the Bandit Setting: No Regret and Experimental Design"
+      },
+      {
+        "arxiv_id": "1509.06461",
+        "title": "Deep Reinforcement Learning with Double Q-Learning"
+      },
+      {
+        "arxiv_id": "1404.7584",
+        "title": "High-Speed Tracking with Kernelized Correlation Filters"
+      }
+    ],
+    "labels": [
+      "algorithm",
+      "algorithms",
+      "problems",
+      "search",
+      "polynomial",
+      "bayesian",
+      "planning"
+    ]
+  },
+  {
+    "id": 10,
+    "size": 8107,
+    "anchor_arxiv_id": "1409.1556",
+    "anchor_title": "Very Deep Convolutional Networks for Large-Scale Image Recognition",
+    "top_papers": [
+      {
+        "arxiv_id": "1409.1556",
+        "title": "Very Deep Convolutional Networks for Large-Scale Image Recognition"
+      },
+      {
+        "arxiv_id": "1207.0580",
+        "title": "Improving neural networks by preventing co-adaptation of feature detectors"
+      },
+      {
+        "arxiv_id": "1408.5093",
+        "title": "Caffe: Convolutional Architecture for Fast Feature Embedding"
+      },
+      {
+        "arxiv_id": "1502.03167",
+        "title": "Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift"
+      },
+      {
+        "arxiv_id": "1409.4842",
+        "title": "Going Deeper with Convolutions"
+      }
+    ],
+    "labels": [
+      "networks",
+      "deep",
+      "convolutional",
+      "neural",
+      "network",
+      "learning",
+      "neural networks"
+    ]
+  },
+  {
+    "id": 7,
+    "size": 6831,
+    "anchor_arxiv_id": "2003.06557",
+    "anchor_title": "Quantum cryptography: Public key distribution and coin tossing",
+    "top_papers": [
+      {
+        "arxiv_id": "2003.06557",
+        "title": "Quantum cryptography: Public key distribution and coin tossing"
+      },
+      {
+        "arxiv_id": "1304.3061",
+        "title": "A variational eigenvalue solver on a photonic quantum processor"
+      },
+      {
+        "arxiv_id": "0908.0238",
+        "title": "Measure for the Degree of Non-Markovian Behavior of Quantum Processes in Open Systems"
+      },
+      {
+        "arxiv_id": "0904.4214",
+        "title": "Quantum Walk of a Trapped Ion in Phase Space"
+      },
+      {
+        "arxiv_id": "1910.11333",
+        "title": "Quantum supremacy using a programmable superconducting processor"
+      }
+    ],
+    "labels": [
+      "quantum",
+      "discord",
+      "quantum discord",
+      "walk",
+      "classical",
+      "entanglement",
+      "qubits"
+    ]
+  },
+  {
+    "id": 17,
+    "size": 6388,
+    "anchor_arxiv_id": "1311.5591",
+    "anchor_title": "PANDA: Pose Aligned Networks for Deep Attribute Modeling",
+    "top_papers": [
+      {
+        "arxiv_id": "1311.5591",
+        "title": "PANDA: Pose Aligned Networks for Deep Attribute Modeling"
+      },
+      {
+        "arxiv_id": "1403.6382",
+        "title": "CNN Features off-the-shelf: an Astounding Baseline for Recognition"
+      },
+      {
+        "arxiv_id": "1708.07747",
+        "title": "Fashion-MNIST: a Novel Image Dataset for Benchmarking Machine Learning Algorithms"
+      },
+      {
+        "arxiv_id": "1608.03981",
+        "title": "Beyond a Gaussian Denoiser: Residual Learning of Deep CNN for Image Denoising"
+      },
+      {
+        "arxiv_id": "1502.04623",
+        "title": "DRAW: A Recurrent Neural Network For Image Generation"
+      }
+    ],
+    "labels": [
+      "image",
+      "images",
+      "training",
+      "model",
+      "convolutional",
+      "deep",
+      "learning"
+    ]
+  },
+  {
+    "id": 8,
+    "size": 6385,
+    "anchor_arxiv_id": "1506.01497",
+    "anchor_title": "Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks",
+    "top_papers": [
+      {
+        "arxiv_id": "1506.01497",
+        "title": "Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks"
+      },
+      {
+        "arxiv_id": "1502.03044",
+        "title": "Show, Attend and Tell: Neural Image Caption Generation with Visual Attention"
+      },
+      {
+        "arxiv_id": "1406.2283",
+        "title": "Depth Map Prediction from a Single Image using a Multi-Scale Deep Network"
+      },
+      {
+        "arxiv_id": "1706.05587",
+        "title": "Rethinking Atrous Convolution for Semantic Image Segmentation"
+      },
+      {
+        "arxiv_id": "1605.06409",
+        "title": "R-FCN: Object Detection via Region-based Fully Convolutional Networks"
+      }
+    ],
+    "labels": [
+      "object",
+      "object detection",
+      "detection",
+      "segmentation",
+      "pascal",
+      "proposal",
+      "3d"
+    ]
+  },
+  {
+    "id": 21,
+    "size": 6175,
+    "anchor_arxiv_id": "0903.3276",
+    "anchor_title": "De-anonymizing Social Networks",
+    "top_papers": [
+      {
+        "arxiv_id": "0903.3276",
+        "title": "De-anonymizing Social Networks"
+      },
+      {
+        "arxiv_id": "0906.5394",
+        "title": "Wireless Network Information Flow: A Deterministic Approach"
+      },
+      {
+        "arxiv_id": "1003.5309",
+        "title": "Gossip Algorithms for Distributed Signal Processing"
+      },
+      {
+        "arxiv_id": "0704.2475",
+        "title": "Physical Layer Network Coding"
+      },
+      {
+        "arxiv_id": "1305.0982",
+        "title": "Context Aware Computing for The Internet of Things: A Survey"
+      }
+    ],
+    "labels": [
+      "network",
+      "wireless",
+      "cloud",
+      "mobile",
+      "caching",
+      "networks",
+      "relay"
+    ]
+  },
+  {
+    "id": 12,
+    "size": 3768,
+    "anchor_arxiv_id": "1312.5602",
+    "anchor_title": "Playing Atari with Deep Reinforcement Learning",
+    "top_papers": [
+      {
+        "arxiv_id": "1312.5602",
+        "title": "Playing Atari with Deep Reinforcement Learning"
+      },
+      {
+        "arxiv_id": "1707.06347",
+        "title": "Diagnosing Non-Intermittent Anomalies in Reinforcement Learning Policy Executions (Short Paper)"
+      },
+      {
+        "arxiv_id": "1509.02971",
+        "title": "Continuous control with deep reinforcement learning"
+      },
+      {
+        "arxiv_id": "1703.03400",
+        "title": "Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks"
+      },
+      {
+        "arxiv_id": "1502.05477",
+        "title": "Trust Region Policy Optimization"
+      }
+    ],
+    "labels": [
+      "learning",
+      "policy",
+      "reinforcement",
+      "reinforcement learning",
+      "rl",
+      "critic",
+      "actor"
+    ]
+  },
+  {
+    "id": 9,
+    "size": 3652,
+    "anchor_arxiv_id": "1609.02907",
+    "anchor_title": "Semi-Supervised Classification with Graph Convolutional Networks",
+    "top_papers": [
+      {
+        "arxiv_id": "1609.02907",
+        "title": "Semi-Supervised Classification with Graph Convolutional Networks"
+      },
+      {
+        "arxiv_id": "1605.05273",
+        "title": "Learning Convolutional Neural Networks for Graphs"
+      },
+      {
+        "arxiv_id": "1412.6575",
+        "title": "Embedding Entities and Relations for Learning and Inference in Knowledge Bases"
+      },
+      {
+        "arxiv_id": "1503.00759",
+        "title": "A Review of Relational Machine Learning for Knowledge Graphs"
+      },
+      {
+        "arxiv_id": "1210.4752",
+        "title": "Discrete Signal Processing on Graphs"
+      }
+    ],
+    "labels": [
+      "graph",
+      "graphs",
+      "gcn",
+      "learning",
+      "data",
+      "edges",
+      "models"
+    ]
+  },
+  {
+    "id": 3,
+    "size": 3591,
+    "anchor_arxiv_id": "0911.5417",
+    "anchor_title": "Unified View of Quantum and Classical Correlations",
+    "top_papers": [
+      {
+        "arxiv_id": "0911.5417",
+        "title": "Unified View of Quantum and Classical Correlations"
+      },
+      {
+        "arxiv_id": "0908.3157",
+        "title": "Almost all quantum states have nonclassical correlations"
+      },
+      {
+        "arxiv_id": "0711.4840",
+        "title": "Entanglement, Nonlinear Dynamics, and the Heisenberg Limit"
+      },
+      {
+        "arxiv_id": "0810.4331",
+        "title": "Most Quantum States Are Too Entangled To Be Useful As Computational Resources"
+      },
+      {
+        "arxiv_id": "0905.1349",
+        "title": "Separability criteria for genuine multiparticle entanglement"
+      }
+    ],
+    "labels": [
+      "entanglement",
+      "quantum",
+      "states",
+      "entangled",
+      "discord",
+      "entangled states",
+      "state"
+    ]
+  },
+  {
+    "id": 14,
+    "size": 2555,
+    "anchor_arxiv_id": "1208.0928",
+    "anchor_title": "Surface codes: Towards practical large-scale quantum computation",
+    "top_papers": [
+      {
+        "arxiv_id": "1208.0928",
+        "title": "Surface codes: Towards practical large-scale quantum computation"
+      },
+      {
+        "arxiv_id": "1009.6126",
+        "title": "14-Qubit Entanglement: Creation and Coherence"
+      },
+      {
+        "arxiv_id": "1105.4652",
+        "title": "Observation of High Coherence in Josephson Junction Qubits Measured in a Three-Dimensional Circuit QED Architecture"
+      },
+      {
+        "arxiv_id": "0705.0174",
+        "title": "Experimental Realization of One-Way Quantum Computing with Two-Photon Four-Qubit Cluster States"
+      },
+      {
+        "arxiv_id": "0803.0272",
+        "title": "High-threshold universal quantum computation on the surface code"
+      }
+    ],
+    "labels": [
+      "qubit",
+      "quantum",
+      "qubits",
+      "gate",
+      "gates",
+      "superconducting",
+      "error"
+    ]
+  },
+  {
+    "id": 2,
+    "size": 2461,
+    "anchor_arxiv_id": "1212.0402",
+    "anchor_title": "UCF-101: A dataset of 101 human actions classes from videos in the wild",
+    "top_papers": [
+      {
+        "arxiv_id": "1212.0402",
+        "title": "UCF-101: A dataset of 101 human actions classes from videos in the wild"
+      },
+      {
+        "arxiv_id": "1406.2199",
+        "title": "Two-Stream Convolutional Networks for Action Recognition in Videos"
+      },
+      {
+        "arxiv_id": "1705.06950",
+        "title": "The Kinetics Human Action Video Dataset"
+      },
+      {
+        "arxiv_id": "1405.4506",
+        "title": "Bag of Visual Words and Fusion Methods for Action Recognition: Comprehensive Study and Good Practice"
+      },
+      {
+        "arxiv_id": "1609.08675",
+        "title": "YouTube-8M: A Large-Scale Video Classification Benchmark"
+      }
+    ],
+    "labels": [
+      "video",
+      "videos",
+      "action",
+      "temporal",
+      "dataset",
+      "saliency",
+      "recognition"
+    ]
+  },
+  {
+    "id": 15,
+    "size": 2326,
+    "anchor_arxiv_id": "1002.4944",
+    "anchor_title": "Resonance Fluorescence of a Single Artificial Atom",
+    "top_papers": [
+      {
+        "arxiv_id": "1002.4944",
+        "title": "Resonance Fluorescence of a Single Artificial Atom"
+      },
+      {
+        "arxiv_id": "quant-ph/0609153",
+        "title": "Controllable generation of highly nonclassical states from nearly pure squeezed vacua"
+      },
+      {
+        "arxiv_id": "0904.0456",
+        "title": "Quantum phase estimation with lossy interferometers"
+      },
+      {
+        "arxiv_id": "0808.3279",
+        "title": "Measurement of the Decay of Fock States in a Superconducting Quantum Circuit"
+      },
+      {
+        "arxiv_id": "1008.1240",
+        "title": "Deep Strong Coupling Regime of the Jaynes-Cummings Model"
+      }
+    ],
+    "labels": [
+      "photon",
+      "quantum",
+      "cavity",
+      "photons",
+      "single photon",
+      "optical",
+      "single"
+    ]
+  },
+  {
+    "id": 13,
+    "size": 2110,
+    "anchor_arxiv_id": "1602.05629",
+    "anchor_title": "Communication-Efficient Learning of Deep Networks from Decentralized\\n Data",
+    "top_papers": [
+      {
+        "arxiv_id": "1602.05629",
+        "title": "Communication-Efficient Learning of Deep Networks from Decentralized\\n Data"
+      },
+      {
+        "arxiv_id": "1607.00133",
+        "title": "Deep Learning with Differential Privacy"
+      },
+      {
+        "arxiv_id": "1610.02527",
+        "title": "Federated Optimization: Distributed Machine Learning for On-Device Intelligence"
+      },
+      {
+        "arxiv_id": "1603.01887",
+        "title": "Concentrated Differential Privacy"
+      },
+      {
+        "arxiv_id": "1407.3561",
+        "title": "A Privacy-Preserving and Transparent Certification System for Digital Credentials"
+      }
+    ],
+    "labels": [
+      "privacy",
+      "differential privacy",
+      "differential",
+      "federated",
+      "data",
+      "private",
+      "learning"
+    ]
+  },
+  {
+    "id": 5,
+    "size": 2052,
+    "anchor_arxiv_id": "1412.6572",
+    "anchor_title": "Explaining and Harnessing Adversarial Examples",
+    "top_papers": [
+      {
+        "arxiv_id": "1412.6572",
+        "title": "Explaining and Harnessing Adversarial Examples"
+      },
+      {
+        "arxiv_id": "1607.02533",
+        "title": "Adversarial Examples in the Physical World"
+      },
+      {
+        "arxiv_id": "1802.05365",
+        "title": "Deep Contextualized Word Representations"
+      },
+      {
+        "arxiv_id": "1710.09412",
+        "title": "mixup: Beyond Empirical Risk Minimization"
+      },
+      {
+        "arxiv_id": "1605.07277",
+        "title": "Transferability in Machine Learning: from Phenomena to Black-Box Attacks using Adversarial Samples"
+      }
+    ],
+    "labels": [
+      "adversarial",
+      "examples",
+      "attacks",
+      "defenses",
+      "perturbations",
+      "robustness",
+      "learning"
+    ]
+  },
+  {
+    "id": 20,
+    "size": 2047,
+    "anchor_arxiv_id": "1211.3711",
+    "anchor_title": "Sequence Transduction with Recurrent Neural Networks",
+    "top_papers": [
+      {
+        "arxiv_id": "1211.3711",
+        "title": "Sequence Transduction with Recurrent Neural Networks"
+      },
+      {
+        "arxiv_id": "1512.02595",
+        "title": "Deep Speech 2: End-to-End Speech Recognition in English and Mandarin"
+      },
+      {
+        "arxiv_id": "1609.03499",
+        "title": "WaveNet: A Generative Model for Raw Audio"
+      },
+      {
+        "arxiv_id": "1904.08779",
+        "title": "SpecAugment: A Simple Data Augmentation Method for Automatic Speech Recognition"
+      },
+      {
+        "arxiv_id": "1706.08612",
+        "title": "VoxCeleb: A Large-Scale Speaker Identification Dataset"
+      }
+    ],
+    "labels": [
+      "speech",
+      "speaker",
+      "model",
+      "acoustic",
+      "speech recognition",
+      "recognition",
+      "separation"
+    ]
+  },
+  {
+    "id": 11,
+    "size": 2025,
+    "anchor_arxiv_id": "2201.11903",
+    "anchor_title": "BNAI, NO-TOKEN, and MIND-UNITY: Pillars of a Systemic Revolution in Artificial Intelligence",
+    "top_papers": [
+      {
+        "arxiv_id": "2201.11903",
+        "title": "BNAI, NO-TOKEN, and MIND-UNITY: Pillars of a Systemic Revolution in Artificial Intelligence"
+      },
+      {
+        "arxiv_id": "1406.2661",
+        "title": "Generative Adversarial Networks"
+      },
+      {
+        "arxiv_id": "2203.02155",
+        "title": "Training language models to follow instructions with human feedback"
+      },
+      {
+        "arxiv_id": "2303.08774",
+        "title": "GPT-4 Technical Report"
+      },
+      {
+        "arxiv_id": "2307.09288",
+        "title": "Llama 2: Open Foundation and Fine-Tuned Chat Models"
+      }
+    ],
+    "labels": [
+      "language models",
+      "language",
+      "models",
+      "large",
+      "gpt",
+      "programming",
+      "code"
+    ]
+  },
+  {
+    "id": 22,
+    "size": 1950,
+    "anchor_arxiv_id": "1412.6980",
+    "anchor_title": "Adam: A Method for Stochastic Optimization",
+    "top_papers": [
+      {
+        "arxiv_id": "1412.6980",
+        "title": "Adam: A Method for Stochastic Optimization"
+      },
+      {
+        "arxiv_id": "1212.5701",
+        "title": "ADADELTA: An Adaptive Learning Rate Method"
+      },
+      {
+        "arxiv_id": "1311.2115",
+        "title": "Fast large-scale optimization by unifying stochastic gradient and quasi-Newton methods"
+      },
+      {
+        "arxiv_id": "1106.5730",
+        "title": "HOGWILD!: A Lock-Free Approach to Parallelizing Stochastic Gradient Descent"
+      },
+      {
+        "arxiv_id": "0806.1092",
+        "title": "Incremental Stochastic Subgradient Algorithms for Convex Optimization"
+      }
+    ],
+    "labels": [
+      "gradient",
+      "stochastic",
+      "descent",
+      "gradient descent",
+      "stochastic gradient",
+      "sgd",
+      "optimization"
+    ]
+  },
+  {
+    "id": 0,
+    "size": 1484,
+    "anchor_arxiv_id": "1205.2618",
+    "anchor_title": "BPR: Bayesian Personalized Ranking from Implicit Feedback",
+    "top_papers": [
+      {
+        "arxiv_id": "1205.2618",
+        "title": "BPR: Bayesian Personalized Ranking from Implicit Feedback"
+      },
+      {
+        "arxiv_id": "1301.7363",
+        "title": "Empirical Analysis of Predictive Algorithms for Collaborative Filtering"
+      },
+      {
+        "arxiv_id": "0808.2670",
+        "title": "Solving the apparent diversity-accuracy dilemma of recommender systems"
+      },
+      {
+        "arxiv_id": "1609.02116",
+        "title": "<i>Ask the GRU</i>"
+      },
+      {
+        "arxiv_id": "1511.06939",
+        "title": "Session-based Recommendations with Recurrent Neural Networks"
+      }
+    ],
+    "labels": [
+      "item",
+      "recommendation",
+      "user",
+      "items",
+      "recommender",
+      "users",
+      "recommender systems"
+    ]
+  },
+  {
+    "id": 24,
+    "size": 1439,
+    "anchor_arxiv_id": "0807.3917",
+    "anchor_title": "Channel Polarization: A Method for Constructing Capacity-Achieving Codes for Symmetric Binary-Input Memoryless Channels",
+    "top_papers": [
+      {
+        "arxiv_id": "0807.3917",
+        "title": "Channel Polarization: A Method for Constructing Capacity-Achieving Codes for Symmetric Binary-Input Memoryless Channels"
+      },
+      {
+        "arxiv_id": "1301.6725",
+        "title": "Loopy Belief Propagation for Approximate Inference: An Empirical Study"
+      },
+      {
+        "arxiv_id": "0711.0708",
+        "title": "A Rank-Metric Approach to Error Control in Random Network Coding"
+      },
+      {
+        "arxiv_id": "0805.3824",
+        "title": "On Metrics for Error Correction in Network Coding"
+      },
+      {
+        "arxiv_id": "1512.02673",
+        "title": "Speeding Up Distributed Machine Learning Using Codes"
+      }
+    ],
+    "labels": [
+      "codes",
+      "repair",
+      "decoding",
+      "regenerating",
+      "erasure",
+      "code",
+      "storage"
+    ]
+  },
+  {
+    "id": 6,
+    "size": 1130,
+    "anchor_arxiv_id": "0907.1815",
+    "anchor_title": "Frustratingly Easy Domain Adaptation",
+    "top_papers": [
+      {
+        "arxiv_id": "0907.1815",
+        "title": "Frustratingly Easy Domain Adaptation"
+      },
+      {
+        "arxiv_id": "1412.3474",
+        "title": "Deep Domain Confusion: Maximizing for Domain Invariance"
+      },
+      {
+        "arxiv_id": "1109.6341",
+        "title": "Domain Adaptation for Statistical Classifiers"
+      },
+      {
+        "arxiv_id": "1502.02791",
+        "title": "Learning Transferable Features with Deep Adaptation Networks"
+      },
+      {
+        "arxiv_id": "0902.3430",
+        "title": "Domain Adaptation: Learning Bounds and Algorithms"
+      }
+    ],
+    "labels": [
+      "domain",
+      "domain adaptation",
+      "adaptation",
+      "target domain",
+      "target",
+      "learning",
+      "data"
+    ]
+  },
+  {
+    "id": 23,
+    "size": 1017,
+    "anchor_arxiv_id": "1109.1473",
+    "anchor_title": "Measurement-Device-Independent Quantum Key Distribution",
+    "top_papers": [
+      {
+        "arxiv_id": "1109.1473",
+        "title": "Measurement-Device-Independent Quantum Key Distribution"
+      },
+      {
+        "arxiv_id": "1103.3566",
+        "title": "Field test of quantum key distribution in the Tokyo QKD Network"
+      },
+      {
+        "arxiv_id": "0903.3907",
+        "title": "High rate, long-distance quantum key distribution over 250\u2009km of ultra low loss fibres"
+      },
+      {
+        "arxiv_id": "0811.2628",
+        "title": "Finite-key analysis for practical implementations of quantum key distribution"
+      },
+      {
+        "arxiv_id": "1109.1435",
+        "title": "One-sided device-independent quantum key distribution: Security, feasibility, and the connection with steering"
+      }
+    ],
+    "labels": [
+      "quantum",
+      "key distribution",
+      "quantum key",
+      "key",
+      "security",
+      "distribution",
+      "secure"
+    ]
+  }
+]

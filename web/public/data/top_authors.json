@@ -1,0 +1,2192 @@
+[
+  {
+    "author": "Karen Simonyan",
+    "n_papers": 50,
+    "sum_citations": 99485,
+    "sum_pr": 6.245,
+    "top_arxiv_ids": [
+      "1802.08435",
+      "1804.00168",
+      "1906.03139"
+    ]
+  },
+  {
+    "author": "Andrew Zisserman",
+    "n_papers": 178,
+    "sum_citations": 99477,
+    "sum_pr": 6.302,
+    "top_arxiv_ids": [
+      "2401.10224",
+      "2401.16423",
+      "2406.05629"
+    ]
+  },
+  {
+    "author": "Diederik P. Kingma",
+    "n_papers": 22,
+    "sum_citations": 93271,
+    "sum_pr": 5.401,
+    "top_arxiv_ids": [
+      "1906.02691",
+      "1907.04809",
+      "2002.11537"
+    ]
+  },
+  {
+    "author": "Jimmy Ba",
+    "n_papers": 53,
+    "sum_citations": 92171,
+    "sum_pr": 5.903,
+    "top_arxiv_ids": [
+      "1802.08249",
+      "1803.04386",
+      "1907.08610"
+    ]
+  },
+  {
+    "author": "David Cournapeau",
+    "n_papers": 2,
+    "sum_citations": 85430,
+    "sum_pr": 1.812,
+    "top_arxiv_ids": [
+      "1201.0490",
+      "2006.10256"
+    ]
+  },
+  {
+    "author": "Oriol Vinyals",
+    "n_papers": 96,
+    "sum_citations": 82059,
+    "sum_pr": 7.676,
+    "top_arxiv_ids": [
+      "1802.10542",
+      "1804.01118",
+      "1806.01822"
+    ]
+  },
+  {
+    "author": "Ga\u00ebl Varoquaux",
+    "n_papers": 29,
+    "sum_citations": 75888,
+    "sum_pr": 3.69,
+    "top_arxiv_ids": [
+      "2409.06857",
+      "2410.16765",
+      "2409.14160"
+    ]
+  },
+  {
+    "author": "Jake Vanderplas",
+    "n_papers": 5,
+    "sum_citations": 72746,
+    "sum_pr": 1.849,
+    "top_arxiv_ids": [
+      "1801.02634",
+      "1201.0490",
+      "1309.0238"
+    ]
+  },
+  {
+    "author": "Mathieu Blondel",
+    "n_papers": 22,
+    "sum_citations": 65940,
+    "sum_pr": 1.883,
+    "top_arxiv_ids": [
+      "2402.04792",
+      "2502.02671",
+      "1802.03676"
+    ]
+  },
+  {
+    "author": "Alexandre Gramfort",
+    "n_papers": 29,
+    "sum_citations": 65897,
+    "sum_pr": 1.881,
+    "top_arxiv_ids": [
+      "2407.14303",
+      "1802.07481",
+      "1301.3611"
+    ]
+  },
+  {
+    "author": "Ron J. Weiss",
+    "n_papers": 33,
+    "sum_citations": 65814,
+    "sum_pr": 1.987,
+    "top_arxiv_ids": [
+      "1712.08363",
+      "1803.09047",
+      "1806.04558"
+    ]
+  },
+  {
+    "author": "Christian Szegedy",
+    "n_papers": 26,
+    "sum_citations": 65661,
+    "sum_pr": 4.343,
+    "top_arxiv_ids": [
+      "2405.06624",
+      "1905.10006",
+      "2006.04757"
+    ]
+  },
+  {
+    "author": "Fabi\u00e1n Pedregosa",
+    "n_papers": 21,
+    "sum_citations": 65593,
+    "sum_pr": 1.875,
+    "top_arxiv_ids": [
+      "2402.13984",
+      "1801.03749",
+      "1803.07348"
+    ]
+  },
+  {
+    "author": "Olivier Grisel",
+    "n_papers": 3,
+    "sum_citations": 65462,
+    "sum_pr": 1.833,
+    "top_arxiv_ids": [
+      "2410.16765",
+      "1201.0490",
+      "1309.0238"
+    ]
+  },
+  {
+    "author": "Peter Prettenhofer",
+    "n_papers": 3,
+    "sum_citations": 65460,
+    "sum_pr": 1.833,
+    "top_arxiv_ids": [
+      "1201.0490",
+      "1008.0716",
+      "1309.0238"
+    ]
+  },
+  {
+    "author": "Quoc V. Le",
+    "n_papers": 147,
+    "sum_citations": 64626,
+    "sum_pr": 5.611,
+    "top_arxiv_ids": [
+      "2402.03620",
+      "2406.04520",
+      "2407.21787"
+    ]
+  },
+  {
+    "author": "Alexandre Passos",
+    "n_papers": 9,
+    "sum_citations": 64004,
+    "sum_pr": 2.055,
+    "top_arxiv_ids": [
+      "1804.03235",
+      "1907.05550",
+      "1403.1349"
+    ]
+  },
+  {
+    "author": "Bertrand Thirion",
+    "n_papers": 17,
+    "sum_citations": 63753,
+    "sum_pr": 1.779,
+    "top_arxiv_ids": [
+      "2312.10858",
+      "1606.06439",
+      "1201.0490"
+    ]
+  },
+  {
+    "author": "Matthieu Perrot",
+    "n_papers": 6,
+    "sum_citations": 63716,
+    "sum_pr": 1.768,
+    "top_arxiv_ids": [
+      "1201.0490",
+      "1701.04355",
+      "1407.5602"
+    ]
+  },
+  {
+    "author": "Vincent Michel",
+    "n_papers": 2,
+    "sum_citations": 63688,
+    "sum_pr": 1.759,
+    "top_arxiv_ids": [
+      "1201.0490",
+      "1105.0363"
+    ]
+  },
+  {
+    "author": "\u00c9douard Duchesnay",
+    "n_papers": 6,
+    "sum_citations": 63668,
+    "sum_pr": 1.765,
+    "top_arxiv_ids": [
+      "1201.0490",
+      "1407.5602",
+      "2206.01646"
+    ]
+  },
+  {
+    "author": "Vincent Dubourg",
+    "n_papers": 3,
+    "sum_citations": 63664,
+    "sum_pr": 1.76,
+    "top_arxiv_ids": [
+      "1201.0490",
+      "1201.3935",
+      "1104.3479"
+    ]
+  },
+  {
+    "author": "Yoshua Bengio",
+    "n_papers": 403,
+    "sum_citations": 62711,
+    "sum_pr": 8.705,
+    "top_arxiv_ids": [
+      "2402.10309",
+      "2405.06624",
+      "2405.12205"
+    ]
+  },
+  {
+    "author": "Ilya Sutskever",
+    "n_papers": 53,
+    "sum_citations": 59859,
+    "sum_pr": 8.567,
+    "top_arxiv_ids": [
+      "2406.04093",
+      "2005.00341",
+      "2005.14165"
+    ]
+  },
+  {
+    "author": "Jay B. Dean",
+    "n_papers": 11,
+    "sum_citations": 57535,
+    "sum_pr": 4.011,
+    "top_arxiv_ids": [
+      "1712.01208",
+      "1812.00825",
+      "1503.02531"
+    ]
+  },
+  {
+    "author": "Carlos Guestrin",
+    "n_papers": 43,
+    "sum_citations": 51164,
+    "sum_pr": 0.94,
+    "top_arxiv_ids": [
+      "2406.07496",
+      "2407.04620",
+      "2408.14717"
+    ]
+  },
+  {
+    "author": "Tianqi Chen",
+    "n_papers": 30,
+    "sum_citations": 51061,
+    "sum_pr": 0.561,
+    "top_arxiv_ids": [
+      "2406.07177",
+      "2409.11219",
+      "2411.15100"
+    ]
+  },
+  {
+    "author": "Ian Goodfellow",
+    "n_papers": 62,
+    "sum_citations": 50978,
+    "sum_pr": 4.971,
+    "top_arxiv_ids": [
+      "1801.07736",
+      "1804.09170",
+      "1805.08318"
+    ]
+  },
+  {
+    "author": "Sergey Levine",
+    "n_papers": 334,
+    "sum_citations": 35015,
+    "sum_pr": 2.839,
+    "top_arxiv_ids": [
+      "2401.12963",
+      "2402.02651",
+      "2405.10292"
+    ]
+  },
+  {
+    "author": "Benoit Steiner",
+    "n_papers": 11,
+    "sum_citations": 34820,
+    "sum_pr": 2.001,
+    "top_arxiv_ids": [
+      "2210.12924",
+      "2106.10544",
+      "1912.01703"
+    ]
+  },
+  {
+    "author": "Pieter Abbeel",
+    "n_papers": 252,
+    "sum_citations": 34105,
+    "sum_pr": 3.134,
+    "top_arxiv_ids": [
+      "2402.10260",
+      "2405.04798",
+      "2406.07398"
+    ]
+  },
+  {
+    "author": "Geoffrey E. Hinton",
+    "n_papers": 45,
+    "sum_citations": 33786,
+    "sum_pr": 5.338,
+    "top_arxiv_ids": [
+      "1804.03235",
+      "1902.01889",
+      "1905.11940"
+    ]
+  },
+  {
+    "author": "Tom\u00e1\u0161 Mikolov",
+    "n_papers": 32,
+    "sum_citations": 32930,
+    "sum_pr": 2.841,
+    "top_arxiv_ids": [
+      "2405.08644",
+      "1712.09405",
+      "1802.02892"
+    ]
+  },
+  {
+    "author": "Koray Kavukcuoglu",
+    "n_papers": 49,
+    "sum_citations": 32735,
+    "sum_pr": 4.15,
+    "top_arxiv_ids": [
+      "1802.08435",
+      "1804.00168",
+      "2006.07733"
+    ]
+  },
+  {
+    "author": "Jian-Wei Pan",
+    "n_papers": 189,
+    "sum_citations": 32494,
+    "sum_pr": 2.1,
+    "top_arxiv_ids": [
+      "2406.02045",
+      "2406.18889",
+      "2407.21415"
+    ]
+  },
+  {
+    "author": "Dumitru Erhan",
+    "n_papers": 27,
+    "sum_citations": 32109,
+    "sum_pr": 2.294,
+    "top_arxiv_ids": [
+      "1806.04768",
+      "2005.03844",
+      "1608.06019"
+    ]
+  },
+  {
+    "author": "Alexey Dosovitskiy",
+    "n_papers": 36,
+    "sum_citations": 32001,
+    "sum_pr": 1.11,
+    "top_arxiv_ids": [
+      "2411.05927",
+      "1708.04538",
+      "1801.06397"
+    ]
+  },
+  {
+    "author": "Nitesh V. Chawla",
+    "n_papers": 52,
+    "sum_citations": 31393,
+    "sum_pr": 0.522,
+    "top_arxiv_ids": [
+      "2402.01680",
+      "2402.04616",
+      "2402.07630"
+    ]
+  },
+  {
+    "author": "Jakob Uszkoreit",
+    "n_papers": 21,
+    "sum_citations": 31260,
+    "sum_pr": 1.113,
+    "top_arxiv_ids": [
+      "1802.05751",
+      "1803.02155",
+      "1803.03382"
+    ]
+  },
+  {
+    "author": "Kevin W. Bowyer",
+    "n_papers": 47,
+    "sum_citations": 31174,
+    "sum_pr": 0.529,
+    "top_arxiv_ids": [
+      "1803.08394",
+      "1804.00194",
+      "1807.05248"
+    ]
+  },
+  {
+    "author": "Wei Liu",
+    "n_papers": 357,
+    "sum_citations": 31014,
+    "sum_pr": 2.293,
+    "top_arxiv_ids": [
+      "2401.10995",
+      "2401.11170",
+      "2401.14617"
+    ]
+  },
+  {
+    "author": "W. Philip Kegelmeyer",
+    "n_papers": 4,
+    "sum_citations": 30839,
+    "sum_pr": 0.462,
+    "top_arxiv_ids": [
+      "1808.04498",
+      "1106.1813",
+      "1103.2068"
+    ]
+  },
+  {
+    "author": "Kaiming He",
+    "n_papers": 62,
+    "sum_citations": 30831,
+    "sum_pr": 3.875,
+    "top_arxiv_ids": [
+      "2401.14404",
+      "2405.16380",
+      "2405.20283"
+    ]
+  },
+  {
+    "author": "Lawrence Hall",
+    "n_papers": 2,
+    "sum_citations": 30788,
+    "sum_pr": 0.451,
+    "top_arxiv_ids": [
+      "2401.17459",
+      "1106.1813"
+    ]
+  },
+  {
+    "author": "Thomas Unterthiner",
+    "n_papers": 19,
+    "sum_citations": 29711,
+    "sum_pr": 0.524,
+    "top_arxiv_ids": [
+      "2409.06509",
+      "1511.07289",
+      "1802.04591"
+    ]
+  },
+  {
+    "author": "Ralf Gommers",
+    "n_papers": 2,
+    "sum_citations": 28996,
+    "sum_pr": 0.068,
+    "top_arxiv_ids": [
+      "1801.02634",
+      "2006.10256"
+    ]
+  },
+  {
+    "author": "Zhifeng Chen",
+    "n_papers": 51,
+    "sum_citations": 28916,
+    "sum_pr": 2.343,
+    "top_arxiv_ids": [
+      "2502.13965",
+      "1804.09849",
+      "1806.04558"
+    ]
+  },
+  {
+    "author": "Jian Sun",
+    "n_papers": 177,
+    "sum_citations": 28679,
+    "sum_pr": 3.321,
+    "top_arxiv_ids": [
+      "2412.00517",
+      "2503.23407",
+      "2505.00972"
+    ]
+  },
+  {
+    "author": "Kai Chen",
+    "n_papers": 253,
+    "sum_citations": 28564,
+    "sum_pr": 1.838,
+    "top_arxiv_ids": [
+      "2401.02955",
+      "2401.08202",
+      "2401.10226"
+    ]
+  },
+  {
+    "author": "J\u00fcrgen Schmidhuber",
+    "n_papers": 80,
+    "sum_citations": 28464,
+    "sum_pr": 2.008,
+    "top_arxiv_ids": [
+      "2402.16823",
+      "2405.16039",
+      "2410.10934"
+    ]
+  },
+  {
+    "author": "Greg S. Corrado",
+    "n_papers": 22,
+    "sum_citations": 28443,
+    "sum_pr": 1.959,
+    "top_arxiv_ids": [
+      "2406.19578",
+      "1801.07860",
+      "1812.00825"
+    ]
+  },
+  {
+    "author": "Ross Girshick",
+    "n_papers": 71,
+    "sum_citations": 27447,
+    "sum_pr": 3.843,
+    "top_arxiv_ids": [
+      "2408.00714",
+      "2409.17146",
+      "1712.01238"
+    ]
+  },
+  {
+    "author": "Kyunghyun Cho",
+    "n_papers": 199,
+    "sum_citations": 27401,
+    "sum_pr": 3.888,
+    "top_arxiv_ids": [
+      "2401.10020",
+      "2408.00165",
+      "2411.08019"
+    ]
+  },
+  {
+    "author": "Lucas Beyer",
+    "n_papers": 40,
+    "sum_citations": 27325,
+    "sum_pr": 0.5,
+    "top_arxiv_ids": [
+      "2502.14786",
+      "1804.02463",
+      "1804.10134"
+    ]
+  },
+  {
+    "author": "\u0141ukasz Kaiser",
+    "n_papers": 32,
+    "sum_citations": 27182,
+    "sum_pr": 3.231,
+    "top_arxiv_ids": [
+      "1801.04883",
+      "1801.09797",
+      "1801.10198"
+    ]
+  },
+  {
+    "author": "Trevor Darrell",
+    "n_papers": 221,
+    "sum_citations": 26954,
+    "sum_pr": 4.935,
+    "top_arxiv_ids": [
+      "2401.14391",
+      "2402.13144",
+      "2406.12172"
+    ]
+  },
+  {
+    "author": "Scott Reed",
+    "n_papers": 25,
+    "sum_citations": 26532,
+    "sum_pr": 1.86,
+    "top_arxiv_ids": [
+      "2006.15134",
+      "1409.4842",
+      "1412.1441"
+    ]
+  },
+  {
+    "author": "Jarrod R. McClean",
+    "n_papers": 55,
+    "sum_citations": 25737,
+    "sum_pr": 0.945,
+    "top_arxiv_ids": [
+      "2405.00781",
+      "1611.03511",
+      "1701.02691"
+    ]
+  },
+  {
+    "author": "Sergey Ioffe",
+    "n_papers": 8,
+    "sum_citations": 25687,
+    "sum_pr": 1.534,
+    "top_arxiv_ids": [
+      "1502.03167",
+      "1512.00567",
+      "1312.4894"
+    ]
+  },
+  {
+    "author": "Neil Houlsby",
+    "n_papers": 47,
+    "sum_citations": 25662,
+    "sum_pr": 0.374,
+    "top_arxiv_ids": [
+      "2405.08807",
+      "1801.07537",
+      "1803.02780"
+    ]
+  },
+  {
+    "author": "John M. Martinis",
+    "n_papers": 76,
+    "sum_citations": 25466,
+    "sum_pr": 1.919,
+    "top_arxiv_ids": [
+      "2402.09145",
+      "2411.10406",
+      "1608.00263"
+    ]
+  },
+  {
+    "author": "Mart\u0131\u0301n Abadi",
+    "n_papers": 12,
+    "sum_citations": 24903,
+    "sum_pr": 1.701,
+    "top_arxiv_ids": [
+      "1503.08877",
+      "1708.08022",
+      "1712.09665"
+    ]
+  },
+  {
+    "author": "Xiaohua Zhai",
+    "n_papers": 40,
+    "sum_citations": 24805,
+    "sum_pr": 0.316,
+    "top_arxiv_ids": [
+      "2502.07617",
+      "2502.14786",
+      "1803.11203"
+    ]
+  },
+  {
+    "author": "Mostafa Dehghani",
+    "n_papers": 50,
+    "sum_citations": 24644,
+    "sum_pr": 0.266,
+    "top_arxiv_ids": [
+      "2402.01825",
+      "2006.00555",
+      "2006.12459"
+    ]
+  },
+  {
+    "author": "Jonathon Shlens",
+    "n_papers": 44,
+    "sum_citations": 24625,
+    "sum_pr": 2.033,
+    "top_arxiv_ids": [
+      "1707.07012",
+      "1711.10151",
+      "1803.06092"
+    ]
+  },
+  {
+    "author": "Soumith Chintala",
+    "n_papers": 21,
+    "sum_citations": 24569,
+    "sum_pr": 1.72,
+    "top_arxiv_ids": [
+      "2006.15704",
+      "1412.7580",
+      "1503.03438"
+    ]
+  },
+  {
+    "author": "Alexander C. Berg",
+    "n_papers": 26,
+    "sum_citations": 24544,
+    "sum_pr": 0.437,
+    "top_arxiv_ids": [
+      "1801.03049",
+      "1803.04610",
+      "1901.03353"
+    ]
+  },
+  {
+    "author": "Lei Zhang",
+    "n_papers": 432,
+    "sum_citations": 24424,
+    "sum_pr": 1.397,
+    "top_arxiv_ids": [
+      "2401.07579",
+      "2401.14148",
+      "2401.14159"
+    ]
+  },
+  {
+    "author": "Alexander Kolesnikov",
+    "n_papers": 19,
+    "sum_citations": 24307,
+    "sum_pr": 0.356,
+    "top_arxiv_ids": [
+      "1807.02136",
+      "1901.09005",
+      "2006.07159"
+    ]
+  },
+  {
+    "author": "Sylvain Gelly",
+    "n_papers": 40,
+    "sum_citations": 24083,
+    "sum_pr": 0.434,
+    "top_arxiv_ids": [
+      "1803.08367",
+      "1803.11203",
+      "1804.11130"
+    ]
+  },
+  {
+    "author": "Alec Radford",
+    "n_papers": 19,
+    "sum_citations": 23942,
+    "sum_pr": 1.638,
+    "top_arxiv_ids": [
+      "2406.04093",
+      "1803.05573",
+      "2005.00341"
+    ]
+  },
+  {
+    "author": "Florian Schroff",
+    "n_papers": 18,
+    "sum_citations": 23837,
+    "sum_pr": 0.709,
+    "top_arxiv_ids": [
+      "2401.06129",
+      "2402.13217",
+      "1802.02611"
+    ]
+  },
+  {
+    "author": "Dragomir Anguelov",
+    "n_papers": 33,
+    "sum_citations": 23696,
+    "sum_pr": 1.625,
+    "top_arxiv_ids": [
+      "2404.19531",
+      "2004.00831",
+      "2005.03844"
+    ]
+  },
+  {
+    "author": "Ryan Babbush",
+    "n_papers": 77,
+    "sum_citations": 23664,
+    "sum_pr": 0.923,
+    "top_arxiv_ids": [
+      "2408.13687",
+      "2409.04643",
+      "2412.14256"
+    ]
+  },
+  {
+    "author": "David Silver",
+    "n_papers": 53,
+    "sum_citations": 23317,
+    "sum_pr": 2.731,
+    "top_arxiv_ids": [
+      "2002.12928",
+      "2007.08433",
+      "1802.04697"
+    ]
+  },
+  {
+    "author": "Cheng-Yang Fu",
+    "n_papers": 13,
+    "sum_citations": 22661,
+    "sum_pr": 0.266,
+    "top_arxiv_ids": [
+      "1803.04610",
+      "1901.03353",
+      "1906.06597"
+    ]
+  },
+  {
+    "author": "Dirk Weissenborn",
+    "n_papers": 17,
+    "sum_citations": 22390,
+    "sum_pr": 0.236,
+    "top_arxiv_ids": [
+      "1805.01646",
+      "1906.02634",
+      "2006.15055"
+    ]
+  },
+  {
+    "author": "Dzmitry Bahdanau",
+    "n_papers": 36,
+    "sum_citations": 22196,
+    "sum_pr": 2.424,
+    "top_arxiv_ids": [
+      "2405.13022",
+      "2410.02907",
+      "2412.08445"
+    ]
+  },
+  {
+    "author": "Stephan Hoyer",
+    "n_papers": 4,
+    "sum_citations": 22011,
+    "sum_pr": 0.061,
+    "top_arxiv_ids": [
+      "2402.04467",
+      "2212.12794",
+      "2003.04630"
+    ]
+  },
+  {
+    "author": "Matthias Minderer",
+    "n_papers": 15,
+    "sum_citations": 21968,
+    "sum_pr": 0.184,
+    "top_arxiv_ids": [
+      "2401.09865",
+      "1906.07889",
+      "2007.08558"
+    ]
+  },
+  {
+    "author": "Georg Heigold",
+    "n_papers": 7,
+    "sum_citations": 21871,
+    "sum_pr": 0.17,
+    "top_arxiv_ids": [
+      "2006.15055",
+      "2103.15691",
+      "1509.08062"
+    ]
+  },
+  {
+    "author": "Pauli Virtanen",
+    "n_papers": 2,
+    "sum_citations": 21807,
+    "sum_pr": 0.057,
+    "top_arxiv_ids": [
+      "1403.6586",
+      "2006.10256"
+    ]
+  },
+  {
+    "author": "Michael Isard",
+    "n_papers": 9,
+    "sum_citations": 21792,
+    "sum_pr": 1.319,
+    "top_arxiv_ids": [
+      "2312.11805",
+      "1805.01772",
+      "1503.08877"
+    ]
+  },
+  {
+    "author": "Eric Wieser",
+    "n_papers": 3,
+    "sum_citations": 21778,
+    "sum_pr": 0.057,
+    "top_arxiv_ids": [
+      "2306.00617",
+      "2110.03551",
+      "2006.10256"
+    ]
+  },
+  {
+    "author": "Sebastian Berg",
+    "n_papers": 2,
+    "sum_citations": 21772,
+    "sum_pr": 0.056,
+    "top_arxiv_ids": [
+      "2205.15882",
+      "2006.10256"
+    ]
+  },
+  {
+    "author": "Liang-Chieh Chen",
+    "n_papers": 45,
+    "sum_citations": 21314,
+    "sum_pr": 1.065,
+    "top_arxiv_ids": [
+      "2411.00776",
+      "1801.04381",
+      "1802.02611"
+    ]
+  },
+  {
+    "author": "Paul Barham",
+    "n_papers": 8,
+    "sum_citations": 21286,
+    "sum_pr": 1.313,
+    "top_arxiv_ids": [
+      "1805.01772",
+      "1206.3280",
+      "2305.10403"
+    ]
+  },
+  {
+    "author": "Vijay Vasudevan",
+    "n_papers": 15,
+    "sum_citations": 21128,
+    "sum_pr": 1.554,
+    "top_arxiv_ids": [
+      "1707.07012",
+      "1805.09501",
+      "1805.10255"
+    ]
+  },
+  {
+    "author": "Sanjay Ghemawat",
+    "n_papers": 5,
+    "sum_citations": 20819,
+    "sum_pr": 1.306,
+    "top_arxiv_ids": [
+      "1805.01772",
+      "2203.12533",
+      "2204.02311"
+    ]
+  },
+  {
+    "author": "Max Welling",
+    "n_papers": 133,
+    "sum_citations": 20796,
+    "sum_pr": 1.615,
+    "top_arxiv_ids": [
+      "2402.00809",
+      "2409.13669",
+      "2501.18665"
+    ]
+  },
+  {
+    "author": "Dacheng Tao",
+    "n_papers": 481,
+    "sum_citations": 20775,
+    "sum_pr": 1.236,
+    "top_arxiv_ids": [
+      "2401.03203",
+      "2401.06561",
+      "2401.06628"
+    ]
+  },
+  {
+    "author": "Philip S. Yu",
+    "n_papers": 341,
+    "sum_citations": 20683,
+    "sum_pr": 0.753,
+    "top_arxiv_ids": [
+      "2401.12780",
+      "2401.13210",
+      "2402.08670"
+    ]
+  },
+  {
+    "author": "Mohammad Norouzi",
+    "n_papers": 65,
+    "sum_citations": 20639,
+    "sum_pr": 1.487,
+    "top_arxiv_ids": [
+      "1801.03526",
+      "1804.09541",
+      "1805.10255"
+    ]
+  },
+  {
+    "author": "Yangqing Jia",
+    "n_papers": 13,
+    "sum_citations": 20485,
+    "sum_pr": 4.371,
+    "top_arxiv_ids": [
+      "1408.5093",
+      "1409.4842",
+      "1210.4920"
+    ]
+  },
+  {
+    "author": "H. Brendan McMahan",
+    "n_papers": 32,
+    "sum_citations": 20421,
+    "sum_pr": 1.157,
+    "top_arxiv_ids": [
+      "2407.07737",
+      "2408.08868",
+      "2410.08892"
+    ]
+  },
+  {
+    "author": "Myle Ott",
+    "n_papers": 30,
+    "sum_citations": 20381,
+    "sum_pr": 1.031,
+    "top_arxiv_ids": [
+      "1711.04956",
+      "1803.00047",
+      "1804.07755"
+    ]
+  },
+  {
+    "author": "Geoffrey Irving",
+    "n_papers": 25,
+    "sum_citations": 20108,
+    "sum_pr": 1.354,
+    "top_arxiv_ids": [
+      "2411.08088",
+      "2507.11473",
+      "2311.14125"
+    ]
+  },
+  {
+    "author": "Rajat Monga",
+    "n_papers": 8,
+    "sum_citations": 19781,
+    "sum_pr": 1.653,
+    "top_arxiv_ids": [
+      "1412.7479",
+      "1805.01772",
+      "1503.08909"
+    ]
+  },
+  {
+    "author": "Armand Joulin",
+    "n_papers": 69,
+    "sum_citations": 19647,
+    "sum_pr": 1.07,
+    "top_arxiv_ids": [
+      "2401.08541",
+      "2405.15613",
+      "1712.09405"
+    ]
+  },
+  {
+    "author": "Daan Wierstra",
+    "n_papers": 26,
+    "sum_citations": 19548,
+    "sum_pr": 2.836,
+    "top_arxiv_ids": [
+      "1806.01822",
+      "1802.03006",
+      "1802.04697"
+    ]
+  },
+  {
+    "author": "Jeremy L. O\u2019Brien",
+    "n_papers": 63,
+    "sum_citations": 19457,
+    "sum_pr": 1.641,
+    "top_arxiv_ids": [
+      "2404.17570",
+      "1611.03511",
+      "1901.06039"
+    ]
+  },
+  {
+    "author": "Sherry Moore",
+    "n_papers": 5,
+    "sum_citations": 19133,
+    "sum_pr": 1.353,
+    "top_arxiv_ids": [
+      "2408.03906",
+      "2309.03315",
+      "1603.04467"
+    ]
+  },
+  {
+    "author": "Andy Davis",
+    "n_papers": 5,
+    "sum_citations": 19041,
+    "sum_pr": 1.338,
+    "top_arxiv_ids": [
+      "1805.01772",
+      "1603.04467",
+      "1605.08695"
+    ]
+  },
+  {
+    "author": "Michael I. Jordan",
+    "n_papers": 211,
+    "sum_citations": 18956,
+    "sum_pr": 2.454,
+    "top_arxiv_ids": [
+      "2410.18404",
+      "2501.10139",
+      "1410.6843"
+    ]
+  },
+  {
+    "author": "Pete Warden",
+    "n_papers": 11,
+    "sum_citations": 18893,
+    "sum_pr": 1.307,
+    "top_arxiv_ids": [
+      "2405.00892",
+      "1906.05721",
+      "2104.01454"
+    ]
+  },
+  {
+    "author": "Manjunath Kudlur",
+    "n_papers": 5,
+    "sum_citations": 18841,
+    "sum_pr": 1.348,
+    "top_arxiv_ids": [
+      "2405.00892",
+      "1805.01772",
+      "1511.06391"
+    ]
+  },
+  {
+    "author": "Yuan Yu",
+    "n_papers": 6,
+    "sum_citations": 18798,
+    "sum_pr": 1.299,
+    "top_arxiv_ids": [
+      "1804.08386",
+      "1805.01772",
+      "1911.00231"
+    ]
+  },
+  {
+    "author": "Matthieu Devin",
+    "n_papers": 3,
+    "sum_citations": 18764,
+    "sum_pr": 1.481,
+    "top_arxiv_ids": [
+      "1112.6209",
+      "1603.04467",
+      "1605.08695"
+    ]
+  },
+  {
+    "author": "Wojciech Zaremba",
+    "n_papers": 27,
+    "sum_citations": 18727,
+    "sum_pr": 2.085,
+    "top_arxiv_ids": [
+      "2507.11473",
+      "2107.03374",
+      "1404.0736"
+    ]
+  },
+  {
+    "author": "Xiaoqiang Zheng",
+    "n_papers": 3,
+    "sum_citations": 18653,
+    "sum_pr": 1.291,
+    "top_arxiv_ids": [
+      "1805.01772",
+      "1603.04467",
+      "1605.08695"
+    ]
+  },
+  {
+    "author": "Josh Levenberg",
+    "n_papers": 3,
+    "sum_citations": 18637,
+    "sum_pr": 1.294,
+    "top_arxiv_ids": [
+      "1603.04467",
+      "1605.08695",
+      "1903.01855"
+    ]
+  },
+  {
+    "author": "Aaron Courville",
+    "n_papers": 142,
+    "sum_citations": 18632,
+    "sum_pr": 2.027,
+    "top_arxiv_ids": [
+      "2402.06457",
+      "2410.01679",
+      "1801.04062"
+    ]
+  },
+  {
+    "author": "Yinhan Liu",
+    "n_papers": 8,
+    "sum_citations": 18632,
+    "sum_pr": 1.005,
+    "top_arxiv_ids": [
+      "1907.11692",
+      "2004.13637",
+      "2104.07545"
+    ]
+  },
+  {
+    "author": "Martin Wicke",
+    "n_papers": 5,
+    "sum_citations": 18605,
+    "sum_pr": 1.293,
+    "top_arxiv_ids": [
+      "1802.05522",
+      "1603.04467",
+      "1605.08695"
+    ]
+  },
+  {
+    "author": "Derek G. Murray",
+    "n_papers": 3,
+    "sum_citations": 18594,
+    "sum_pr": 1.288,
+    "top_arxiv_ids": [
+      "2101.12127",
+      "1603.04467",
+      "1605.08695"
+    ]
+  },
+  {
+    "author": "Paul A. Tucker",
+    "n_papers": 2,
+    "sum_citations": 18585,
+    "sum_pr": 1.287,
+    "top_arxiv_ids": [
+      "1603.04467",
+      "1605.08695"
+    ]
+  },
+  {
+    "author": "James Bradbury",
+    "n_papers": 12,
+    "sum_citations": 18452,
+    "sum_pr": 0.975,
+    "top_arxiv_ids": [
+      "2006.13425",
+      "1506.07285",
+      "1908.09453"
+    ]
+  },
+  {
+    "author": "Adam Paszke",
+    "n_papers": 12,
+    "sum_citations": 18340,
+    "sum_pr": 0.894,
+    "top_arxiv_ids": [
+      "2006.15704",
+      "2104.05372",
+      "2102.13254"
+    ]
+  },
+  {
+    "author": "Francisco Massa",
+    "n_papers": 10,
+    "sum_citations": 18267,
+    "sum_pr": 0.732,
+    "top_arxiv_ids": [
+      "2506.09985",
+      "2005.12872",
+      "1412.7190"
+    ]
+  },
+  {
+    "author": "Franco Nori",
+    "n_papers": 185,
+    "sum_citations": 17975,
+    "sum_pr": 1.127,
+    "top_arxiv_ids": [
+      "2402.12044",
+      "2405.13623",
+      "2412.04705"
+    ]
+  },
+  {
+    "author": "Yann LeCun",
+    "n_papers": 135,
+    "sum_citations": 17833,
+    "sum_pr": 2.131,
+    "top_arxiv_ids": [
+      "2401.06209",
+      "2402.07630",
+      "2402.11337"
+    ]
+  },
+  {
+    "author": "Jay Gambetta",
+    "n_papers": 76,
+    "sum_citations": 17714,
+    "sum_pr": 1.52,
+    "top_arxiv_ids": [
+      "2401.16317",
+      "2405.08810",
+      "2506.03094"
+    ]
+  },
+  {
+    "author": "Kunal Talwar",
+    "n_papers": 53,
+    "sum_citations": 17624,
+    "sum_pr": 1.647,
+    "top_arxiv_ids": [
+      "1802.08908",
+      "2005.04763",
+      "2006.06914"
+    ]
+  },
+  {
+    "author": "Jingfei Du",
+    "n_papers": 15,
+    "sum_citations": 17563,
+    "sum_pr": 0.818,
+    "top_arxiv_ids": [
+      "1907.11692",
+      "2004.14287",
+      "2112.10668"
+    ]
+  },
+  {
+    "author": "George Papandreou",
+    "n_papers": 14,
+    "sum_citations": 17525,
+    "sum_pr": 0.826,
+    "top_arxiv_ids": [
+      "1802.02611",
+      "1803.08225",
+      "1902.05093"
+    ]
+  },
+  {
+    "author": "Lu Fang",
+    "n_papers": 24,
+    "sum_citations": 17473,
+    "sum_pr": 0.749,
+    "top_arxiv_ids": [
+      "1707.05726",
+      "1805.05139",
+      "2003.04852"
+    ]
+  },
+  {
+    "author": "Barret Zoph",
+    "n_papers": 35,
+    "sum_citations": 17460,
+    "sum_pr": 0.936,
+    "top_arxiv_ids": [
+      "2412.16720",
+      "1707.07012",
+      "1802.03268"
+    ]
+  },
+  {
+    "author": "Noam Shazeer",
+    "n_papers": 35,
+    "sum_citations": 17447,
+    "sum_pr": 1.536,
+    "top_arxiv_ids": [
+      "1801.10198",
+      "1802.05751",
+      "1803.03382"
+    ]
+  },
+  {
+    "author": "Alykhan Tejani",
+    "n_papers": 7,
+    "sum_citations": 17388,
+    "sum_pr": 0.805,
+    "top_arxiv_ids": [
+      "1801.05787",
+      "2007.14523",
+      "1907.06558"
+    ]
+  },
+  {
+    "author": "Ruslan Salakhutdinov",
+    "n_papers": 196,
+    "sum_citations": 17319,
+    "sum_pr": 5.426,
+    "top_arxiv_ids": [
+      "2401.13649",
+      "2406.12814",
+      "2407.01476"
+    ]
+  },
+  {
+    "author": "Hartmut Neven",
+    "n_papers": 61,
+    "sum_citations": 17250,
+    "sum_pr": 0.733,
+    "top_arxiv_ids": [
+      "1608.00263",
+      "1706.00023",
+      "1709.06678"
+    ]
+  },
+  {
+    "author": "Sergio Boixo",
+    "n_papers": 52,
+    "sum_citations": 17115,
+    "sum_pr": 0.931,
+    "top_arxiv_ids": [
+      "2408.13687",
+      "1608.00263",
+      "1709.06678"
+    ]
+  },
+  {
+    "author": "Chelsea Finn",
+    "n_papers": 184,
+    "sum_citations": 17029,
+    "sum_pr": 1.136,
+    "top_arxiv_ids": [
+      "2401.03306",
+      "2401.10220",
+      "2401.12963"
+    ]
+  },
+  {
+    "author": "Seth Lloyd",
+    "n_papers": 109,
+    "sum_citations": 16927,
+    "sum_pr": 1.133,
+    "top_arxiv_ids": [
+      "2501.12378",
+      "1607.05404",
+      "1703.08104"
+    ]
+  },
+  {
+    "author": "Adam Lerer",
+    "n_papers": 19,
+    "sum_citations": 16823,
+    "sum_pr": 0.819,
+    "top_arxiv_ids": [
+      "2412.16720",
+      "2003.02979",
+      "2007.13544"
+    ]
+  },
+  {
+    "author": "Mike Schuster",
+    "n_papers": 9,
+    "sum_citations": 16818,
+    "sum_pr": 2.152,
+    "top_arxiv_ids": [
+      "1804.09849",
+      "1312.3005",
+      "1902.08295"
+    ]
+  },
+  {
+    "author": "Sam Gross",
+    "n_papers": 9,
+    "sum_citations": 16671,
+    "sum_pr": 0.836,
+    "top_arxiv_ids": [
+      "1906.03351",
+      "2004.10188",
+      "1811.00164"
+    ]
+  },
+  {
+    "author": "Yang Liu",
+    "n_papers": 828,
+    "sum_citations": 16605,
+    "sum_pr": 1.907,
+    "top_arxiv_ids": [
+      "2401.00676",
+      "2401.01568",
+      "2401.03218"
+    ]
+  },
+  {
+    "author": "Zeming Lin",
+    "n_papers": 9,
+    "sum_citations": 16574,
+    "sum_pr": 0.769,
+    "top_arxiv_ids": [
+      "1805.11199",
+      "1906.12266",
+      "1812.00054"
+    ]
+  },
+  {
+    "author": "Zachary DeVito",
+    "n_papers": 9,
+    "sum_citations": 16481,
+    "sum_pr": 0.765,
+    "top_arxiv_ids": [
+      "2410.21680",
+      "1802.04730",
+      "2312.14385"
+    ]
+  },
+  {
+    "author": "Alban Desmaison",
+    "n_papers": 14,
+    "sum_citations": 16464,
+    "sum_pr": 0.749,
+    "top_arxiv_ids": [
+      "1805.09028",
+      "2104.06718",
+      "2110.01414"
+    ]
+  },
+  {
+    "author": "Andreas K\u00f6pf",
+    "n_papers": 3,
+    "sum_citations": 16323,
+    "sum_pr": 0.707,
+    "top_arxiv_ids": [
+      "2505.24760",
+      "2304.07327",
+      "1912.01703"
+    ]
+  },
+  {
+    "author": "Martin Raison",
+    "n_papers": 4,
+    "sum_citations": 16261,
+    "sum_pr": 0.717,
+    "top_arxiv_ids": [
+      "1804.10490",
+      "1912.01703",
+      "1503.07881"
+    ]
+  },
+  {
+    "author": "Natalia Gimelshein",
+    "n_papers": 3,
+    "sum_citations": 16208,
+    "sum_pr": 0.706,
+    "top_arxiv_ids": [
+      "1805.02867",
+      "1912.01703",
+      "1602.08124"
+    ]
+  },
+  {
+    "author": "Sasank Chilamkurthy",
+    "n_papers": 2,
+    "sum_citations": 16206,
+    "sum_pr": 0.705,
+    "top_arxiv_ids": [
+      "1707.09813",
+      "1912.01703"
+    ]
+  },
+  {
+    "author": "Edward Z. Yang",
+    "n_papers": 5,
+    "sum_citations": 16203,
+    "sum_pr": 0.709,
+    "top_arxiv_ids": [
+      "1501.04132",
+      "2110.15018",
+      "1305.6543"
+    ]
+  },
+  {
+    "author": "Junjie Bai",
+    "n_papers": 5,
+    "sum_citations": 16196,
+    "sum_pr": 0.709,
+    "top_arxiv_ids": [
+      "2103.05288",
+      "2205.11005",
+      "1912.01703"
+    ]
+  },
+  {
+    "author": "Luca Antiga",
+    "n_papers": 2,
+    "sum_citations": 16193,
+    "sum_pr": 0.705,
+    "top_arxiv_ids": [
+      "2104.00405",
+      "1912.01703"
+    ]
+  },
+  {
+    "author": "Timothy Lillicrap",
+    "n_papers": 65,
+    "sum_citations": 16148,
+    "sum_pr": 1.489,
+    "top_arxiv_ids": [
+      "2405.00451",
+      "2405.12205",
+      "2405.14573"
+    ]
+  },
+  {
+    "author": "Anton Zeilinger",
+    "n_papers": 61,
+    "sum_citations": 16117,
+    "sum_pr": 1.236,
+    "top_arxiv_ids": [
+      "1706.00868",
+      "1906.06843",
+      "1907.04864"
+    ]
+  },
+  {
+    "author": "Mehdi Mirza",
+    "n_papers": 15,
+    "sum_citations": 16032,
+    "sum_pr": 1.208,
+    "top_arxiv_ids": [
+      "1803.10760",
+      "1302.4389",
+      "1308.4214"
+    ]
+  },
+  {
+    "author": "Geert Litjens",
+    "n_papers": 21,
+    "sum_citations": 15948,
+    "sum_pr": 0.327,
+    "top_arxiv_ids": [
+      "2501.02922",
+      "1803.05471",
+      "1804.05712"
+    ]
+  },
+  {
+    "author": "Shirui Pan",
+    "n_papers": 118,
+    "sum_citations": 15837,
+    "sum_pr": 0.29,
+    "top_arxiv_ids": [
+      "2310.05499",
+      "2401.05800",
+      "2401.06176"
+    ]
+  },
+  {
+    "author": "Jeroen van der Laak",
+    "n_papers": 19,
+    "sum_citations": 15715,
+    "sum_pr": 0.315,
+    "top_arxiv_ids": [
+      "2406.11538",
+      "1808.05883",
+      "1811.02840"
+    ]
+  },
+  {
+    "author": "Al\u00e1n Aspuru\u2010Guzik",
+    "n_papers": 108,
+    "sum_citations": 15647,
+    "sum_pr": 1.151,
+    "top_arxiv_ids": [
+      "2401.09253",
+      "2401.09268",
+      "2402.05015"
+    ]
+  },
+  {
+    "author": "Francesco Ciompi",
+    "n_papers": 17,
+    "sum_citations": 15628,
+    "sum_pr": 0.318,
+    "top_arxiv_ids": [
+      "1807.08284",
+      "1811.02840",
+      "1902.06543"
+    ]
+  },
+  {
+    "author": "Xiangnan He",
+    "n_papers": 141,
+    "sum_citations": 15591,
+    "sum_pr": 0.609,
+    "top_arxiv_ids": [
+      "2402.05962",
+      "2402.15215",
+      "2406.03210"
+    ]
+  },
+  {
+    "author": "Richard S. Zemel",
+    "n_papers": 71,
+    "sum_citations": 15459,
+    "sum_pr": 1.84,
+    "top_arxiv_ids": [
+      "1802.06309",
+      "1803.00676",
+      "1803.06396"
+    ]
+  },
+  {
+    "author": "Shaoqing Ren",
+    "n_papers": 7,
+    "sum_citations": 15431,
+    "sum_pr": 2.305,
+    "top_arxiv_ids": [
+      "1406.4729",
+      "1502.01852",
+      "1504.06066"
+    ]
+  },
+  {
+    "author": "Yu Chen",
+    "n_papers": 172,
+    "sum_citations": 15251,
+    "sum_pr": 0.798,
+    "top_arxiv_ids": [
+      "2405.04902",
+      "2405.11794",
+      "2405.13943"
+    ]
+  },
+  {
+    "author": "Bram van Ginneken",
+    "n_papers": 19,
+    "sum_citations": 15074,
+    "sum_pr": 0.307,
+    "top_arxiv_ids": [
+      "2507.20859",
+      "1801.05040",
+      "1808.05883"
+    ]
+  },
+  {
+    "author": "Wangmeng Zuo",
+    "n_papers": 159,
+    "sum_citations": 15029,
+    "sum_pr": 0.717,
+    "top_arxiv_ids": [
+      "2401.01598",
+      "2402.01166",
+      "2406.01476"
+    ]
+  },
+  {
+    "author": "A\u00e4ron van den Oord",
+    "n_papers": 36,
+    "sum_citations": 14935,
+    "sum_pr": 0.998,
+    "top_arxiv_ids": [
+      "1802.08435",
+      "1804.02476",
+      "1901.03416"
+    ]
+  },
+  {
+    "author": "John Schulman",
+    "n_papers": 32,
+    "sum_citations": 14913,
+    "sum_pr": 1.401,
+    "top_arxiv_ids": [
+      "2411.04368",
+      "2505.05410",
+      "1803.02999"
+    ]
+  },
+  {
+    "author": "Yi Li",
+    "n_papers": 141,
+    "sum_citations": 14906,
+    "sum_pr": 0.737,
+    "top_arxiv_ids": [
+      "2401.08807",
+      "2402.14810",
+      "2405.00742"
+    ]
+  },
+  {
+    "author": "Amanda Askell",
+    "n_papers": 17,
+    "sum_citations": 14808,
+    "sum_pr": 0.287,
+    "top_arxiv_ids": [
+      "2401.05566",
+      "2005.14165",
+      "2103.00020"
+    ]
+  },
+  {
+    "author": "Mohsen Ghafoorian",
+    "n_papers": 11,
+    "sum_citations": 14770,
+    "sum_pr": 0.291,
+    "top_arxiv_ids": [
+      "2402.16848",
+      "1801.05040",
+      "1806.05525"
+    ]
+  },
+  {
+    "author": "Alan Yuille",
+    "n_papers": 233,
+    "sum_citations": 14757,
+    "sum_pr": 1.249,
+    "top_arxiv_ids": [
+      "2401.10848",
+      "2402.10896",
+      "2405.14858"
+    ]
+  },
+  {
+    "author": "Babak Ehteshami Bejnordi",
+    "n_papers": 16,
+    "sum_citations": 14513,
+    "sum_pr": 0.288,
+    "top_arxiv_ids": [
+      "2402.16844",
+      "2402.16848",
+      "2412.00099"
+    ]
+  },
+  {
+    "author": "Vadim Smelyanskiy",
+    "n_papers": 34,
+    "sum_citations": 14486,
+    "sum_pr": 0.602,
+    "top_arxiv_ids": [
+      "1608.00263",
+      "1709.06678",
+      "1711.05395"
+    ]
+  },
+  {
+    "author": "Nicolas Heess",
+    "n_papers": 97,
+    "sum_citations": 14411,
+    "sum_pr": 1.541,
+    "top_arxiv_ids": [
+      "2402.11450",
+      "2405.02425",
+      "2405.11457"
+    ]
+  },
+  {
+    "author": "Chao\u2010Yang Lu",
+    "n_papers": 72,
+    "sum_citations": 14295,
+    "sum_pr": 0.905,
+    "top_arxiv_ids": [
+      "2406.02045",
+      "2406.18889",
+      "2508.09092"
+    ]
+  },
+  {
+    "author": "Jure Leskovec",
+    "n_papers": 114,
+    "sum_citations": 14172,
+    "sum_pr": 0.585,
+    "top_arxiv_ids": [
+      "2401.03134",
+      "2402.14367",
+      "2405.17631"
+    ]
+  },
+  {
+    "author": "Clara I. S\u00e1\u200enchez",
+    "n_papers": 2,
+    "sum_citations": 14168,
+    "sum_pr": 0.262,
+    "top_arxiv_ids": [
+      "1610.04834",
+      "1702.05747"
+    ]
+  },
+  {
+    "author": "Thijs Kooi",
+    "n_papers": 3,
+    "sum_citations": 14146,
+    "sum_pr": 0.256,
+    "top_arxiv_ids": [
+      "2303.15699",
+      "1702.05747",
+      "1703.07715"
+    ]
+  },
+  {
+    "author": "Jianfeng Gao",
+    "n_papers": 267,
+    "sum_citations": 14099,
+    "sum_pr": 1.278,
+    "top_arxiv_ids": [
+      "2401.03568",
+      "2401.13986",
+      "2402.01761"
+    ]
+  },
+  {
+    "author": "Kai Zhang",
+    "n_papers": 140,
+    "sum_citations": 13858,
+    "sum_pr": 0.616,
+    "top_arxiv_ids": [
+      "2401.09126",
+      "2401.11859",
+      "2402.00680"
+    ]
+  },
+  {
+    "author": "Masoud Mohseni",
+    "n_papers": 33,
+    "sum_citations": 13836,
+    "sum_pr": 0.592,
+    "top_arxiv_ids": [
+      "2407.00071",
+      "2411.10406",
+      "1907.00707"
+    ]
+  },
+  {
+    "author": "Yu Qiao",
+    "n_papers": 311,
+    "sum_citations": 13818,
+    "sum_pr": 0.997,
+    "top_arxiv_ids": [
+      "2401.02384",
+      "2401.03048",
+      "2401.06197"
+    ]
+  },
+  {
+    "author": "Xiangyu Zhang",
+    "n_papers": 145,
+    "sum_citations": 13764,
+    "sum_pr": 2.048,
+    "top_arxiv_ids": [
+      "2401.12503",
+      "2402.05467",
+      "2405.14295"
+    ]
+  },
+  {
+    "author": "Hartwig Adam",
+    "n_papers": 39,
+    "sum_citations": 13606,
+    "sum_pr": 0.509,
+    "top_arxiv_ids": [
+      "2401.06129",
+      "2402.13217",
+      "1712.05877"
+    ]
+  },
+  {
+    "author": "Joan Bruna",
+    "n_papers": 64,
+    "sum_citations": 13545,
+    "sum_pr": 1.211,
+    "top_arxiv_ids": [
+      "1802.06384",
+      "1801.02013",
+      "1905.12185"
+    ]
+  },
+  {
+    "author": "Hugo Larochelle",
+    "n_papers": 70,
+    "sum_citations": 13447,
+    "sum_pr": 1.137,
+    "top_arxiv_ids": [
+      "1803.00676",
+      "2002.12499",
+      "2003.01367"
+    ]
+  },
+  {
+    "author": "Razvan Pascanu",
+    "n_papers": 98,
+    "sum_citations": 13329,
+    "sum_pr": 2.813,
+    "top_arxiv_ids": [
+      "2401.09865",
+      "2402.02868",
+      "2405.19454"
+    ]
+  },
+  {
+    "author": "Vincent Vanhoucke",
+    "n_papers": 14,
+    "sum_citations": 13304,
+    "sum_pr": 2.505,
+    "top_arxiv_ids": [
+      "2402.11450",
+      "2408.03906",
+      "2309.03315"
+    ]
+  },
+  {
+    "author": "Rafa\u0142 J\u00f3zefowicz",
+    "n_papers": 10,
+    "sum_citations": 13246,
+    "sum_pr": 1.64,
+    "top_arxiv_ids": [
+      "1912.06680",
+      "1702.05800",
+      "1504.02622"
+    ]
+  },
+  {
+    "author": "Erik Lucero",
+    "n_papers": 34,
+    "sum_citations": 13196,
+    "sum_pr": 0.842,
+    "top_arxiv_ids": [
+      "1709.06678",
+      "1907.02510",
+      "2004.04174"
+    ]
+  },
+  {
+    "author": "Rob Fergus",
+    "n_papers": 53,
+    "sum_citations": 13158,
+    "sum_pr": 2.311,
+    "top_arxiv_ids": [
+      "2406.16860",
+      "2410.02749",
+      "2411.13543"
+    ]
+  },
+  {
+    "author": "Ali Farhadi",
+    "n_papers": 102,
+    "sum_citations": 13104,
+    "sum_pr": 1.035,
+    "top_arxiv_ids": [
+      "2405.18400",
+      "2409.02060",
+      "2409.17146"
+    ]
+  },
+  {
+    "author": "Andrea Vedaldi",
+    "n_papers": 132,
+    "sum_citations": 13096,
+    "sum_pr": 2.043,
+    "top_arxiv_ids": [
+      "2402.08682",
+      "2402.10128",
+      "2410.11831"
+    ]
+  },
+  {
+    "author": "Sharan Narang",
+    "n_papers": 24,
+    "sum_citations": 13030,
+    "sum_pr": 0.595,
+    "top_arxiv_ids": [
+      "2004.14546",
+      "2102.11972",
+      "2109.10686"
+    ]
+  },
+  {
+    "author": "\u00c7a\u01e7lar G\u00fcl\u00e7ehre",
+    "n_papers": 31,
+    "sum_citations": 13021,
+    "sum_pr": 1.207,
+    "top_arxiv_ids": [
+      "2401.02644",
+      "2410.22366",
+      "2504.05108"
+    ]
+  },
+  {
+    "author": "Philip H. S. Torr",
+    "n_papers": 221,
+    "sum_citations": 12975,
+    "sum_pr": 0.92,
+    "top_arxiv_ids": [
+      "2401.11170",
+      "2402.04559",
+      "2402.07510"
+    ]
+  },
+  {
+    "author": "Aditya Ramesh",
+    "n_papers": 16,
+    "sum_citations": 12950,
+    "sum_pr": 0.281,
+    "top_arxiv_ids": [
+      "1806.00499",
+      "2005.14165",
+      "2006.08003"
+    ]
+  },
+  {
+    "author": "Sergei V. Isakov",
+    "n_papers": 25,
+    "sum_citations": 12869,
+    "sum_pr": 0.607,
+    "top_arxiv_ids": [
+      "1608.00263",
+      "1709.06678",
+      "1708.09780"
+    ]
+  },
+  {
+    "author": "Jeff Donahue",
+    "n_papers": 26,
+    "sum_citations": 12748,
+    "sum_pr": 2.35,
+    "top_arxiv_ids": [
+      "1907.02544",
+      "1907.06571",
+      "2006.03575"
+    ]
+  },
+  {
+    "author": "Alex Graves",
+    "n_papers": 25,
+    "sum_citations": 12732,
+    "sum_pr": 2.189,
+    "top_arxiv_ids": [
+      "1804.01756",
+      "1804.02476",
+      "2006.07232"
+    ]
+  },
+  {
+    "author": "Craig Gidney",
+    "n_papers": 53,
+    "sum_citations": 12697,
+    "sum_pr": 0.368,
+    "top_arxiv_ids": [
+      "2405.17385",
+      "2407.17966",
+      "2408.13687"
+    ]
+  },
+  {
+    "author": "Sandhini Agarwal",
+    "n_papers": 6,
+    "sum_citations": 12676,
+    "sum_pr": 0.249,
+    "top_arxiv_ids": [
+      "2005.14165",
+      "2103.00020",
+      "2108.02818"
+    ]
+  },
+  {
+    "author": "Hugo Touvron",
+    "n_papers": 18,
+    "sum_citations": 12551,
+    "sum_pr": 0.084,
+    "top_arxiv_ids": [
+      "2405.15613",
+      "1906.06423",
+      "2008.05763"
+    ]
+  }
+]
