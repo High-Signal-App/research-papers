@@ -355,6 +355,18 @@ def cluster_embeddings_cmd(
     typer.echo(f"clustered={c.get('clustered')} k={c.get('n_clusters')} elapsed={c.get('elapsed_seconds')}s")
 
 
+@app.command("refresh-metadata")
+def refresh_metadata_cmd(
+    limit: Annotated[int, typer.Option(help="Top-N papers to refresh")] = 1000,
+) -> None:
+    """Refresh title + citation_count + authors-with-OpenAlex-IDs for top-cited papers."""
+    from researchpapers import refresh_metadata
+    c = refresh_metadata.refresh_top_papers(limit=limit)
+    typer.echo(f"refreshed={c.get('refreshed')} title_corrected={c.get('title_corrected')} "
+               f"citation_changed={c.get('citation_changed')} authors_disambiguated={c.get('authors_disambiguated')} "
+               f"elapsed={c.get('elapsed_seconds')}s")
+
+
 @app.command("embed")
 def embed_cmd(
     source: Annotated[str | None, typer.Option(help="Limit to one source")] = None,

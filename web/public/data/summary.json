@@ -6,12 +6,12 @@
   "unique_urls": 0,
   "texts_stored": 512390,
   "gz_size": "1.5 GB",
-  "gz_bytes": 1558374604,
+  "gz_bytes": 1559059608,
   "paper_edges": 8981698,
   "papers_remaining": 0,
   "ingest_percent": 100.0,
-  "avg_bytes_per_paper": 3041,
-  "projected_total_bytes": 1558374604,
+  "avg_bytes_per_paper": 3042,
+  "projected_total_bytes": 1559059608,
   "projected_total_human": "1.5 GB",
   "avg_per_paper_human": "3.0 kB"
 }

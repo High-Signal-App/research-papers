@@ -141,8 +141,8 @@
   },
   {
     "arxiv_id": "1102.1523",
-    "title": "The NumPy Array: A Structure for Efficient Numerical Computation",
-    "citation_count": 11008,
+    "title": "The NumPy array: a structure for efficient numerical computation",
+    "citation_count": 11016,
     "primary_category": "Computer Science",
     "submitted_date": "2011-02-01",
     "in_corpus_degree": 270,
@@ -150,7 +150,7 @@
     "katz_score": 0.015203,
     "n_urls": 0,
     "year": 2011,
-    "cites_per_year": 718.2,
+    "cites_per_year": 718.8,
     "topic_tags": [
       "Parallel Computing and Optimization Techniques",
       "Hardware and Architecture",
@@ -170,7 +170,7 @@
   {
     "arxiv_id": "1201.0490",
     "title": "Scikit-learn: Machine Learning in Python",
-    "citation_count": 63659,
+    "citation_count": 63664,
     "primary_category": "Computer Science",
     "submitted_date": "2012-01-01",
     "in_corpus_degree": 2420,
@@ -178,7 +178,7 @@
     "katz_score": 0.08122,
     "n_urls": 0,
     "year": 2012,
-    "cites_per_year": 4417.1,
+    "cites_per_year": 4417.4,
     "topic_tags": [
       "Computational Physics and Python Applications",
       "Artificial Intelligence",
@@ -224,7 +224,7 @@
   {
     "arxiv_id": "1502.03167",
     "title": "Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift",
-    "citation_count": 24342,
+    "citation_count": 24344,
     "primary_category": "Computer Science",
     "submitted_date": "2015-02-01",
     "in_corpus_degree": 2519,
@@ -232,7 +232,7 @@
     "katz_score": 0.116898,
     "n_urls": 0,
     "year": 2015,
-    "cites_per_year": 2149.1,
+    "cites_per_year": 2149.3,
     "topic_tags": [
       "Neural Networks and Applications",
       "Artificial Intelligence",
@@ -308,7 +308,7 @@
   {
     "arxiv_id": "1503.02531",
     "title": "Distilling the Knowledge in a Neural Network",
-    "citation_count": 13936,
+    "citation_count": 13937,
     "primary_category": "Computer Science",
     "submitted_date": "2015-03-01",
     "in_corpus_degree": 2967,
@@ -316,7 +316,7 @@
     "katz_score": 0.127663,
     "n_urls": 0,
     "year": 2015,
-    "cites_per_year": 1238.8,
+    "cites_per_year": 1238.9,
     "topic_tags": [
       "Neural Networks and Applications",
       "Artificial Intelligence",
@@ -334,7 +334,7 @@
   {
     "arxiv_id": "1603.04467",
     "title": "TensorFlow: Large-Scale Machine Learning on Heterogeneous Distributed Systems",
-    "citation_count": 9771,
+    "citation_count": 9772,
     "primary_category": "Computer Science",
     "submitted_date": "2016-03-01",
     "in_corpus_degree": 1014,
@@ -342,7 +342,7 @@
     "katz_score": 0.058496,
     "n_urls": 0,
     "year": 2016,
-    "cites_per_year": 953.5,
+    "cites_per_year": 953.6,
     "topic_tags": [
       "Parallel Computing and Optimization Techniques",
       "Hardware and Architecture",
@@ -417,7 +417,7 @@
   },
   {
     "arxiv_id": "1311.2901",
-    "title": "Visualizing and Understanding Convolutional Neural Networks",
+    "title": "Visualizing and Understanding Convolutional Networks",
     "citation_count": 450,
     "primary_category": "Computer Science",
     "submitted_date": "2013-11-01",
@@ -445,7 +445,7 @@
   },
   {
     "arxiv_id": "1511.06434",
-    "title": "Unsupervised Representation Learning with Deep Convolutional Generative\\n Adversarial Networks",
+    "title": "Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks",
     "citation_count": 6993,
     "primary_category": "Computer Science",
     "submitted_date": "2015-11-01",
@@ -529,8 +529,8 @@
   },
   {
     "arxiv_id": "1907.11692",
-    "title": "HISTORIAE, History of Socio-Cultural Transformation as Linguistic Data Science. A Humanities Use Case",
-    "citation_count": 17296,
+    "title": "RoBERTa: A Robustly Optimized BERT Pretraining Approach",
+    "citation_count": 17300,
     "primary_category": "Computer Science",
     "submitted_date": "2019-07-01",
     "in_corpus_degree": 2479,
@@ -538,7 +538,7 @@
     "katz_score": 0.094969,
     "n_urls": 0,
     "year": 2019,
-    "cites_per_year": 2500.9,
+    "cites_per_year": 2501.5,
     "topic_tags": [
       "Topic Modeling",
       "Artificial Intelligence",
@@ -725,8 +725,8 @@
   },
   {
     "arxiv_id": "1810.04805",
-    "title": "AI-Assisted Pipeline for Dynamic Generation of Trustworthy Health Supplement Content at Scale",
-    "citation_count": 45574,
+    "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+    "citation_count": 45576,
     "primary_category": "Computer Science",
     "submitted_date": "2018-10-01",
     "in_corpus_degree": 2323,
@@ -734,7 +734,7 @@
     "katz_score": 0.078004,
     "n_urls": 0,
     "year": 2018,
-    "cites_per_year": 5947.1,
+    "cites_per_year": 5947.4,
     "topic_tags": [
       "Topic Modeling",
       "Artificial Intelligence",
@@ -753,8 +753,8 @@
   },
   {
     "arxiv_id": "1404.7828",
-    "title": "Deep learning in neural networks: An overview",
-    "citation_count": 17962,
+    "title": "Deep Learning in Neural Networks: An Overview",
+    "citation_count": 17967,
     "primary_category": "Computer Science",
     "submitted_date": "2014-04-01",
     "in_corpus_degree": 831,
@@ -762,7 +762,7 @@
     "katz_score": 0.037701,
     "n_urls": 0,
     "year": 2014,
-    "cites_per_year": 1476.6,
+    "cites_per_year": 1477.0,
     "topic_tags": [
       "Neural Networks and Applications",
       "Artificial Intelligence",
@@ -864,7 +864,7 @@
   {
     "arxiv_id": "1512.03385",
     "title": "Deep Residual Learning for Image Recognition",
-    "citation_count": 4697,
+    "citation_count": 4700,
     "primary_category": "Computer Science",
     "submitted_date": "2015-12-01",
     "in_corpus_degree": 1306,
@@ -872,7 +872,7 @@
     "katz_score": 0.064866,
     "n_urls": 0,
     "year": 2015,
-    "cites_per_year": 447.5,
+    "cites_per_year": 447.8,
     "topic_tags": [
       "Advanced Neural Network Applications",
       "Computer Vision and Pattern Recognition",
@@ -919,7 +919,7 @@
   },
   {
     "arxiv_id": "1003.0358",
-    "title": "Deep, Big, Simple Neural Nets for Handwritten Digit Recognition",
+    "title": "Deep Big Simple Neural Nets Excel on Handwritten Digit Recognition",
     "citation_count": 1060,
     "primary_category": "Computer Science",
     "submitted_date": "2010-03-01",
@@ -976,7 +976,7 @@
   {
     "arxiv_id": "1312.4659",
     "title": "DeepPose: Human Pose Estimation via Deep Neural Networks",
-    "citation_count": 3238,
+    "citation_count": 3240,
     "primary_category": "Computer Science",
     "submitted_date": "2013-12-01",
     "in_corpus_degree": 415,
@@ -984,7 +984,7 @@
     "katz_score": 0.030479,
     "n_urls": 0,
     "year": 2013,
-    "cites_per_year": 259.1,
+    "cites_per_year": 259.3,
     "topic_tags": [
       "Human Pose and Action Recognition",
       "Computer Vision and Pattern Recognition",
@@ -1031,7 +1031,7 @@
   },
   {
     "arxiv_id": "1212.0402",
-    "title": "UCF-101: A dataset of 101 human actions classes from videos in the wild",
+    "title": "UCF101: A Dataset of 101 Human Actions Classes From Videos in The Wild",
     "citation_count": 4445,
     "primary_category": "Computer Science",
     "submitted_date": "2012-12-01",
@@ -1171,8 +1171,8 @@
   },
   {
     "arxiv_id": "1707.06347",
-    "title": "Diagnosing Non-Intermittent Anomalies in Reinforcement Learning Policy Executions (Short Paper)",
-    "citation_count": 11298,
+    "title": "Proximal Policy Optimization Algorithms",
+    "citation_count": 11299,
     "primary_category": "Computer Science",
     "submitted_date": "2017-07-01",
     "in_corpus_degree": 1700,
@@ -1180,7 +1180,7 @@
     "katz_score": 0.064628,
     "n_urls": 0,
     "year": 2017,
-    "cites_per_year": 1267.4,
+    "cites_per_year": 1267.5,
     "topic_tags": [
       "Reinforcement Learning in Robotics",
       "Artificial Intelligence",
@@ -1200,7 +1200,7 @@
   {
     "arxiv_id": "1509.02971",
     "title": "Continuous control with deep reinforcement learning",
-    "citation_count": 5371,
+    "citation_count": 5372,
     "primary_category": "Computer Science",
     "submitted_date": "2015-09-01",
     "in_corpus_degree": 1023,
@@ -1208,7 +1208,7 @@
     "katz_score": 0.047948,
     "n_urls": 0,
     "year": 2015,
-    "cites_per_year": 499.8,
+    "cites_per_year": 499.9,
     "topic_tags": [
       "Reinforcement Learning in Robotics",
       "Artificial Intelligence",
@@ -1228,7 +1228,7 @@
   {
     "arxiv_id": "1901.11004",
     "title": "Experimental quantum teleportation",
-    "citation_count": 5466,
+    "citation_count": 5467,
     "primary_category": "Computer Science",
     "submitted_date": "2019-01-01",
     "in_corpus_degree": 606,
@@ -1236,7 +1236,7 @@
     "katz_score": 0.038328,
     "n_urls": 0,
     "year": 2019,
-    "cites_per_year": 737.5,
+    "cites_per_year": 737.7,
     "topic_tags": [
       "Quantum Information and Cryptography",
       "Artificial Intelligence",
@@ -1312,7 +1312,7 @@
   {
     "arxiv_id": "1106.1813",
     "title": "SMOTE: Synthetic Minority Over-sampling Technique",
-    "citation_count": 30787,
+    "citation_count": 30821,
     "primary_category": "Computer Science",
     "submitted_date": "2011-06-01",
     "in_corpus_degree": 634,
@@ -1320,7 +1320,7 @@
     "katz_score": 0.022,
     "n_urls": 0,
     "year": 2011,
-    "cites_per_year": 2052.7,
+    "cites_per_year": 2055.0,
     "topic_tags": [
       "Imbalanced Data Classification Techniques",
       "Artificial Intelligence",
@@ -1422,8 +1422,8 @@
   },
   {
     "arxiv_id": "0807.3917",
-    "title": "Channel Polarization: A Method for Constructing Capacity-Achieving Codes for Symmetric Binary-Input Memoryless Channels",
-    "citation_count": 4391,
+    "title": "Channel polarization: A method for constructing capacity-achieving codes for symmetric binary-input memoryless channels",
+    "citation_count": 4393,
     "primary_category": "Computer Science",
     "submitted_date": "2008-07-01",
     "in_corpus_degree": 430,
@@ -1431,7 +1431,7 @@
     "katz_score": 0.015296,
     "n_urls": 0,
     "year": 2008,
-    "cites_per_year": 245.1,
+    "cites_per_year": 245.2,
     "topic_tags": [
       "Error Correcting Code Techniques",
       "Computer Networks and Communications",
@@ -1674,7 +1674,7 @@
   },
   {
     "arxiv_id": "1602.05629",
-    "title": "Communication-Efficient Learning of Deep Networks from Decentralized\\n Data",
+    "title": "Communication-Efficient Learning of Deep Networks from Decentralized Data",
     "citation_count": 5177,
     "primary_category": "Computer Science",
     "submitted_date": "2016-02-01",
@@ -1759,7 +1759,7 @@
   {
     "arxiv_id": "1003.1141",
     "title": "From Frequency to Meaning: Vector Space Models of Semantics",
-    "citation_count": 2871,
+    "citation_count": 2872,
     "primary_category": "Computer Science",
     "submitted_date": "2010-03-01",
     "in_corpus_degree": 240,
@@ -1815,7 +1815,7 @@
   {
     "arxiv_id": "1607.00133",
     "title": "Deep Learning with Differential Privacy",
-    "citation_count": 5790,
+    "citation_count": 5798,
     "primary_category": "Computer Science",
     "submitted_date": "2016-07-01",
     "in_corpus_degree": 825,
@@ -1823,7 +1823,7 @@
     "katz_score": 0.033585,
     "n_urls": 0,
     "year": 2016,
-    "cites_per_year": 584.0,
+    "cites_per_year": 584.8,
     "topic_tags": [
       "Privacy-Preserving Technologies in Data",
       "Artificial Intelligence",
@@ -1843,7 +1843,7 @@
   {
     "arxiv_id": "1608.03981",
     "title": "Beyond a Gaussian Denoiser: Residual Learning of Deep CNN for Image Denoising",
-    "citation_count": 8741,
+    "citation_count": 8748,
     "primary_category": "Computer Science",
     "submitted_date": "2016-08-01",
     "in_corpus_degree": 658,
@@ -1851,7 +1851,7 @@
     "katz_score": 0.021522,
     "n_urls": 0,
     "year": 2016,
-    "cites_per_year": 889.3,
+    "cites_per_year": 890.0,
     "topic_tags": [
       "Image and Signal Denoising Methods",
       "Computer Vision and Pattern Recognition",
@@ -2037,7 +2037,7 @@
   },
   {
     "arxiv_id": "1607.02533",
-    "title": "Adversarial Examples in the Physical World",
+    "title": "Adversarial examples in the physical world",
     "citation_count": 1852,
     "primary_category": "Computer Science",
     "submitted_date": "2016-07-01",
@@ -2121,8 +2121,8 @@
   },
   {
     "arxiv_id": "1704.01036",
-    "title": "Objective Criteria for the Evaluation of Clustering Methods",
-    "citation_count": 5900,
+    "title": "Natural Scales in Geographical Patterns",
+    "citation_count": 5902,
     "primary_category": "Computer Science",
     "submitted_date": "2017-04-01",
     "in_corpus_degree": 285,
@@ -2130,7 +2130,7 @@
     "katz_score": 0.009391,
     "n_urls": 0,
     "year": 2017,
-    "cites_per_year": 643.9,
+    "cites_per_year": 644.1,
     "topic_tags": [
       "Advanced Clustering Algorithms Research",
       "Artificial Intelligence",
@@ -2149,8 +2149,8 @@
   },
   {
     "arxiv_id": "1503.03832",
-    "title": "FaceNet: A unified embedding for face recognition and clustering",
-    "citation_count": 11116,
+    "title": "FaceNet: A Unified Embedding for Face Recognition and Clustering",
+    "citation_count": 11120,
     "primary_category": "Computer Science",
     "submitted_date": "2015-03-01",
     "in_corpus_degree": 558,
@@ -2158,7 +2158,7 @@
     "katz_score": 0.019972,
     "n_urls": 0,
     "year": 2015,
-    "cites_per_year": 988.1,
+    "cites_per_year": 988.5,
     "topic_tags": [
       "Face recognition and analysis",
       "Computer Vision and Pattern Recognition",
@@ -2177,7 +2177,7 @@
   },
   {
     "arxiv_id": "0802.3922",
-    "title": "Constrained Consensus and Optimization in Multi-Agent Networks",
+    "title": "Constrained Consensus",
     "citation_count": 2134,
     "primary_category": "Computer Science",
     "submitted_date": "2008-02-01",
@@ -2258,7 +2258,7 @@
   },
   {
     "arxiv_id": "1802.05365",
-    "title": "Deep Contextualized Word Representations",
+    "title": "Deep contextualized word representations",
     "citation_count": 1791,
     "primary_category": "Computer Science",
     "submitted_date": "2018-02-01",
@@ -2426,8 +2426,8 @@
   },
   {
     "arxiv_id": "1403.6652",
-    "title": "DeepWalk",
-    "citation_count": 8486,
+    "title": "DeepWalk: Online Learning of Social Representations",
+    "citation_count": 8489,
     "primary_category": "Computer Science",
     "submitted_date": "2014-03-01",
     "in_corpus_degree": 392,
@@ -2435,7 +2435,7 @@
     "katz_score": 0.016267,
     "n_urls": 0,
     "year": 2014,
-    "cites_per_year": 692.8,
+    "cites_per_year": 693.0,
     "topic_tags": [
       "Topic Modeling",
       "Artificial Intelligence",
@@ -2455,7 +2455,7 @@
   {
     "arxiv_id": "1512.02595",
     "title": "Deep Speech 2: End-to-End Speech Recognition in English and Mandarin",
-    "citation_count": 2179,
+    "citation_count": 2180,
     "primary_category": "Computer Science",
     "submitted_date": "2015-12-01",
     "in_corpus_degree": 490,
@@ -2463,7 +2463,7 @@
     "katz_score": 0.023994,
     "n_urls": 0,
     "year": 2015,
-    "cites_per_year": 207.6,
+    "cites_per_year": 207.7,
     "topic_tags": [
       "Speech Recognition and Synthesis",
       "Artificial Intelligence",
@@ -2510,7 +2510,7 @@
   },
   {
     "arxiv_id": "1011.0686",
-    "title": "A Reduction of Imitation Learning and Structured Prediction to No-Regret\\n Online Learning",
+    "title": "A Reduction of Imitation Learning and Structured Prediction to No-Regret Online Learning",
     "citation_count": 1313,
     "primary_category": "Computer Science",
     "submitted_date": "2010-11-01",
@@ -2566,8 +2566,8 @@
   },
   {
     "arxiv_id": "1102.2318",
-    "title": "Advances in quantum metrology",
-    "citation_count": 3842,
+    "title": "Advances in Quantum Metrology",
+    "citation_count": 3846,
     "primary_category": "Computer Science",
     "submitted_date": "2011-02-01",
     "in_corpus_degree": 1055,
@@ -2575,7 +2575,7 @@
     "katz_score": 0.067399,
     "n_urls": 0,
     "year": 2011,
-    "cites_per_year": 250.7,
+    "cites_per_year": 250.9,
     "topic_tags": [
       "Quantum Information and Cryptography",
       "Artificial Intelligence",
@@ -2594,8 +2594,8 @@
   },
   {
     "arxiv_id": "1009.2267",
-    "title": "Quantum computers",
-    "citation_count": 3497,
+    "title": "Quantum Computing",
+    "citation_count": 3499,
     "primary_category": "Computer Science",
     "submitted_date": "2010-09-01",
     "in_corpus_degree": 542,
@@ -2603,7 +2603,7 @@
     "katz_score": 0.060908,
     "n_urls": 0,
     "year": 2010,
-    "cites_per_year": 222.1,
+    "cites_per_year": 222.2,
     "topic_tags": [
       "Quantum Information and Cryptography",
       "Artificial Intelligence",
@@ -2622,7 +2622,7 @@
   },
   {
     "arxiv_id": "1511.07289",
-    "title": "Convergence Results for Neural Networks via Electrodynamics",
+    "title": "Fast and Accurate Deep Network Learning by Exponential Linear Units (ELUs)",
     "citation_count": 2316,
     "primary_category": "Computer Science",
     "submitted_date": "2015-11-01",
@@ -2788,7 +2788,7 @@
   {
     "arxiv_id": "1706.05587",
     "title": "Rethinking Atrous Convolution for Semantic Image Segmentation",
-    "citation_count": 7447,
+    "citation_count": 7448,
     "primary_category": "Computer Science",
     "submitted_date": "2017-06-01",
     "in_corpus_degree": 833,
@@ -2796,7 +2796,7 @@
     "katz_score": 0.029911,
     "n_urls": 0,
     "year": 2017,
-    "cites_per_year": 827.8,
+    "cites_per_year": 827.9,
     "topic_tags": [
       "Image Retrieval and Classification Techniques",
       "Computer Vision and Pattern Recognition",
@@ -2815,7 +2815,7 @@
   },
   {
     "arxiv_id": "1509.06461",
-    "title": "Deep Reinforcement Learning with Double Q-Learning",
+    "title": "Deep Reinforcement Learning with Double Q-learning",
     "citation_count": 3520,
     "primary_category": "Computer Science",
     "submitted_date": "2015-09-01",
@@ -2928,7 +2928,7 @@
   {
     "arxiv_id": "1702.08608",
     "title": "Towards A Rigorous Science of Interpretable Machine Learning",
-    "citation_count": 3133,
+    "citation_count": 3136,
     "primary_category": "Computer Science",
     "submitted_date": "2017-02-01",
     "in_corpus_degree": 504,
@@ -2936,7 +2936,7 @@
     "katz_score": 0.019798,
     "n_urls": 0,
     "year": 2017,
-    "cites_per_year": 336.0,
+    "cites_per_year": 336.3,
     "topic_tags": [
       "Explainable Artificial Intelligence (XAI)",
       "Artificial Intelligence",
@@ -2983,8 +2983,8 @@
   },
   {
     "arxiv_id": "1702.05747",
-    "title": "A survey on deep learning in medical image analysis",
-    "citation_count": 14141,
+    "title": "A Survey on Deep Learning in Medical Image Analysis",
+    "citation_count": 14156,
     "primary_category": "Computer Science",
     "submitted_date": "2017-02-01",
     "in_corpus_degree": 497,
@@ -2992,7 +2992,7 @@
     "katz_score": 0.017717,
     "n_urls": 0,
     "year": 2017,
-    "cites_per_year": 1516.4,
+    "cites_per_year": 1518.1,
     "topic_tags": [
       "AI in cancer detection",
       "Artificial Intelligence",
@@ -3124,7 +3124,7 @@
   {
     "arxiv_id": "1605.08695",
     "title": "TensorFlow: A system for large-scale machine learning",
-    "citation_count": 8814,
+    "citation_count": 8815,
     "primary_category": "Computer Science",
     "submitted_date": "2016-05-01",
     "in_corpus_degree": 464,
@@ -3132,7 +3132,7 @@
     "katz_score": 0.018452,
     "n_urls": 0,
     "year": 2016,
-    "cites_per_year": 874.3,
+    "cites_per_year": 874.4,
     "topic_tags": [
       "Parallel Computing and Optimization Techniques",
       "Hardware and Architecture",
@@ -3207,7 +3207,7 @@
   },
   {
     "arxiv_id": "1605.02688",
-    "title": "Static Analysis of Shape in TensorFlow Programs",
+    "title": "Theano: A Python framework for fast computation of mathematical expressions",
     "citation_count": 1684,
     "primary_category": "Computer Science",
     "submitted_date": "2016-05-01",
@@ -3375,8 +3375,8 @@
   },
   {
     "arxiv_id": "1603.02754",
-    "title": "XGBoost",
-    "citation_count": 47531,
+    "title": "XGBoost: A Scalable Tree Boosting System",
+    "citation_count": 47617,
     "primary_category": "Computer Science",
     "submitted_date": "2016-03-01",
     "in_corpus_degree": 384,
@@ -3384,7 +3384,7 @@
     "katz_score": 0.012228,
     "n_urls": 0,
     "year": 2016,
-    "cites_per_year": 4638.2,
+    "cites_per_year": 4646.6,
     "topic_tags": [
       "Machine Learning and Data Classification",
       "Artificial Intelligence",
@@ -3600,7 +3600,7 @@
   {
     "arxiv_id": "0809.3972",
     "title": "Superadditivity of communication capacity using entangled inputs",
-    "citation_count": 611,
+    "citation_count": 612,
     "primary_category": "Computer Science",
     "submitted_date": "2008-09-01",
     "in_corpus_degree": 225,
@@ -3608,7 +3608,7 @@
     "katz_score": 0.015311,
     "n_urls": 0,
     "year": 2008,
-    "cites_per_year": 34.4,
+    "cites_per_year": 34.5,
     "topic_tags": [
       "Quantum Information and Cryptography",
       "Artificial Intelligence",
@@ -3683,8 +3683,8 @@
   },
   {
     "arxiv_id": "1304.3061",
-    "title": "A variational eigenvalue solver on a photonic quantum processor",
-    "citation_count": 4515,
+    "title": "A variational eigenvalue solver on a quantum processor",
+    "citation_count": 4516,
     "primary_category": "Computer Science",
     "submitted_date": "2013-04-01",
     "in_corpus_degree": 1123,
@@ -3692,7 +3692,7 @@
     "katz_score": 0.096664,
     "n_urls": 0,
     "year": 2013,
-    "cites_per_year": 343.0,
+    "cites_per_year": 343.1,
     "topic_tags": [
       "Quantum Computing Algorithms and Architecture",
       "Artificial Intelligence",
@@ -3796,7 +3796,7 @@
   {
     "arxiv_id": "1503.04069",
     "title": "LSTM: A Search Space Odyssey",
-    "citation_count": 6776,
+    "citation_count": 6778,
     "primary_category": "Computer Science",
     "submitted_date": "2015-03-01",
     "in_corpus_degree": 337,
@@ -3804,7 +3804,7 @@
     "katz_score": 0.018937,
     "n_urls": 0,
     "year": 2015,
-    "cites_per_year": 602.3,
+    "cites_per_year": 602.5,
     "topic_tags": [
       "Music and Audio Processing",
       "Signal Processing",
@@ -3880,7 +3880,7 @@
   {
     "arxiv_id": "1412.6575",
     "title": "Embedding Entities and Relations for Learning and Inference in Knowledge Bases",
-    "citation_count": 2036,
+    "citation_count": 2037,
     "primary_category": "Computer Science",
     "submitted_date": "2014-12-01",
     "in_corpus_degree": 380,
@@ -3888,7 +3888,7 @@
     "katz_score": 0.015027,
     "n_urls": 0,
     "year": 2014,
-    "cites_per_year": 177.1,
+    "cites_per_year": 177.2,
     "topic_tags": [
       "Topic Modeling",
       "Artificial Intelligence",
@@ -4214,7 +4214,7 @@
   {
     "arxiv_id": "1208.0928",
     "title": "Surface codes: Towards practical large-scale quantum computation",
-    "citation_count": 3008,
+    "citation_count": 3009,
     "primary_category": "Computer Science",
     "submitted_date": "2012-08-01",
     "in_corpus_degree": 778,
@@ -4222,7 +4222,7 @@
     "katz_score": 0.080114,
     "n_urls": 0,
     "year": 2012,
-    "cites_per_year": 217.5,
+    "cites_per_year": 217.6,
     "topic_tags": [
       "Quantum Computing Algorithms and Architecture",
       "Artificial Intelligence",
@@ -4353,7 +4353,7 @@
   },
   {
     "arxiv_id": "1604.01685",
-    "title": "Cityscapes dataset for semantic urban scene understanding",
+    "title": "The Cityscapes Dataset for Semantic Urban Scene Understanding",
     "citation_count": 1007,
     "primary_category": "Computer Science",
     "submitted_date": "2016-04-01",
@@ -4493,7 +4493,7 @@
   {
     "arxiv_id": "1003.3928",
     "title": "Photonic quantum technologies",
-    "citation_count": 2329,
+    "citation_count": 2330,
     "primary_category": "Computer Science",
     "submitted_date": "2010-03-01",
     "in_corpus_degree": 322,
@@ -4501,7 +4501,7 @@
     "katz_score": 0.036452,
     "n_urls": 0,
     "year": 2010,
-    "cites_per_year": 143.3,
+    "cites_per_year": 143.4,
     "topic_tags": [
       "Quantum Information and Cryptography",
       "Artificial Intelligence",
@@ -4661,7 +4661,7 @@
   {
     "arxiv_id": "0908.0238",
     "title": "Measure for the Degree of Non-Markovian Behavior of Quantum Processes in Open Systems",
-    "citation_count": 1465,
+    "citation_count": 1466,
     "primary_category": "Computer Science",
     "submitted_date": "2009-08-01",
     "in_corpus_degree": 399,
@@ -4669,7 +4669,7 @@
     "katz_score": 0.027435,
     "n_urls": 0,
     "year": 2009,
-    "cites_per_year": 87.0,
+    "cites_per_year": 87.1,
     "topic_tags": [
       "Quantum Information and Cryptography",
       "Artificial Intelligence",
@@ -4884,7 +4884,7 @@
   {
     "arxiv_id": "1710.09412",
     "title": "mixup: Beyond Empirical Risk Minimization",
-    "citation_count": 4752,
+    "citation_count": 4753,
     "primary_category": "Computer Science",
     "submitted_date": "2017-10-01",
     "in_corpus_degree": 704,
@@ -4892,7 +4892,7 @@
     "katz_score": 0.02817,
     "n_urls": 0,
     "year": 2017,
-    "cites_per_year": 548.6,
+    "cites_per_year": 548.7,
     "topic_tags": [
       "Adversarial Robustness in Machine Learning",
       "Artificial Intelligence",
@@ -5108,7 +5108,7 @@
   {
     "arxiv_id": "1904.08779",
     "title": "SpecAugment: A Simple Data Augmentation Method for Automatic Speech Recognition",
-    "citation_count": 3512,
+    "citation_count": 3513,
     "primary_category": "Computer Science",
     "submitted_date": "2019-04-01",
     "in_corpus_degree": 605,
@@ -5116,7 +5116,7 @@
     "katz_score": 0.022051,
     "n_urls": 0,
     "year": 2019,
-    "cites_per_year": 490.2,
+    "cites_per_year": 490.3,
     "topic_tags": [
       "Speech Recognition and Synthesis",
       "Artificial Intelligence",
@@ -5191,7 +5191,7 @@
   },
   {
     "arxiv_id": "0810.0312",
-    "title": "On the Relationship Between Continuous- and Discrete-Time Quantum Walk",
+    "title": "On the relationship between continuous- and discrete-time quantum walk",
     "citation_count": 428,
     "primary_category": "Computer Science",
     "submitted_date": "2008-10-01",
@@ -5247,7 +5247,7 @@
   },
   {
     "arxiv_id": "0806.0594",
-    "title": "Solvable Model for Chimera States of Coupled Oscillators",
+    "title": "Solvable model for chimera states of coupled oscillators",
     "citation_count": 622,
     "primary_category": "Computer Science",
     "submitted_date": "2008-06-01",
@@ -5331,7 +5331,7 @@
   },
   {
     "arxiv_id": "1004.4324",
-    "title": "Preparation and measurement of three-qubit entanglement in a superconducting circuit",
+    "title": "Preparation and Measurement of Three-Qubit Entanglement in a Superconducting Circuit",
     "citation_count": 590,
     "primary_category": "Computer Science",
     "submitted_date": "2010-04-01",
@@ -5359,7 +5359,7 @@
   },
   {
     "arxiv_id": "1009.6126",
-    "title": "14-Qubit Entanglement: Creation and Coherence",
+    "title": "14-qubit entanglement: creation and coherence",
     "citation_count": 1113,
     "primary_category": "Computer Science",
     "submitted_date": "2010-09-01",
@@ -5472,7 +5472,7 @@
   {
     "arxiv_id": "1504.00325",
     "title": "Microsoft COCO Captions: Data Collection and Evaluation Server",
-    "citation_count": 1631,
+    "citation_count": 1632,
     "primary_category": "Computer Science",
     "submitted_date": "2015-04-01",
     "in_corpus_degree": 388,
@@ -5480,7 +5480,7 @@
     "katz_score": 0.020685,
     "n_urls": 0,
     "year": 2015,
-    "cites_per_year": 146.1,
+    "cites_per_year": 146.2,
     "topic_tags": [
       "Multimodal Machine Learning Applications",
       "Computer Vision and Pattern Recognition",
@@ -5499,8 +5499,8 @@
   },
   {
     "arxiv_id": "1606.06565",
-    "title": "Agnostic Learning with Unknown Utilities",
-    "citation_count": 1397,
+    "title": "Concrete Problems in AI Safety",
+    "citation_count": 1398,
     "primary_category": "Computer Science",
     "submitted_date": "2016-06-01",
     "in_corpus_degree": 320,
@@ -5508,7 +5508,7 @@
     "katz_score": 0.015275,
     "n_urls": 0,
     "year": 2016,
-    "cites_per_year": 139.8,
+    "cites_per_year": 139.9,
     "topic_tags": [
       "Adversarial Robustness in Machine Learning",
       "Artificial Intelligence",

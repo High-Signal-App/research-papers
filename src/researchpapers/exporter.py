@@ -95,13 +95,17 @@ def export_all(settings: Settings, out_dir: Path, *, top: int = 200) -> list[Pat
         rows = c.query(
             f"""
             SELECT
-                arxiv_id, title, citation_count, primary_category,
-                effective_date(source, arxiv_id, submitted_date) AS submitted_date,
-                in_corpus_degree, pagerank_score, katz_score,
-                openalex_tags, openalex_keywords
-            FROM papers FINAL
-            WHERE source='arxiv' AND citation_count > 0 AND pagerank_score IS NOT NULL
-            ORDER BY pagerank_score DESC
+                p.arxiv_id,
+                coalesce(nullIf(m.title, ''), p.title) AS title,
+                coalesce(nullIf(m.citation_count, 0), p.citation_count) AS citation_count,
+                p.primary_category,
+                effective_date(p.source, p.arxiv_id, p.submitted_date) AS submitted_date,
+                p.in_corpus_degree, p.pagerank_score, p.katz_score,
+                p.openalex_tags, p.openalex_keywords
+            FROM papers AS p FINAL
+            LEFT JOIN paper_metadata_v2 AS m FINAL ON m.paper_id = p.paper_id
+            WHERE p.source='arxiv' AND p.citation_count > 0 AND p.pagerank_score IS NOT NULL
+            ORDER BY p.pagerank_score DESC
             LIMIT {top}
             """
         ).result_rows
