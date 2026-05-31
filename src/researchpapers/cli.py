@@ -355,6 +355,15 @@ def cluster_embeddings_cmd(
     typer.echo(f"clustered={c.get('clustered')} k={c.get('n_clusters')} elapsed={c.get('elapsed_seconds')}s")
 
 
+@app.command("pagerank-full")
+def pagerank_full_cmd() -> None:
+    """Recompute PageRank on the full 488k-paper citation graph and write back."""
+    from researchpapers import pagerank_full
+    c = pagerank_full.compute_and_write()
+    typer.echo(f"computed={c.get('computed')} edges={c.get('edges')} "
+               f"iters={c.get('iters')} elapsed={c.get('elapsed_seconds')}s")
+
+
 @app.command("refresh-metadata")
 def refresh_metadata_cmd(
     limit: Annotated[int, typer.Option(help="Top-N papers to refresh")] = 1000,

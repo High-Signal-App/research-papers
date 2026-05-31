@@ -368,11 +368,11 @@
         "n": 138
       },
       {
-        "author": "Noah A. Smith",
+        "author": "Kyunghyun Cho",
         "n": 99
       },
       {
-        "author": "Kyunghyun Cho",
+        "author": "Noah A. Smith",
         "n": 99
       },
       {
@@ -872,11 +872,11 @@
         "n": 84
       },
       {
-        "author": "Yi Yang",
+        "author": "Lei Zhang",
         "n": 83
       },
       {
-        "author": "Lei Zhang",
+        "author": "Yi Yang",
         "n": 83
       }
     ],
@@ -1820,11 +1820,11 @@
         "n": 56
       },
       {
-        "author": "Yoshua Bengio",
+        "author": "Chen Change Loy",
         "n": 55
       },
       {
-        "author": "Chen Change Loy",
+        "author": "Yoshua Bengio",
         "n": 55
       },
       {
@@ -2816,7 +2816,7 @@
         "n": 46
       },
       {
-        "author": "Jonathan Ullman",
+        "author": "Soummya Kar",
         "n": 45
       },
       {
@@ -2828,7 +2828,7 @@
         "n": 45
       },
       {
-        "author": "Soummya Kar",
+        "author": "Jonathan Ullman",
         "n": 45
       }
     ],
@@ -3280,11 +3280,11 @@
         "n": 145
       },
       {
-        "author": "Doina Precup",
+        "author": "Chelsea Finn",
         "n": 65
       },
       {
-        "author": "Chelsea Finn",
+        "author": "Doina Precup",
         "n": 65
       },
       {
@@ -3764,11 +3764,11 @@
         "n": 99
       },
       {
-        "author": "Matteo G. A. Paris",
+        "author": "Vittorio Giovannetti",
         "n": 91
       },
       {
-        "author": "Vittorio Giovannetti",
+        "author": "Matteo G. A. Paris",
         "n": 91
       },
       {
@@ -4272,11 +4272,11 @@
         "n": 50
       },
       {
-        "author": "David Eppstein",
+        "author": "Saket Saurabh",
         "n": 49
       },
       {
-        "author": "Saket Saurabh",
+        "author": "David Eppstein",
         "n": 49
       },
       {
@@ -4284,11 +4284,11 @@
         "n": 46
       },
       {
-        "author": "Zden\u0115k Dvo\u0159\u00e1k",
+        "author": "Ismael G. Yero",
         "n": 46
       },
       {
-        "author": "Ismael G. Yero",
+        "author": "Zden\u0115k Dvo\u0159\u00e1k",
         "n": 46
       }
     ],
@@ -7688,19 +7688,19 @@
         "n": 27
       },
       {
-        "author": "Wojciech Mazurczyk",
-        "n": 26
-      },
-      {
         "author": "Ali Dehghantanha",
         "n": 26
       },
       {
-        "author": "Michael L. Nelson",
-        "n": 25
+        "author": "Wojciech Mazurczyk",
+        "n": 26
       },
       {
         "author": "Nick Feamster",
+        "n": 25
+      },
+      {
+        "author": "Michael L. Nelson",
         "n": 25
       }
     ],
@@ -8168,11 +8168,11 @@
         "n": 41
       },
       {
-        "author": "Zhuo Chen",
+        "author": "Joon Son Chung",
         "n": 39
       },
       {
-        "author": "Joon Son Chung",
+        "author": "Zhuo Chen",
         "n": 39
       },
       {
@@ -9140,7 +9140,7 @@
         "n": 20
       },
       {
-        "author": "Caroline Uhler",
+        "author": "Jim Q. Smith",
         "n": 19
       }
     ],
@@ -9624,7 +9624,7 @@
         "n": 18
       },
       {
-        "author": "Stefan Woltran",
+        "author": "Stefan Szeider",
         "n": 17
       }
     ],
@@ -10112,11 +10112,11 @@
         "n": 30
       },
       {
-        "author": "Andr\u00e9 Platzer",
+        "author": "Mart\u00edn Zimmermann",
         "n": 29
       },
       {
-        "author": "Mart\u00edn Zimmermann",
+        "author": "Andr\u00e9 Platzer",
         "n": 29
       }
     ],
@@ -10576,11 +10576,11 @@
         "n": 42
       },
       {
-        "author": "Gerhard Wellein",
+        "author": "Albert Reuther",
         "n": 36
       },
       {
-        "author": "Albert Reuther",
+        "author": "Gerhard Wellein",
         "n": 36
       },
       {
@@ -11068,11 +11068,11 @@
         "n": 23
       },
       {
-        "author": "Chengqing Li",
+        "author": "Jan Verschelde",
         "n": 23
       },
       {
-        "author": "Jan Verschelde",
+        "author": "Chengqing Li",
         "n": 23
       },
       {
@@ -12012,11 +12012,11 @@
         "n": 52
       },
       {
-        "author": "Henry D. Pfister",
+        "author": "Alexandre Graell i Amat",
         "n": 32
       },
       {
-        "author": "Alexandre Graell i Amat",
+        "author": "Henry D. Pfister",
         "n": 32
       },
       {
@@ -12028,15 +12028,15 @@
         "n": 28
       },
       {
-        "author": "David G. M. Mitchell",
-        "n": 25
-      },
-      {
         "author": "Sebastian Cammerer",
         "n": 25
       },
       {
         "author": "Carlo Condo",
+        "n": 25
+      },
+      {
+        "author": "David G. M. Mitchell",
         "n": 25
       },
       {
@@ -12512,11 +12512,11 @@
         "n": 30
       },
       {
-        "author": "F\u00e9lix Otto",
+        "author": "Zhongwei Shen",
         "n": 29
       },
       {
-        "author": "Zhongwei Shen",
+        "author": "F\u00e9lix Otto",
         "n": 29
       },
       {
@@ -12524,11 +12524,11 @@
         "n": 23
       },
       {
-        "author": "Jean-Christophe Mourrat",
+        "author": "Daniel Peterseim",
         "n": 22
       },
       {
-        "author": "Daniel Peterseim",
+        "author": "Jean-Christophe Mourrat",
         "n": 22
       },
       {
@@ -12980,11 +12980,11 @@
         "n": 31
       },
       {
-        "author": "Ville Salo",
+        "author": "James East",
         "n": 28
       },
       {
-        "author": "James East",
+        "author": "Ville Salo",
         "n": 28
       },
       {
@@ -13492,11 +13492,11 @@
         "n": 21
       },
       {
-        "author": "Alexander Shen",
+        "author": "Vasco Brattka",
         "n": 19
       },
       {
-        "author": "Vasco Brattka",
+        "author": "Alexander Shen",
         "n": 19
       }
     ],
@@ -13960,15 +13960,15 @@
         "n": 11
       },
       {
+        "author": "Boualem Benatallah",
+        "n": 10
+      },
+      {
         "author": "Benjamin R. Cowan",
         "n": 10
       },
       {
         "author": "Justin Edwards",
-        "n": 10
-      },
-      {
-        "author": "Boualem Benatallah",
         "n": 10
       }
     ],
@@ -14444,7 +14444,7 @@
         "n": 11
       },
       {
-        "author": "Massimiliano Laddomada",
+        "author": "Gianluca Cena",
         "n": 9
       }
     ],

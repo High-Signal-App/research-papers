@@ -580,6 +580,43 @@ def authors_by_tag(
     }
 
 
+@app.get("/authors/by-id/{openalex_id}")
+def author_by_openalex_id(openalex_id: str) -> dict:
+    """Look up an author's papers via OpenAlex author ID (proper disambiguation).
+
+    Only works for papers in paper_metadata_v2 (top ~2000 most-cited as of now).
+    """
+    with ch_connect() as c:
+        rows = c.query(
+            """
+            SELECT
+              p.paper_id,
+              coalesce(nullIf(m.title, ''), p.title) AS title,
+              coalesce(nullIf(m.citation_count, 0), p.citation_count) AS citation_count,
+              p.submitted_date,
+              arrayFirst(a -> a.2 = %(oid)s, m.authors).1 AS display_name
+            FROM paper_metadata_v2 AS m FINAL
+            JOIN papers AS p FINAL ON p.paper_id = m.paper_id
+            WHERE arrayExists(a -> a.2 = %(oid)s, m.authors)
+            ORDER BY citation_count DESC
+            LIMIT 50
+            """,
+            parameters={"oid": openalex_id},
+        ).result_rows
+    if not rows:
+        raise HTTPException(404, f"no papers found for OpenAlex author {openalex_id}")
+    return {
+        "openalex_id": openalex_id,
+        "display_name_sample": rows[0][4],
+        "n_papers": len(rows),
+        "papers": [
+            {"paper_id": r[0], "title": r[1], "citation_count": int(r[2] or 0),
+             "submitted_date": str(r[3]) if r[3] else None}
+            for r in rows
+        ],
+    }
+
+
 @app.get("/authors/{author}/disambiguate")
 def disambiguate_author(
     author: str,
