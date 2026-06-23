@@ -34,3 +34,18 @@ def test_invalid_sources_query_returns_400():
     # before any DB call, so this stays hermetic.
     resp = client.get("/search", params={"q": "transformer", "sources": "bogus"})
     assert resp.status_code == 400
+
+
+def test_rag_status_does_not_expose_secret(monkeypatch):
+    monkeypatch.setenv("RAG_SERVICE_KEY", "secret-test-key")
+    resp = client.get("/rag/status")
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["configured"] is True
+    assert "secret-test-key" not in str(body)
+
+
+def test_rag_query_requires_server_key(monkeypatch):
+    monkeypatch.delenv("RAG_SERVICE_KEY", raising=False)
+    resp = client.post("/rag/query", json={"question": "what is hot in LLM research?"})
+    assert resp.status_code == 503

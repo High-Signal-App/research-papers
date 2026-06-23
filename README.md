@@ -108,6 +108,36 @@ All under the FastAPI server (`uv run papers api-serve`):
 | `GET /authors/by-tag/{tag}` | top authors per topic |
 | `GET /authors/by-id/{openalex_id}` | full author profile |
 | `GET /reviews/top-rated` | best-reviewed OpenReview papers |
+| `GET /rag/status` | server-side Knowledgebase RAG wiring status, without exposing secrets |
+| `POST /rag/query` | cited answers over the seeded `research-papers` Knowledgebase domain |
+
+### RAG answer demo
+
+The website includes a "Research answer API" panel. In local same-host mode it
+calls FastAPI `POST /rag/query`; on Cloudflare Pages it calls the Pages Function
+at `/api/rag/query`. Both paths keep the Knowledgebase service key on the server.
+The Pages Function also has a bundled-data fallback over `web/public/data/*.json`,
+so the public demo API returns cited answers before the Knowledgebase secret is
+configured. FastAPI returns 503 without the key because it does not serve the
+static website export.
+
+Required runtime env for the full Knowledgebase RAG path:
+
+```bash
+export RAG_SERVICE_KEY="<service-key>"
+export RAG_SERVICE_URL="https://knowledgebase.sarthakagrawal927.workers.dev"
+export RAG_DOMAIN="research-papers"
+```
+
+Seed the demo domain from the already-exported website data:
+
+```bash
+RAG_SERVICE_KEY="<service-key>" uv run python scripts/seed_knowledgebase_rag.py
+```
+
+This seeds a representative demo slice, not the full corpus: top papers, hot
+papers, sleepers, top reviewed papers, semantic clusters, abstract clusters,
+and tag-rating samples.
 
 ## Using the data
 

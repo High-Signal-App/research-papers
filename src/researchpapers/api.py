@@ -20,8 +20,9 @@ from __future__ import annotations
 import logging
 import os
 import time
-from typing import Annotated
+from typing import Annotated, Any
 
+import httpx
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -97,7 +98,7 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_methods=["GET"],
+    allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
 
@@ -134,9 +135,91 @@ def _split_sources(s: str | None) -> list[str] | None:
     return out or None
 
 
+def _rag_base_url() -> str:
+    return os.environ.get(
+        "RAG_SERVICE_URL",
+        "https://knowledgebase.sarthakagrawal927.workers.dev",
+    ).rstrip("/")
+
+
+def _rag_domain() -> str:
+    return os.environ.get("RAG_DOMAIN", "research-papers")
+
+
+def _rag_key() -> str | None:
+    return os.environ.get("RAG_SERVICE_KEY")
+
+
 @app.get("/healthz")
 def healthz() -> dict:
     return {"ok": True}
+
+
+@app.get("/rag/status")
+def rag_status() -> dict:
+    """Report server-side RAG wiring without exposing secrets."""
+    return {
+        "configured": bool(_rag_key()),
+        "service_url": _rag_base_url(),
+        "domain": _rag_domain(),
+    }
+
+
+@app.post("/rag/query")
+def rag_query(payload: dict[str, Any]) -> dict:
+    """Ask the seeded Knowledgebase domain through a server-side proxy.
+
+    The website calls this endpoint instead of the Knowledgebase Worker
+    directly so the service key never leaves the API host and browser CORS does
+    not block the RAG request.
+    """
+    key = _rag_key()
+    if not key:
+        raise HTTPException(
+            503,
+            "RAG_SERVICE_KEY is not configured on the API server",
+        )
+    question = str(payload.get("question") or payload.get("query") or "").strip()
+    if len(question) < 3:
+        raise HTTPException(400, "question must be at least 3 characters")
+    domain = str(payload.get("domain") or _rag_domain()).strip() or _rag_domain()
+    top_k = int(payload.get("top_k") or 8)
+    top_k = min(max(top_k, 1), 20)
+    body = {
+        "domain": domain,
+        "question": question,
+        "mode": str(payload.get("mode") or "hybrid"),
+        "answer_mode": str(payload.get("answer_mode") or "extractive"),
+        "top_k": top_k,
+        "rerank": True,
+        "mmr": True,
+        "query_rewrite": True,
+        "query_decompose": True,
+    }
+    try:
+        with httpx.Client(timeout=45.0) as client:
+            response = client.post(
+                f"{_rag_base_url()}/v1/kb/query",
+                headers={"Authorization": f"Bearer {key}"},
+                json=body,
+            )
+            response.raise_for_status()
+    except httpx.HTTPStatusError as exc:
+        detail = exc.response.text[:500]
+        raise HTTPException(exc.response.status_code, detail) from exc
+    except httpx.HTTPError as exc:
+        raise HTTPException(502, f"RAG request failed: {exc}") from exc
+    data = response.json()
+    return {
+        "domain": data.get("domain", domain),
+        "question": data.get("question", question),
+        "answer": data.get("answer", ""),
+        "citations": data.get("citations", []),
+        "confidence": data.get("confidence"),
+        "trace_id": data.get("trace_id"),
+        "route": data.get("route"),
+        "answer_mode": data.get("answer_mode"),
+    }
 
 
 @app.get("/stats")
