@@ -1,0 +1,43 @@
+name: Deploy research-papers to Cloudflare Pages
+# Manual-only for now. Add a `push` trigger after the first CI deploy is verified.
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  deploy-production:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      # web/ has no `packageManager` pin, but a committed pnpm v9 lockfile —
+      # pnpm is the package manager, so give action-setup an explicit version.
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: pnpm
+          cache-dependency-path: web/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+        working-directory: web
+      # PUBLIC_API_URL left unset: the browser then calls the same-origin Pages
+      # Function at /api/rag/query (see DEPLOY.md). RAG_SERVICE_URL / RAG_DOMAIN /
+      # RAG_SERVICE_KEY are Pages *runtime* vars set in the CF dashboard, not CI.
+      - run: pnpm build
+        working-directory: web
+      - id: deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # Run from web/ so `dist` resolves and web/functions/api/rag/*.ts deploy.
+          workingDirectory: web
+          command: pages deploy dist --project-name=research-papers --branch=main --commit-dirty=true
+      - name: Smoke production
+        run: |
+          set -euo pipefail
+          curl --fail --retry 5 --retry-delay 5 --max-time 20 "https://research-papers.pages.dev/" >/dev/null
