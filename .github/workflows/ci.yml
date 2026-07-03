@@ -5,6 +5,7 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
+  workflow_dispatch:
 
 jobs:
   test:
@@ -26,5 +27,58 @@ jobs:
       - name: Install test dependencies
         run: pip install pytest pytest-asyncio
 
-      - name: Run tests
-        run: python -m pytest -q
+      - name: Run tests (hermetic — golden checks run in their own job)
+        run: python -m pytest -q -m "not golden"
+
+  # Golden-question regression gate for the Research Answer API.
+  # Calls the deployed Pages Function with fixed reference questions and
+  # asserts structural quality (answer length, citation count, citations
+  # resolve to real index records, intent routing). Runs as its own job so
+  # it can be dispatched selectively and cannot be confused with unit tests.
+  golden-rag-regression:
+    runs-on: ubuntu-latest
+    env:
+      GOLDEN_RAG_URL: https://research-papers.pages.dev/api/rag/query
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # The golden module only needs httpx + pytest — skip the heavy package
+      # install (ML deps) that the unit-test job pays for.
+      - name: Install golden-check dependencies
+        run: pip install pytest pytest-asyncio httpx
+
+      - name: Probe Research Answer API reachability
+        id: probe
+        run: |
+          if curl -sf -m 20 -X POST "$GOLDEN_RAG_URL" \
+               -H 'content-type: application/json' \
+               -d '{"question":"golden gate reachability probe"}' -o /dev/null; then
+            echo "reachable=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "reachable=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Golden-question regression (pytest -m golden)
+        if: steps.probe.outputs.reachable == 'true'
+        run: python -m pytest -q -m golden tests/test_rag_golden.py
+
+      - name: Loud skip notice (endpoint unreachable)
+        if: steps.probe.outputs.reachable != 'true'
+        run: |
+          echo "::warning title=Golden RAG regression SKIPPED::Research Answer API at $GOLDEN_RAG_URL was unreachable from the runner. Cited-answer quality was NOT verified in this run."
+          {
+            echo "## ⚠️ Golden RAG regression SKIPPED"
+            echo ""
+            echo "\`$GOLDEN_RAG_URL\` was unreachable — cited-answer quality was **not** verified."
+            echo ""
+            echo "Run the gate locally:"
+            echo ""
+            echo '```bash'
+            echo "GOLDEN_RAG_URL=$GOLDEN_RAG_URL uv run pytest -m golden"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

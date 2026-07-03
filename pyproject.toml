@@ -54,3 +54,6 @@ select = ["E", "F", "I", "B", "UP", "SIM"]
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 pythonpath = ["src"]
+markers = [
+    "golden: golden-question regression checks that call a live Research Answer API endpoint (set GOLDEN_RAG_URL; run with `pytest -m golden`)",
+]
