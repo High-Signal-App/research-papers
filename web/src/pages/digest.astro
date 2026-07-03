@@ -141,5 +141,12 @@ const topReviewed = reviewTopPapers.slice(0, 8);
       <p>Generated from a {fmt.format(totalPapers)}-paper multi-source ClickHouse corpus.
          Deployed static data + server-side RAG proxy. Full dashboard: <a href="/" class="hover:text-primary">/</a></p>
     </footer>
+    <!-- PostHog + API timing -->
+    <script>
+      import { installBrowserMonitoring } from '@/lib/foundry-monitoring';
+      import { initApiTiming } from '@/lib/api-timing';
+      installBrowserMonitoring();
+      initApiTiming();
+    </script>
   </body>
 </html>

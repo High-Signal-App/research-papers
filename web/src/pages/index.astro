@@ -474,5 +474,13 @@ const ragCurrentFilter = "primary Computer Science works, not retracted, cited m
     <script type="application/json" id="data-papers-per-year" set:html={JSON.stringify(temporal?.papers_per_year ?? [])} />
     <script type="application/json" id="data-temporal" set:html={JSON.stringify(temporal ?? {})} />
     <script src="/app.js" is:inline></script>
+
+    <!-- PostHog + API timing -->
+    <script>
+      import { installBrowserMonitoring } from '@/lib/foundry-monitoring';
+      import { initApiTiming } from '@/lib/api-timing';
+      installBrowserMonitoring();
+      initApiTiming();
+    </script>
   </body>
 </html>
