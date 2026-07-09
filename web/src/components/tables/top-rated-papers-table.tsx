@@ -14,13 +14,24 @@ type Row = {
   decision: string | null;
 };
 
-const decisionBadge = (d: string | null) => {
+const decisionLabel = (d: string | null) => {
   if (!d) return null;
   const lc = d.toLowerCase();
-  if (lc.includes("oral")) return <Badge variant="default">{d}</Badge>;
-  if (lc.includes("accept")) return <Badge variant="secondary">{d}</Badge>;
-  if (lc.includes("reject")) return <Badge variant="outline" className="text-muted-foreground">{d}</Badge>;
-  return <Badge variant="outline">{d}</Badge>;
+  if (lc.includes("oral")) return "Accepted oral";
+  if (lc.includes("poster")) return "Accepted poster";
+  if (lc.includes("accept")) return "Accepted";
+  if (lc.includes("reject")) return "Rejected";
+  return d;
+};
+
+const decisionBadge = (d: string | null) => {
+  const label = decisionLabel(d);
+  if (!label || !d) return null;
+  const lc = d.toLowerCase();
+  if (lc.includes("oral")) return <Badge variant="default" className="whitespace-nowrap">{label}</Badge>;
+  if (lc.includes("accept")) return <Badge variant="secondary" className="whitespace-nowrap">{label}</Badge>;
+  if (lc.includes("reject")) return <Badge variant="outline" className="text-muted-foreground whitespace-nowrap">{label}</Badge>;
+  return <Badge variant="outline" className="whitespace-nowrap">{label}</Badge>;
 };
 
 export function TopRatedPapersTable({ data }: { data: Row[] }) {
@@ -70,7 +81,7 @@ export function TopRatedPapersTable({ data }: { data: Row[] }) {
     },
     {
       accessorKey: "decision",
-      header: "decision",
+      header: "venue outcome",
       cell: ({ getValue }) => decisionBadge(getValue<string | null>()),
     },
   ], []);

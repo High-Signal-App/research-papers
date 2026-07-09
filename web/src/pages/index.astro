@@ -1,59 +1,21 @@
 ---
 import "../styles/globals.css";
-import summary from "../../public/data/summary.json";
-import topHosts from "../../public/data/top_hosts.json";
-import topUrls from "../../public/data/top_urls.json";
 import topPapers from "../../public/data/top_papers.json";
 import topCitedWorks from "../../public/data/top_cited_works.json";
-import hostCategories from "../../public/data/host_categories.json";
-import urlsPerPaperHist from "../../public/data/urls_per_paper_hist.json";
-import cyclesDoc from "../../public/data/cycles.json";
-import communities from "../../public/data/communities.json";
-import temporal from "../../public/data/temporal.json";
-import topAuthors from "../../public/data/top_authors.json";
-import abstractClusters from "../../public/data/abstract_clusters.json";
-import reviewVenues from "../../public/data/review_venues.json";
-import reviewTopPapers from "../../public/data/review_top_papers.json";
-import chSources from "../../public/data/ch_sources_summary.json";
 import tagRating from "../../public/data/tag_rating.json";
 import sleepers from "../../public/data/sleepers.json";
 import hot from "../../public/data/hot.json";
 import embeddingClusters from "../../public/data/embedding_clusters.json";
-import tagCooccurrence from "../../public/data/tag_cooccurrence.json";
 
-import { HostsTable } from "@/components/tables/hosts-table";
-import { UrlsTable } from "@/components/tables/urls-table";
 import { CitedWorksTable } from "@/components/tables/cited-works-table";
 import { PapersTable } from "@/components/tables/papers-table";
-import { AbstractClustersTable } from "@/components/tables/abstract-clusters-table";
-import { ReviewVenuesTable } from "@/components/tables/review-venues-table";
-import { TopRatedPapersTable } from "@/components/tables/top-rated-papers-table";
 import { TagRatingTable } from "@/components/tables/tag-rating-table";
 import { SleepersTable } from "@/components/tables/sleepers-table";
 import { HotTable } from "@/components/tables/hot-table";
 import { SemanticSearch } from "@/components/semantic-search";
 import { RagAsk } from "@/components/rag-ask";
 import { EmbeddingClusters } from "@/components/embedding-clusters";
-import { TagCooccurrence } from "@/components/tag-cooccurrence";
-import { AuthorsTable } from "@/components/tables/authors-table";
-import { CommunitiesTable } from "@/components/tables/communities-table";
-import { CyclesTable } from "@/components/tables/cycles-table";
-
-const cyclesByLen = (cyclesDoc as any).by_length ?? [];
-const cycles = (cyclesDoc as any).sample ?? [];
-const totalCycles = cyclesByLen.reduce((s: number, r: any) => s + Number(r.n || 0), 0);
-
-const fmt = new Intl.NumberFormat("en-US");
-
-// Multi-source headline counters (replaces the dropped URL stats)
-const sourceCount = chSources.length;
-const totalReviews = reviewVenues.reduce((s: number, r: any) => s + Number(r.n_reviews || 0), 0);
-const preprintCount = chSources
-  .filter((s: any) => s.source === "biorxiv" || s.source === "medrxiv" || s.source === "chemrxiv")
-  .reduce((s: number, r: any) => s + Number(r.n || 0), 0);
-const ragDomain = "research-papers-cs-cited1000-all";
-const ragSeededPapers = 11116;
-const ragCurrentFilter = "primary Computer Science works, not retracted, cited more than 999 times";
+import SiteNav from "@/components/site-nav.astro";
 ---
 
 <!doctype html>
@@ -66,36 +28,13 @@ const ragCurrentFilter = "primary Computer Science works, not retracted, cited m
     <title>researchPapers · 488k papers, semantic search, PageRank</title>
   </head>
   <body class="min-h-screen antialiased font-sans">
-    <nav class="sticky top-0 z-40 bg-background/80 backdrop-blur-md border-b">
-      <div class="max-w-7xl mx-auto px-6 py-3 flex flex-wrap items-center gap-1 text-sm">
-        <span class="font-semibold mr-4 text-foreground/90">researchPapers</span>
-        <a href="#search" class="px-3 py-1 rounded-md text-primary hover:bg-muted/50 transition-colors whitespace-nowrap">🔍 Search</a>
-        <a href="#rag" class="px-3 py-1 rounded-md text-primary hover:bg-muted/50 transition-colors whitespace-nowrap">RAG</a>
-        <a href="#rag-coverage" class="px-3 py-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors whitespace-nowrap">RAG coverage</a>
-        <a href="/digest" class="px-3 py-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors whitespace-nowrap">📰 Digest</a>
-        <a href="#openreview" class="px-3 py-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors whitespace-nowrap">OpenReview</a>
-        {embeddingClusters?.length > 0 && <a href="#clusters" class="px-3 py-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors whitespace-nowrap">🧩 Clusters</a>}
-        {tagCooccurrence?.nodes?.length > 0 && <a href="#tag-graph" class="px-3 py-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors whitespace-nowrap">🕸️ Tag graph</a>}
-        {hot?.length > 0 && <a href="#hot" class="px-3 py-1 rounded-md text-orange-400/80 hover:text-orange-400 hover:bg-muted/50 transition-colors whitespace-nowrap">🔥 Hot</a>}
-        {sleepers?.length > 0 && <a href="#sleepers" class="px-3 py-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors whitespace-nowrap">🌙 Sleepers</a>}
-        {tagRating?.length > 0 && <a href="#tag-rating" class="px-3 py-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors whitespace-nowrap">Tag ratings</a>}
-        <a href="#cited-works" class="px-3 py-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors whitespace-nowrap">Cited works</a>
-        <a href="#top-papers" class="px-3 py-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors whitespace-nowrap">Top papers</a>
-        <a href="#abstract-clusters" class="px-3 py-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors whitespace-nowrap">Abstract clusters</a>
-        <a href="#temporal" class="px-3 py-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors whitespace-nowrap">Temporal</a>
-        <a href="#authors" class="px-3 py-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors whitespace-nowrap">Authors</a>
-        <a href="#communities" class="px-3 py-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors whitespace-nowrap">Communities</a>
-        <a href="#cycles" class="px-3 py-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors whitespace-nowrap">Cycles</a>
-        {topHosts.length > 0 && <a href="#urls" class="px-3 py-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors whitespace-nowrap">URLs</a>}
-      </div>
-    </nav>
+    <SiteNav active="dashboard" />
 
     <main>
     <header class="max-w-7xl mx-auto px-6 pt-12 pb-6">
       <h1 class="text-4xl font-bold tracking-tight">488k papers. Search, analytics, and paid answers.</h1>
       <p class="mt-3 text-muted-foreground max-w-3xl text-base">
-        arxiv · OpenReview · bioRxiv · medRxiv — 488,491 papers, 1.05M citation edges, 64 semantic clusters.
-        Search by meaning, find sleepers the field missed, drill into what top papers cite, or ask cited questions over curated research signals.
+        Search by meaning, ask cited questions, track hot papers, and use reviewer signals to find early work worth reading.
       </p>
       <div class="mt-5">
         <a href="#search" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity">
@@ -130,182 +69,12 @@ const ragCurrentFilter = "primary Computer Science works, not retracted, cited m
       </div>
     </section>
 
-    <section id="rag-coverage" class="max-w-7xl mx-auto px-6 pb-8">
-      <div class="rounded-2xl border bg-card p-6 md:p-8 space-y-5">
-        <div class="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
-          <div>
-            <h2 class="text-xs uppercase tracking-wider text-muted-foreground font-semibold">RAG source and coverage</h2>
-            <p class="mt-1 max-w-3xl text-sm text-muted-foreground">
-              Live answers use <code class="text-foreground/75">{ragDomain}</code>: {fmt.format(ragSeededPapers)} OpenAlex works where the primary field is Computer Science and citations are above 999.
-              We store metadata, abstracts when OpenAlex has them, citations, authors, topics, DOI/landing-page links, and PDF links only.
-            </p>
-          </div>
-          <div class="rounded-lg border bg-background/50 px-3 py-2 text-xs text-muted-foreground">
-            Query embeddings run through Knowledgebase on Cloudflare. Answers are extractive by default to avoid LLM spend.
-          </div>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="rounded-xl border bg-background/40 p-4">
-            <div class="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Done</div>
-            <div class="mt-2 text-2xl font-bold tabular-nums">{fmt.format(ragSeededPapers)}</div>
-            <p class="mt-1 text-xs leading-relaxed text-muted-foreground">
-              {ragCurrentFilter}. Indexed in Knowledgebase Vectorize with 768-d BGE-base vectors.
-            </p>
-          </div>
-          <div class="rounded-xl border bg-background/40 p-4">
-            <div class="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Not included yet</div>
-            <p class="mt-2 text-xs leading-relaxed text-muted-foreground">
-              Lower-citation CS papers, papers where CS is not the primary OpenAlex field, full PDF text, paywalled PDFs, non-CS fields, and live citation updates after the latest seed.
-            </p>
-          </div>
-          <div class="rounded-xl border bg-background/40 p-4">
-            <div class="text-xs uppercase tracking-wider text-muted-foreground font-semibold">RAG stack</div>
-            <p class="mt-2 text-xs leading-relaxed text-muted-foreground">
-              Source: OpenAlex Works API. Ingestion: local <code class="text-foreground/75">BAAI/bge-base-en-v1.5</code> embeddings plus Knowledgebase vector upload. Retrieval: Knowledgebase semantic vector search over Cloudflare Vectorize, with D1 metadata/chunk storage and lexical fallback.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="max-w-7xl mx-auto px-6 pb-6">
-      <div class="rounded-2xl border bg-card p-6 md:p-8 space-y-6">
-        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-          <div>
-            <div class="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Ingest progress</div>
-            <div class="mt-1 flex items-baseline gap-3">
-              <span class="text-5xl font-bold text-primary tabular-nums">{summary.ingest_percent}%</span>
-              <span class="text-base text-muted-foreground tabular-nums">{fmt.format(summary.papers_ingested)} of {fmt.format(summary.papers_total)} papers</span>
-            </div>
-          </div>
-          <div class="text-left md:text-right">
-            <div class="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Remaining</div>
-            <div class="text-3xl font-semibold tabular-nums mt-1">{fmt.format(summary.papers_remaining)}</div>
-          </div>
-        </div>
-
-        <div class="relative">
-          <div class="h-3 rounded-full bg-muted overflow-hidden">
-            <div class="h-full bg-primary rounded-full transition-all duration-500" style={`width: ${Math.max(summary.ingest_percent, 0.5)}%`}></div>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 border-t">
-          <div>
-            <div class="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Storage now</div>
-            <div class="text-2xl font-bold tabular-nums mt-1">{summary.gz_size}</div>
-            <div class="text-xs text-muted-foreground mt-0.5">{fmt.format(summary.texts_stored)} paper texts</div>
-          </div>
-          <div>
-            <div class="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Projected total</div>
-            <div class="text-2xl font-bold tabular-nums text-primary mt-1">{summary.projected_total_human}</div>
-            <div class="text-xs text-muted-foreground mt-0.5">at current avg-per-paper rate</div>
-          </div>
-          <div>
-            <div class="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Average per paper</div>
-            <div class="text-2xl font-bold tabular-nums mt-1">{summary.avg_per_paper_human}</div>
-            <div class="text-xs text-muted-foreground mt-0.5">gzipped UTF-8 text</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="max-w-7xl mx-auto px-6 pb-8">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <div class="rounded-xl border bg-card p-4">
-          <div class="text-2xl font-bold text-primary tabular-nums">{sourceCount}</div>
-          <div class="text-xs text-muted-foreground uppercase tracking-wide mt-1">data sources</div>
-        </div>
-        <div class="rounded-xl border bg-card p-4">
-          <div class="text-2xl font-bold text-primary tabular-nums">{fmt.format(preprintCount)}</div>
-          <div class="text-xs text-muted-foreground uppercase tracking-wide mt-1">bio/med preprints</div>
-        </div>
-        <div class="rounded-xl border bg-card p-4">
-          <div class="text-2xl font-bold text-primary tabular-nums">{fmt.format(totalReviews)}</div>
-          <div class="text-xs text-muted-foreground uppercase tracking-wide mt-1">OpenReview reviews</div>
-        </div>
-        <div class="rounded-xl border bg-card p-4">
-          <div class="text-2xl font-bold text-primary tabular-nums">{fmt.format(summary.paper_edges)}</div>
-          <div class="text-xs text-muted-foreground uppercase tracking-wide mt-1">paper→paper edges</div>
-        </div>
-      </div>
-    </section>
-
-    {topHosts.length > 0 && (
-      <section class="max-w-7xl mx-auto px-6 pb-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="rounded-xl border bg-card p-4">
-            <h3 class="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-3">Top hosts</h3>
-            <canvas id="chart-hosts" class="!w-full !max-h-80"></canvas>
-          </div>
-          <div class="rounded-xl border bg-card p-4">
-            <h3 class="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-3">Host categories</h3>
-            <canvas id="chart-categories" class="!w-full !max-h-80"></canvas>
-          </div>
-          <div class="rounded-xl border bg-card p-4 md:col-span-2">
-            <h3 class="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-3">URLs per paper</h3>
-            <canvas id="chart-hist" class="!w-full !max-h-80"></canvas>
-          </div>
-        </div>
-      </section>
-    )}
-
-    {reviewVenues.length > 0 && (
-      <section id="openreview" class="max-w-7xl mx-auto px-6 py-8 space-y-6">
-        <div class="space-y-1">
-          <h2 class="text-2xl font-semibold tracking-tight">OpenReview — peer review signal</h2>
-          <p class="text-sm text-muted-foreground">
-            Submissions + reviews + decisions from NeurIPS / ICLR / ICML.
-            Source: <code class="text-foreground/70">openreview.net</code> via ClickHouse.
-            Multi-source corpus now contains: {(chSources ?? []).map((s: any) => `${s.n.toLocaleString()} ${s.source}`).join(" · ")}.
-          </p>
-        </div>
-        <div class="space-y-3">
-          <h3 class="text-sm font-semibold text-foreground/80">Venue summary</h3>
-          <ReviewVenuesTable client:visible data={reviewVenues} />
-        </div>
-        <div class="space-y-3">
-          <h3 class="text-sm font-semibold text-foreground/80">Top-rated submissions (avg reviewer rating, ≥3 reviews)</h3>
-          <TopRatedPapersTable client:visible data={reviewTopPapers} />
-        </div>
-      </section>
-    )}
-
-    {embeddingClusters?.length > 0 && (
-      <section id="clusters" class="max-w-7xl mx-auto px-6 py-8 space-y-3">
-        <div class="space-y-1">
-          <h2 class="text-2xl font-semibold tracking-tight">🧩 Semantic clusters</h2>
-          <p class="text-sm text-muted-foreground">
-            64 clusters from MiniBatchKMeans over all-MiniLM-L6-v2 embeddings (478k × 384-dim).
-            Click any to see top tags + top-cited papers in that semantic region.
-          </p>
-        </div>
-        <EmbeddingClusters client:visible data={embeddingClusters} />
-      </section>
-    )}
-
-    {tagCooccurrence?.nodes?.length > 0 && (
-      <section id="tag-graph" class="max-w-7xl mx-auto px-6 py-8 space-y-3">
-        <div class="space-y-1">
-          <h2 class="text-2xl font-semibold tracking-tight">🕸️ Tag co-occurrence</h2>
-          <p class="text-sm text-muted-foreground">
-            How often the top 20 research tags appear together in the same paper. Cell color = log-scaled co-occurrence count.
-            Hover for exact numbers. The strongest pairs reveal how the field clusters: <code class="text-foreground/70">language models ↔ llms</code>, <code class="text-foreground/70">reinforcement learning ↔ rl</code>, etc.
-          </p>
-        </div>
-        <div class="rounded-xl border bg-card p-4 overflow-x-auto">
-          <TagCooccurrence client:visible data={tagCooccurrence} />
-        </div>
-      </section>
-    )}
-
     {hot?.length > 0 && (
       <section id="hot" class="max-w-7xl mx-auto px-6 py-8 space-y-3">
         <div class="space-y-1">
-          <h2 class="text-2xl font-semibold tracking-tight">🔥 Hot right now</h2>
+          <h2 class="text-2xl font-semibold tracking-tight">Hot right now</h2>
           <p class="text-sm text-muted-foreground">
-            Unified hotness score: <span class="text-orange-400/80">0.5·log(cites/yr) + 0.3·(avg reviewer rating)/10 + 0.2·PageRank·10⁴</span>.
-            Surfaces papers that combine recent citation velocity with peer-review love and graph centrality. 2023+ submissions only.
+            Recent papers combining citation velocity, peer-review signal where available, and graph centrality.
           </p>
         </div>
         <HotTable client:visible data={hot} />
@@ -315,10 +84,9 @@ const ragCurrentFilter = "primary Computer Science works, not retracted, cited m
     {sleepers?.length > 0 && (
       <section id="sleepers" class="max-w-7xl mx-auto px-6 py-8 space-y-3">
         <div class="space-y-1">
-          <h2 class="text-2xl font-semibold tracking-tight">🌙 Sleeper papers</h2>
+          <h2 class="text-2xl font-semibold tracking-tight">Reviewer-loved early work</h2>
           <p class="text-sm text-muted-foreground">
-            Reviewers loved them (avg rating ≥7, ≥3 reviews) but the world hasn't noticed yet (≤20 citations).
-            2024+ submissions only — the "what's under-read" leaderboard. Click any title to read on OpenReview.
+            High OpenReview scores on recent submissions. Citation counts for OpenReview-only records are hidden until a verified citation crosswalk is added.
           </p>
         </div>
         <SleepersTable client:visible data={sleepers} />
@@ -328,152 +96,50 @@ const ragCurrentFilter = "primary Computer Science works, not retracted, cited m
     {tagRating?.length > 0 && (
       <section id="tag-rating" class="max-w-7xl mx-auto px-6 py-8 space-y-3">
         <div class="space-y-1">
-          <h2 class="text-2xl font-semibold tracking-tight">Tags reviewers are most excited about</h2>
+          <h2 class="text-2xl font-semibold tracking-tight">Topics reviewers are most excited about</h2>
           <p class="text-sm text-muted-foreground">
-            Cross-join of <span class="text-emerald-500/80">spaCy-extracted tags</span> × <span class="text-emerald-500/80">OpenReview reviewer ratings</span>.
-            Mean ICLR/NeurIPS rating across all reviewed papers tagged with each topic. Min 10 papers per tag, min 3 reviews per paper.
-            Click a tag for the top-rated sample papers behind the number.
+            Mean reviewer rating by extracted topic. This is the compact view of what top venues are rewarding.
           </p>
         </div>
         <TagRatingTable client:visible data={tagRating} />
       </section>
     )}
 
-    <section id="cited-works" class="max-w-7xl mx-auto px-6 py-8 space-y-3">
-      <div class="space-y-1">
-        <h2 class="text-2xl font-semibold tracking-tight">Most-cited works</h2>
-        <p class="text-sm text-muted-foreground">By our 8.5k-paper corpus, via OpenAlex referenced_works — the "what ML reads" reading list.</p>
-      </div>
-      <CitedWorksTable client:visible data={topCitedWorks} />
-    </section>
+    {embeddingClusters?.length > 0 && (
+      <section id="clusters" class="max-w-7xl mx-auto px-6 py-8 space-y-3">
+        <div class="space-y-1">
+          <h2 class="text-2xl font-semibold tracking-tight">Research map</h2>
+          <p class="text-sm text-muted-foreground">
+            Semantic clusters from MiniLM embeddings. Use this as the one map of the corpus, not a separate diagnostics area.
+          </p>
+        </div>
+        <EmbeddingClusters client:visible data={embeddingClusters} />
+      </section>
+    )}
 
     <section id="top-papers" class="max-w-7xl mx-auto px-6 py-8 space-y-3">
       <div class="space-y-1">
-        <h2 class="text-2xl font-semibold tracking-tight">Top papers in the corpus</h2>
-        <p class="text-sm text-muted-foreground">Compare global citations, in-corpus degree, PageRank, and Katz side by side.</p>
+        <h2 class="text-2xl font-semibold tracking-tight">Top papers</h2>
+        <p class="text-sm text-muted-foreground">The strongest papers in the corpus by citations and graph centrality.</p>
       </div>
       <PapersTable client:visible data={topPapers} />
     </section>
 
-    {abstractClusters.length > 0 && (
-      <section id="abstract-clusters" class="max-w-7xl mx-auto px-6 py-8 space-y-3">
-        <div class="space-y-1">
-          <h2 class="text-2xl font-semibold tracking-tight">Semantic clusters from abstracts</h2>
-          <p class="text-sm text-muted-foreground">TF-IDF + KMeans on abstract text. Orthogonal to citation communities — when they disagree, you've found siloed work.</p>
-        </div>
-        <AbstractClustersTable client:visible data={abstractClusters} />
-      </section>
-    )}
-
-    {temporal?.papers_per_year?.length > 0 && (
-      <section id="temporal" class="max-w-7xl mx-auto px-6 py-8 space-y-3">
-        <div class="space-y-1">
-          <h2 class="text-2xl font-semibold tracking-tight">Temporal evolution</h2>
-          <p class="text-sm text-muted-foreground">When were the top-cited CS papers written, and how did each research community grow. <span class="text-amber-500">⚠ Selection bias: corpus is filtered by citation count, so recent years (2024-26) look smaller because their papers haven't had time to accrue citations — not because publication slowed.</span></p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div class="rounded-xl border bg-card p-4">
-            <h3 class="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-3">Papers per year <span class="text-amber-400">(citation-biased)</span></h3>
-            <canvas id="chart-papers-per-year" class="!w-full !max-h-80"></canvas>
-          </div>
-          <div class="rounded-xl border bg-card p-4">
-            <h3 class="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-3">Mean cites / year, per publication year <span class="text-emerald-400">(lag-corrected)</span></h3>
-            <canvas id="chart-cites-per-year" class="!w-full !max-h-80"></canvas>
-          </div>
-          <div class="rounded-xl border bg-card p-4">
-            <h3 class="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-3">Top 6 communities over time</h3>
-            <canvas id="chart-community-years" class="!w-full !max-h-80"></canvas>
-          </div>
-        </div>
-        <div class="rounded-xl border bg-card overflow-hidden">
-          <table class="w-full text-sm">
-            <thead class="bg-muted/30">
-              <tr>
-                <th class="text-left p-3 text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">year</th>
-                <th class="text-left p-3 text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">top paper that year (by PageRank)</th>
-                <th class="text-right p-3 text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">global cites</th>
-                <th class="text-right p-3 text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">PageRank</th>
-              </tr>
-            </thead>
-            <tbody>
-              {temporal.top_paper_per_year.slice().reverse().map((row: any) => (
-                <tr class="border-t border-border/40 hover:bg-muted/30">
-                  <td class="p-3 tabular-nums">{row.year}</td>
-                  <td class="p-3"><a href={`https://arxiv.org/abs/${row.arxiv_id}`} target="_blank" rel="noopener" class="hover:text-primary">{row.title}</a></td>
-                  <td class="p-3 text-right tabular-nums text-muted-foreground">{row.citation_count != null ? fmt.format(row.citation_count) : ""}</td>
-                  <td class="p-3 text-right tabular-nums text-primary">{row.pagerank_score?.toFixed(6) ?? ""}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
-    )}
-
-    {topAuthors.length > 0 && (
-      <section id="authors" class="max-w-7xl mx-auto px-6 py-8 space-y-3">
-        <div class="space-y-1">
-          <h2 class="text-2xl font-semibold tracking-tight">Top authors</h2>
-          <p class="text-sm text-muted-foreground">Ranked by sum of citations. No author disambiguation — namesakes are merged. Click "drill" to see an author's papers, hosts cited, and communities.</p>
-        </div>
-        <AuthorsTable client:visible data={topAuthors} />
-      </section>
-    )}
-
-    {communities.length > 0 && (
-      <section id="communities" class="max-w-7xl mx-auto px-6 py-8 space-y-3">
-        <div class="space-y-1">
-          <h2 class="text-2xl font-semibold tracking-tight">Research communities</h2>
-          <p class="text-sm text-muted-foreground">Louvain on the 47k-edge within-corpus subgraph. Anchor = highest-PR paper in cluster, labels = TF-IDF over titles.</p>
-        </div>
-        <CommunitiesTable client:visible data={communities} />
-      </section>
-    )}
-
-    {cycles.length > 0 && (
-      <section id="cycles" class="max-w-7xl mx-auto px-6 py-8 space-y-3">
-        <div class="space-y-1">
-          <h2 class="text-2xl font-semibold tracking-tight">Citation cycles</h2>
-          <p class="text-sm text-muted-foreground">
-            {fmt.format(totalCycles)} total up to length 8 — {cyclesByLen.map((r: any) => `len ${r.cycle_length}: ${fmt.format(r.n)}`).join(", ")}. Showing first 300.
-          </p>
-        </div>
-        <CyclesTable client:visible data={cycles} />
-      </section>
-    )}
-
-    {(topHosts.length > 0 || topUrls.length > 0) && (
-      <section id="urls" class="max-w-7xl mx-auto px-6 py-8 space-y-3">
-        <div class="space-y-1">
-          <h2 class="text-2xl font-semibold tracking-tight">URL data</h2>
-          <p class="text-sm text-muted-foreground">Top hosts and exact URLs cited across the corpus PDFs. The head is predictable (github, arxiv, doi); the long tail with PR-weight is where it gets interesting.</p>
-        </div>
-        <div class="space-y-6">
-          <div>
-            <h3 class="text-sm font-semibold mb-3 text-foreground/80">Top hosts</h3>
-            <HostsTable client:visible data={topHosts} />
-          </div>
-          <div>
-            <h3 class="text-sm font-semibold mb-3 text-foreground/80">Top URLs</h3>
-            <UrlsTable client:visible data={topUrls} />
-          </div>
-        </div>
-      </section>
-    )}
+    <section id="cited-works" class="max-w-7xl mx-auto px-6 py-8 space-y-3">
+      <div class="space-y-1">
+        <h2 class="text-2xl font-semibold tracking-tight">What the field cites</h2>
+        <p class="text-sm text-muted-foreground">Works most cited by the corpus, useful as a compact reading list of durable foundations.</p>
+      </div>
+      <CitedWorksTable client:visible data={topCitedWorks} />
+    </section>
     </main>
 
     <footer class="max-w-7xl mx-auto px-6 py-12 text-center text-xs text-muted-foreground border-t mt-12">
       <p class="text-sm font-medium text-foreground/70 mb-1">488,491 papers ingested. 1.05M edges computed. 64 clusters mapped.</p>
-      <p>arxiv · OpenReview · bioRxiv · medRxiv · ClickHouse · semantic search via all-MiniLM-L6-v2 · charts via Chart.js · tables via TanStack + shadcn</p>
+      <p>arxiv · OpenReview · bioRxiv · medRxiv · ClickHouse · semantic search via all-MiniLM-L6-v2 · tables via TanStack + shadcn</p>
     </footer>
 
     <script src="/api-config.js" is:inline></script>
-    <script type="application/json" id="data-hosts-bar" set:html={JSON.stringify(topHosts.slice(0, 30))} />
-    <script type="application/json" id="data-categories" set:html={JSON.stringify(hostCategories)} />
-    <script type="application/json" id="data-hist" set:html={JSON.stringify(urlsPerPaperHist)} />
-    <script type="application/json" id="data-papers-per-year" set:html={JSON.stringify(temporal?.papers_per_year ?? [])} />
-    <script type="application/json" id="data-temporal" set:html={JSON.stringify(temporal ?? {})} />
-    <script src="/app.js" is:inline></script>
 
     <!-- PostHog + API timing -->
     <script>

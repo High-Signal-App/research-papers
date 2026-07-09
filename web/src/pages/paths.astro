@@ -1,0 +1,88 @@
+---
+import "../styles/globals.css";
+import {
+  readingPathCount,
+  readingPathDifficulties,
+  readingPathPaperCount,
+  readingPathTracks,
+  readingPaths,
+} from "@/data/reading-paths";
+import { ReadingPathCatalog } from "@/components/reading-path-catalog";
+import SiteNav from "@/components/site-nav.astro";
+
+const fmt = new Intl.NumberFormat("en-US");
+const today = new Date().toISOString().slice(0, 10);
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Curated research paper reading paths with ordered briefs, provenance notes, and JSON/BibTeX/RIS/Markdown exports."
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>researchPapers · Reading paths</title>
+  </head>
+  <body class="min-h-screen bg-background text-foreground antialiased font-sans">
+    <SiteNav active="paths" />
+
+    <main>
+      <header class="max-w-7xl mx-auto px-6 pt-14 pb-10">
+        <div class="grid gap-8 lg:grid-cols-[1fr_22rem] lg:items-end">
+          <div>
+            <p class="text-xs uppercase tracking-wider text-primary font-semibold">Curated reading paths</p>
+            <h1 class="mt-3 max-w-4xl text-4xl md:text-6xl font-bold tracking-tight">
+              Turn a paper pile into a reading system.
+            </h1>
+            <p class="mt-5 max-w-3xl text-base md:text-lg leading-8 text-muted-foreground">
+              Ordered research paths with short briefs, source links, provenance notes, and citation-manager exports.
+              researchPapers is the discovery layer for deciding what to read and why.
+            </p>
+            <p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
+              Copyright-safe by design: the catalog contains bibliographic metadata, source links, and original notes only.
+              It does not host PDFs, copy abstracts, or reproduce long excerpts.
+            </p>
+          </div>
+          <div class="grid grid-cols-3 gap-3">
+            <div class="rounded-lg border bg-card p-4">
+              <div class="text-3xl font-bold tabular-nums text-primary">{fmt.format(readingPathCount)}</div>
+              <div class="mt-1 text-xs uppercase tracking-wider text-muted-foreground">paths</div>
+            </div>
+            <div class="rounded-lg border bg-card p-4">
+              <div class="text-3xl font-bold tabular-nums text-emerald-400">{fmt.format(readingPathPaperCount)}</div>
+              <div class="mt-1 text-xs uppercase tracking-wider text-muted-foreground">readings</div>
+            </div>
+            <div class="rounded-lg border bg-card p-4">
+              <div class="text-3xl font-bold tabular-nums text-amber-300">{fmt.format(readingPathTracks.length)}</div>
+              <div class="mt-1 text-xs uppercase tracking-wider text-muted-foreground">tracks</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="max-w-7xl mx-auto px-6 pb-12">
+        <ReadingPathCatalog
+          client:load
+          paths={readingPaths}
+          tracks={readingPathTracks}
+          difficulties={readingPathDifficulties}
+        />
+      </section>
+    </main>
+
+    <footer class="max-w-7xl mx-auto px-6 py-12 text-center text-xs text-muted-foreground border-t mt-8">
+      <p class="text-sm font-medium text-foreground/70 mb-1">Reading paths generated from repo-local curated data.</p>
+      <p>Last built {today}. Full dashboard: <a href="/" class="hover:text-primary">/</a></p>
+    </footer>
+
+    <script>
+      import { installBrowserMonitoring } from '@/lib/foundry-monitoring';
+      import { initApiTiming } from '@/lib/api-timing';
+      installBrowserMonitoring();
+      initApiTiming();
+    </script>
+  </body>
+</html>

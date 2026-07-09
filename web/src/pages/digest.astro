@@ -1,11 +1,11 @@
 ---
 import "../styles/globals.css";
 import reviewVenues from "../../public/data/review_venues.json";
-import reviewTopPapers from "../../public/data/review_top_papers.json";
 import tagRating from "../../public/data/tag_rating.json";
 import sleepers from "../../public/data/sleepers.json";
 import hot from "../../public/data/hot.json";
 import chSources from "../../public/data/ch_sources_summary.json";
+import SiteNav from "@/components/site-nav.astro";
 
 const fmt = new Intl.NumberFormat("en-US");
 const today = new Date().toISOString().slice(0, 10);
@@ -16,7 +16,34 @@ const totalReviews = reviewVenues.reduce((s: number, r: any) => s + Number(r.n_r
 const topSleepers = sleepers.slice(0, 8);
 const topHot = hot.slice(0, 10);
 const topTags = tagRating.slice(0, 12);
-const topReviewed = reviewTopPapers.slice(0, 8);
+
+const releaseDateByPaperId = new Map<string, string>();
+for (const paper of [...sleepers, ...hot] as any[]) {
+  if (paper.paper_id && paper.submitted_date) {
+    releaseDateByPaperId.set(paper.paper_id, paper.submitted_date);
+  }
+}
+
+function venueYear(venue: string | undefined) {
+  return venue?.match(/\b(19|20)\d{2}\b/)?.[0];
+}
+
+function releaseLabel(paper: any) {
+  const rawDate = paper.submitted_date || releaseDateByPaperId.get(paper.paper_id);
+  if (rawDate) {
+    const date = new Date(`${rawDate}T00:00:00Z`);
+    if (!Number.isNaN(date.valueOf())) {
+      return date.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+        timeZone: "UTC",
+      });
+    }
+    return rawDate;
+  }
+  return venueYear(paper.venue) || "date unknown";
+}
 ---
 
 <html lang="en" class="dark">
@@ -26,15 +53,7 @@ const topReviewed = reviewTopPapers.slice(0, 8);
     <title>HighSignal — Research Digest, {today}</title>
   </head>
   <body class="bg-background text-foreground min-h-screen">
-    <nav class="sticky top-0 z-40 bg-background/80 backdrop-blur-md border-b">
-      <div class="max-w-5xl mx-auto px-6 py-3 flex items-center gap-3 text-sm">
-        <a href="/" class="font-semibold text-foreground/90 hover:text-primary">researchPapers</a>
-        <span class="text-muted-foreground">›</span>
-        <span class="font-mono text-xs text-muted-foreground">/digest</span>
-        <div class="flex-1"></div>
-        <span class="text-xs text-muted-foreground">{today}</span>
-      </div>
-    </nav>
+    <SiteNav active="digest" />
 
     <header class="max-w-5xl mx-auto px-6 pt-16 pb-12 text-center">
       <h1 class="text-5xl md:text-6xl font-bold tracking-tight">High<span class="text-primary">Signal</span></h1>
@@ -49,7 +68,7 @@ const topReviewed = reviewTopPapers.slice(0, 8);
         <span>🌙</span> What reviewers loved that the world hasn't noticed yet
       </h2>
       <p class="text-sm text-muted-foreground">
-        Submissions with reviewer rating ≥7 (≥3 reviews) but ≤20 citations. The "sleeper" leaderboard.
+        Recent submissions with strong reviewer scores. Citation counts are hidden for OpenReview-only records until we have verified cross-source matching.
       </p>
       <div class="space-y-2">
         {topSleepers.map((p: any) => {
@@ -59,7 +78,7 @@ const topReviewed = reviewTopPapers.slice(0, 8);
                class="block rounded-lg border bg-card p-4 hover:bg-muted/50 transition-colors">
               <div class="flex items-center gap-3 text-sm mb-1">
                 <span class="tabular-nums text-emerald-500 font-semibold">{p.avg_rating.toFixed(2)}</span>
-                <span class="text-amber-500 tabular-nums text-xs">{p.citation_count} cites</span>
+                <span class="text-xs tabular-nums text-muted-foreground">Released {releaseLabel(p)}</span>
                 <span class="font-mono text-[11px] text-muted-foreground">{p.venue}</span>
                 {p.decision && p.decision.toLowerCase().includes("oral") && (
                   <span class="text-[11px] uppercase tracking-wider text-primary">oral</span>
@@ -91,6 +110,7 @@ const topReviewed = reviewTopPapers.slice(0, 8);
               <a href={url} target="_blank" rel="noopener" class="flex-1 hover:text-primary">
                 {p.title}
               </a>
+              <span class="text-xs tabular-nums text-muted-foreground whitespace-nowrap">Released {releaseLabel(p)}</span>
               <span class="text-xs tabular-nums text-muted-foreground">{fmt.format(Math.round(p.cites_per_year))}/yr</span>
             </div>
           );
@@ -113,27 +133,6 @@ const topReviewed = reviewTopPapers.slice(0, 8);
             </div>
           </div>
         ))}
-      </div>
-    </section>
-
-    <section class="max-w-5xl mx-auto px-6 py-8 space-y-4">
-      <h2 class="text-2xl font-semibold tracking-tight">Top-rated accepted submissions (all time)</h2>
-      <p class="text-sm text-muted-foreground">From NeurIPS / ICLR / ICML / COLM, ≥3 reviews.</p>
-      <div class="space-y-1.5">
-        {topReviewed.map((p: any, i: number) => {
-          const oid = p.paper_id.replace(/^openreview:/, "");
-          return (
-            <div class="flex items-baseline gap-3 text-sm py-1">
-              <span class="text-muted-foreground tabular-nums w-6 text-right">{i + 1}</span>
-              <span class="tabular-nums text-emerald-500 font-semibold w-12 text-xs">{p.avg_rating.toFixed(2)}</span>
-              <a href={`https://openreview.net/forum?id=${oid}`} target="_blank" rel="noopener"
-                 class="flex-1 hover:text-primary">
-                {p.title}
-              </a>
-              <span class="font-mono text-[10px] text-muted-foreground">{p.venue}</span>
-            </div>
-          );
-        })}
       </div>
     </section>
 

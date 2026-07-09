@@ -67,12 +67,16 @@ See `DEPLOY.md` for LAN/CDN deployment shapes.
 - **2026-06-24:** Pages demo performance hardening shipped: Chart.js loads lazily, below-fold React islands hydrate on visibility, static assets use immutable caching, and Lighthouse production checks reached desktop 100/100/100/100/100 plus mobile 99 performance and 100s elsewhere.
 - **2026-06-24:** Research Answer API quality hardening shipped: paper-intent questions route to the curated paper-signal layer for sleepers, ratings, clusters, recent signals, and RAG reading lists; generic questions still use live Knowledgebase vector retrieval. Production smoke passed 5/5 representative paper-RAG questions with p50 122 ms and max 349 ms in the verification run.
 - **2026-07-03:** Golden-question regression suite shipped for the Research Answer API (`tests/test_rag_golden.py`): 17 reference questions across all paper-signal intents (sleepers, ratings, clusters, recent, rag) plus general live-retrieval topics (GNNs, attention, diffusion, RLHF, codegen, federated, multimodal). Checks structural quality — answer length, citation count, citations resolve to real index records, intent routing — without prose string-matching, so model nondeterminism stays green while silent degradation fails loudly. Wired into CI as a dedicated `golden-rag-regression` job that probes the deployed Pages Function and skips loudly when unreachable; hermetic `uv run pytest` stays green by default (`-m "not golden"`).
+- **2026-07-09:** Curated reading paths shipped at `/paths`: interactive ordered paths for agentic LLMs, transformer foundations, alignment/RLHF, retrieval/RAG, diffusion/generative vision, and compression/generalization, with search/filtering, paper briefs, provenance notes, source links, and client-side JSON/BibTeX/RIS/Markdown exports.
+- **2026-07-09:** Researcher/source buckets added to `/paths`: the public Sutskever/Carmack mirror, Karpathy-style LLM systems, LeCun world-model work, and CHAI/Russell-aligned safety reading. Site navigation was reworked into a compact list with dropdown groups, and the catalog explicitly avoids copying abstracts, PDFs, or long excerpts.
+- **2026-07-09:** Public dashboard cut down to the core product surface: semantic search, research answer API, hot papers, reviewer-loved early work, reviewer topic signals, one research map, top papers, and cited foundations. Removed older ingest/progress, URL, raw OpenReview, duplicate clustering, temporal, author, community, and citation-cycle diagnostics from the main page.
 
 ## Products
 
 | Surface | URL / port |
 | --- | --- |
 | Public production | `https://research-papers.pages.dev` (Cloudflare Pages) |
+| Curated reading paths | `/paths` static Astro + React page with filters and multi-format export |
 | Pages RAG Function | `/api/rag/query` on Pages; `RAG_SERVICE_KEY` configured for the live `research-papers-cs-cited1000-all` Knowledgebase path |
 | FastAPI (local/deploy) | `http://0.0.0.0:8000` via `uv run papers api-serve` |
 | ClickHouse HTTP | `:8123` (Docker) |
@@ -117,6 +121,8 @@ See `DEPLOY.md` for LAN/CDN deployment shapes.
 - Static JSON exports via `uv run papers export-ch` → `web/public/data/*.json`.
 - Public Pages build uses bundled static JSON when no live API base is configured, so search/similar-paper demo flows do not point at localhost.
 - Research Answer API panel calls same-origin `/api/rag/query` on Pages or FastAPI `/rag/query` in same-host mode; the live path defaults to semantic retrieval plus synthesized cited answers through Knowledgebase/free-ai. If the live Knowledgebase service is unavailable, the browser falls back to a cited answer over bundled hot papers, sleepers, OpenReview ratings, and semantic clusters.
+- Main dashboard focuses on the core discovery workflow and omits internal diagnostic surfaces such as ingest progress, URL charts, duplicate cluster tables, temporal charts, author/community tables, and citation cycles.
+- Curated reading paths (`/paths`) provide ordered paper sequences, researcher/source buckets, annotations, source/provenance notes, interactive search/filtering, and client-side JSON/BibTeX/RIS/Markdown exports without a live API dependency. The catalog stores metadata, links, and original notes only; no abstracts, PDFs, or long excerpts are redistributed.
 - Warm restore, cold rebuild, deployment shapes documented.
 
 ## Todo / Planned / Deferred / Blocked

@@ -1,0 +1,5 @@
+- [x] Add researcher/source-attributed reading buckets.
+- [x] Rework navbar into a compact list with dropdowns.
+- [x] Add copyright-safe UI copy and source/provenance notes.
+- [x] Update status/spec docs.
+- [x] Run focused checks.

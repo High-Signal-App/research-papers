@@ -149,6 +149,15 @@ This seeds the current `cited_by_count > 999` OpenAlex Computer Science slice:
 still runs through Knowledgebase/Cloudflare; ingestion embeddings are generated
 locally.
 
+### Curated reading paths
+
+The frontend also ships `/paths`, a static reading-path catalog for deciding
+what to read next. It includes source-attributed researcher buckets such as the
+public Sutskever/Carmack mirror, Karpathy-style LLM systems, LeCun world-model
+work, and CHAI/Russell-aligned safety reading. The catalog is copyright-safe by
+design: it stores bibliographic metadata, source links, and original short notes
+only; it does not host PDFs, copy abstracts, or reproduce long excerpts.
+
 ## Using the data
 
 Once `./scripts/deploy.sh` has the stack running (FastAPI on `:8000`, CH on
@@ -266,7 +275,9 @@ ORDER BY p.citation_count DESC LIMIT 20;
 visual entry point. Each table is a React island bound to either a static
 JSON in `web/public/data/` (built by `papers export-ch`) or a live FastAPI
 endpoint (search, semantic search, similar). The `/digest` page is the
-HighSignal-style summary.
+HighSignal-style summary. The `/paths` page is a static curated reading-path
+surface with interactive filters, ordered paper briefs, provenance notes,
+and JSON/BibTeX/RIS/Markdown export controls.
 
 ### Refreshing the static JSON exports
 
@@ -406,7 +417,9 @@ scripts/
 web/
   src/pages/index.astro      dashboard with React islands
   src/pages/digest.astro     HighSignal-style digest page
-  src/components/            shadcn/ui + TanStack tables + charts
+  src/pages/paths.astro      curated reading paths shell
+  src/components/            shadcn/ui + TanStack tables + charts + reading path catalog
+  src/data/reading-paths.ts  repo-local reading-path content
   public/data/*.json         exported aggregations
   public/api-config.js       runtime API base override
 DEPLOY.md                    three deployment shapes (host / LAN / CDN)

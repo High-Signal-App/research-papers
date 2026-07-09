@@ -30,46 +30,46 @@ function ClusterCard({ c }: { c: Cluster }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button class="text-left rounded-lg border bg-card p-4 hover:bg-muted/40 transition-colors space-y-2 w-full h-full">
-          <div class="flex items-baseline justify-between">
-            <span class="text-xs font-mono text-muted-foreground">cluster #{c.id}</span>
-            <span class="tabular-nums text-xs text-muted-foreground">{fmt.format(c.size)} papers</span>
+        <button className="text-left rounded-lg border bg-card p-4 hover:bg-muted/40 transition-colors space-y-2 w-full h-full">
+          <div className="flex items-baseline justify-between">
+            <span className="text-xs font-mono text-muted-foreground">cluster #{c.id}</span>
+            <span className="tabular-nums text-xs text-muted-foreground">{fmt.format(c.size)} papers</span>
           </div>
-          <div class="text-sm text-foreground/85 line-clamp-1">{tagSummary}</div>
-          {anchor && <div class="text-xs text-muted-foreground line-clamp-2 leading-snug">{anchor.title}</div>}
+          <div className="text-sm text-foreground/85 line-clamp-1">{tagSummary}</div>
+          {anchor && <div className="text-xs text-muted-foreground line-clamp-2 leading-snug">{anchor.title}</div>}
         </button>
       </DialogTrigger>
-      <DialogContent class="max-w-2xl">
+      <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <DialogTitle>Cluster #{c.id} <span class="text-muted-foreground font-normal text-sm">({fmt.format(c.size)} papers)</span></DialogTitle>
+          <DialogTitle>Cluster #{c.id} <span className="text-muted-foreground font-normal text-sm">({fmt.format(c.size)} papers)</span></DialogTitle>
           <DialogDescription>
             One of 64 semantic clusters from MiniBatchKMeans over all-MiniLM-L6-v2 embeddings (478k × 384-dim).
           </DialogDescription>
         </DialogHeader>
-        <div class="space-y-3 pt-2">
+        <div className="space-y-3 pt-2">
           <div>
-            <div class="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-1">Top tags</div>
-            <div class="flex flex-wrap gap-1">
+            <div className="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-1">Top tags</div>
+            <div className="flex flex-wrap gap-1">
               {c.top_tags.map((t, i) => (
-                <Badge key={i} variant="secondary" class="text-xs">
-                  {t.tag} <span class="text-muted-foreground ml-1 tabular-nums">{t.n}</span>
+                <Badge key={i} variant="secondary" className="text-xs">
+                  {t.tag} <span className="text-muted-foreground ml-1 tabular-nums">{t.n}</span>
                 </Badge>
               ))}
             </div>
           </div>
           <div>
-            <div class="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-1">Top-cited papers in this cluster</div>
-            <div class="space-y-1">
+            <div className="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-1">Top-cited papers in this cluster</div>
+            <div className="space-y-1">
               {c.top_papers.map((p) => (
                 <a key={p.paper_id} href={paperUrl(p.paper_id)} target="_blank" rel="noopener"
-                   class="block p-2 rounded-md hover:bg-muted text-sm">
-                  <div class="flex items-center gap-2 mb-0.5">
-                    <Badge variant="outline" class="font-mono text-[10px]">{p.source}</Badge>
+                   className="block p-2 rounded-md hover:bg-muted text-sm">
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <Badge variant="outline" className="font-mono text-[10px]">{p.source}</Badge>
                     {p.citation_count > 0 && (
-                      <span class="tabular-nums text-xs text-muted-foreground">{fmt.format(p.citation_count)} cites</span>
+                      <span className="tabular-nums text-xs text-muted-foreground">{fmt.format(p.citation_count)} cites</span>
                     )}
                   </div>
-                  <div class="text-foreground/85">{p.title}</div>
+                  <div className="text-foreground/85">{p.title}</div>
                 </a>
               ))}
             </div>
@@ -82,7 +82,7 @@ function ClusterCard({ c }: { c: Cluster }) {
 
 export function EmbeddingClusters({ data }: { data: Cluster[] }) {
   return (
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
       {data.map((c) => <ClusterCard key={c.id} c={c} />)}
     </div>
   );
