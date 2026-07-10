@@ -1,6 +1,6 @@
 # researchPapers — PROJECT STATUS
 
-Last updated: 2026-07-03
+Last updated: 2026-07-10
 
 ## Why / What
 
@@ -8,7 +8,7 @@ researchPapers is a ClickHouse-backed academic-paper intelligence platform. It i
 
 **Users:** Researchers browsing/searching the corpus; demo viewers evaluating paid answer APIs over curated data; operators running ingest/overlay jobs; frontend readers of static JSON exports and live API.
 
-**Constraints:** Runtime is ClickHouse-only for API, frontend, and pipeline reads. Warm restore from dump preferred over cold rebuild (hours). Same-host deployment preferred over CDN until launch path decided.
+**Constraints:** Cloudflare Pages is the canonical production runtime. The public product is static Astro plus Pages Functions; ClickHouse is an operator-side source used to refresh exports, not a production service dependency.
 
 **IN scope:** ~488k paper corpus, FastAPI search/insights, overlay enrichment jobs, Astro dashboard, static JSON export path, Cloudflare Pages demo, paid-answer/RAG demo path, warm restore deploy script.
 
@@ -28,7 +28,7 @@ researchPapers is a ClickHouse-backed academic-paper intelligence platform. It i
 - **MLX (Qwen2.5-3B-4bit tagging):** Premium tagging subset.
 - **spaCy v2:** Noun-chunk tags.
 - **Optional Postgres:** Legacy CLI paths (`ingest`, `download-pdfs`) only.
-- **Cloudflare Pages:** Public Astro demo at `https://research-papers.pages.dev`.
+- **Cloudflare Pages:** Canonical production surface at `https://research-papers.pages.dev`.
 
 Corpus stats: 488,491 papers · full-corpus PageRank · 64 semantic clusters · MLX + spaCy tags · correction overlays · ~1.05M paper→paper edges.
 
@@ -78,7 +78,7 @@ See `DEPLOY.md` for LAN/CDN deployment shapes.
 | Public production | `https://research-papers.pages.dev` (Cloudflare Pages) |
 | Curated reading paths | `/paths` static Astro + React page with filters and multi-format export |
 | Pages RAG Function | `/api/rag/query` on Pages; `RAG_SERVICE_KEY` configured for the live `research-papers-cs-cited1000-all` Knowledgebase path |
-| FastAPI (local/deploy) | `http://0.0.0.0:8000` via `uv run papers api-serve` |
+| FastAPI (operator-only) | `http://0.0.0.0:8000` via `uv run papers api-serve` |
 | ClickHouse HTTP | `:8123` (Docker) |
 | Astro dev | `http://127.0.0.1:4321` (`cd web && npm run dev`) |
 | GitHub | `https://github.com/sarthak-fleet/researchPapers` |
@@ -129,20 +129,24 @@ See `DEPLOY.md` for LAN/CDN deployment shapes.
 
 ### Planned
 
-1. Keep static JSON exports fresh after ingestion/retagging: `uv run papers export-ch` + frontend rebuild.
+1. Keep Cloudflare static JSON exports fresh after ingestion/retagging: `uv run papers export-ch` + frontend rebuild + manual Pages deploy.
 2. Run overlay jobs on production corpus after deploy: `uv run papers warm-update`.
 3. Expand the golden-question regression suite as new paper-signal intents or RAG domains ship.
 
 ### Deferred
 
-- Full same-host live API deployment remains separate from the Cloudflare Pages static demo.
+- Same-host FastAPI deployment is retired; keep the local API only for operator workflows and development.
 - Legacy Postgres pipeline unless needed for cold restore or old commands.
 - OrbStack/macOS VM instability — environment issue, not product regression without repro on stable Docker.
 - Full-corpus Semantic Scholar backfill and manual author curation.
-- Static JSON exports drift from ClickHouse until `export-ch` + frontend rebuild rerun.
+- Static JSON exports drift from the operator ClickHouse snapshot until `export-ch` + frontend rebuild rerun.
 - Overlay jobs need post-deploy runs on live corpus.
 - Cold rebuild remains hours-long; warm restore from dump is the practical path.
 
 ### Blocked
 
 - (none)
+
+### Operating decision
+
+- **Cloudflare-only (2026-07-10):** Pages plus Pages Functions is the sole production target. Do not maintain a same-host API deployment or treat local ClickHouse as a public runtime dependency.
