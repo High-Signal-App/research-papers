@@ -38,7 +38,7 @@ jobs:
   golden-rag-regression:
     runs-on: ubuntu-latest
     env:
-      GOLDEN_RAG_URL: https://research-papers.pages.dev/api/rag/query
+      GOLDEN_RAG_URL: https://papers.highsignal.app/api/rag/query
     steps:
       - uses: actions/checkout@v4
 

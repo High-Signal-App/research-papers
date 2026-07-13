@@ -39,4 +39,4 @@ jobs:
       - name: Smoke production
         run: |
           set -euo pipefail
-          curl --fail --retry 5 --retry-delay 5 --max-time 20 "https://research-papers.pages.dev/" >/dev/null
+          curl --fail --retry 5 --retry-delay 5 --max-time 20 "https://papers.highsignal.app/" >/dev/null

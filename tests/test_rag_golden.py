@@ -21,7 +21,7 @@ dangling paper ids, broken intent routing) fails loudly.
 
 Run selectively (marker: ``golden``):
 
-    GOLDEN_RAG_URL=https://research-papers.pages.dev/api/rag/query \
+    GOLDEN_RAG_URL=https://papers.highsignal.app/api/rag/query \
         uv run pytest -m golden
 
 Without ``GOLDEN_RAG_URL`` the whole module skips with this notice, so the
@@ -46,7 +46,7 @@ GOLDEN_RAG_URL = os.environ.get("GOLDEN_RAG_URL", "").strip()
 SKIP_REASON = (
     "GOLDEN_RAG_URL is not set — golden-question regression checks need a live "
     "Research Answer API endpoint. Run: "
-    "GOLDEN_RAG_URL=https://research-papers.pages.dev/api/rag/query uv run pytest -m golden"
+    "GOLDEN_RAG_URL=https://papers.highsignal.app/api/rag/query uv run pytest -m golden"
 )
 
 pytestmark = [

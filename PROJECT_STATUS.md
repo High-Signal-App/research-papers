@@ -28,7 +28,7 @@ researchPapers is a ClickHouse-backed academic-paper intelligence platform. It i
 - **MLX (Qwen2.5-3B-4bit tagging):** Premium tagging subset.
 - **spaCy v2:** Noun-chunk tags.
 - **Optional Postgres:** Legacy CLI paths (`ingest`, `download-pdfs`) only.
-- **Cloudflare Pages:** Canonical production surface at `https://research-papers.pages.dev`.
+- **Cloudflare Pages:** Canonical production surface at `https://papers.highsignal.app`.
 
 Corpus stats: 488,491 papers · full-corpus PageRank · 64 semantic clusters · MLX + spaCy tags · correction overlays · ~1.05M paper→paper edges.
 
@@ -63,7 +63,7 @@ See `DEPLOY.md` for LAN/CDN deployment shapes.
 
 - **Corpus build:** ~488k papers across arxiv, OpenReview, bioRxiv, medRxiv with ~1.05M paper→paper edges; full-corpus PageRank → `paper_scores_v2`; MiniLM embeddings (384-d) for all papers; 64 semantic clusters; spaCy noun-chunk tags + MLX premium tagging subset.
 - **Overlay enrichment shipped:** Semantic Scholar enrichment → `citation_overlay_v2`; ArXiv abstract refresh → `abstract_overlay_v2`; author graph → `authors_v2`, `paper_authorships_v2`.
-- **2026-06-24:** Cloudflare Pages demo deployed at `https://research-papers.pages.dev`; frontend no longer defaults to localhost APIs; Research Answer API panel ships a same-origin RAG proxy path. `RAG_SERVICE_KEY` is configured on Pages production and the clean `research-papers-cs-cited1000-all` Knowledgebase domain is seeded from OpenAlex primary-Computer-Science works over 999 citations, using local BGE-base embeddings uploaded through vector ingest. The bundled-data fallback remains for resilience.
+- **2026-06-24:** Cloudflare Pages demo deployed at `https://papers.highsignal.app`; frontend no longer defaults to localhost APIs; Research Answer API panel ships a same-origin RAG proxy path. `RAG_SERVICE_KEY` is configured on Pages production and the clean `research-papers-cs-cited1000-all` Knowledgebase domain is seeded from OpenAlex primary-Computer-Science works over 999 citations, using local BGE-base embeddings uploaded through vector ingest. The bundled-data fallback remains for resilience.
 - **2026-06-24:** Pages demo performance hardening shipped: Chart.js loads lazily, below-fold React islands hydrate on visibility, static assets use immutable caching, and Lighthouse production checks reached desktop 100/100/100/100/100 plus mobile 99 performance and 100s elsewhere.
 - **2026-06-24:** Research Answer API quality hardening shipped: paper-intent questions route to the curated paper-signal layer for sleepers, ratings, clusters, recent signals, and RAG reading lists; generic questions still use live Knowledgebase vector retrieval. Production smoke passed 5/5 representative paper-RAG questions with p50 122 ms and max 349 ms in the verification run.
 - **2026-07-03:** Golden-question regression suite shipped for the Research Answer API (`tests/test_rag_golden.py`): 17 reference questions across all paper-signal intents (sleepers, ratings, clusters, recent, rag) plus general live-retrieval topics (GNNs, attention, diffusion, RLHF, codegen, federated, multimodal). Checks structural quality — answer length, citation count, citations resolve to real index records, intent routing — without prose string-matching, so model nondeterminism stays green while silent degradation fails loudly. Wired into CI as a dedicated `golden-rag-regression` job that probes the deployed Pages Function and skips loudly when unreachable; hermetic `uv run pytest` stays green by default (`-m "not golden"`).
@@ -75,7 +75,7 @@ See `DEPLOY.md` for LAN/CDN deployment shapes.
 
 | Surface | URL / port |
 | --- | --- |
-| Public production | `https://research-papers.pages.dev` (Cloudflare Pages) |
+| Public production | `https://papers.highsignal.app` (Cloudflare Pages) |
 | Curated reading paths | `/paths` static Astro + React page with filters and multi-format export |
 | Pages RAG Function | `/api/rag/query` on Pages; `RAG_SERVICE_KEY` configured for the live `research-papers-cs-cited1000-all` Knowledgebase path |
 | FastAPI (operator-only) | `http://0.0.0.0:8000` via `uv run papers api-serve` |
