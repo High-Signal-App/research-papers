@@ -23,6 +23,7 @@ const today = new Date().toISOString().slice(0, 10);
       name="description"
       content="Curated research paper reading paths with ordered briefs, provenance notes, and JSON/BibTeX/RIS/Markdown exports."
     />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>researchPapers · Reading paths</title>
   </head>

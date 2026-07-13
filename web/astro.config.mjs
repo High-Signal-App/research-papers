@@ -3,7 +3,7 @@ import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  site: "http://localhost:4321",
+  site: "https://papers.highsignal.app",
   output: "static",
   build: {
     format: "directory",

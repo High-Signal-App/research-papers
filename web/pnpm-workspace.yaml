@@ -1,7 +1,4 @@
-packages:
-  - "."
-
-onlyBuiltDependencies:
-  - esbuild
-  - sharp
-  - lightningcss
+allowBuilds:
+  core-js: true
+  esbuild: true
+  sharp: true
