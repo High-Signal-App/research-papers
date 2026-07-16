@@ -18,7 +18,7 @@ Stack: ClickHouse 24.10 (Dockerized) · FastAPI · Astro 5 + React + Tailwind
   dependency for legacy CLI commands (e.g. `ingest`, `download-pdfs`) but
   is not required for the API, the frontend, or any current pipeline.
 - The Astro frontend is fully wired to the FastAPI backend. See `DEPLOY.md`.
-- GitHub: <https://github.com/sarthak-fleet/researchPapers>
+- GitHub: <https://github.com/High-Signal-App/research-papers>
 
 ## Quickstart (warm — from a dump)
 
@@ -26,7 +26,7 @@ If you have the `researchpapers_data_*.tar.gz` dump in hand, this is the
 fastest path to a running system. Needs Docker + `uv`.
 
 ```bash
-git clone https://github.com/sarthak-fleet/researchPapers
+git clone https://github.com/High-Signal-App/research-papers
 cd researchPapers
 ./scripts/deploy.sh /path/to/researchpapers_data_*.tar.gz
 # CH on :8123, FastAPI on :8000

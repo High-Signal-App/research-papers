@@ -81,7 +81,7 @@ See `DEPLOY.md` for LAN/CDN deployment shapes.
 | FastAPI (operator-only) | `http://0.0.0.0:8000` via `uv run papers api-serve` |
 | ClickHouse HTTP | `:8123` (Docker) |
 | Astro dev | `http://127.0.0.1:4321` (`cd web && npm run dev`) |
-| GitHub | `https://github.com/sarthak-fleet/researchPapers` |
+| GitHub | `https://github.com/High-Signal-App/research-papers` |
 | Static JSON export | `web/public/data/*.json` for Astro build |
 
 ## Features (shipped)
