@@ -1,5 +1,8 @@
 # researchPapers
 
+**Product:** [papers.highsignal.app](https://papers.highsignal.app)
+
+
 Multi-source academic-paper data platform on ClickHouse.
 **488k papers** across arxiv, OpenReview, bioRxiv, medRxiv — with semantic
 search, citation graph PageRank, peer-review aggregations, MLX/spaCy
