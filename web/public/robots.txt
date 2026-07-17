@@ -2,3 +2,7 @@ User-agent: *
 Allow: /
 
 Sitemap: https://papers.highsignal.app/sitemap.xml
+# Agent indexing
+Allow: /llms.txt
+Allow: /index.md
+Allow: /api/ai

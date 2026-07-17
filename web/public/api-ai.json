@@ -1,0 +1,25 @@
+{
+  "name": "researchPapers",
+  "version": "1",
+  "url": "https://papers.highsignal.app",
+  "llms": "https://papers.highsignal.app/llms.txt",
+  "llmsFull": null,
+  "sitemap": "https://papers.highsignal.app/sitemap.xml",
+  "markdown": {
+    "suffix": ".md",
+    "negotiation": true
+  },
+  "surfaces": [
+    {
+      "id": "home",
+      "url": "https://papers.highsignal.app/",
+      "md": "https://papers.highsignal.app/index.md",
+      "kind": "static",
+      "description": "Product home"
+    }
+  ],
+  "auth": {
+    "public": true,
+    "notes": "Auth-walled app routes are not agent-indexed unless listed here."
+  }
+}

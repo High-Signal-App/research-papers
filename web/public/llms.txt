@@ -1,10 +1,17 @@
 # researchPapers
 
-Research paper search, analytics, and RAG demo over a high-citation OpenAlex Computer Science corpus.
+> Academic paper platform over a high-citation OpenAlex CS corpus — search, analytics, and RAG demo (~488k papers).
 
-## Public pages
-- [researchPapers dashboard](https://papers.highsignal.app/)
-- [Research digest](https://papers.highsignal.app/digest/)
+## Product
 
-## Data notes
-The RAG demo uses OpenAlex primary Computer Science works with more than 999 citations. It stores metadata, abstracts when available from OpenAlex, citation counts, authors, topics, DOI or landing-page links, and PDF links only.
+- [Home](https://papers.highsignal.app/): Search and analytics
+
+## Machine surfaces
+
+- [Agent catalog](https://papers.highsignal.app/api/ai): JSON inventory of public surfaces
+- [Homepage markdown](https://papers.highsignal.app/index.md): Product brief without JS
+- [This index](https://papers.highsignal.app/llms.txt)
+
+## Optional
+
+- [Foundry](https://sassmaker.com): Parent fleet showcase
