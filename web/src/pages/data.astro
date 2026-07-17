@@ -1,0 +1,242 @@
+---
+import "../styles/globals.css";
+import summary from "../../public/data/summary.json";
+import chSources from "../../public/data/ch_sources_summary.json";
+import temporal from "../../public/data/temporal.json";
+import communities from "../../public/data/communities.json";
+import reviewVenues from "../../public/data/review_venues.json";
+import SiteNav from "@/components/site-nav.astro";
+
+const fmt = new Intl.NumberFormat("en-US");
+
+const totalPapers = summary.papers_total;
+const totalEdges = summary.paper_edges;
+const textsStored = summary.texts_stored;
+const dataSize = summary.gz_size;
+const avgBytes = summary.avg_per_paper_human;
+
+const sources = chSources as Array<{ source: string; n: number }>;
+const sourceTotal = sources.reduce((s, r) => s + r.n, 0);
+
+const papersPerYear = (temporal as any).papers_per_year as Array<{ year: number; n: number }>;
+const recentYears = papersPerYear
+  .filter((y) => y.year >= 2018)
+  .sort((a, b) => b.year - a.year)
+  .slice(0, 8);
+
+const topCommunities = (communities as any[])
+  .slice()
+  .sort((a, b) => b.size - a.size)
+  .slice(0, 8);
+
+const totalReviews = (reviewVenues as any[]).reduce((s, r) => s + Number(r.n_reviews || 0), 0);
+
+const downloadableFiles = [
+  { name: "summary.json", desc: "Corpus ingest summary: paper counts, edge counts, storage size" },
+  { name: "top_papers.json", desc: "Top 200 papers by PageRank + Katz centrality" },
+  { name: "top_cited_works.json", desc: "Most-cited works across the corpus" },
+  { name: "hot.json", desc: "100 hot papers: citation velocity × review rating × PageRank" },
+  { name: "sleepers.json", desc: "100 reviewer-loved early papers with low citation counts" },
+  { name: "communities.json", desc: "64 semantic communities with anchor papers and labels" },
+  { name: "embedding_clusters.json", desc: "Embedding cluster assignments from MiniLM" },
+  { name: "temporal.json", desc: "Papers per year, cites per year, top paper per year" },
+  { name: "tag_rating.json", desc: "Mean reviewer rating by extracted topic" },
+  { name: "tag_cooccurrence.json", desc: "Topic tag co-occurrence matrix" },
+  { name: "review_venues.json", desc: "Peer-review venue summaries and review counts" },
+  { name: "review_rating_distribution.json", desc: "Rating distribution per review venue" },
+  { name: "ch_sources_summary.json", desc: "Paper counts by source (arxiv, OpenReview, bioRxiv, medRxiv)" },
+  { name: "top_authors.json", desc: "Most prolific authors in the corpus" },
+  { name: "top_hosts.json", desc: "Top hosting domains for paper URLs" },
+  { name: "cycles.json", desc: "Citation cycle detection results" },
+  { name: "abstract_clusters.json", desc: "Abstract-level clustering results" },
+  { name: "host_categories.json", desc: "Host URL categorization" },
+];
+
+const datasetJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  name: "researchPapers OpenAlex CS Corpus Analytics",
+  description:
+    "Analytics exports from a 479k-paper OpenAlex Computer Science corpus: top papers by PageRank, citation networks, semantic communities, reviewer signals from OpenReview, and temporal trends. Updated from ClickHouse.",
+  url: "https://papers.highsignal.app/data",
+  distribution: downloadableFiles.map((f) => ({
+    "@type": "DataDownload",
+    encodingFormat: "application/json",
+    contentUrl: `https://papers.highsignal.app/data/${f.name}`,
+  })),
+  creator: {
+    "@type": "Organization",
+    name: "SaaS Maker (Foundry)",
+    url: "https://sassmaker.com",
+  },
+  license: "https://creativecommons.org/licenses/by/4.0/",
+  isAccessibleForFree: true,
+  keywords: ["research papers", "OpenAlex", "computer science", "citations", "PageRank", "semantic search", "OpenReview"],
+};
+---
+
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Corpus statistics and downloadable JSON exports from a 479k-paper OpenAlex Computer Science corpus: top papers, citation networks, semantic communities, and reviewer signals."
+    />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>researchPapers · Corpus Data & Downloads</title>
+    <script type="application/ld+json" set:html={JSON.stringify(datasetJsonLd)} />
+  </head>
+  <body class="min-h-screen bg-background text-foreground antialiased font-sans">
+    <SiteNav active="dashboard" />
+
+    <main>
+      <header class="max-w-5xl mx-auto px-6 pt-12 pb-6">
+        <h1 class="text-4xl font-bold tracking-tight">Corpus Data & Downloads</h1>
+        <p class="mt-3 text-muted-foreground max-w-3xl">
+          {fmt.format(totalPapers)} papers ingested from OpenAlex Computer Science, with
+          {fmt.format(totalEdges)} citation edges computed. All analytics exports below are
+          generated from ClickHouse and available as raw JSON under CC-BY 4.0.
+        </p>
+      </header>
+
+      <section class="max-w-5xl mx-auto px-6 py-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="rounded-xl border bg-card p-4">
+            <div class="text-2xl font-bold tabular-nums">{fmt.format(totalPapers)}</div>
+            <div class="text-xs text-muted-foreground mt-1">Papers ingested</div>
+          </div>
+          <div class="rounded-xl border bg-card p-4">
+            <div class="text-2xl font-bold tabular-nums">{fmt.format(totalEdges)}</div>
+            <div class="text-xs text-muted-foreground mt-1">Citation edges</div>
+          </div>
+          <div class="rounded-xl border bg-card p-4">
+            <div class="text-2xl font-bold tabular-nums">{fmt.format(textsStored)}</div>
+            <div class="text-xs text-muted-foreground mt-1">Abstracts stored</div>
+          </div>
+          <div class="rounded-xl border bg-card p-4">
+            <div class="text-2xl font-bold tabular-nums">{dataSize}</div>
+            <div class="text-xs text-muted-foreground mt-1">Compressed size</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="max-w-5xl mx-auto px-6 py-6 space-y-4">
+        <h2 class="text-xl font-semibold tracking-tight">Sources</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {sources.map((s) => (
+            <div class="rounded-lg border bg-card p-3">
+              <div class="text-sm font-medium capitalize">{s.source}</div>
+              <div class="text-lg font-bold tabular-nums mt-1">{fmt.format(s.n)}</div>
+              <div class="text-xs text-muted-foreground">
+                {((s.n / sourceTotal) * 100).toFixed(1)}% of corpus
+              </div>
+            </div>
+          ))}
+        </div>
+        <p class="text-sm text-muted-foreground">
+          {fmt.format(totalReviews)} peer reviews aggregated from OpenReview venues.
+          Average paper size: {avgBytes}.
+        </p>
+      </section>
+
+      <section class="max-w-5xl mx-auto px-6 py-6 space-y-4">
+        <h2 class="text-xl font-semibold tracking-tight">Papers per year (recent)</h2>
+        <div class="space-y-1.5">
+          {recentYears.map((y) => (
+            <div class="flex items-center gap-3 text-sm">
+              <span class="tabular-nums text-muted-foreground w-12">{y.year}</span>
+              <div class="flex-1 bg-muted rounded-full h-5 overflow-hidden">
+                <div
+                  class="bg-primary h-full rounded-full"
+                  style={`width: ${Math.min(100, (y.n / recentYears[0].n) * 100)}%`}
+                />
+              </div>
+              <span class="tabular-nums text-foreground/80 w-20 text-right">{fmt.format(y.n)}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="max-w-5xl mx-auto px-6 py-6 space-y-4">
+        <h2 class="text-xl font-semibold tracking-tight">Top semantic communities</h2>
+        <p class="text-sm text-muted-foreground">
+          {communities.length} communities detected from citation graph structure. Each has
+          anchor papers and topic labels.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {topCommunities.map((c) => (
+            <div class="rounded-lg border bg-card p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-mono text-muted-foreground">cluster #{c.id}</span>
+                <span class="text-sm tabular-nums font-medium">{fmt.format(c.size)} papers</span>
+              </div>
+              <div class="text-sm text-foreground/90 mb-1">{c.anchor_title}</div>
+              <div class="flex flex-wrap gap-1 mt-2">
+                {c.labels.slice(0, 4).map((l: string) => (
+                  <span class="text-[11px] px-2 py-0.5 rounded bg-muted text-muted-foreground">{l}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="max-w-5xl mx-auto px-6 py-6 space-y-4">
+        <h2 class="text-xl font-semibold tracking-tight">Downloadable JSON exports</h2>
+        <p class="text-sm text-muted-foreground">
+          All files are served from <code class="text-foreground/70">/data/*.json</code> and
+          licensed CC-BY 4.0. Cite as: researchPapers OpenAlex CS Corpus Analytics,
+          papers.highsignal.app/data.
+        </p>
+        <div class="rounded-xl border overflow-hidden">
+          <table class="w-full text-sm">
+            <thead class="bg-muted/50 text-muted-foreground">
+              <tr>
+                <th class="text-left px-4 py-2 font-medium">File</th>
+                <th class="text-left px-4 py-2 font-medium">Description</th>
+                <th class="text-right px-4 py-2 font-medium">Download</th>
+              </tr>
+            </thead>
+            <tbody>
+              {downloadableFiles.map((f) => (
+                <tr class="border-t hover:bg-muted/30">
+                  <td class="px-4 py-2 font-mono text-foreground/80">{f.name}</td>
+                  <td class="px-4 py-2 text-muted-foreground">{f.desc}</td>
+                  <td class="px-4 py-2 text-right">
+                    <a
+                      href={`/data/${f.name}`}
+                      class="text-primary hover:underline font-medium"
+                      download
+                    >JSON</a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="max-w-5xl mx-auto px-6 py-6 space-y-3">
+        <h2 class="text-xl font-semibold tracking-tight">Data provenance</h2>
+        <p class="text-sm text-muted-foreground">
+          Papers are sourced from OpenAlex (Computer Science, cited ≥1000). Citation edges are
+          computed from OpenAlex reference lists. Peer-review signals come from OpenReview
+          (ICLR, NeurIPS, ICML, COLM). Semantic search uses all-MiniLM-L6-v2 embeddings stored
+          in ClickHouse. The full pipeline runs via <code class="text-foreground/70">scripts/</code>
+          in the repository.
+        </p>
+      </section>
+    </main>
+
+    <footer class="max-w-5xl mx-auto px-6 py-12 text-center text-xs text-muted-foreground border-t mt-12">
+      <p>{fmt.format(totalPapers)} papers · {fmt.format(totalEdges)} edges · {communities.length} communities · CC-BY 4.0</p>
+    </footer>
+
+    <script>
+      import { installBrowserMonitoring } from '@/lib/foundry-monitoring';
+      installBrowserMonitoring();
+    </script>
+  </body>
+</html>

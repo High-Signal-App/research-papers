@@ -1,5 +1,5 @@
 ---
-type ActivePage = "dashboard" | "digest" | "paths";
+type ActivePage = "dashboard" | "digest" | "paths" | "data";
 
 type Props = {
   active: ActivePage;
@@ -39,6 +39,9 @@ const dropdownLink =
       </li>
       <li>
         <a href="/paths" class={linkClass("paths")}>Reading paths</a>
+      </li>
+      <li>
+        <a href="/data" class={linkClass("data")}>Data</a>
       </li>
       <li class="relative sm:ml-auto">
         <details class="group">

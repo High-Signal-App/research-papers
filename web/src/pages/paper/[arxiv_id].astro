@@ -1,0 +1,208 @@
+---
+import "../../styles/globals.css";
+import topPapers from "../../../public/data/top_papers.json";
+import SiteNav from "@/components/site-nav.astro";
+
+const fmt = new Intl.NumberFormat("en-US");
+
+type Paper = {
+  arxiv_id: string;
+  title: string;
+  citation_count: number;
+  primary_category: string;
+  submitted_date: string;
+  in_corpus_degree: number;
+  pagerank_score: number;
+  katz_score: number;
+  n_urls: number;
+  year: number;
+  cites_per_year: number;
+  topic_tags: string[];
+  top_keywords: string[];
+};
+
+export function getStaticPaths() {
+  return (topPapers as Paper[]).map((paper) => ({
+    params: { arxiv_id: paper.arxiv_id },
+    props: { paper },
+  }));
+}
+
+type Props = { paper: Paper };
+const { paper } = Astro.props;
+
+const arxivUrl = `https://arxiv.org/abs/${paper.arxiv_id}`;
+const pdfUrl = `https://arxiv.org/pdf/${paper.arxiv_id}`;
+const pageUrl = `https://papers.highsignal.app/paper/${paper.arxiv_id}`;
+
+// ScholarlyArticle JSON-LD
+const scholarlyJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "@id": pageUrl,
+  headline: paper.title,
+  url: arxivUrl,
+  mainEntityOfPage: pageUrl,
+  datePublished: paper.submitted_date,
+  citationCount: paper.citation_count,
+  interactionStatistic: {
+    "@type": "InteractionCounter",
+    interactionType: "https://schema.org/CiteAction",
+    userInteractionCount: paper.citation_count,
+  },
+  about: paper.topic_tags.slice(0, 5).map((tag) => ({
+    "@type": "Thing",
+    name: tag,
+  })),
+  keywords: paper.top_keywords.join(", "),
+  inLanguage: "en",
+  isPartOf: {
+    "@type": "Dataset",
+    name: "researchPapers OpenAlex CS Corpus",
+    url: "https://papers.highsignal.app/data",
+  },
+};
+
+// Unique topic tags
+const uniqueTags = [...new Set(paper.topic_tags)];
+---
+
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={`${paper.title} — ${paper.citation_count} citations, PageRank ${paper.pagerank_score.toFixed(6)}. Part of the researchPapers 479k-paper CS corpus.`} />
+    <link rel="canonical" href={pageUrl} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{paper.title} · researchPapers</title>
+
+    <!-- citation_* meta tags (Google Scholar / refman compatible) -->
+    <meta name="citation_title" content={paper.title} />
+    <meta name="citation_arxiv_id" content={paper.arxiv_id} />
+    <meta name="citation_date" content={paper.submitted_date} />
+    <meta name="citation_year" content={String(paper.year)} />
+    <meta name="citation_online_date" content={paper.submitted_date} />
+    <meta name="citation_public_url" content={arxivUrl} />
+    <meta name="citation_pdf_url" content={pdfUrl} />
+    <meta name="citation_abstract_html_url" content={arxivUrl} />
+    <meta name="citation_in_corpus_citations" content={String(paper.citation_count)} />
+    <meta name="citation_publisher" content="arXiv" />
+    {uniqueTags.slice(0, 3).map((tag) => (
+      <meta name="citation_keywords" content={tag} />
+    ))}
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={paper.title} />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:description" content={`${paper.citation_count} citations · PageRank ${paper.pagerank_score.toFixed(6)} · ${paper.primary_category}`} />
+
+    <!-- ScholarlyArticle JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(scholarlyJsonLd)} />
+  </head>
+  <body class="min-h-screen bg-background text-foreground antialiased font-sans">
+    <SiteNav active="dashboard" />
+
+    <main class="max-w-3xl mx-auto px-6 pt-12 pb-16">
+      <nav class="mb-6 text-sm text-muted-foreground">
+        <a href="/" class="hover:text-primary">researchPapers</a>
+        <span class="mx-2">/</span>
+        <a href="/data" class="hover:text-primary">data</a>
+        <span class="mx-2">/</span>
+        <span class="text-foreground/70">paper</span>
+      </nav>
+
+      <article>
+        <div class="flex items-center gap-3 text-sm text-muted-foreground mb-4">
+          <span class="font-mono text-xs px-2 py-0.5 rounded bg-muted">arXiv:{paper.arxiv_id}</span>
+          <span class="tabular-nums">{paper.submitted_date}</span>
+          <span class="text-foreground/50">·</span>
+          <span>{paper.primary_category}</span>
+        </div>
+
+        <h1 class="text-2xl md:text-3xl font-bold tracking-tight leading-tight">
+          {paper.title}
+        </h1>
+
+        <div class="flex flex-wrap gap-4 mt-6 mb-8">
+          <a
+            href={arxivUrl}
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90"
+          >
+            View on arXiv &rarr;
+          </a>
+          <a
+            href={pdfUrl}
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border text-sm font-medium hover:bg-muted"
+          >
+            PDF
+          </a>
+        </div>
+
+        <section class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+          <div class="rounded-lg border bg-card p-3">
+            <div class="text-xs text-muted-foreground">Citations</div>
+            <div class="text-xl font-bold tabular-nums mt-1">{fmt.format(paper.citation_count)}</div>
+          </div>
+          <div class="rounded-lg border bg-card p-3">
+            <div class="text-xs text-muted-foreground">Cites / year</div>
+            <div class="text-xl font-bold tabular-nums mt-1">{fmt.format(Math.round(paper.cites_per_year))}</div>
+          </div>
+          <div class="rounded-lg border bg-card p-3">
+            <div class="text-xs text-muted-foreground">In-corpus degree</div>
+            <div class="text-xl font-bold tabular-nums mt-1">{fmt.format(paper.in_corpus_degree)}</div>
+          </div>
+          <div class="rounded-lg border bg-card p-3">
+            <div class="text-xs text-muted-foreground">PageRank</div>
+            <div class="text-xl font-bold tabular-nums mt-1">{paper.pagerank_score.toFixed(6)}</div>
+          </div>
+        </section>
+
+        {uniqueTags.length > 0 && (
+          <section class="mb-8">
+            <h2 class="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">Topic tags</h2>
+            <div class="flex flex-wrap gap-2">
+              {uniqueTags.map((tag) => (
+                <span class="text-xs px-3 py-1 rounded-full bg-muted text-foreground/80">{tag}</span>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {paper.top_keywords.length > 0 && (
+          <section class="mb-8">
+            <h2 class="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">Keywords</h2>
+            <div class="flex flex-wrap gap-2">
+              {paper.top_keywords.map((kw) => (
+                <span class="text-xs px-3 py-1 rounded-full border text-muted-foreground">{kw}</span>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <section class="border-t pt-6 text-sm text-muted-foreground space-y-2">
+          <h2 class="text-sm font-semibold text-foreground/80 uppercase tracking-wider mb-3">Corpus metrics</h2>
+          <p>
+            Ranked #{(topPapers as Paper[]).findIndex((p) => p.arxiv_id === paper.arxiv_id) + 1} by
+            PageRank in the 479k-paper OpenAlex CS corpus. Katz centrality score:
+            <span class="tabular-nums text-foreground/70">{paper.katz_score.toFixed(6)}</span>.
+          </p>
+          <p>
+            This page is part of the <a href="/data" class="text-primary hover:underline">researchPapers corpus dataset</a>.
+            Citation count sourced from OpenAlex; in-corpus degree is the number of citation edges
+            within the CS subset.
+          </p>
+        </section>
+      </article>
+    </main>
+
+    <script>
+      import { installBrowserMonitoring } from '@/lib/foundry-monitoring';
+      installBrowserMonitoring();
+    </script>
+  </body>
+</html>
