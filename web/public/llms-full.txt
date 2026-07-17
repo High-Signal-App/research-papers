@@ -1,0 +1,41 @@
+# researchPapers — full agent brief
+
+Academic paper platform over a high-citation OpenAlex CS corpus — search, analytics, and RAG demo (~488k papers).
+
+## Index
+
+# researchPapers
+
+~488k papers with semantic search, analytics, and paid answers demo.
+
+## What it is
+
+- High-citation OpenAlex Computer Science corpus
+- Semantic search and analytics
+- RAG-style Q&A paths
+
+## Agent entrypoints
+
+- https://papers.highsignal.app/llms.txt
+- https://papers.highsignal.app/api/ai
+- https://papers.highsignal.app/index.md
+
+Do not invent paper claims — cite corpus results.
+
+## Product links
+
+- Home: https://papers.highsignal.app/ — Search and analytics
+
+## Machine surfaces
+
+- https://papers.highsignal.app/llms.txt
+- https://papers.highsignal.app/llms-full.txt
+- https://papers.highsignal.app/api/ai
+- https://papers.highsignal.app/index.md
+- https://papers.highsignal.app/sitemap.xml
+- https://papers.highsignal.app/robots.txt
+
+## Contact / fleet
+
+- Fleet: https://sassmaker.com
+- Agent email for directory verification: sarthakagrawal@agentmail.to
