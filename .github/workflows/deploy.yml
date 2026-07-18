@@ -1,5 +1,8 @@
 name: Deploy research-papers to Cloudflare Pages
 # CI deploy verified 2026-06-26; production deploy is manual dispatch only.
+# Rollback: Cloudflare Pages preserves every deployment. Roll back via
+# dash.cloudflare.com → Pages → research-papers → Deployments → "Rollback to
+# this deployment".
 on:
   workflow_dispatch:
 concurrency:
@@ -9,6 +12,7 @@ concurrency:
 jobs:
   deploy-production:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v6
       # web/ has no `packageManager` pin, but a committed pnpm v9 lockfile —

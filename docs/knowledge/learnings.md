@@ -1,7 +1,7 @@
 # Engineering Lessons
 
 Concrete lessons drawn from the code and git history of this project. ADR rationale lives in
-[decisions.md](decisions.md).
+[../architecture/decisions/index.md](../architecture/decisions/index.md).
 
 ---
 

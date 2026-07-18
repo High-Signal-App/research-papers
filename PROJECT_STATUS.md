@@ -1,6 +1,11 @@
 # researchPapers — PROJECT STATUS
 
-Last updated: 2026-07-10
+Last updated: 2026-07-18
+
+> **Scope of this file:** durable product identity — Why/What, Dependencies,
+> Products, Features, Timeline. Live operating state (objective, active work,
+> blockers, next steps) lives in [`STATUS.md`](STATUS.md). The full knowledge
+> base lives in [`docs/`](docs/index.md).
 
 ## Why / What
 
@@ -125,27 +130,13 @@ See `DEPLOY.md` for LAN/CDN deployment shapes.
 - Curated reading paths (`/paths`) provide ordered paper sequences, researcher/source buckets, annotations, source/provenance notes, interactive search/filtering, and client-side JSON/BibTeX/RIS/Markdown exports without a live API dependency. The catalog stores metadata, links, and original notes only; no abstracts, PDFs, or long excerpts are redistributed.
 - Warm restore, cold rebuild, deployment shapes documented.
 
-## Todo / Planned / Deferred / Blocked
+## Live operating state
 
-### Planned
-
-1. Keep Cloudflare static JSON exports fresh after ingestion/retagging: `uv run papers export-ch` + frontend rebuild + manual Pages deploy.
-2. Run overlay jobs on production corpus after deploy: `uv run papers warm-update`.
-3. Expand the golden-question regression suite as new paper-signal intents or RAG domains ship.
-
-### Deferred
-
-- Same-host FastAPI deployment is retired; keep the local API only for operator workflows and development.
-- Legacy Postgres pipeline unless needed for cold restore or old commands.
-- OrbStack/macOS VM instability — environment issue, not product regression without repro on stable Docker.
-- Full-corpus Semantic Scholar backfill and manual author curation.
-- Static JSON exports drift from the operator ClickHouse snapshot until `export-ch` + frontend rebuild rerun.
-- Overlay jobs need post-deploy runs on live corpus.
-- Cold rebuild remains hours-long; warm restore from dump is the practical path.
-
-### Blocked
-
-- (none)
+Live operating state (current objective, active work, blockers, unresolved
+questions, next steps, deferred) now lives in [`STATUS.md`](STATUS.md). This
+file holds durable product identity (Why/What, Dependencies, Products, Features,
+Timeline); the Timeline below is mirrored in
+[`docs/current/timeline.md`](docs/current/timeline.md).
 
 ### Operating decision
 

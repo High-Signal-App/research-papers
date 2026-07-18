@@ -41,5 +41,5 @@ it is not part of the normal pipeline.
 
 ## Lessons
 
-- See [lessons.md](../lessons.md) for ClickHouse-specific pitfalls (ReplacingMergeTree, partition
+- See [../../knowledge/learnings.md](../../knowledge/learnings.md) for ClickHouse-specific pitfalls (ReplacingMergeTree, partition
   mutations, LowCardinality, UDF persistence).

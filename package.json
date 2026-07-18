@@ -1,6 +1,10 @@
 {
   "private": true,
   "scripts": {
-    "deploy": "node scripts/manual-deploy.mjs deploy.yml ci.yml"
+    "deploy": "node scripts/manual-deploy.mjs deploy.yml ci.yml",
+    "docs:check": "bash scripts/check-docs.sh",
+    "docs:build": "bash scripts/build-docs.sh build",
+    "docs:dev": "bash scripts/build-docs.sh dev",
+    "docs:preview": "bash scripts/build-docs.sh preview"
   }
 }
