@@ -41,5 +41,5 @@ one-shot subprocess (`encode_query.py`), saving ~400 MB RSS in the API process.
 
 ## Lessons
 
-- See [lessons.md](../lessons.md): "Batch size must be clamped dynamically", "Cold-start is
+- See [../../knowledge/learnings.md](../../knowledge/learnings.md): "Batch size must be clamped dynamically", "Cold-start is
   one-time per run", "RAM throttle is necessary during concurrent workloads".

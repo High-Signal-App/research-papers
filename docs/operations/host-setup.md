@@ -4,7 +4,7 @@ Goal: take a brand-new (or wiped) M1 Pro / 16 GB / macOS box and end with
 ClickHouse + the FastAPI backend running 24/7, ingestion automated, the API
 reachable from anywhere via a Cloudflare Tunnel, and nightly backups to R2.
 
-Companion doc: [DEPLOY.md](../DEPLOY.md) covers the actual app boot. This
+Companion doc: [DEPLOY.md](../../DEPLOY.md) covers the actual app boot. This
 file covers everything *around* it that DEPLOY.md assumes is already there.
 
 ## 1. One-time prereqs (~15 min)
@@ -26,7 +26,7 @@ docker ps   # should succeed
 > OrbStack gotcha (see DEPLOY.md §Notes): if `docker ps` later starts
 > erroring randomly, run `~/.orbstack/bin/orb start` from the CLI.
 
-Clone the repo and follow [DEPLOY.md §1](../DEPLOY.md) to bring up CH +
+Clone the repo and follow [DEPLOY.md §1](../../DEPLOY.md) to bring up CH +
 restore a dump (or start cold). Stop after the API is serving on
 `127.0.0.1:8000`.
 
@@ -133,7 +133,7 @@ does not — it's a static Astro build, ~1.4 MB gzipped. Putting it on Pages
 gets you a global CDN, automatic deploys on `git push`, and graceful
 degradation when the API blips (cached pages still load).
 
-[DEPLOY.md §3](../DEPLOY.md) has the actual build steps. Specific to this
+[DEPLOY.md §3](../../DEPLOY.md) has the actual build steps. Specific to this
 two-domain setup:
 
 - Connect the GitHub repo in the CF Pages dashboard, point at `web/`
