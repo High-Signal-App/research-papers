@@ -18,7 +18,7 @@ layout". This folder holds the synthesized system narrative and the ADR record.
 | Architecture diagram | [`README.md`](../../README.md) → Architecture |
 | Repo layout (file-by-file) | [`README.md`](../../README.md) → Repo layout |
 | Schema (papers, overlays, UDFs) | `clickhouse/init/01_schema.sql`, `02_functions.sql`, `03_overlays.sql`, `04_indexes.sql` |
-| Migrations (legacy Postgres) | `migrations/001_init.sql` … `010_more_tag_columns.sql` |
+| Migrations (legacy Postgres) | `migrations/001_init.sql` … `012_storage_cuts.sql` |
 | Decision rationale | [`decisions/`](decisions/index.md) |
 
 ## Principles

@@ -19,10 +19,14 @@ FastAPI with `uvicorn`.
 - FastAPI's automatic OpenAPI docs reduce endpoint documentation burden.
 - Async-friendly: ClickHouse queries via `clickhouse-connect` can be offloaded
   without blocking the event loop.
-- `--lean` mode: the API defaults to spawning a one-shot subprocess for query
-  encoding (`encode_query.py`) rather than keeping the SentenceTransformer
-  loaded. This saves ~400 MB RSS on the API process at the cost of ~0.5s
-  latency per semantic-search request.
+- Lean mode (`PAPERS_LEAN_API=1`, the default): the API starts with no ML
+  model resident and loads the SentenceTransformer encoder lazily in-process
+  on the first semantic-search request, keeping it resident thereafter. This
+  saves ~400 MB RSS versus eager loading; the first request pays a ~1s model
+  load, subsequent requests are ~10–50 ms. (An earlier design spawned a
+  one-shot `encode_query.py` subprocess per request; that was replaced by
+  lazy in-process loading. `encode_query.py` survives as the standalone
+  `papers encode-query` CLI helper.)
 
 ## Alternatives considered
 

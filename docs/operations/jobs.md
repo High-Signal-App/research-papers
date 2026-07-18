@@ -11,10 +11,10 @@ Tune to your source rate limits. Suggested:
 
 | Job | When | Command |
 | --- | --- | --- |
-| arXiv daily delta | 03:00 daily | `papers ingest arxiv --since=1d` |
-| OpenReview overlay refresh | 04:00 daily | `papers overlay openreview` |
-| Citation graph rebuild | 05:00 weekly | `papers overlay references` |
-| Web JSON export + refresh | 06:00 daily | `papers refresh-web && papers export-ch` |
+| arXiv daily delta | 03:00 daily | `papers fetch --category cs.AI --days 1` |
+| OpenReview refresh | 04:00 daily | `papers ingest-openreview` |
+| Citation graph rebuild | 05:00 weekly | `papers backfill-references && papers pagerank-full` |
+| Overlay + web export | 06:00 daily | `papers warm-update --build-web` |
 
 ## Loading a job
 

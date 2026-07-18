@@ -150,13 +150,18 @@ in the M1 profile. Using `os.cpu_count()` workers would OOM.
 
 ## FastAPI lean mode
 
-### Subprocess-based query encoding saves ~400 MB resident RAM
+### Lazy in-process query encoding saves ~400 MB resident RAM
 
-The API defaults to `LEAN_API=1`, which spawns a one-shot `encode_query.py` subprocess for
-every semantic-search request instead of keeping a `SentenceTransformer` instance in the API
-process. The subprocess loads the model, encodes the query, writes the JSON vector to stdout,
-and exits. Tradeoff: ~0.5–1s additional latency per semantic-search call; acceptable for
-interactive use.
+The API defaults to `PAPERS_LEAN_API=1` (`api.py:45`). In lean mode it starts with no ML model
+resident and loads the `SentenceTransformer` encoder lazily in-process on the **first**
+semantic-search request, then keeps it resident (`_encode_query`, `api.py:49-71`). This saves
+~400 MB RSS at startup versus eager loading. Tradeoff: the first semantic-search request pays a
+~1s model load; subsequent requests are ~10–50 ms.
+
+An earlier design spawned a one-shot `encode_query.py` subprocess per request (which is why the
+`encode_query.py` docstring still describes that flow). That was replaced by lazy in-process
+loading because the per-request subprocess spawn cost ~2–5s. `encode_query.py` remains only as
+the standalone `papers encode-query` CLI helper (`cli.py:462`); `api.py` no longer invokes it.
 
 ---
 
