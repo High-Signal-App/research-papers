@@ -25,9 +25,10 @@ write-path HTTP API.
 
 ### 2. Storage (ClickHouse 24.10)
 
-`papers` (MergeTree, partitioned by `toYear(submitted_date)`, ordered by
-`(source, source_id)`) is the base table. Everything that changes after the
-initial insert lives in a `ReplacingMergeTree` overlay read with `FINAL`:
+`papers` (`ReplacingMergeTree(updated_at)`, partitioned by
+`toYear(coalesce(submitted_date, ...))`, ordered by `(source, source_id)`) is
+the base table. Everything that changes after the initial insert lives in a
+separate `ReplacingMergeTree` overlay read with `FINAL`:
 
 - `paper_scores_v2` — full-corpus PageRank from `pagerank_full.py`.
 - `paper_metadata_v2` — corrected titles/years.
@@ -69,9 +70,10 @@ All heavy jobs consult `ram.py` (`wait_for_ram`, `clamp_batch_size`,
 
 `api.py` exposes read-only endpoints over ClickHouse: search, paper detail,
 semantic search, sleepers, hot papers, similar papers, tags, authors, reviews,
-and `/rag/query`. Defaults to `LEAN_API=1`, which spawns a one-shot
-`encode_query.py` subprocess per semantic-search request to save ~400 MB RSS.
-[ADR-007](decisions/007-fastapi.md).
+and `/rag/query`. Defaults to `PAPERS_LEAN_API=1`, which keeps no ML model
+resident at startup and instead loads the MiniLM encoder lazily in-process on
+the first semantic-search request (kept resident thereafter), saving ~400 MB
+RSS versus eager loading. [ADR-007](decisions/007-fastapi.md).
 
 Per the 2026-07-10 operating decision, this server is operator-only. The
 public product does not depend on it.

@@ -8,7 +8,7 @@ Gotcha-focused stubs for novel tech encountered in this project. Concepts alread
 
 - What: MergeTree's `ORDER BY` is the physical sort key; `ALTER TABLE … UPDATE` rewrites every affected part within each partition.
 - Why here: TBD
-- Gotcha (from code): `papers` is `PARTITION BY toYear(...)` (`clickhouse/init/01_schema.sql:43`), so in-place mutations scan every year-partition — that's why PageRank scores live in a separate `paper_scores_v2` ReplacingMergeTree overlay instead of updating the base table (`pagerank_full.py:103-119`). README lines 301-302 document the reasoning explicitly.
+- Gotcha (from code): `papers` is `PARTITION BY toYear(coalesce(submitted_date, ...))` (`clickhouse/init/01_schema.sql:47`), so in-place mutations scan every year-partition — that's why PageRank scores live in a separate `paper_scores_v2` ReplacingMergeTree overlay instead of updating the base table (`pagerank_full.py:103-119`). README lines 301-302 document the reasoning explicitly.
 - Source: See [external-references.md](external-references.md) → ClickHouse MergeTree family
 
 ---

@@ -18,8 +18,10 @@ The fix introduced `ram.py` as a shared helper module used by every heavy pipeli
 - `pick_n_process()`: calculates spaCy worker count as `min(cap, budget_MB / 1500)`.
 - `m1_16gb_profile()`: named defaults tuned for the target machine.
 
-The FastAPI server also gained `--lean` mode: semantic-search query encoding is offloaded to a
-one-shot subprocess (`encode_query.py`), saving ~400 MB RSS in the API process.
+The FastAPI server also gained lean mode (`PAPERS_LEAN_API=1`): the semantic-search encoder is
+not loaded at startup. As originally shipped, query encoding was offloaded to a one-shot
+subprocess (`encode_query.py`); it was later switched to lazy in-process loading on first
+request (kept resident thereafter). Either way ~400 MB RSS is saved at startup.
 
 ## What went well
 
@@ -36,8 +38,9 @@ one-shot subprocess (`encode_query.py`), saving ~400 MB RSS in the API process.
   audited and reduced. There was no single place to change them.
 - The MLX tagger keeps the model resident throughout the run; there is no way to unload it
   between groups without paying the cold-start cost again. The only lever is shard size.
-- The lean API mode adds ~0.5–1s per semantic-search call (subprocess spawn + model cold-start).
-  This is acceptable interactively but would be unacceptable at >1 request/sec load.
+- The original lean API mode added ~2–5s per semantic-search call (subprocess spawn + model
+  cold-start every request). Switching to lazy in-process loading moved that cost to the first
+  request only (~1s), with subsequent requests at ~10–50 ms.
 
 ## Lessons
 
