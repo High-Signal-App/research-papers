@@ -152,7 +152,55 @@ def _rag_key() -> str | None:
 
 @app.get("/healthz")
 def healthz() -> dict:
-    return {"ok": True}
+    """Liveness + structured health evidence.
+
+    Reports build, live, revision, errors, latency, ClickHouse reachability,
+    and the last refresh watermark/failure so a single landing 200 cannot
+    conceal a broken search/corpus path. Satisfies the
+    `data-research-toolbox-automation` "Public and API health" requirement.
+    """
+    from researchpapers import __version__, refresh_manifest
+    from researchpapers.ch_db import ping as ch_ping
+
+    t0 = time.time()
+    ch_ok = ch_ping()
+    ch_error: str | None = None if ch_ok else "ClickHouse ping failed (see /healthz indexing.clickhouse_reachable)"
+
+    manifest = refresh_manifest.read_manifest()
+    last_failure = manifest.get("last_failure")
+    runs = manifest.get("runs", {})
+    refresh_evidence = {
+        step: {
+            "source_watermark": record.get("source_watermark"),
+            "last_success_at": record.get("freshness", {}).get("wall_clock"),
+            "output_count": record.get("output_count"),
+            "quality_failed": bool(record.get("quality_failed")),
+            "error": record.get("error"),
+        }
+        for step, record in sorted(runs.items())
+    }
+    last_success = max(
+        (evidence.get("last_success_at") or "" for evidence in refresh_evidence.values()),
+        default="",
+    )
+
+    return {
+        "ok": ch_ok,
+        "build": {"name": "researchPapers API", "version": __version__},
+        "live": True,
+        "revision": os.environ.get("PAPERS_REVISION", "unknown"),
+        "errors": {
+            "clickhouse": ch_error,
+            "last_refresh_failure": last_failure,
+        },
+        "latency_ms": int((time.time() - t0) * 1000),
+        "indexing": {
+            "clickhouse_reachable": ch_ok,
+            "last_successful_refresh_at": last_success or None,
+            "refresh_evidence": refresh_evidence,
+            "tracked_steps": sorted(runs.keys()),
+        },
+    }
 
 
 @app.get("/rag/status")
@@ -282,6 +330,9 @@ def search(
                 **({"sources": src_filter} if src_filter else {}),
             },
         ).result_rows
+    from researchpapers import activation
+
+    activation.track_search_outcome(result_count=len(rows), source="keyword")
     return {
         "query": q,
         "count": len(rows),
@@ -331,6 +382,9 @@ def get_paper(paper_id: str) -> dict:
             "SELECT venue, rating, confidence, decision, summary, strengths, weaknesses FROM openreview_reviews WHERE paper_id = %(pid)s",
             parameters={"pid": paper_id},
         ).result_rows
+    from researchpapers import activation
+
+    activation.track_result_inspection(source="paper_detail")
     return {
         "paper_id": row[0],
         "source": row[1],
@@ -527,6 +581,9 @@ def semantic_search(
                 **({"sources": src_filter} if src_filter else {}),
             },
         ).result_rows
+    from researchpapers import activation
+
+    activation.track_search_outcome(result_count=len(rows), source="semantic")
     return {
         "query": q,
         "count": len(rows),

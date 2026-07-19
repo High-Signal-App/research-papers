@@ -11,6 +11,13 @@ holds the operational context around it (host setup, scheduled jobs, runbooks).
 - [`host-setup.md`](host-setup.md) — fresh M1 Pro host setup: always-on mode,
   launchd services, Cloudflare Tunnel, R2 backups, health monitoring.
 - [`jobs.md`](jobs.md) — scheduled ingestion and export jobs.
+- [`data-map.md`](data-map.md) — authoritative vs derived data
+  classification, reconstruction paths, and refresh-lifecycle controls.
+- [`refresh-manifest.md`](refresh-manifest.md) — schema and quality gate for
+  `data/refresh-manifest.json`.
+- [`foundry.md`](foundry.md) — Foundry snapshot sanitization contract.
+- [`experiments.md`](experiments.md) — bounded Toolbox marketing experiment
+  manifest and approved claims.
 - [`runbooks/recovery.md`](runbooks/recovery.md) — recovery procedures for
   common failure modes.
 

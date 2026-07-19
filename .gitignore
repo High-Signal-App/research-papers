@@ -15,6 +15,11 @@ data/pdfs/
 data/openalex-*-kb-seed-state.json
 data/openalex-*-shards/
 
+# Operator-local refresh-lifecycle + experiment manifest state
+# (written by warm-update / operator runs; not for git)
+data/refresh-manifest.json
+data/experiments-manifest.json
+
 # Tool caches
 .pytest_cache/
 .ruff_cache/
