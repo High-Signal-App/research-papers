@@ -13,10 +13,20 @@ from researchpapers.api import app
 client = TestClient(app)
 
 
-def test_healthz_returns_ok():
+def test_healthz_returns_structured_evidence():
     resp = client.get("/healthz")
     assert resp.status_code == 200
-    assert resp.json() == {"ok": True}
+    body = resp.json()
+    # Structured health evidence (data-research-toolbox-automation "Public and
+    # API health"). Without ClickHouse running, ok=False but the endpoint
+    # still returns 200 with structured fields.
+    assert set(body) >= {"ok", "build", "live", "revision", "errors", "latency_ms", "indexing"}
+    assert body["build"]["name"] == "researchPapers API"
+    assert body["live"] is True
+    assert isinstance(body["latency_ms"], int)
+    assert "clickhouse" in body["errors"]
+    assert "clickhouse_reachable" in body["indexing"]
+    assert "tracked_steps" in body["indexing"]
 
 
 def test_app_metadata_is_set():

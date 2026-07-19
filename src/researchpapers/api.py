@@ -152,7 +152,45 @@ def _rag_key() -> str | None:
 
 @app.get("/healthz")
 def healthz() -> dict:
-    return {"ok": True}
+    """Liveness + structured health evidence.
+
+    Reports build, live, revision, errors, latency, ClickHouse reachability,
+    and the last refresh watermark/failure so a single landing 200 cannot
+    conceal a broken search/corpus path. Satisfies the
+    `data-research-toolbox-automation` "Public and API health" requirement.
+    """
+    from researchpapers import __version__
+    from researchpapers import refresh_manifest
+    from researchpapers.ch_db import ping as ch_ping
+
+    t0 = time.time()
+    ch_ok = ch_ping()
+    ch_error: str | None = None if ch_ok else "ClickHouse ping failed (see /healthz indexing.clickhouse_reachable)"
+
+    manifest = refresh_manifest.read_manifest()
+    last_failure = manifest.get("last_failure")
+    runs = manifest.get("runs", {})
+    last_refresh = max(
+        (r.get("freshness", {}).get("wall_clock") or "" for r in runs.values()),
+        default="",
+    )
+
+    return {
+        "ok": ch_ok,
+        "build": {"name": "researchPapers API", "version": __version__},
+        "live": True,
+        "revision": os.environ.get("PAPERS_REVISION", "unknown"),
+        "errors": {
+            "clickhouse": ch_error,
+            "last_refresh_failure": last_failure,
+        },
+        "latency_ms": int((time.time() - t0) * 1000),
+        "indexing": {
+            "clickhouse_reachable": ch_ok,
+            "last_refresh_watermark": last_refresh or None,
+            "tracked_steps": sorted(runs.keys()),
+        },
+    }
 
 
 @app.get("/rag/status")
@@ -282,6 +320,9 @@ def search(
                 **({"sources": src_filter} if src_filter else {}),
             },
         ).result_rows
+    from researchpapers import activation
+
+    activation.track_search_outcome(result_count=len(rows), source="keyword")
     return {
         "query": q,
         "count": len(rows),
@@ -304,6 +345,9 @@ def search(
 @app.get("/papers/{paper_id:path}")
 def get_paper(paper_id: str) -> dict:
     """Single paper detail. paper_id format: 'arxiv:1412.6980' or 'openreview:abc123'."""
+    from researchpapers import activation
+
+    activation.track_result_inspection(source="paper_detail")
     with ch_connect() as c:
         p = c.query(
             f"""SELECT p.paper_id, p.source,
@@ -527,6 +571,9 @@ def semantic_search(
                 **({"sources": src_filter} if src_filter else {}),
             },
         ).result_rows
+    from researchpapers import activation
+
+    activation.track_search_outcome(result_count=len(rows), source="semantic")
     return {
         "query": q,
         "count": len(rows),
