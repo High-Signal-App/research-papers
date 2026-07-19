@@ -5,8 +5,7 @@
 import posthog from 'posthog-js';
 
 const PROJECT_SLUG = 'research-papers';
-const POSTHOG_KEY =
-  import.meta.env.PUBLIC_POSTHOG_KEY ?? 'phc_qgiAarw4Co4pw9fz3Fxj4UJaHmqzFetqs4JrXhGc35Nd';
+const POSTHOG_KEY = import.meta.env.PUBLIC_POSTHOG_KEY;
 const POSTHOG_HOST = 'https://us.i.posthog.com';
 
 function route() {
@@ -35,7 +34,7 @@ export function capturePageCrash(error: unknown, source: 'window_error' | 'unhan
 }
 
 export function installBrowserMonitoring() {
-  if (typeof window === 'undefined') return () => {};
+  if (typeof window === 'undefined' || !POSTHOG_KEY) return () => {};
   posthog.init(POSTHOG_KEY, {
     api_host: POSTHOG_HOST,
     person_profiles: 'always',

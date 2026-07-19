@@ -18,17 +18,18 @@ It never sends:
 
 | Event | When | Properties |
 | --- | --- | --- |
-| `search_outcome` | every `/search`, `/semantic-search`, `/rag/query` completes | `project_id`, `surface` (`keyword`/`semantic`/`rag`), `result_count_bucket` (`zero`/`1-5`/`6-20`/`21+`), `result_count_exact` (capped at 100) |
-| `result_inspection` | a user opens paper detail from search results | `project_id`, `surface` (`paper_detail`) |
+| `search_outcome` | every `/search`, `/semantic-search`, `/rag/query` completes | `project_id`, `surface` (`keyword`/`semantic`/`rag`), `result_count_bucket` (`zero`/`1-5`/`6-20`/`21+`) |
+| `result_inspection` | a requested paper detail is found | `project_id`, `surface` (`paper_detail`) |
 | `saved_action` | a user exports or organizes a path/paper | `project_id`, `action` (coarse verb: `export_json`, `export_bibtex`, `path_add`, ...) |
 | `experiment_exposure` | a bounded Toolbox experiment exposes a variant | `project_id`, `experiment_id`, `variant`, `destination` (canonical URL), `attribution` |
 
 ## Implementation
 
 - Server-side emission: [`src/researchpapers/activation.py`](../../src/researchpapers/activation.py)
-- Same shared PostHog project key as Starboard's `foundry-monitoring.ts`.
-- All emission is fire-and-forget with a 2 s timeout and never raises into
-  the request path.
+- The project key must be configured with `FOUNDRY_POSTHOG_KEY` on the API or
+  `PUBLIC_POSTHOG_KEY` in the web build; there is no embedded fallback key.
+- Server emission uses a bounded in-memory queue and a daemon delivery worker,
+  so network I/O never runs in the request path. Delivery remains best effort.
 
 ## Verification
 

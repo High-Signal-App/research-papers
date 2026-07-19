@@ -159,8 +159,7 @@ def healthz() -> dict:
     conceal a broken search/corpus path. Satisfies the
     `data-research-toolbox-automation` "Public and API health" requirement.
     """
-    from researchpapers import __version__
-    from researchpapers import refresh_manifest
+    from researchpapers import __version__, refresh_manifest
     from researchpapers.ch_db import ping as ch_ping
 
     t0 = time.time()
@@ -170,8 +169,18 @@ def healthz() -> dict:
     manifest = refresh_manifest.read_manifest()
     last_failure = manifest.get("last_failure")
     runs = manifest.get("runs", {})
-    last_refresh = max(
-        (r.get("freshness", {}).get("wall_clock") or "" for r in runs.values()),
+    refresh_evidence = {
+        step: {
+            "source_watermark": record.get("source_watermark"),
+            "last_success_at": record.get("freshness", {}).get("wall_clock"),
+            "output_count": record.get("output_count"),
+            "quality_failed": bool(record.get("quality_failed")),
+            "error": record.get("error"),
+        }
+        for step, record in sorted(runs.items())
+    }
+    last_success = max(
+        (evidence.get("last_success_at") or "" for evidence in refresh_evidence.values()),
         default="",
     )
 
@@ -187,7 +196,8 @@ def healthz() -> dict:
         "latency_ms": int((time.time() - t0) * 1000),
         "indexing": {
             "clickhouse_reachable": ch_ok,
-            "last_refresh_watermark": last_refresh or None,
+            "last_successful_refresh_at": last_success or None,
+            "refresh_evidence": refresh_evidence,
             "tracked_steps": sorted(runs.keys()),
         },
     }
@@ -345,9 +355,6 @@ def search(
 @app.get("/papers/{paper_id:path}")
 def get_paper(paper_id: str) -> dict:
     """Single paper detail. paper_id format: 'arxiv:1412.6980' or 'openreview:abc123'."""
-    from researchpapers import activation
-
-    activation.track_result_inspection(source="paper_detail")
     with ch_connect() as c:
         p = c.query(
             f"""SELECT p.paper_id, p.source,
@@ -375,6 +382,9 @@ def get_paper(paper_id: str) -> dict:
             "SELECT venue, rating, confidence, decision, summary, strengths, weaknesses FROM openreview_reviews WHERE paper_id = %(pid)s",
             parameters={"pid": paper_id},
         ).result_rows
+    from researchpapers import activation
+
+    activation.track_result_inspection(source="paper_detail")
     return {
         "paper_id": row[0],
         "source": row[1],

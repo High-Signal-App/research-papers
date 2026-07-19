@@ -15,9 +15,9 @@ from __future__ import annotations
 
 import json
 import time
-from datetime import datetime, timezone
-from pathlib import Path
-from typing import Any, Callable
+from collections.abc import Callable
+from datetime import UTC, datetime
+from typing import Any
 
 from researchpapers.config import PROJECT_ROOT
 
@@ -30,7 +30,7 @@ DEFAULT_RETRIES = {"max_attempts": 3, "backoff_base_ms": 2000}
 
 
 def _now_iso() -> str:
-    return datetime.now(timezone.utc).isoformat(timespec="seconds")
+    return datetime.now(UTC).isoformat(timespec="seconds")
 
 
 def _load() -> dict[str, Any]:
@@ -63,7 +63,8 @@ def record_step(
 
     `quality_signal` must include at least `expected_min_output`. If
     `output_count < expected_min_output` and `error is None`, the step is
-    marked `quality_failed` and does not advance freshness.
+    marked `quality_failed` and does not advance freshness unless the caller
+    supplied explicit evidence for a verified steady-state no-op.
     """
     state = _load()
     runs = state.setdefault("runs", {})
@@ -71,7 +72,8 @@ def record_step(
     prior_freshness = prior.get("freshness", {}).get("wall_clock") if prior else None
 
     expected_min = (quality_signal or {}).get("expected_min_output", 0)
-    quality_failed = error is None and output_count < expected_min
+    verified_noop = bool((quality_signal or {}).get("verified_steady_state_noop", False))
+    quality_failed = error is None and output_count < expected_min and not verified_noop
     succeeded = error is None and not quality_failed
 
     record: dict[str, Any] = {
@@ -113,7 +115,7 @@ def record_step(
 
 def with_retry(
     step: str,
-    fn: Callable[[], tuple[int, str | None]],
+    fn: Callable[[], tuple[int, str | None] | tuple[int, str | None, bool]],
     *,
     source_watermark: str | None,
     bounds: dict[str, Any],
@@ -123,8 +125,9 @@ def with_retry(
 ) -> dict[str, Any]:
     """Run `fn`, retry transient failures, record the manifest entry.
 
-    `fn` returns `(output_count, source_watermark_or_none)`. If it raises,
-    the exception message is recorded as the step error.
+    `fn` returns `(output_count, source_watermark_or_none)` and may add a third
+    boolean only when it has verified a steady-state no-op. If it raises, the
+    exception message is recorded as the step error.
     """
     max_attempts = DEFAULT_RETRIES["max_attempts"]
     base_ms = DEFAULT_RETRIES["backoff_base_ms"]
@@ -132,10 +135,16 @@ def with_retry(
     retries_used = 0
     output_count = 0
     wm = source_watermark
+    verified_noop = False
 
     for attempt in range(1, max_attempts + 1):
         try:
-            output_count, wm_override = fn()
+            outcome = fn()
+            if len(outcome) == 2:
+                output_count, wm_override = outcome
+                verified_noop = False
+            else:
+                output_count, wm_override, verified_noop = outcome
             if wm_override is not None:
                 wm = wm_override
             last_error = None
@@ -154,7 +163,10 @@ def with_retry(
         timeout_s=timeout_s,
         idempotency=idempotency,
         output_count=output_count,
-        quality_signal={"expected_min_output": expected_min_output},
+        quality_signal={
+            "expected_min_output": expected_min_output,
+            "verified_steady_state_noop": verified_noop,
+        },
         error=last_error,
         retries_used=retries_used,
     )

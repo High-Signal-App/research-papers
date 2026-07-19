@@ -44,7 +44,15 @@ A step that exits successfully with `output_count < expected_min_output` is
 marked `quality_failed: true` and **does not advance freshness**
 (`freshness.wall_clock` retains the prior successful run's value). This
 catches the "green job writes empty/poor output" failure mode that an exit
-code alone would miss.
+code alone would miss. A zero-output run is healthy only when the step returns
+its complete counters and they prove a steady-state no-op; the manifest records
+that evidence as `quality_signal.verified_steady_state_noop: true`. An
+unchecked zero remains a quality failure.
+
+`output_count` follows a step-specific contract: enriched citation rows,
+refreshed abstracts, canonical authors, validated JSON files, or one completed
+web build. Export files must exist inside `web/public/data`, parse as JSON, and
+contain data before the export step can succeed.
 
 `last_failure` records the most recent unresolved failure (step, time,
 error message). It is cleared when the failing step next succeeds.
@@ -64,7 +72,7 @@ error message). It is cleared when the failing step next succeeds.
 Search activation evidence is emitted by
 [`activation.py`](../../src/researchpapers/activation.py) as aggregate
 PostHog events — `search_outcome` (per search request, with surface +
-result-count bucket), `result_inspection` (per paper-detail open from
+result-count bucket only), `result_inspection` (per found paper-detail open from
 search), `saved_action` (per export/organize action). **No raw query text,
 paper IDs, or user identifiers are sent.** See
 [`foundry.md`](foundry.md) for the sanitization contract.

@@ -5,10 +5,12 @@ DB-free endpoints (e.g. /healthz) are covered here so the suite stays
 hermetic and fast.
 """
 
+import pytest
+from fastapi import HTTPException
 from fastapi.testclient import TestClient
 
+from researchpapers import activation, api, refresh_manifest
 from researchpapers.api import app
-
 
 client = TestClient(app)
 
@@ -27,6 +29,97 @@ def test_healthz_returns_structured_evidence():
     assert "clickhouse" in body["errors"]
     assert "clickhouse_reachable" in body["indexing"]
     assert "tracked_steps" in body["indexing"]
+
+
+def test_healthz_separates_source_watermark_from_completion_time(monkeypatch):
+    monkeypatch.setattr("researchpapers.ch_db.ping", lambda: True)
+    monkeypatch.setattr(
+        refresh_manifest,
+        "read_manifest",
+        lambda: {
+            "last_failure": None,
+            "runs": {
+                "enrich_citations": {
+                    "source_watermark": "cursor-42",
+                    "output_count": 12,
+                    "quality_failed": False,
+                    "error": None,
+                    "freshness": {"wall_clock": "2026-07-19T04:00:00+00:00"},
+                }
+            },
+        },
+    )
+
+    body = client.get("/healthz").json()
+    evidence = body["indexing"]["refresh_evidence"]["enrich_citations"]
+    assert evidence["source_watermark"] == "cursor-42"
+    assert evidence["last_success_at"] == "2026-07-19T04:00:00+00:00"
+    assert body["indexing"]["last_successful_refresh_at"] == "2026-07-19T04:00:00+00:00"
+    assert "last_refresh_watermark" not in body["indexing"]
+
+
+class _QueryResult:
+    def __init__(self, rows):
+        self.result_rows = rows
+
+
+class _PaperConnection:
+    def __init__(self, paper_rows):
+        self._responses = iter([paper_rows, [], []])
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *_args):
+        return None
+
+    def query(self, *_args, **_kwargs):
+        return _QueryResult(next(self._responses))
+
+
+def test_paper_inspection_is_not_recorded_for_missing_paper(monkeypatch):
+    inspections = []
+    monkeypatch.setattr(api, "ch_connect", lambda: _PaperConnection([]))
+    monkeypatch.setattr(
+        activation,
+        "track_result_inspection",
+        lambda **properties: inspections.append(properties),
+    )
+
+    with pytest.raises(HTTPException) as exc_info:
+        api.get_paper("arxiv:missing")
+
+    assert exc_info.value.status_code == 404
+    assert inspections == []
+
+
+def test_paper_inspection_is_recorded_after_found_paper(monkeypatch):
+    inspections = []
+    paper = [
+        "arxiv:1",
+        "arxiv",
+        "Title",
+        "Abstract",
+        None,
+        4,
+        "base",
+        "base",
+        None,
+        "1",
+        [],
+        None,
+    ]
+    monkeypatch.setattr(api, "ch_connect", lambda: _PaperConnection([paper]))
+    monkeypatch.setattr(
+        activation,
+        "track_result_inspection",
+        lambda **properties: inspections.append(properties),
+    )
+
+    result = api.get_paper("arxiv:1")
+
+    assert result["paper_id"] == "arxiv:1"
+    assert inspections == [{"source": "paper_detail"}]
 
 
 def test_app_metadata_is_set():

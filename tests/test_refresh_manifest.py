@@ -8,7 +8,6 @@ quality verification rather than advancing freshness.
 from __future__ import annotations
 
 import json
-from pathlib import Path
 
 import pytest
 
@@ -86,6 +85,39 @@ def test_step_recovers_clears_last_failure(isolated_manifest):
     state = json.loads(isolated_manifest.read_text())
     assert state["last_failure"] is None
     assert state["runs"]["refresh_abstracts"]["quality_failed"] is False
+
+
+def test_verified_steady_state_noop_advances_freshness(isolated_manifest):
+    record = refresh_manifest.record_step(
+        "enrich_citations",
+        source_watermark=None,
+        bounds={"enrich_limit": 500},
+        timeout_s=600,
+        idempotency="ReplacingMergeTree",
+        output_count=0,
+        quality_signal={
+            "expected_min_output": 1,
+            "verified_steady_state_noop": True,
+        },
+    )
+
+    assert record["quality_failed"] is False
+    assert record["freshness"]["wall_clock"] is not None
+
+
+def test_unverified_zero_still_fails_quality(isolated_manifest):
+    record = refresh_manifest.record_step(
+        "enrich_citations",
+        source_watermark=None,
+        bounds={"enrich_limit": 500},
+        timeout_s=600,
+        idempotency="ReplacingMergeTree",
+        output_count=0,
+        quality_signal={"expected_min_output": 1},
+    )
+
+    assert record["quality_failed"] is True
+    assert record["freshness"]["wall_clock"] is None
 
 
 def test_with_retry_records_error_after_exhausting_attempts(isolated_manifest):
