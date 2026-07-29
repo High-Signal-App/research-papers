@@ -308,7 +308,7 @@ export function RagAsk() {
                 setQuestion(example);
                 void ask(example);
               }}
-              className="rounded-full border px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
+              className="inline-flex min-h-11 items-center rounded-full border px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground lg:min-h-0"
             >
               {example}
             </button>

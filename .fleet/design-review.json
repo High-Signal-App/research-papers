@@ -2,7 +2,7 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "research-papers",
-  "target": "/changelog owned product history",
+  "target": "tablet search and data-table touch targets",
   "mode": "preserve",
   "register": "product",
   "context": {
@@ -14,21 +14,21 @@
     "probes": [],
     "selected": "existing-design",
     "approval": "not-required",
-    "before": ".fleet/evidence/changelog/before-1440.png"
+    "before": ".fleet/evidence/tablet-search-touch/before-1440.png"
   },
   "evidence": {
     "screenshots": [
       {
         "width": 390,
-        "path": ".fleet/evidence/changelog/after-390.png"
+        "path": ".fleet/evidence/tablet-search-touch/after-390.png"
       },
       {
         "width": 768,
-        "path": ".fleet/evidence/changelog/after-768.png"
+        "path": ".fleet/evidence/tablet-search-touch/after-768.png"
       },
       {
         "width": 1440,
-        "path": ".fleet/evidence/changelog/after-1440.png"
+        "path": ".fleet/evidence/tablet-search-touch/after-1440.png"
       }
     ],
     "projectCheck": {
@@ -36,11 +36,11 @@
       "status": "pass"
     },
     "critique": {
-      "score": 35,
+      "score": 36,
       "maximum": 40
     },
     "audit": {
-      "score": 18,
+      "score": 19,
       "maximum": 20
     },
     "unresolved": {
@@ -50,10 +50,17 @@
     "detector": {
       "posture": "advisory",
       "findings": []
+    },
+    "browserReview": {
+      "tool": "Browser control",
+      "viewports": [390, 768, 1440],
+      "horizontalOverflow": false,
+      "consoleErrors": 0,
+      "note": "Tablet interactive targets below 44px fell from 157 in the live baseline to zero in the local production build; search remains compact at desktop widths."
     }
   },
   "ownerFeedback": {
     "decision": "delegated",
-    "note": "The owner delegated the cross-project changelog implementation while preserving each product's established visual system."
+    "note": "The owner explicitly delegated final judgment for the responsive remediation wave; the established research console styling was preserved."
   }
 }
