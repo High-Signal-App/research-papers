@@ -66,6 +66,10 @@ See `DEPLOY.md` for LAN/CDN deployment shapes.
 
 ## Timeline
 
+- **2026-07-29:** Added a same-origin `/changelog` that summarizes verified
+  public milestones as concise user-visible outcomes. The shared Browse menu
+  now exposes Changelog, routes Roadmap to GitHub Issues, and links Source to
+  the canonical repository. No corpus, API, or deployment behavior changed.
 - **Corpus build:** ~488k papers across arxiv, OpenReview, bioRxiv, medRxiv with ~1.05M paper→paper edges; full-corpus PageRank → `paper_scores_v2`; MiniLM embeddings (384-d) for all papers; 64 semantic clusters; spaCy noun-chunk tags + MLX premium tagging subset.
 - **Overlay enrichment shipped:** Semantic Scholar enrichment → `citation_overlay_v2`; ArXiv abstract refresh → `abstract_overlay_v2`; author graph → `authors_v2`, `paper_authorships_v2`.
 - **2026-06-24:** Cloudflare Pages demo deployed at `https://papers.highsignal.app`; frontend no longer defaults to localhost APIs; Research Answer API panel ships a same-origin RAG proxy path. `RAG_SERVICE_KEY` is configured on Pages production and the clean `research-papers-cs-cited1000-all` Knowledgebase domain is seeded from OpenAlex primary-Computer-Science works over 999 citations, using local BGE-base embeddings uploaded through vector ingest. The bundled-data fallback remains for resilience.

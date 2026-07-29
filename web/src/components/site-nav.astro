@@ -1,5 +1,5 @@
 ---
-type ActivePage = "dashboard" | "digest" | "paths" | "data";
+type ActivePage = "dashboard" | "digest" | "paths" | "data" | "changelog";
 
 type Props = {
   active: ActivePage;
@@ -72,6 +72,9 @@ const dropdownLink =
             <a href="/paths#lecun-world-models" class={dropdownLink}>LeCun world models</a>
             <a href="/paths#human-compatible-ai-safety" class={dropdownLink}>Human-compatible safety</a>
             <a href="/digest" class={dropdownLink}>Daily digest</a>
+            <a href="/changelog" class={dropdownLink}>Changelog</a>
+            <a href="https://github.com/High-Signal-App/research-papers/issues" class={dropdownLink}>Roadmap ↗</a>
+            <a href="https://github.com/High-Signal-App/research-papers" class={dropdownLink}>Source ↗</a>
           </div>
         </details>
       </li>
