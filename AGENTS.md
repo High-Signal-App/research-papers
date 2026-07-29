@@ -12,7 +12,7 @@ Operator-side ClickHouse + FastAPI exist only to refresh static exports and run
 overlay jobs.
 
 Full product identity: [`PROJECT_STATUS.md`](PROJECT_STATUS.md).
-Live operating state: [`STATUS.md`](STATUS.md).
+Open work: GitHub Issues.
 Knowledge base: [`docs/`](docs/index.md).
 
 ## Stack
@@ -74,8 +74,7 @@ Deployment shapes: [`DEPLOY.md`](DEPLOY.md) and
 | Retrospectives (archive) | [`docs/archive/retros/`](docs/archive/retros/) |
 
 Root canonical docs (not duplicated in `docs/`): [`README.md`](README.md),
-[`DEPLOY.md`](DEPLOY.md), [`PROJECT_STATUS.md`](PROJECT_STATUS.md),
-[`STATUS.md`](STATUS.md).
+[`DEPLOY.md`](DEPLOY.md), and [`PROJECT_STATUS.md`](PROJECT_STATUS.md).
 
 ## Documentation maintenance rules
 

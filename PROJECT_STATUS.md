@@ -141,3 +141,9 @@ Timeline); the Timeline below is mirrored in
 ### Operating decision
 
 - **Cloudflare-only (2026-07-10):** Pages plus Pages Functions is the sole production target. Do not maintain a same-host API deployment or treat local ClickHouse as a public runtime dependency.
+
+## Work queue
+
+Open work is tracked only in [GitHub Issues](https://github.com/High-Signal-App/research-papers/issues).
+An open issue is a to-do, a linked pull request is in progress, and merge plus
+issue closure makes the work done.
