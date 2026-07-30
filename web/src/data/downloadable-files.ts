@@ -1,0 +1,23 @@
+export const downloadableFiles = [
+  { name: "summary.json", desc: "Corpus ingest summary: paper counts, edge counts, storage size" },
+  { name: "top_papers.json", desc: "Top 200 papers by PageRank and Katz centrality" },
+  { name: "top_cited_works.json", desc: "Most-cited works across the corpus" },
+  { name: "hot.json", desc: "100 hot papers: citation velocity, review rating, and PageRank" },
+  { name: "sleepers.json", desc: "100 reviewer-loved early papers with low citation counts" },
+  { name: "communities.json", desc: "64 semantic communities with anchor papers and labels" },
+  { name: "embedding_clusters.json", desc: "Embedding cluster assignments from MiniLM" },
+  { name: "temporal.json", desc: "Papers per year, cites per year, and top paper per year" },
+  { name: "tag_rating.json", desc: "Mean reviewer rating by extracted topic" },
+  { name: "tag_cooccurrence.json", desc: "Topic tag co-occurrence matrix" },
+  { name: "review_venues.json", desc: "Peer-review venue summaries and review counts" },
+  { name: "review_rating_distribution.json", desc: "Rating distribution per review venue" },
+  {
+    name: "ch_sources_summary.json",
+    desc: "Paper counts by source: arXiv, OpenReview, bioRxiv, and medRxiv",
+  },
+  { name: "top_authors.json", desc: "Most prolific authors in the corpus" },
+  { name: "top_hosts.json", desc: "Top hosting domains for paper URLs" },
+  { name: "cycles.json", desc: "Citation cycle detection results" },
+  { name: "abstract_clusters.json", desc: "Abstract-level clustering results" },
+  { name: "host_categories.json", desc: "Host URL categorization" },
+] as const;

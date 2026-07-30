@@ -96,6 +96,11 @@ const uniqueTags = [...new Set(paper.topic_tags)];
     <meta property="og:type" content="article" />
     <meta property="og:url" content={pageUrl} />
     <meta property="og:description" content={`${paper.citation_count} citations · PageRank ${paper.pagerank_score.toFixed(6)} · ${paper.primary_category}`} />
+    <meta property="og:image" content="https://papers.highsignal.app/icon.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={paper.title} />
+    <meta name="twitter:description" content={`${paper.citation_count} citations · PageRank ${paper.pagerank_score.toFixed(6)} · ${paper.primary_category}`} />
+    <meta name="twitter:image" content="https://papers.highsignal.app/icon.svg" />
 
     <!-- ScholarlyArticle JSON-LD -->
     <script type="application/ld+json" set:html={JSON.stringify(scholarlyJsonLd)} />

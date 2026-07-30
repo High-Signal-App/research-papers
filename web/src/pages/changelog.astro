@@ -1,34 +1,7 @@
 ---
 import "../styles/globals.css";
 import SiteNav from "@/components/site-nav.astro";
-
-const entries = [
-  {
-    date: "2026-07-09",
-    title: "Curated reading paths made the corpus easier to enter",
-    outcomes: [
-      "Researchers can follow ordered paths for agentic LLMs, transformer foundations, alignment, retrieval, diffusion, and compression instead of starting from an undifferentiated search result.",
-      "Every path includes original briefs, provenance notes, source links, and JSON, BibTeX, RIS, and Markdown exports without copying abstracts or hosting papers.",
-    ],
-  },
-  {
-    date: "2026-07-03",
-    title: "Research answers gained a durable quality gate",
-    outcomes: [
-      "A 17-question golden regression suite now checks answer structure, citations, real index resolution, and routing across sleepers, ratings, clusters, recent work, and general retrieval.",
-      "The gate avoids brittle prose matching while still failing when cited research evidence silently degrades.",
-    ],
-  },
-  {
-    date: "2026-06-24",
-    title: "The public research dashboard launched",
-    outcomes: [
-      "The Cloudflare Pages site shipped semantic search, citation analysis, hot and sleeper papers, reviewer signals, and a same-origin research-answer path over the curated corpus.",
-      "Performance work brought the production dashboard to a 100 desktop Lighthouse score and 99 mobile performance in the recorded verification run.",
-      "Five representative live research-answer questions passed with cited responses in the production smoke test.",
-    ],
-  },
-] as const;
+import { changelogEntries } from "@/data/changelog";
 ---
 
 <!doctype html>
@@ -43,6 +16,15 @@ const entries = [
     <link rel="canonical" href={new URL("/changelog", Astro.site)} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>researchPapers · Changelog</title>
+    <meta property="og:title" content="researchPapers · Changelog" />
+    <meta property="og:description" content="Verified, user-visible improvements shipped by researchPapers." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://papers.highsignal.app/changelog" />
+    <meta property="og:image" content="https://papers.highsignal.app/icon.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="researchPapers · Changelog" />
+    <meta name="twitter:description" content="Verified, user-visible improvements shipped by researchPapers." />
+    <meta name="twitter:image" content="https://papers.highsignal.app/icon.svg" />
   </head>
   <body class="min-h-screen bg-background text-foreground antialiased font-sans">
     <SiteNav active="changelog" />
@@ -58,7 +40,7 @@ const entries = [
       </header>
 
       <section class="divide-y" aria-label="Shipped changes">
-        {entries.map((entry) => (
+        {changelogEntries.map((entry) => (
           <article class="grid gap-4 py-8 sm:grid-cols-[8.5rem_minmax(0,1fr)] sm:gap-8">
             <time
               datetime={entry.date}

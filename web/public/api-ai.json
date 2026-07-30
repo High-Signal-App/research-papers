@@ -1,6 +1,6 @@
 {
   "name": "researchPapers",
-  "version": "1",
+  "version": "2",
   "url": "https://papers.highsignal.app",
   "llms": "https://papers.highsignal.app/llms.txt",
   "llmsFull": "https://papers.highsignal.app/llms-full.txt",
@@ -8,7 +8,7 @@
   "robots": "https://papers.highsignal.app/robots.txt",
   "markdown": {
     "suffix": ".md",
-    "negotiation": true
+    "negotiation": false
   },
   "surfaces": [
     {
@@ -16,11 +16,170 @@
       "url": "https://papers.highsignal.app/",
       "md": "https://papers.highsignal.app/index.md",
       "kind": "static",
-      "description": "Product home"
+      "description": "Search, citation analytics, reviewer signals, and cited research answers"
+    },
+    {
+      "id": "changelog",
+      "url": "https://papers.highsignal.app/changelog",
+      "md": "https://papers.highsignal.app/changelog.md",
+      "kind": "static",
+      "description": "Verified product releases and public outcomes"
+    },
+    {
+      "id": "data",
+      "url": "https://papers.highsignal.app/data",
+      "md": "https://papers.highsignal.app/data.md",
+      "kind": "dataset",
+      "description": "Corpus statistics, provenance, and downloadable data exports"
+    },
+    {
+      "id": "digest",
+      "url": "https://papers.highsignal.app/digest",
+      "md": "https://papers.highsignal.app/digest.md",
+      "kind": "collection",
+      "description": "Hot papers, reviewer-loved early work, and topic signals"
+    },
+    {
+      "id": "paths",
+      "url": "https://papers.highsignal.app/paths",
+      "md": "https://papers.highsignal.app/paths.md",
+      "kind": "collection",
+      "description": "Curated research reading paths with source notes"
+    }
+  ],
+  "collections": [
+    {
+      "id": "papers",
+      "count": 200,
+      "urlTemplate": "https://papers.highsignal.app/paper/{arxiv_id}",
+      "mdTemplate": "https://papers.highsignal.app/paper/{arxiv_id}.md",
+      "source": "https://papers.highsignal.app/data/top_papers.json"
+    }
+  ],
+  "dataResources": [
+    {
+      "id": "abstract_clusters",
+      "url": "https://papers.highsignal.app/data/abstract_clusters.json",
+      "kind": "data"
+    },
+    {
+      "id": "author_drilldowns",
+      "url": "https://papers.highsignal.app/data/author_drilldowns.json",
+      "kind": "data"
+    },
+    {
+      "id": "ch_sources_summary",
+      "url": "https://papers.highsignal.app/data/ch_sources_summary.json",
+      "kind": "data"
+    },
+    {
+      "id": "communities",
+      "url": "https://papers.highsignal.app/data/communities.json",
+      "kind": "data"
+    },
+    {
+      "id": "community_drilldowns",
+      "url": "https://papers.highsignal.app/data/community_drilldowns.json",
+      "kind": "data"
+    },
+    {
+      "id": "cycles",
+      "url": "https://papers.highsignal.app/data/cycles.json",
+      "kind": "data"
+    },
+    {
+      "id": "embedding_clusters",
+      "url": "https://papers.highsignal.app/data/embedding_clusters.json",
+      "kind": "data"
+    },
+    {
+      "id": "host_categories",
+      "url": "https://papers.highsignal.app/data/host_categories.json",
+      "kind": "data"
+    },
+    {
+      "id": "host_drilldowns",
+      "url": "https://papers.highsignal.app/data/host_drilldowns.json",
+      "kind": "data"
+    },
+    {
+      "id": "hot",
+      "url": "https://papers.highsignal.app/data/hot.json",
+      "kind": "data"
+    },
+    {
+      "id": "review_rating_distribution",
+      "url": "https://papers.highsignal.app/data/review_rating_distribution.json",
+      "kind": "data"
+    },
+    {
+      "id": "review_top_papers",
+      "url": "https://papers.highsignal.app/data/review_top_papers.json",
+      "kind": "data"
+    },
+    {
+      "id": "review_venues",
+      "url": "https://papers.highsignal.app/data/review_venues.json",
+      "kind": "data"
+    },
+    {
+      "id": "sleepers",
+      "url": "https://papers.highsignal.app/data/sleepers.json",
+      "kind": "data"
+    },
+    {
+      "id": "summary",
+      "url": "https://papers.highsignal.app/data/summary.json",
+      "kind": "data"
+    },
+    {
+      "id": "tag_cooccurrence",
+      "url": "https://papers.highsignal.app/data/tag_cooccurrence.json",
+      "kind": "data"
+    },
+    {
+      "id": "tag_rating",
+      "url": "https://papers.highsignal.app/data/tag_rating.json",
+      "kind": "data"
+    },
+    {
+      "id": "temporal",
+      "url": "https://papers.highsignal.app/data/temporal.json",
+      "kind": "data"
+    },
+    {
+      "id": "top_authors",
+      "url": "https://papers.highsignal.app/data/top_authors.json",
+      "kind": "data"
+    },
+    {
+      "id": "top_cited_works",
+      "url": "https://papers.highsignal.app/data/top_cited_works.json",
+      "kind": "data"
+    },
+    {
+      "id": "top_hosts",
+      "url": "https://papers.highsignal.app/data/top_hosts.json",
+      "kind": "data"
+    },
+    {
+      "id": "top_papers",
+      "url": "https://papers.highsignal.app/data/top_papers.json",
+      "kind": "data"
+    },
+    {
+      "id": "top_urls",
+      "url": "https://papers.highsignal.app/data/top_urls.json",
+      "kind": "data"
+    },
+    {
+      "id": "urls_per_paper_hist",
+      "url": "https://papers.highsignal.app/data/urls_per_paper_hist.json",
+      "kind": "data"
     }
   ],
   "auth": {
     "public": true,
-    "notes": "Auth-walled app routes are not agent-indexed unless listed here."
+    "notes": "Listed HTML and Markdown surfaces are public. Research-answer APIs may require Turnstile validation."
   }
 }

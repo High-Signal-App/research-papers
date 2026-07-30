@@ -6,6 +6,7 @@ import temporal from "../../public/data/temporal.json";
 import communities from "../../public/data/communities.json";
 import reviewVenues from "../../public/data/review_venues.json";
 import SiteNav from "@/components/site-nav.astro";
+import { downloadableFiles } from "@/data/downloadable-files";
 
 const fmt = new Intl.NumberFormat("en-US");
 
@@ -30,27 +31,6 @@ const topCommunities = (communities as any[])
   .slice(0, 8);
 
 const totalReviews = (reviewVenues as any[]).reduce((s, r) => s + Number(r.n_reviews || 0), 0);
-
-const downloadableFiles = [
-  { name: "summary.json", desc: "Corpus ingest summary: paper counts, edge counts, storage size" },
-  { name: "top_papers.json", desc: "Top 200 papers by PageRank + Katz centrality" },
-  { name: "top_cited_works.json", desc: "Most-cited works across the corpus" },
-  { name: "hot.json", desc: "100 hot papers: citation velocity × review rating × PageRank" },
-  { name: "sleepers.json", desc: "100 reviewer-loved early papers with low citation counts" },
-  { name: "communities.json", desc: "64 semantic communities with anchor papers and labels" },
-  { name: "embedding_clusters.json", desc: "Embedding cluster assignments from MiniLM" },
-  { name: "temporal.json", desc: "Papers per year, cites per year, top paper per year" },
-  { name: "tag_rating.json", desc: "Mean reviewer rating by extracted topic" },
-  { name: "tag_cooccurrence.json", desc: "Topic tag co-occurrence matrix" },
-  { name: "review_venues.json", desc: "Peer-review venue summaries and review counts" },
-  { name: "review_rating_distribution.json", desc: "Rating distribution per review venue" },
-  { name: "ch_sources_summary.json", desc: "Paper counts by source (arxiv, OpenReview, bioRxiv, medRxiv)" },
-  { name: "top_authors.json", desc: "Most prolific authors in the corpus" },
-  { name: "top_hosts.json", desc: "Top hosting domains for paper URLs" },
-  { name: "cycles.json", desc: "Citation cycle detection results" },
-  { name: "abstract_clusters.json", desc: "Abstract-level clustering results" },
-  { name: "host_categories.json", desc: "Host URL categorization" },
-];
 
 const datasetJsonLd = {
   "@context": "https://schema.org",
@@ -86,6 +66,15 @@ const datasetJsonLd = {
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>researchPapers · Corpus Data & Downloads</title>
+    <meta property="og:title" content="researchPapers · Corpus Data & Downloads" />
+    <meta property="og:description" content="Corpus statistics and downloadable analytics exports from the researchPapers corpus." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://papers.highsignal.app/data" />
+    <meta property="og:image" content="https://papers.highsignal.app/icon.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="researchPapers · Corpus Data & Downloads" />
+    <meta name="twitter:description" content="Corpus statistics and downloadable analytics exports from the researchPapers corpus." />
+    <meta name="twitter:image" content="https://papers.highsignal.app/icon.svg" />
     <script type="application/ld+json" set:html={JSON.stringify(datasetJsonLd)} />
   </head>
   <body class="min-h-screen bg-background text-foreground antialiased font-sans">

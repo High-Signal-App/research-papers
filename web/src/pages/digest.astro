@@ -52,8 +52,18 @@ function releaseLabel(paper: any) {
     <meta name="viewport" content="width=device-width" />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
     <title>HighSignal — Research Digest, {today}</title>
-      <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="description" content="A research digest of hot papers, reviewer-loved early work, and topic signals from the researchPapers corpus." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
+    <meta property="og:title" content={`HighSignal — Research Digest, ${today}`} />
+    <meta property="og:description" content="Hot papers, reviewer-loved early work, and topic signals from the researchPapers corpus." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://papers.highsignal.app/digest" />
+    <meta property="og:image" content="https://papers.highsignal.app/icon.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`HighSignal — Research Digest, ${today}`} />
+    <meta name="twitter:description" content="Hot papers, reviewer-loved early work, and topic signals from the researchPapers corpus." />
+    <meta name="twitter:image" content="https://papers.highsignal.app/icon.svg" />
   </head>
   <body class="bg-background text-foreground min-h-screen">
     <SiteNav active="digest" />
