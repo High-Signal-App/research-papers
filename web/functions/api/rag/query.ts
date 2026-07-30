@@ -1,7 +1,11 @@
+import { verifyTurnstile } from "../../_lib/turnstile";
+
 interface Env {
   RAG_SERVICE_KEY?: string;
   RAG_SERVICE_URL?: string;
   RAG_DOMAIN?: string;
+  TURNSTILE_HOSTNAMES?: string;
+  TURNSTILE_SECRET?: string;
 }
 
 type PagesContext = {
@@ -449,6 +453,21 @@ export async function onRequestPost(context: PagesContext): Promise<Response> {
   const key = context.env.RAG_SERVICE_KEY;
   if (!key || (shouldUsePaperSignals(question) && payload.live_only !== true)) {
     return staticDemoAnswer(context.request, question);
+  }
+
+  const remoteIp =
+    context.request.headers.get("CF-Connecting-IP") ??
+    context.request.headers.get("X-Forwarded-For")?.split(",")[0]?.trim() ??
+    "unknown";
+  const verified = await verifyTurnstile({
+    token: payload.turnstileToken,
+    action: "turnstile-spin-v2",
+    remoteIp,
+    secret: context.env.TURNSTILE_SECRET,
+    hostnameList: context.env.TURNSTILE_HOSTNAMES,
+  });
+  if (!verified) {
+    return Response.json({ error: "Verification failed. Please try again." }, { status: 403 });
   }
 
   const baseUrl = (context.env.RAG_SERVICE_URL || DEFAULT_RAG_URL).replace(/\/+$/, "");

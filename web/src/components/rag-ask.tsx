@@ -3,6 +3,10 @@ import { Loader2, MessageSquareText } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { TurnstileWidget } from "@/components/turnstile-widget";
+
+const TURNSTILE_SITE_KEY =
+  import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? "0x4AAAAAAECKLi5Ke0ylWglf";
 
 type Citation = {
   chunk_id: string;
@@ -237,10 +241,12 @@ export function RagAsk() {
   const [result, setResult] = React.useState<RagResult | null>(null);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = React.useState<string | null>(null);
+  const [turnstileResetSignal, setTurnstileResetSignal] = React.useState(0);
 
   async function ask(nextQuestion = question) {
     const q = nextQuestion.trim();
-    if (q.length < 3) return;
+    if (q.length < 3 || !turnstileToken) return;
     setLoading(true);
     setError(null);
     setResult(null);
@@ -248,7 +254,7 @@ export function RagAsk() {
       const response = await fetch(ragEndpoint(), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question: q, top_k: 8 }),
+        body: JSON.stringify({ question: q, top_k: 8, turnstileToken }),
       });
       if (!response.ok) {
         const body = await response.json().catch(() => ({}));
@@ -263,6 +269,8 @@ export function RagAsk() {
       }
     } finally {
       setLoading(false);
+      setTurnstileToken(null);
+      setTurnstileResetSignal((value) => value + 1);
     }
   }
 
@@ -288,8 +296,17 @@ export function RagAsk() {
           placeholder="Ask a cited research question..."
           className="w-full rounded-lg border bg-card px-4 py-3 text-sm outline-none placeholder:text-muted-foreground/60 focus:ring-2 focus:ring-primary/50"
         />
+        <TurnstileWidget
+          siteKey={TURNSTILE_SITE_KEY}
+          action="turnstile-spin-v2"
+          resetSignal={turnstileResetSignal}
+          onTokenChange={setTurnstileToken}
+        />
         <div className="flex flex-wrap items-center gap-2">
-          <Button type="submit" disabled={loading || question.trim().length < 3}>
+          <Button
+            type="submit"
+            disabled={loading || question.trim().length < 3 || !turnstileToken}
+          >
             {loading ? (
               <>
                 <Loader2 className="animate-spin" /> Asking...
@@ -308,7 +325,8 @@ export function RagAsk() {
                 setQuestion(example);
                 void ask(example);
               }}
-              className="inline-flex min-h-11 items-center rounded-full border px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground lg:min-h-0"
+              disabled={loading || !turnstileToken}
+              className="inline-flex min-h-11 items-center rounded-full border px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground disabled:opacity-50 lg:min-h-0"
             >
               {example}
             </button>
