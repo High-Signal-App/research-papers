@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "generate:agent-surfaces": "node scripts/generate-agent-surfaces.mjs",
+    "validate:agent-surfaces": "node scripts/validate-agent-surfaces.mjs",
+    "build": "npm run generate:agent-surfaces && astro build && npm run validate:agent-surfaces",
     "preview": "astro preview"
   },
   "dependencies": {

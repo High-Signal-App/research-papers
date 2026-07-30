@@ -26,6 +26,15 @@ const today = new Date().toISOString().slice(0, 10);
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>researchPapers · Reading paths</title>
+    <meta property="og:title" content="researchPapers · Reading paths" />
+    <meta property="og:description" content="Curated research paper reading paths with ordered briefs, provenance notes, and citation-manager exports." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://papers.highsignal.app/paths" />
+    <meta property="og:image" content="https://papers.highsignal.app/icon.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="researchPapers · Reading paths" />
+    <meta name="twitter:description" content="Curated research paper reading paths with ordered briefs, provenance notes, and citation-manager exports." />
+    <meta name="twitter:image" content="https://papers.highsignal.app/icon.svg" />
   </head>
   <body class="min-h-screen bg-background text-foreground antialiased font-sans">
     <SiteNav active="paths" />
