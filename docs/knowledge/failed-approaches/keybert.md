@@ -1,8 +1,7 @@
 # KeyBERT — evaluated, not adopted
 
-**Status:** Deprecated. Reference implementation only.
-**Code:** `src/researchpapers/keybert_tag.py`
-**Dependency:** `keybert>=0.9.0` in `pyproject.toml` (kept for the reference path)
+**Status:** Removed on 2026-07-31 after the reference path became nonfunctional.
+The experiment remains available in git history.
 
 ## What was tried
 
@@ -26,12 +25,14 @@ there is no extra model download.
 - Reusing the embedder model is cheap, but the write-path integration cost
   (porting to ClickHouse + overlay semantics) dominated the decision, not the
   model cost.
-- The dependency remains in `pyproject.toml` as a deliberate reference; do not
-  remove it without checking `keybert_tag.py` is no longer needed for cold
-  restores or experiments.
+- Migration 012 dropped the experimental KeyBERT columns, proving the retained
+  Postgres-only command was no longer usable for cold restores or experiments.
+- ADR-009 removed the broken command and dependency while preserving this
+  decision record.
 
 ## References
 
 - [ADR-005 — KeyBERT (not used in production pipeline)](../../architecture/decisions/005-keybert-not-used.md)
+- [ADR-009 — Remove the KeyBERT reference path](../../architecture/decisions/009-remove-keybert-reference.md)
 - [ADR-004 — spaCy POS-only tagger (adopted alternative)](../../architecture/decisions/004-spacy-pos-only.md)
 - [Gotchas — KeyBERT dead branch](../gotchas.md#keybert--evaluated-but-not-in-production-pipeline)
