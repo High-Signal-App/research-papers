@@ -20,8 +20,9 @@ vector index.
   row ≈ 1.5 KB), avoiding an external vector DB.
 - Model is small enough to run on CPU with manageable RAM; batch size clamped to
   64 on 16 GB hosts (down from a default of 256) via `ram.clamp_batch_size`.
-- Already used for KeyBERT tagging (same model, reused), so no extra download
-  cost.
+- At adoption time it was also used by the experimental KeyBERT tagger, so that
+  experiment added no download cost. ADR-009 later removed the broken KeyBERT
+  path.
 - Normalised vectors make `cosineDistance` equivalent to dot-product —
   ClickHouse can compute this without a specialised ANN index.
 

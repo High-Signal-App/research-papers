@@ -66,6 +66,8 @@ See `DEPLOY.md` for LAN/CDN deployment shapes.
 
 ## Timeline
 
+- **2026-07-31:** Removed the broken Postgres-only KeyBERT and tagger-evaluation
+  commands plus the unused KeyBERT dependency; ADR-009 preserves the decision.
 - **2026-07-29:** Added a same-origin `/changelog` that summarizes verified
   public milestones as concise user-visible outcomes. The shared Browse menu
   now exposes Changelog, routes Roadmap to GitHub Issues, and links Source to

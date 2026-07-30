@@ -62,7 +62,9 @@ Gotcha-focused stubs for novel tech encountered in this project. Concepts alread
 
 - What: Keyword extraction using sentence-transformer cosine similarity with MMR diversity.
 - Why here: TBD
-- Gotcha (from code): `keybert_tag.py` writes exclusively to Postgres (`UPDATE papers SET keybert_tags_json = %s`, lines 72-78) and never imports `ch_db` — it is a dead branch that was never ported to the ClickHouse `paper_tags` write path despite `keybert>=0.9.0` remaining in `pyproject.toml:15`.
+- Gotcha: the old KeyBERT command wrote exclusively to Postgres and was never
+  ported to the ClickHouse `paper_tags` path. Migration 012 dropped its columns;
+  ADR-009 then removed the broken command and dependency.
 - Source: See [external-references.md](external-references.md) → KeyBERT
 
 ---

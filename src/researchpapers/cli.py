@@ -2,34 +2,53 @@ from __future__ import annotations
 
 import logging
 from datetime import date, timedelta
+from pathlib import Path
 from typing import Annotated
 
 import typer
 
-from pathlib import Path
-
 from researchpapers import (
     analytics,
     arxiv,
-    biorxiv_ingest as biorxiv_mod,
     charts,
-    citation_history as citation_history_mod,
-    clusters as clusters_mod,
     db,
     exporter,
-    graph as graph_mod,
-    ingest as ingest_mod,
-    keybert_tag as keybert_tag_mod,
-    llm_tag as llm_tag_mod,
-    noun_tag as noun_tag_mod,
-    mlx_tag_v2 as mlx_tag_v2_mod,
-    noun_tag_v2 as noun_tag_v2_mod,
     openalex,
-    openreview_ingest as openreview_mod,
     pdfs,
     semantic_scholar,
-    tag_eval as tag_eval_mod,
     url_extract,
+)
+from researchpapers import (
+    biorxiv_ingest as biorxiv_mod,
+)
+from researchpapers import (
+    citation_history as citation_history_mod,
+)
+from researchpapers import (
+    clusters as clusters_mod,
+)
+from researchpapers import (
+    graph as graph_mod,
+)
+from researchpapers import (
+    ingest as ingest_mod,
+)
+from researchpapers import (
+    llm_tag as llm_tag_mod,
+)
+from researchpapers import (
+    mlx_tag_v2 as mlx_tag_v2_mod,
+)
+from researchpapers import (
+    noun_tag as noun_tag_mod,
+)
+from researchpapers import (
+    noun_tag_v2 as noun_tag_v2_mod,
+)
+from researchpapers import (
+    openreview_ingest as openreview_mod,
+)
+from researchpapers import (
     watcher as watcher_mod,
 )
 from researchpapers.config import DATA_DIR, PROJECT_ROOT, load_settings
@@ -502,30 +521,6 @@ def spacy_tag_source_cmd(
         f"tagged={c.get('tagged')} skipped={c.get('skipped')} "
         f"elapsed={c.get('elapsed_seconds')}s papers/sec={c.get('papers_per_sec')}"
     )
-
-
-@app.command("keybert-tag")
-def keybert_tag_cmd(
-    limit: Annotated[int | None, typer.Option(help="Max papers this run")] = None,
-    any_order: Annotated[bool, typer.Option(help="Don't prioritize high-citation papers")] = False,
-) -> None:
-    """Extract tags via KeyBERT (sentence-transformer embedding + n-gram scoring)."""
-    settings = load_settings()
-    c = keybert_tag_mod.tag_papers(settings, limit=limit, only_top_cited=not any_order)
-    typer.echo(
-        f"tagged={c.get('tagged')} skipped={c.get('skipped')} "
-        f"elapsed={c.get('elapsed_seconds')}s papers/sec={c.get('papers_per_sec')}"
-    )
-
-
-@app.command("eval-taggers")
-def eval_taggers_cmd(
-    sample_n: Annotated[int, typer.Option(help="Sample papers to print side-by-side")] = 12,
-) -> None:
-    """Compare spaCy + KeyBERT against LLM tags on papers tagged by all three."""
-    settings = load_settings()
-    report = tag_eval_mod.evaluate(settings, sample_n=sample_n)
-    tag_eval_mod.print_report(report)
 
 
 @app.command("llm-tag")

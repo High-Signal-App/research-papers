@@ -9,15 +9,16 @@ history. Each ADR is a short, self-contained file in this directory.
 | [002](002-minilm-embeddings.md) | all-MiniLM-L6-v2 for paper embeddings (384-dim) | Accepted | 2026-05-30 |
 | [003](003-mlx-qwen-tagging.md) | MLX (Qwen2.5-3B-4bit) for premium tagging | Accepted | 2026-05-30 |
 | [004](004-spacy-pos-only.md) | spaCy v2 with parser disabled (POS-only noun-chunk tagger) | Accepted | 2026-05-30 |
-| [005](005-keybert-not-used.md) | KeyBERT (not used in production pipeline) | Deprecated | 2026-05-30 |
+| [005](005-keybert-not-used.md) | KeyBERT (not used in production pipeline) | Superseded by 009 | 2026-05-30 |
 | [006](006-scipy-pagerank.md) | scipy.sparse power iteration for full-corpus PageRank | Accepted | 2026-05-31 |
 | [007](007-fastapi.md) | FastAPI over alternatives | Accepted | 2026-05-30 |
 | [008](008-astro-react-islands.md) | Astro 5 + React islands + static JSON exports | Accepted | 2026-05-30 |
+| [009](009-remove-keybert-reference.md) | Remove the broken KeyBERT reference path | Accepted | 2026-07-31 |
 
 ## How to add a new ADR
 
 1. Copy `008-astro-react-islands.md` as a template.
-2. Number sequentially (next would be `009-...`).
+2. Number sequentially (next would be `010-...`).
 3. Keep it to Context / Decision / Rationale / Alternatives / Trade-offs /
    References — link to [learnings](../../knowledge/learnings.md) and
    [failed-approaches](../../knowledge/failed-approaches/index.md) rather than

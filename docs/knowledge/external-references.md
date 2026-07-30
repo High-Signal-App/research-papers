@@ -51,8 +51,9 @@ bioRxiv/medRxiv NER; the primary corpus tagger uses `en_core_web_sm` for speed.
 [https://allenai.github.io/scispacy/](https://allenai.github.io/scispacy/)
 
 **KeyBERT**
-Keyword extraction using document/phrase cosine similarity with MMR diversity. Present in
-`keybert_tag.py` as an evaluated approach; not in the current CH production pipeline.
+Keyword extraction using document/phrase cosine similarity with MMR diversity.
+Evaluated and rejected; the broken Postgres-only reference path was removed in
+ADR-009.
 [https://maartengr.github.io/KeyBERT/](https://maartengr.github.io/KeyBERT/)
 
 ---

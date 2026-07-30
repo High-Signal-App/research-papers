@@ -31,9 +31,9 @@ acronyms (all-caps 2–8 chars) or CamelCase/digit names (ImageNet, GPT4, Llama2
 
 - Full spaCy pipeline with dep-parse: too slow for 478k papers on a single host.
 - KeyBERT: better semantic quality but requires loading the MiniLM model in
-  addition to spaCy, and wrote to Postgres only (not ported to the CH pipeline).
-  See `keybert_tag.py` — still reads from and writes to Postgres, not
-  ClickHouse; effectively deprecated. See [ADR-005](005-keybert-not-used.md).
+  addition to spaCy. Its implementation wrote to Postgres only and was never
+  ported to the ClickHouse pipeline; ADR-009 later removed it. See
+  [ADR-005](005-keybert-not-used.md).
 - OpenAI API extraction: cost-prohibitive at 478k scale.
 
 ## Trade-offs
