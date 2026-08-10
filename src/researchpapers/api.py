@@ -299,6 +299,7 @@ def stats() -> dict:
 def search(
     q: Annotated[str, Query(min_length=2, max_length=200, description="Search keyword(s)")],
     limit: Annotated[int, Query(ge=1, le=100)] = 20,
+    offset: Annotated[int, Query(ge=0, le=1_000_000)] = 0,
     sources: Annotated[str | None, Query(description="Comma-separated sources to filter (e.g. arxiv,openreview)")] = None,
     min_citations: Annotated[int, Query(ge=0)] = 0,
 ) -> dict:
@@ -321,21 +322,29 @@ def search(
               AND {EFFECTIVE_CITATION_SQL} >= %(min_citations)s
               {src_clause}
             ORDER BY citation_count DESC
-            LIMIT %(limit)s
+            LIMIT %(query_limit)s OFFSET %(offset)s
             """,
             parameters={
                 "q": q,
-                "limit": limit,
+                "query_limit": limit + 1,
+                "offset": offset,
                 "min_citations": min_citations,
                 **({"sources": src_filter} if src_filter else {}),
             },
         ).result_rows
+    has_more = len(rows) > limit
+    rows = rows[:limit]
     from researchpapers import activation
 
     activation.track_search_outcome(result_count=len(rows), source="keyword")
     return {
         "query": q,
         "count": len(rows),
+        "page": {
+            "limit": limit,
+            "offset": offset,
+            "nextOffset": offset + len(rows) if has_more else None,
+        },
         "results": [
             {
                 "paper_id": r[0],
@@ -607,12 +616,16 @@ def sleepers(
     max_citations: Annotated[int, Query(ge=0, le=1000)] = 20,
     since_year: Annotated[int, Query(ge=2000)] = 2024,
     limit: Annotated[int, Query(ge=1, le=200)] = 50,
+    offset: Annotated[int, Query(ge=0, le=1_000_000)] = 0,
+    source: Annotated[str | None, Query(description="One paper source to include")] = None,
 ) -> dict:
     """Sleeper papers — reviewers loved them but they haven't accrued citations yet.
 
     The "look what the field is missing" leaderboard.
     """
-    key = ("sleepers", min_rating, max_citations, since_year, limit)
+    src_filter = _split_sources(source)
+    src_clause = "AND p.source IN %(sources)s" if src_filter else ""
+    key = ("sleepers", min_rating, max_citations, since_year, limit, offset, source)
 
     def _run() -> dict:
         with ch_connect() as c:
@@ -635,14 +648,28 @@ def sleepers(
                 WHERE par.avg_rating >= %(min_rating)s
                   AND {EFFECTIVE_CITATION_SQL} <= %(max_citations)s
                   AND effective_year(p.source, p.arxiv_id, p.submitted_date) >= %(since_year)s
+                  {src_clause}
                 ORDER BY par.avg_rating DESC, citation_count ASC
-                LIMIT %(limit)s
+                LIMIT %(query_limit)s OFFSET %(offset)s
                 """,
-                parameters={"min_rating": min_rating, "max_citations": max_citations,
-                            "since_year": since_year, "limit": limit},
+                parameters={
+                    "min_rating": min_rating,
+                    "max_citations": max_citations,
+                    "since_year": since_year,
+                    "query_limit": limit + 1,
+                    "offset": offset,
+                    **({"sources": src_filter} if src_filter else {}),
+                },
             ).result_rows
+        has_more = len(rows) > limit
+        rows = rows[:limit]
         return {
             "count": len(rows),
+            "page": {
+                "limit": limit,
+                "offset": offset,
+                "nextOffset": offset + len(rows) if has_more else None,
+            },
             "results": [
                 {"paper_id": r[0], "title": r[1], "avg_rating": round(float(r[2]), 2),
                  "n_reviews": int(r[3]), "citation_count": int(r[4] or 0),
@@ -744,13 +771,17 @@ def similar_papers(
 def hot_papers(
     limit: Annotated[int, Query(ge=1, le=100)] = 25,
     since_year: Annotated[int, Query(ge=2010)] = 2023,
+    offset: Annotated[int, Query(ge=0, le=1_000_000)] = 0,
+    source: Annotated[str | None, Query(description="One paper source to include")] = None,
 ) -> dict:
     """Unified 'hotness' ranking: combines cites/year + PageRank + reviewer rating.
 
     Score = 0.5 * log1p(cites_per_year) + 0.3 * (avg_rating/10 or 0.5)
             + 0.2 * pagerank*10000
     """
-    key = ("hot", limit, since_year)
+    src_filter = _split_sources(source)
+    src_clause = "AND p.source IN %(sources)s" if src_filter else ""
+    key = ("hot", limit, since_year, offset, source)
 
     def _run() -> dict:
         with ch_connect() as c:
@@ -784,13 +815,26 @@ def hot_papers(
                 WHERE p.submitted_date IS NOT NULL
                   AND effective_year(p.source, p.arxiv_id, p.submitted_date) >= %(year)s
                   AND {EFFECTIVE_CITATION_SQL} >= 5
+                  {src_clause}
                 ORDER BY hotness DESC
-                LIMIT %(limit)s
+                LIMIT %(query_limit)s OFFSET %(offset)s
                 """,
-                parameters={"year": since_year, "limit": limit},
+                parameters={
+                    "year": since_year,
+                    "query_limit": limit + 1,
+                    "offset": offset,
+                    **({"sources": src_filter} if src_filter else {}),
+                },
             ).result_rows
+        has_more = len(rows) > limit
+        rows = rows[:limit]
         return {
             "count": len(rows),
+            "page": {
+                "limit": limit,
+                "offset": offset,
+                "nextOffset": offset + len(rows) if has_more else None,
+            },
             "results": [
                 {"paper_id": r[0], "source": r[1], "title": r[2],
                  "citation_count": int(r[3] or 0),

@@ -77,6 +77,22 @@ class _PaperConnection:
         return _QueryResult(next(self._responses))
 
 
+class _RecordingConnection:
+    def __init__(self, rows):
+        self.rows = rows
+        self.calls = []
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *_args):
+        return None
+
+    def query(self, sql, **kwargs):
+        self.calls.append((sql, kwargs.get("parameters", {})))
+        return _QueryResult(self.rows)
+
+
 def test_paper_inspection_is_not_recorded_for_missing_paper(monkeypatch):
     inspections = []
     monkeypatch.setattr(api, "ch_connect", lambda: _PaperConnection([]))
@@ -137,6 +153,65 @@ def test_invalid_sources_query_returns_400():
     # before any DB call, so this stays hermetic.
     resp = client.get("/search", params={"q": "transformer", "sources": "bogus"})
     assert resp.status_code == 400
+
+
+def test_search_pagination_and_source_filter_are_applied_to_clickhouse(monkeypatch):
+    rows = [
+        ("arxiv:1", "arxiv", "One", "Abstract", None, 4, None, "1"),
+        ("arxiv:2", "arxiv", "Two", "Abstract", None, 3, None, "2"),
+    ]
+    connection = _RecordingConnection(rows)
+    monkeypatch.setattr(api, "ch_connect", lambda: connection)
+    monkeypatch.setattr(activation, "track_search_outcome", lambda **_kwargs: None)
+
+    result = api.search(
+        q="agent",
+        limit=1,
+        offset=7,
+        sources="arxiv",
+        min_citations=0,
+    )
+
+    assert [item["paper_id"] for item in result["results"]] == ["arxiv:1"]
+    assert result["page"] == {"limit": 1, "offset": 7, "nextOffset": 8}
+    sql, parameters = connection.calls[0]
+    assert "LIMIT %(query_limit)s OFFSET %(offset)s" in sql
+    assert parameters["query_limit"] == 2
+    assert parameters["offset"] == 7
+    assert parameters["sources"] == ["arxiv"]
+
+
+def test_hot_and_sleepers_apply_bounded_continuation_and_source(monkeypatch):
+    hot_rows = [
+        ("arxiv:1", "arxiv", "One", 4, None, 1.0, 8.0, 0.1, 1.5),
+        ("arxiv:2", "arxiv", "Two", 3, None, 1.0, 7.0, 0.1, 1.4),
+    ]
+    hot_connection = _RecordingConnection(hot_rows)
+    monkeypatch.setattr(api, "ch_connect", lambda: hot_connection)
+    api._cache.clear()
+    hot = api.hot_papers(limit=1, since_year=2023, offset=3, source="arxiv")
+    assert [item["paper_id"] for item in hot["results"]] == ["arxiv:1"]
+    assert hot["page"] == {"limit": 1, "offset": 3, "nextOffset": 4}
+    assert hot_connection.calls[0][1]["sources"] == ["arxiv"]
+
+    sleeper_rows = [
+        ("openreview:1", "One", 8.0, 3, 2, "ICLR", "Accept", None),
+        ("openreview:2", "Two", 7.5, 3, 1, "ICLR", "Accept", None),
+    ]
+    sleeper_connection = _RecordingConnection(sleeper_rows)
+    monkeypatch.setattr(api, "ch_connect", lambda: sleeper_connection)
+    api._cache.clear()
+    sleepers = api.sleepers(
+        min_rating=7.0,
+        max_citations=20,
+        since_year=2024,
+        limit=1,
+        offset=5,
+        source="openreview",
+    )
+    assert [item["paper_id"] for item in sleepers["results"]] == ["openreview:1"]
+    assert sleepers["page"] == {"limit": 1, "offset": 5, "nextOffset": 6}
+    assert sleeper_connection.calls[0][1]["sources"] == ["openreview"]
 
 
 def test_rag_status_does_not_expose_secret(monkeypatch):
