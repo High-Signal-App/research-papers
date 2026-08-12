@@ -14,8 +14,8 @@ from __future__ import annotations
 
 import logging
 import time
-from datetime import UTC, date, datetime, timedelta
-from typing import Iterator
+from collections.abc import Iterator
+from datetime import date, datetime
 
 import openreview
 import openreview.api
@@ -142,8 +142,8 @@ def _to_review_rows(record: dict, venue_display: str) -> list[list]:
         decision_text = (dc.get("decision") or {}).get("value")
     for r in record["reviews"]:
         rc = _reply_attr(r, "content") or {}
-        def _v(key: str):
-            return (rc.get(key) or {}).get("value")
+        def _v(key: str, content: dict = rc):
+            return (content.get(key) or {}).get("value")
 
         def _int_field(val):
             if val is None:

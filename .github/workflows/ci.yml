@@ -12,23 +12,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Set up Python 3.12
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
-      - name: Install dependencies
+      - uses: astral-sh/setup-uv@v8.1.0
+        with:
+          enable-cache: true
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.33.2
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          cache: pnpm
+          cache-dependency-path: web/pnpm-lock.yaml
+
+      - name: Install locked dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -e .
+          uv sync --frozen
+          pnpm --dir web install --frozen-lockfile --ignore-scripts
 
-      - name: Install test dependencies
-        run: pip install pytest pytest-asyncio
-
-      - name: Run tests (hermetic — golden checks run in their own job)
-        run: python -m pytest -q -m "not golden"
+      - name: Run code-health gate
+        run: npm run check
 
   # Golden-question regression gate for the Research Answer API.
   # Calls the deployed Pages Function with fixed reference questions and
@@ -40,10 +51,10 @@ jobs:
     env:
       GOLDEN_RAG_URL: https://papers.highsignal.app/api/rag/query
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Set up Python 3.12
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 

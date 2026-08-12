@@ -4,7 +4,6 @@ import importlib.util
 import sys
 from pathlib import Path
 
-
 SCRIPT_PATH = Path(__file__).resolve().parents[1] / "scripts" / "seed_openalex_cs_rag.py"
 SPEC = importlib.util.spec_from_file_location("seed_openalex_cs_rag", SCRIPT_PATH)
 assert SPEC and SPEC.loader

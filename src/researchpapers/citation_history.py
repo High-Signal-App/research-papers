@@ -9,8 +9,8 @@ from __future__ import annotations
 
 import logging
 import time
-from datetime import UTC, date, datetime
-from typing import Iterable
+from collections.abc import Iterable
+from datetime import date
 
 import httpx
 from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_exponential

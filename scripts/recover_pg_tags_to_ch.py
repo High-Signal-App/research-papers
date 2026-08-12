@@ -4,7 +4,8 @@ and write them to CH. Run before refactoring tagging pipelines to be CH-only.
 
 from __future__ import annotations
 
-from researchpapers.ch_db import arxiv_paper_id, connect as ch_connect, write_paper_tags
+from researchpapers.ch_db import arxiv_paper_id, write_paper_tags
+from researchpapers.ch_db import connect as ch_connect
 from researchpapers.config import load_settings
 from researchpapers.db import connect
 
