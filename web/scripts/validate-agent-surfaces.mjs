@@ -12,7 +12,7 @@ const paths = [
 
 function outputPath(route, extension) {
   if (route === "/") return join(webRoot, "dist", `index.${extension}`);
-  return join(webRoot, "dist", route.slice(1), `index.${extension}`);
+  return join(webRoot, "dist", `${route.slice(1)}.${extension}`);
 }
 
 const failures = [];
@@ -27,6 +27,10 @@ for (const route of paths) {
     const markdown = await readFile(markdownPath, "utf8");
     if (!markdown.startsWith("# ")) failures.push(`${route}: Markdown has no H1`);
     const html = await readFile(htmlPath, "utf8");
+    const expectedCanonical = `${origin}${route}`;
+    if (!html.includes(`<link rel="canonical" href="${expectedCanonical}">`)) {
+      failures.push(`${route}: canonical does not match the direct sitemap URL`);
+    }
     if (!/property="og:image"/i.test(html)) failures.push(`${route}: missing og:image`);
     const visibleHtml = html
       .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "")

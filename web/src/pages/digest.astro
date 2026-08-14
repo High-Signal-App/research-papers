@@ -50,7 +50,7 @@ function releaseLabel(paper: any) {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="canonical" href={new URL(Astro.url.pathname.replace(/\.html$/, ""), Astro.site)} />
     <title>HighSignal — Research Digest, {today}</title>
     <meta name="description" content="A research digest of hot papers, reviewer-loved early work, and topic signals from the researchPapers corpus." />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
