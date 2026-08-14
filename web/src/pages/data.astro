@@ -63,7 +63,7 @@ const datasetJsonLd = {
       name="description"
       content="Corpus statistics and downloadable JSON exports from a 479k-paper OpenAlex Computer Science corpus: top papers, citation networks, semantic communities, and reviewer signals."
     />
-    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="canonical" href={new URL(Astro.url.pathname.replace(/\.html$/, ""), Astro.site)} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>researchPapers · Corpus Data & Downloads</title>
     <meta property="og:title" content="researchPapers · Corpus Data & Downloads" />
