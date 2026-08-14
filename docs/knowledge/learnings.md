@@ -180,3 +180,21 @@ Some arxiv IDs have incorrect titles or abstracts in OpenAlex's index (different
 `abstract_overlay_v2` stores the authoritative arxiv-API abstracts for detected contaminated records.
 Run `papers refresh-abstracts --reembed` after a large refresh to update semantic-search vectors
 for corrected papers.
+
+---
+
+## Cloudflare Pages + Astro static output
+
+### `build.format: "directory"` 308-redirects every non-home sitemap URL
+
+Astro's default `build.format: "directory"` emits `/route/index.html`, which
+Cloudflare Pages serves at `/route/` (trailing slash). The sitemap lists
+`/route` (no slash), so crawlers hit a 308 redirect to `/route/` before
+reaching content — 204 of 205 URLs redirected in the 2026-08-14 crawl
+(issue #32). Setting `build.format: "file"` in `astro.config.mjs` emits
+`/route.html`, which Cloudflare Pages serves directly at `/route` with a 200.
+The generator (`web/scripts/generate-agent-surfaces.mjs`) and validator
+(`web/scripts/validate-agent-surfaces.mjs`) now reject any sitemap entry that
+would reintroduce a hop, and `tests/web_health.test.mjs` guards the config.
+Page canonicals strip the `.html` suffix so `<link rel="canonical">` matches
+the direct sitemap URL.

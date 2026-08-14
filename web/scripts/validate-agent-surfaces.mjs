@@ -10,12 +10,35 @@ const paths = [
   ...sitemap.matchAll(/<loc>https:\/\/papers\.highsignal\.app([^<]*)<\/loc>/g),
 ].map((match) => match[1]);
 
+const failures = [];
+
+// Regression guard for issue #32: every non-home sitemap URL must be the final
+// direct route (no trailing slash, no `.html` suffix). Cloudflare Pages serves
+// `route.html` (Astro `build.format: "file"`) at `/route` with a 200; any other
+// form 308-redirects to the canonical route, wasting a crawl hop.
+for (const route of paths) {
+  if (route === "/") continue;
+  if (route.endsWith("/")) {
+    failures.push(`${route}: trailing slash would 308-redirect to the direct route`);
+  }
+  if (route.endsWith(".html")) {
+    failures.push(`${route}: .html suffix would 308-redirect to the direct route`);
+  }
+}
+
+// The build must use `format: "file"` so `route.html` is served directly at
+// `/route`. Switching back to "directory" would reintroduce 308 hops for every
+// non-home sitemap URL.
+const astroConfig = await readFile(join(webRoot, "astro.config.mjs"), "utf8");
+if (!/build:\s*\{[^}]*format:\s*"file"/s.test(astroConfig)) {
+  failures.push("astro.config.mjs build.format is not \"file\" — sitemap URLs would 308-redirect");
+}
+
 function outputPath(route, extension) {
   if (route === "/") return join(webRoot, "dist", `index.${extension}`);
   return join(webRoot, "dist", `${route.slice(1)}.${extension}`);
 }
 
-const failures = [];
 for (const route of paths) {
   const htmlPath = outputPath(route, "html");
   const markdownPath =
