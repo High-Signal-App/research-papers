@@ -57,13 +57,17 @@ def _arxiv_titles_batch(client: httpx.Client, arxiv_ids: list[str]) -> dict[str,
     import re
 
     import feedparser
+
     out: dict[str, str] = {}
     if not arxiv_ids:
         return out
-    resp = client.get(ARXIV_API, params={
-        "id_list": ",".join(arxiv_ids),
-        "max_results": len(arxiv_ids),
-    })
+    resp = client.get(
+        ARXIV_API,
+        params={
+            "id_list": ",".join(arxiv_ids),
+            "max_results": len(arxiv_ids),
+        },
+    )
     resp.raise_for_status()
     feed = feedparser.parse(resp.text)
     for entry in feed.entries:
@@ -120,7 +124,12 @@ def refresh_top_papers(limit: int = 1000, batch_size: int = 50) -> dict:
         params={"mailto": MAILTO},
     )
 
-    counters = {"refreshed": 0, "title_corrected": 0, "citation_changed": 0, "authors_disambiguated": 0}
+    counters = {
+        "refreshed": 0,
+        "title_corrected": 0,
+        "citation_changed": 0,
+        "authors_disambiguated": 0,
+    }
     t0 = time.monotonic()
 
     # Pre-build openalex_id → row map
@@ -167,7 +176,9 @@ def refresh_top_papers(limit: int = 1000, batch_size: int = 50) -> dict:
     # Now override titles with arXiv API (authoritative). OpenAlex sometimes
     # has wrong titles (e.g. BERT's record shows "AI-Assisted Pipeline...").
     log.info("fetching authoritative titles from arXiv API for %d papers", len(updates))
-    arxiv_id_by_paper_id = {paper_id: paper_id.replace("arxiv:", "") for paper_id, _, _, _ in updates}
+    arxiv_id_by_paper_id = {
+        paper_id: paper_id.replace("arxiv:", "") for paper_id, _, _, _ in updates
+    }
     paper_id_by_arxiv_id = {a: p for p, a in arxiv_id_by_paper_id.items()}
 
     arxiv_titles: dict[str, str] = {}

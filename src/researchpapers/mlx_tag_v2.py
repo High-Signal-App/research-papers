@@ -76,8 +76,11 @@ def tag_papers(
     from mlx_lm import generate, load
 
     counters: dict[str, int | float] = {
-        "tagged": 0, "failed": 0, "skipped": 0,
-        "prompt_tokens": 0, "completion_tokens": 0,
+        "tagged": 0,
+        "failed": 0,
+        "skipped": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
     }
 
     log.info("loading MLX model %s (one-time)", MODEL_NAME)
@@ -112,7 +115,11 @@ def tag_papers(
         prompt = _build_prompt(tokenizer, r)
         try:
             raw = generate(
-                model, tokenizer, prompt=prompt, max_tokens=max_tokens, verbose=False,
+                model,
+                tokenizer,
+                prompt=prompt,
+                max_tokens=max_tokens,
+                verbose=False,
             )
         except Exception as e:  # noqa: BLE001
             log.warning("generate failed for %s: %s", r["arxiv_id"], e)
@@ -130,7 +137,8 @@ def tag_papers(
             elapsed = time.monotonic() - t0
             log.info(
                 "progress: %d done, %.2f papers/sec",
-                counters["tagged"], counters["tagged"] / elapsed,
+                counters["tagged"],
+                counters["tagged"] / elapsed,
             )
 
     # Bulk write
@@ -145,5 +153,7 @@ def tag_papers(
     elapsed = time.monotonic() - t0
     counters["elapsed_seconds"] = round(elapsed, 2)
     counters["papers_per_sec"] = round(int(counters["tagged"]) / elapsed, 2) if elapsed else 0
-    counters["completion_tok_per_sec"] = round(int(counters["completion_tokens"]) / elapsed, 1) if elapsed else 0
+    counters["completion_tok_per_sec"] = (
+        round(int(counters["completion_tokens"]) / elapsed, 1) if elapsed else 0
+    )
     return counters

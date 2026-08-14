@@ -39,9 +39,7 @@ def paper_url(paper_id: str | None = None, arxiv_id: str | None = None) -> str |
 
 
 def compact_paper(row: dict[str, Any], *, collection: str) -> dict[str, Any]:
-    paper_id = row.get("paper_id") or (
-        f"arxiv:{row['arxiv_id']}" if row.get("arxiv_id") else None
-    )
+    paper_id = row.get("paper_id") or (f"arxiv:{row['arxiv_id']}" if row.get("arxiv_id") else None)
     title = str(row.get("title") or row.get("anchor_title") or "").strip()
     return {
         "record_kind": "paper_signal",
@@ -69,7 +67,9 @@ def compact_paper(row: dict[str, Any], *, collection: str) -> dict[str, Any]:
             for part in [
                 f"{collection} paper",
                 title,
-                f"{row.get('citation_count')} citations" if row.get("citation_count") is not None else "",
+                f"{row.get('citation_count')} citations"
+                if row.get("citation_count") is not None
+                else "",
                 f"rating {row.get('avg_rating')}" if row.get("avg_rating") is not None else "",
                 f"venue {row.get('venue')}" if row.get("venue") else "",
             ]
@@ -80,10 +80,7 @@ def compact_paper(row: dict[str, Any], *, collection: str) -> dict[str, Any]:
 
 def cluster_record(row: dict[str, Any], *, collection: str) -> dict[str, Any]:
     top_tags = row.get("top_tags") or []
-    tags = [
-        str(item.get("tag") if isinstance(item, dict) else item)
-        for item in top_tags[:12]
-    ]
+    tags = [str(item.get("tag") if isinstance(item, dict) else item) for item in top_tags[:12]]
     top_papers = row.get("top_papers") or []
     return {
         "record_kind": "cluster",
@@ -94,9 +91,8 @@ def cluster_record(row: dict[str, Any], *, collection: str) -> dict[str, Any]:
         "labels": row.get("labels") or tags,
         "top_papers": [
             {
-                "paper_id": p.get("paper_id") or (
-                    f"arxiv:{p['arxiv_id']}" if p.get("arxiv_id") else None
-                ),
+                "paper_id": p.get("paper_id")
+                or (f"arxiv:{p['arxiv_id']}" if p.get("arxiv_id") else None),
                 "title": p.get("title"),
                 "citation_count": p.get("citation_count"),
             }
@@ -140,9 +136,13 @@ def tag_record(row: dict[str, Any]) -> dict[str, Any]:
 
 def build_records() -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
-    records.extend(compact_paper(row, collection="top_papers") for row in load_json("top_papers.json")[:200])
+    records.extend(
+        compact_paper(row, collection="top_papers") for row in load_json("top_papers.json")[:200]
+    )
     records.extend(compact_paper(row, collection="hot") for row in load_json("hot.json")[:100])
-    records.extend(compact_paper(row, collection="sleepers") for row in load_json("sleepers.json")[:100])
+    records.extend(
+        compact_paper(row, collection="sleepers") for row in load_json("sleepers.json")[:100]
+    )
     records.extend(
         compact_paper(row, collection="top_reviewed")
         for row in load_json("review_top_papers.json")[:200]
@@ -176,7 +176,7 @@ def post_with_retries(
         try:
             resp = client.post(url, headers=headers, json=json_body)
             if resp.status_code in {429, 500, 502, 503, 504} and attempt < attempts:
-                sleep_s = min(2 ** attempt, 20)
+                sleep_s = min(2**attempt, 20)
                 print(
                     f"retrying HTTP {resp.status_code} in {sleep_s}s "
                     f"(attempt {attempt}/{attempts})",
@@ -189,10 +189,9 @@ def post_with_retries(
             last_error = exc
             if attempt >= attempts:
                 raise
-            sleep_s = min(2 ** attempt, 20)
+            sleep_s = min(2**attempt, 20)
             print(
-                f"retrying {type(exc).__name__} in {sleep_s}s "
-                f"(attempt {attempt}/{attempts})",
+                f"retrying {type(exc).__name__} in {sleep_s}s (attempt {attempt}/{attempts})",
                 flush=True,
             )
             time.sleep(sleep_s)
@@ -261,8 +260,7 @@ def main() -> int:
             print(
                 f"batch {index}: records={len(batch)} "
                 f"chunks_indexed={chunks_indexed} file_id={body.get('file_id')}"
-                f"{' idempotent' if body.get('idempotent_replay') else ''}"
-                ,
+                f"{' idempotent' if body.get('idempotent_replay') else ''}",
                 flush=True,
             )
             time.sleep(0.25)

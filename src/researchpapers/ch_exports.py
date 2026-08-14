@@ -20,6 +20,62 @@ def _row_to_dict(row, names: list[str]) -> dict:
     return dict(zip(names, row, strict=True))
 
 
+def _export_embedding_clusters(c, out_dir: Path) -> Path:
+    """Exports embedding-based semantic clusters with top tags and sample papers."""
+    cluster_rows = c.query("""
+        SELECT cluster_id, count() AS size
+        FROM paper_clusters FINAL
+        GROUP BY cluster_id
+        ORDER BY size DESC
+    """).result_rows
+
+    clusters_out = []
+    for cid, size in cluster_rows:
+        top_tags = c.query(
+            """
+            SELECT tag, count() AS n
+            FROM paper_tags t FINAL
+            ARRAY JOIN tags AS tag
+            JOIN paper_clusters pc FINAL ON pc.paper_id = t.paper_id
+            WHERE t.tagger = 'spacy_v2' AND pc.cluster_id = %(cid)s
+            GROUP BY tag
+            HAVING n >= 5
+            ORDER BY n DESC LIMIT 8
+            """,
+            parameters={"cid": int(cid)},
+        ).result_rows
+        samples = c.query(
+            """
+            SELECT p.paper_id, p.title, p.citation_count, p.source
+            FROM paper_clusters pc FINAL
+            JOIN papers AS p FINAL ON p.paper_id = pc.paper_id
+            WHERE pc.cluster_id = %(cid)s
+            ORDER BY p.citation_count DESC
+            LIMIT 5
+            """,
+            parameters={"cid": int(cid)},
+        ).result_rows
+        clusters_out.append(
+            {
+                "id": int(cid),
+                "size": int(size),
+                "top_tags": [{"tag": r[0], "n": int(r[1])} for r in top_tags],
+                "top_papers": [
+                    {
+                        "paper_id": r[0],
+                        "title": r[1],
+                        "citation_count": int(r[2] or 0),
+                        "source": r[3],
+                    }
+                    for r in samples
+                ],
+            }
+        )
+    p = out_dir / "embedding_clusters.json"
+    p.write_text(json.dumps(clusters_out, indent=2))
+    return p
+
+
 def export_review_data(out_dir: Path) -> list[Path]:
     out_dir.mkdir(parents=True, exist_ok=True)
     written: list[Path] = []
@@ -39,8 +95,16 @@ def export_review_data(out_dir: Path) -> list[Path]:
             GROUP BY venue
             ORDER BY n_reviews DESC
         """).result_rows
-        cols = ["venue", "n_reviews", "n_papers", "avg_rating", "avg_confidence",
-                "oral_accepts", "poster_accepts", "rejects"]
+        cols = [
+            "venue",
+            "n_reviews",
+            "n_papers",
+            "avg_rating",
+            "avg_confidence",
+            "oral_accepts",
+            "poster_accepts",
+            "rejects",
+        ]
         venues = [
             {
                 **_row_to_dict(r, cols),
@@ -71,8 +135,15 @@ def export_review_data(out_dir: Path) -> list[Path]:
             ORDER BY avg_rating DESC, avg_confidence DESC
             LIMIT 200
         """).result_rows
-        cols2 = ["paper_id", "title", "venue", "avg_rating", "avg_confidence",
-                 "n_reviews", "decision"]
+        cols2 = [
+            "paper_id",
+            "title",
+            "venue",
+            "avg_rating",
+            "avg_confidence",
+            "n_reviews",
+            "decision",
+        ]
         top_papers = [
             {
                 **_row_to_dict(r, cols2),
@@ -93,9 +164,7 @@ def export_review_data(out_dir: Path) -> list[Path]:
             GROUP BY venue, rating
             ORDER BY venue, rating
         """).result_rows
-        distribution = [
-            {"venue": r[0], "rating": int(r[1]), "n": int(r[2])} for r in result
-        ]
+        distribution = [{"venue": r[0], "rating": int(r[1]), "n": int(r[2])} for r in result]
         p = out_dir / "review_rating_distribution.json"
         p.write_text(json.dumps(distribution, indent=2))
         written.append(p)
@@ -156,16 +225,26 @@ def export_review_data(out_dir: Path) -> list[Path]:
         tag_rating = []
         for r in result:
             samples = sorted(
-                [{"avg_rating": float(s[0]), "title": s[1] or "", "paper_id": s[2], "venue": s[3]} for s in r[4]],
+                [
+                    {
+                        "avg_rating": float(s[0]),
+                        "title": s[1] or "",
+                        "paper_id": s[2],
+                        "venue": s[3],
+                    }
+                    for s in r[4]
+                ],
                 key=lambda s: -s["avg_rating"],
             )[:5]
-            tag_rating.append({
-                "tag": r[0],
-                "mean_rating": float(r[1] or 0),
-                "n_papers": int(r[2]),
-                "p90_rating": float(r[3] or 0),
-                "samples": samples,
-            })
+            tag_rating.append(
+                {
+                    "tag": r[0],
+                    "mean_rating": float(r[1] or 0),
+                    "n_papers": int(r[2]),
+                    "p90_rating": float(r[3] or 0),
+                    "samples": samples,
+                }
+            )
         p = out_dir / "tag_rating.json"
         p.write_text(json.dumps(tag_rating, indent=2, default=str))
         written.append(p)
@@ -190,9 +269,16 @@ def export_review_data(out_dir: Path) -> list[Path]:
             LIMIT 100
         """).result_rows
         sleepers = [
-            {"paper_id": r[0], "title": r[1], "avg_rating": round(float(r[2]), 2),
-             "n_reviews": int(r[3]), "citation_count": int(r[4] or 0),
-             "venue": r[5], "decision": r[6], "submitted_date": str(r[7]) if r[7] else None}
+            {
+                "paper_id": r[0],
+                "title": r[1],
+                "avg_rating": round(float(r[2]), 2),
+                "n_reviews": int(r[3]),
+                "citation_count": int(r[4] or 0),
+                "venue": r[5],
+                "decision": r[6],
+                "submitted_date": str(r[7]) if r[7] else None,
+            }
             for r in result
         ]
         p = out_dir / "sleepers.json"
@@ -229,13 +315,17 @@ def export_review_data(out_dir: Path) -> list[Path]:
             LIMIT 100
         """).result_rows
         hot = [
-            {"paper_id": r[0], "source": r[1], "title": r[2],
-             "citation_count": int(r[3] or 0),
-             "submitted_date": str(r[4]) if r[4] else None,
-             "cites_per_year": float(r[5]),
-             "avg_rating": round(float(r[6]), 2) if r[6] else None,
-             "pagerank": float(r[7]),
-             "hotness": float(r[8])}
+            {
+                "paper_id": r[0],
+                "source": r[1],
+                "title": r[2],
+                "citation_count": int(r[3] or 0),
+                "submitted_date": str(r[4]) if r[4] else None,
+                "cites_per_year": float(r[5]),
+                "avg_rating": round(float(r[6]), 2) if r[6] else None,
+                "pagerank": float(r[7]),
+                "hotness": float(r[8]),
+            }
             for r in result
         ]
         p = out_dir / "hot.json"
@@ -311,8 +401,7 @@ def export_review_data(out_dir: Path) -> list[Path]:
                 for t in sorted(top_tag_set, key=lambda x: -top_tag_counts[x])
             ],
             "edges": [
-                {"source": r[0], "target": r[1], "co_occurrence": int(r[2])}
-                for r in rows_co
+                {"source": r[0], "target": r[1], "co_occurrence": int(r[2])} for r in rows_co
             ],
         }
         p = out_dir / "tag_cooccurrence.json"
@@ -320,50 +409,5 @@ def export_review_data(out_dir: Path) -> list[Path]:
         written.append(p)
 
         # 9. Embedding-based semantic clusters (MiniBatchKMeans on 478k × 384).
-        # For each cluster: size, top tags, top-cited sample papers.
-        cluster_rows = c.query("""
-            SELECT cluster_id, count() AS size
-            FROM paper_clusters FINAL
-            GROUP BY cluster_id
-            ORDER BY size DESC
-        """).result_rows
-
-        clusters_out = []
-        for cid, size in cluster_rows:
-            top_tags = c.query(
-                """
-                SELECT tag, count() AS n
-                FROM paper_tags t FINAL
-                ARRAY JOIN tags AS tag
-                JOIN paper_clusters pc FINAL ON pc.paper_id = t.paper_id
-                WHERE t.tagger = 'spacy_v2' AND pc.cluster_id = %(cid)s
-                GROUP BY tag
-                HAVING n >= 5
-                ORDER BY n DESC LIMIT 8
-                """,
-                parameters={"cid": int(cid)},
-            ).result_rows
-            samples = c.query(
-                """
-                SELECT p.paper_id, p.title, p.citation_count, p.source
-                FROM paper_clusters pc FINAL
-                JOIN papers AS p FINAL ON p.paper_id = pc.paper_id
-                WHERE pc.cluster_id = %(cid)s
-                ORDER BY p.citation_count DESC
-                LIMIT 5
-                """,
-                parameters={"cid": int(cid)},
-            ).result_rows
-            clusters_out.append({
-                "id": int(cid),
-                "size": int(size),
-                "top_tags": [{"tag": r[0], "n": int(r[1])} for r in top_tags],
-                "top_papers": [
-                    {"paper_id": r[0], "title": r[1], "citation_count": int(r[2] or 0), "source": r[3]}
-                    for r in samples
-                ],
-            })
-        p = out_dir / "embedding_clusters.json"
-        p.write_text(json.dumps(clusters_out, indent=2))
-        written.append(p)
+        written.append(_export_embedding_clusters(c, out_dir))
     return written

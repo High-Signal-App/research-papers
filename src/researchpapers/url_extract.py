@@ -47,8 +47,16 @@ _HOST_TRAILING_TRIM = re.compile(r"[^A-Za-z0-9.-]")
 # Common tracking params to strip from the canonical form. Conservative — many
 # academic links carry meaningful query params, so we only drop the obvious ones.
 _TRACKING_PARAMS = {
-    "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content",
-    "ref", "ref_src", "ref_url", "gclid", "fbclid",
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_term",
+    "utm_content",
+    "ref",
+    "ref_src",
+    "ref_url",
+    "gclid",
+    "fbclid",
 }
 
 
@@ -107,7 +115,8 @@ def _canonicalize(url: str) -> tuple[str, str, str] | None:
     # Drop the tracking params, keep everything else.
     if parsed.query:
         kept = "&".join(
-            kv for kv in parsed.query.split("&")
+            kv
+            for kv in parsed.query.split("&")
             if "=" in kv and kv.split("=", 1)[0].lower() not in _TRACKING_PARAMS
         )
     else:
@@ -144,6 +153,24 @@ def extract_urls_from_pdf(pdf_path: Path) -> list[tuple[str, str, str, str, str]
     return extract_urls_from_text(text)
 
 
+_INSERT_URL_SQL = """
+INSERT INTO references_url
+    (citing_arxiv_id, url_raw, url_canonical, scheme, host, context_snippet)
+VALUES (%s, %s, %s, %s, %s, %s)
+ON CONFLICT (citing_arxiv_id, url_canonical) DO NOTHING
+"""
+
+
+def _insert_urls(cur, arxiv_id: str, urls) -> int:
+    """Inserts extracted URLs for one paper; returns the count of newly inserted rows."""
+    inserted = 0
+    for raw, canonical, scheme, host, ctx in urls:
+        cur.execute(_INSERT_URL_SQL, (arxiv_id, raw, canonical, scheme, host, ctx))
+        if cur.rowcount > 0:
+            inserted += 1
+    return inserted
+
+
 def re_extract_all_from_text(
     settings: Settings, *, limit: int | None = None, replace: bool = True
 ) -> tuple[int, int]:
@@ -177,18 +204,7 @@ def re_extract_all_from_text(
                     cur.execute(
                         "DELETE FROM references_url WHERE citing_arxiv_id = %s", (arxiv_id,)
                     )
-                for raw, canonical, scheme, host, ctx in urls:
-                    cur.execute(
-                        """
-                        INSERT INTO references_url
-                            (citing_arxiv_id, url_raw, url_canonical, scheme, host, context_snippet)
-                        VALUES (%s, %s, %s, %s, %s, %s)
-                        ON CONFLICT (citing_arxiv_id, url_canonical) DO NOTHING
-                        """,
-                        (arxiv_id, raw, canonical, scheme, host, ctx),
-                    )
-                    if cur.rowcount > 0:
-                        urls_inserted += 1
+                urls_inserted += _insert_urls(cur, arxiv_id, urls)
             conn.commit()
             papers_processed += 1
             if papers_processed % 500 == 0:
@@ -237,18 +253,7 @@ def extract_all(settings: Settings, *, limit: int | None = None) -> tuple[int, i
                 papers_processed += 1
                 continue
             with conn.cursor() as cur:
-                for raw, canonical, scheme, host, ctx in urls:
-                    cur.execute(
-                        """
-                        INSERT INTO references_url
-                            (citing_arxiv_id, url_raw, url_canonical, scheme, host, context_snippet)
-                        VALUES (%s, %s, %s, %s, %s, %s)
-                        ON CONFLICT (citing_arxiv_id, url_canonical) DO NOTHING
-                        """,
-                        (arxiv_id, raw, canonical, scheme, host, ctx),
-                    )
-                    if cur.rowcount > 0:
-                        urls_inserted += 1
+                urls_inserted += _insert_urls(cur, arxiv_id, urls)
                 cur.execute(
                     "UPDATE papers SET urls_extracted_at = %s WHERE arxiv_id = %s",
                     (datetime.now(UTC), arxiv_id),

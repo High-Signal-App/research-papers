@@ -175,8 +175,12 @@ def ingest_all(
             )
             arxiv_ids = [r["arxiv_id"] for r in cur.fetchall()]
 
-        log.info("ingest queue: %d papers, %d workers, max_in_flight=%d",
-                 len(arxiv_ids), workers, max_in_flight)
+        log.info(
+            "ingest queue: %d papers, %d workers, max_in_flight=%d",
+            len(arxiv_ids),
+            workers,
+            max_in_flight,
+        )
 
         in_flight: dict[Future, str] = {}
         idx = 0

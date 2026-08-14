@@ -53,7 +53,11 @@ def test_host_is_lowercased():
 
 
 def test_context_snippet_is_attached():
-    text = "padding " * 5 + "in section 3 we link https://example.com/x for the dataset" + " padding" * 5
+    text = (
+        "padding " * 5
+        + "in section 3 we link https://example.com/x for the dataset"
+        + " padding" * 5
+    )
     rows = extract_urls_from_text(text)
     assert "section 3" in rows[0][4]
     assert "dataset" in rows[0][4]

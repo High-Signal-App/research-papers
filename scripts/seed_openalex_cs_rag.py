@@ -128,12 +128,16 @@ def topic_summary(work: dict[str, Any]) -> dict[str, Any]:
     return {
         "primary_topic": nested_display_name(primary),
         "primary_topic_id": primary.get("id") if isinstance(primary, dict) else None,
-        "subfield": nested_display_name(primary.get("subfield")) if isinstance(primary, dict) else None,
+        "subfield": nested_display_name(primary.get("subfield"))
+        if isinstance(primary, dict)
+        else None,
         "field": nested_display_name(primary.get("field")) if isinstance(primary, dict) else None,
         "domain": nested_display_name(primary.get("domain")) if isinstance(primary, dict) else None,
         "topics": [
             name
-            for name in (nested_display_name(topic) for topic in topics[:8] if isinstance(topic, dict))
+            for name in (
+                nested_display_name(topic) for topic in topics[:8] if isinstance(topic, dict)
+            )
             if name
         ],
     }
@@ -144,7 +148,10 @@ def landing_urls(work: dict[str, Any]) -> dict[str, Any]:
     source = primary.get("source") if isinstance(primary.get("source"), dict) else {}
     ids = work.get("ids") if isinstance(work.get("ids"), dict) else {}
     return {
-        "url": primary.get("landing_page_url") or ids.get("doi") or work.get("doi") or work.get("id"),
+        "url": primary.get("landing_page_url")
+        or ids.get("doi")
+        or work.get("doi")
+        or work.get("id"),
         "pdf_url": primary.get("pdf_url"),
         "openalex_url": work.get("id"),
         "doi": work.get("doi") or ids.get("doi"),
@@ -196,7 +203,9 @@ def compact_work(work: dict[str, Any]) -> dict[str, Any]:
             for part in [
                 "high-citation Computer Science research paper",
                 title,
-                f"{work.get('cited_by_count')} citations" if work.get("cited_by_count") is not None else "",
+                f"{work.get('cited_by_count')} citations"
+                if work.get("cited_by_count") is not None
+                else "",
                 f"topic {topics['primary_topic']}" if topics["primary_topic"] else "",
                 f"authors {', '.join(author_names[:4])}" if author_names else "",
                 abstract[:600] if abstract else "",
@@ -303,8 +312,7 @@ def l2_normalize(vector: list[float]) -> list[float]:
 class LocalEmbedder(Protocol):
     model_label: str
 
-    def embed(self, texts: list[str]) -> list[list[float]]:
-        ...
+    def embed(self, texts: list[str]) -> list[list[float]]: ...
 
 
 class LmStudioEmbedder:
@@ -436,7 +444,9 @@ def vector_chunks_for_records(
 ) -> list[dict[str, Any]]:
     pending: list[tuple[dict[str, Any], int, str, str, str]] = []
     for record in records:
-        paper_id = str(record.get("paper_id") or safe_filename(str(record.get("openalex_id") or "")))
+        paper_id = str(
+            record.get("paper_id") or safe_filename(str(record.get("openalex_id") or ""))
+        )
         document_id = f"openalex-cs-cited1000:{paper_id}"
         content = structured_record_index_text(record)
         for chunk_index, chunk in enumerate(
@@ -549,7 +559,11 @@ def post_with_retries(
             response = client.post(url, headers=headers, json=json_body)
             if response.status_code in {408, 429, 500, 502, 503, 504} and attempt < attempts:
                 retry_after = response.headers.get("retry-after")
-                sleep_s = float(retry_after) if retry_after and retry_after.isdigit() else min(2**attempt, 30)
+                sleep_s = (
+                    float(retry_after)
+                    if retry_after and retry_after.isdigit()
+                    else min(2**attempt, 30)
+                )
                 print(f"retrying HTTP {response.status_code} in {sleep_s:.1f}s", flush=True)
                 time.sleep(sleep_s)
                 continue
@@ -637,7 +651,9 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--base-url", default=os.environ.get("RAG_SERVICE_URL", DEFAULT_BASE_URL))
     parser.add_argument("--domain", default=os.environ.get("RAG_DOMAIN", DEFAULT_DOMAIN))
-    parser.add_argument("--record-type", default=os.environ.get("RAG_RECORD_TYPE", DEFAULT_RECORD_TYPE))
+    parser.add_argument(
+        "--record-type", default=os.environ.get("RAG_RECORD_TYPE", DEFAULT_RECORD_TYPE)
+    )
     parser.add_argument("--embedding-model", default=os.environ.get("RAG_EMBEDDING_MODEL"))
     parser.add_argument("--embedding-provider", default=os.environ.get("RAG_EMBEDDING_PROVIDER"))
     parser.add_argument("--vector-ingest", action="store_true")
@@ -654,12 +670,16 @@ def main() -> int:
         "--lmstudio-url",
         default=os.environ.get("LMSTUDIO_BASE_URL", "http://127.0.0.1:1234/v1"),
     )
-    parser.add_argument("--expected-dimensions", type=int, default=DEFAULT_LOCAL_EMBEDDING_DIMENSIONS)
+    parser.add_argument(
+        "--expected-dimensions", type=int, default=DEFAULT_LOCAL_EMBEDDING_DIMENSIONS
+    )
     parser.add_argument("--vector-batch-size", type=int, default=50)
     parser.add_argument("--local-embedding-batch-size", type=int, default=32)
     parser.add_argument("--chunk-size", type=int, default=2000)
     parser.add_argument("--chunk-overlap", type=int, default=200)
-    parser.add_argument("--openalex-filter", default=os.environ.get("OPENALEX_FILTER", OPENALEX_FILTER))
+    parser.add_argument(
+        "--openalex-filter", default=os.environ.get("OPENALEX_FILTER", OPENALEX_FILTER)
+    )
     parser.add_argument("--state", type=Path, default=DEFAULT_STATE_PATH)
     parser.add_argument("--per-page", type=int, default=200)
     parser.add_argument("--batch-size", type=int, default=10)
@@ -755,8 +775,16 @@ def main() -> int:
             args.embedding_model = args.embedding_model or DEFAULT_VECTOR_EMBEDDING_MODEL
             args.embedding_provider = args.embedding_provider or DEFAULT_VECTOR_EMBEDDING_PROVIDER
         embedding_selection = {
-            **({"embedding_model": args.embedding_model.strip()} if args.embedding_model and args.embedding_model.strip() else {}),
-            **({"embedding_provider": args.embedding_provider.strip()} if args.embedding_provider and args.embedding_provider.strip() else {}),
+            **(
+                {"embedding_model": args.embedding_model.strip()}
+                if args.embedding_model and args.embedding_model.strip()
+                else {}
+            ),
+            **(
+                {"embedding_provider": args.embedding_provider.strip()}
+                if args.embedding_provider and args.embedding_provider.strip()
+                else {}
+            ),
         }
         domain_resp = post_with_retries(
             client,
@@ -868,7 +896,10 @@ def main() -> int:
                     resp = post_with_retries(
                         client,
                         f"{base_url}/v1/kb/ingest/record",
-                        headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+                        headers={
+                            "Authorization": f"Bearer {key}",
+                            "Content-Type": "application/json",
+                        },
                         json_body={
                             "domain": args.domain,
                             "type": args.record_type,
@@ -879,7 +910,10 @@ def main() -> int:
                         attempts=args.retries,
                     )
                     if resp.status_code >= 400:
-                        print(f"ingest failed HTTP {resp.status_code}: {resp.text[:1000]}", file=sys.stderr)
+                        print(
+                            f"ingest failed HTTP {resp.status_code}: {resp.text[:1000]}",
+                            file=sys.stderr,
+                        )
                     resp.raise_for_status()
                     body = resp.json()
                 state["records_posted"] = int(state.get("records_posted") or 0) + len(batch)
@@ -894,7 +928,10 @@ def main() -> int:
                 )
                 if args.sleep > 0:
                     time.sleep(args.sleep)
-                if args.max_records is not None and int(state["records_posted"]) >= args.max_records:
+                if (
+                    args.max_records is not None
+                    and int(state["records_posted"]) >= args.max_records
+                ):
                     if shard_writer:
                         shard_writer.flush()
                     print("max-records reached", flush=True)

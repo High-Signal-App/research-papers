@@ -137,12 +137,12 @@ def tag_multi_source(
         n = n_process or pick_n_process(cap=cap)
         log.info(
             "batch #%d: %d papers, n_process=%d (running total tagged=%d)",
-            batch_idx, len(chunk_rows), n, total_tagged,
+            batch_idx,
+            len(chunk_rows),
+            n,
+            total_tagged,
         )
-        chunk = [
-            {"paper_id": r[0], "title": r[1], "abstract": r[2]}
-            for r in chunk_rows
-        ]
+        chunk = [{"paper_id": r[0], "title": r[1], "abstract": r[2]} for r in chunk_rows]
         texts = [f"{r['title']}\n\n{r['abstract']}" for r in chunk]
         results: list[list[str]] = []
         for doc in nlp.pipe(texts, batch_size=512, n_process=n):
@@ -150,8 +150,7 @@ def tag_multi_source(
             results.append([t for t, _ in cnt.most_common(12)])
 
         ch_rows = [
-            (r["paper_id"], "spacy_v2", tags, None)
-            for r, tags in zip(chunk, results, strict=True)
+            (r["paper_id"], "spacy_v2", tags, None) for r, tags in zip(chunk, results, strict=True)
         ]
         write_paper_tags(ch_rows, model_version="en_core_web_sm")
         total_tagged += len(chunk)

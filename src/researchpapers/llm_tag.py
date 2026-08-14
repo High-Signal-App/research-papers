@@ -43,8 +43,8 @@ MLX_DEFAULT_MODEL = "mlx-community/Qwen2.5-3B-Instruct-4bit"
 # Each backend writes to its own pair of columns so we can A/B compare them.
 BACKEND_COLUMNS = {
     Backend.LM_STUDIO: ("llm_tags_json", "llm_tldr", "llm_tagged_at"),
-    Backend.OLLAMA:    ("llm_tags_json", "llm_tldr", "llm_tagged_at"),
-    Backend.MLX:       ("mlx_llm_tags_json", "mlx_llm_tldr", "mlx_llm_tagged_at"),
+    Backend.OLLAMA: ("llm_tags_json", "llm_tldr", "llm_tagged_at"),
+    Backend.MLX: ("mlx_llm_tags_json", "mlx_llm_tldr", "mlx_llm_tagged_at"),
 }
 
 # JSON schema we want the model to fill in. LM Studio honors this strictly; Ollama best-effort.
@@ -203,31 +203,39 @@ async def _tag_one_ollama_async(
     return (out if isinstance(out, dict) else None), usage
 
 
-
-
 def _make_tag_fn(backend: Backend):
     if backend == Backend.LM_STUDIO:
+
         async def _fn(client, model, paper):
-            return await _tag_one_openai_compat_async(client, LM_STUDIO_URL, model, paper, strict_schema=True)
+            return await _tag_one_openai_compat_async(
+                client, LM_STUDIO_URL, model, paper, strict_schema=True
+            )
+
         return _fn
     if backend == Backend.MLX:
         # MLX server does not honor strict json_schema; use json_object mode.
         async def _fn(client, model, paper):
-            return await _tag_one_openai_compat_async(client, MLX_URL, model, paper, strict_schema=False)
+            return await _tag_one_openai_compat_async(
+                client, MLX_URL, model, paper, strict_schema=False
+            )
+
         return _fn
     return _tag_one_ollama_async
 
 
 _BACKEND_TAGGER_NAME = {
     Backend.LM_STUDIO: "lm_studio_llm",
-    Backend.OLLAMA:    "ollama_llm",
-    Backend.MLX:       "mlx_qwen3b_v2",
+    Backend.OLLAMA: "ollama_llm",
+    Backend.MLX: "mlx_qwen3b_v2",
 }
 
 
 def _write_result(
-    settings: Settings, columns: tuple[str, str, str], arxiv_id: str,
-    tldr: str | None, tags: list[str],
+    settings: Settings,
+    columns: tuple[str, str, str],
+    arxiv_id: str,
+    tldr: str | None,
+    tags: list[str],
 ) -> None:
     col_tags, col_tldr, col_at = columns
     # Postgres (legacy)
@@ -248,14 +256,26 @@ def _write_result(
 
 
 def _write_result_with_backend(
-    settings: Settings, columns: tuple[str, str, str], backend: Backend,
-    arxiv_id: str, tldr: str | None, tags: list[str],
+    settings: Settings,
+    columns: tuple[str, str, str],
+    backend: Backend,
+    arxiv_id: str,
+    tldr: str | None,
+    tags: list[str],
 ) -> None:
     _write_result(settings, columns, arxiv_id, tldr, tags)
     try:
         from researchpapers.ch_db import arxiv_paper_id, write_paper_tags
+
         write_paper_tags(
-            [(arxiv_paper_id(arxiv_id), _BACKEND_TAGGER_NAME.get(backend, "unknown_llm"), tags, tldr)],
+            [
+                (
+                    arxiv_paper_id(arxiv_id),
+                    _BACKEND_TAGGER_NAME.get(backend, "unknown_llm"),
+                    tags,
+                    tldr,
+                )
+            ],
         )
     except Exception as e:  # noqa: BLE001
         log.warning("ClickHouse dual-write failed for %s: %s", arxiv_id, e)
@@ -278,7 +298,10 @@ async def _run_async(
             try:
                 result, usage = await tag_fn(client, model, paper)
             except httpx.HTTPStatusError as e:
-                print(f"[HTTP {e.response.status_code}] {paper['arxiv_id']}: {e.response.text[:300]}", flush=True)
+                print(
+                    f"[HTTP {e.response.status_code}] {paper['arxiv_id']}: {e.response.text[:300]}",
+                    flush=True,
+                )
                 counters["failed"] += 1
                 return
             except httpx.HTTPError as e:
@@ -301,8 +324,13 @@ async def _run_async(
             tags = [str(t).strip() for t in tags if t][:20]
             try:
                 await asyncio.to_thread(
-                    _write_result_with_backend, settings, columns, backend,
-                    paper["arxiv_id"], tldr, tags,
+                    _write_result_with_backend,
+                    settings,
+                    columns,
+                    backend,
+                    paper["arxiv_id"],
+                    tldr,
+                    tags,
                 )
             except Exception as e:  # noqa: BLE001
                 log.warning("write failed for %s: %s", paper["arxiv_id"], e)
@@ -312,7 +340,9 @@ async def _run_async(
             if counters["tagged"] % 50 == 0:
                 log.info(
                     "llm-tag: %d tagged, %d failed, %d skipped",
-                    counters["tagged"], counters["failed"], counters["skipped"],
+                    counters["tagged"],
+                    counters["failed"],
+                    counters["skipped"],
                 )
 
     # Bump httpx pool so concurrency up to ~100 doesn't bottleneck.
@@ -335,9 +365,13 @@ def tag_papers(
     premium_only: bool = False,
 ) -> dict[str, int | float]:
     import time
+
     counters: dict[str, int | float] = {
-        "tagged": 0, "failed": 0, "skipped": 0,
-        "prompt_tokens": 0, "completion_tokens": 0,
+        "tagged": 0,
+        "failed": 0,
+        "skipped": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
     }
     if model is None:
         if backend == Backend.LM_STUDIO:
@@ -376,7 +410,10 @@ def tag_papers(
         rows = cur.fetchall()
     log.info(
         "llm-tag queue: %d papers, backend=%s, model=%s, concurrency=%d",
-        len(rows), backend.value, model, concurrency,
+        len(rows),
+        backend.value,
+        model,
+        concurrency,
     )
     if not rows:
         return counters
@@ -391,6 +428,10 @@ def tag_papers(
     ct = int(counters["completion_tokens"])
     counters["completion_tok_per_sec"] = round(ct / elapsed, 1) if elapsed else 0
     counters["total_tok_per_sec"] = round((pt + ct) / elapsed, 1) if elapsed else 0
-    counters["avg_prompt_tokens"] = round(pt / int(counters["tagged"]), 0) if counters["tagged"] else 0
-    counters["avg_completion_tokens"] = round(ct / int(counters["tagged"]), 0) if counters["tagged"] else 0
+    counters["avg_prompt_tokens"] = (
+        round(pt / int(counters["tagged"]), 0) if counters["tagged"] else 0
+    )
+    counters["avg_completion_tokens"] = (
+        round(ct / int(counters["tagged"]), 0) if counters["tagged"] else 0
+    )
     return counters

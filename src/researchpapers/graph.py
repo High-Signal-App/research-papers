@@ -149,8 +149,9 @@ def compute_scores(
         by_len: dict[int, int] = {}
         for cyc in cycles_found:
             by_len[len(cyc)] = by_len.get(len(cyc), 0) + 1
-        log.info("done. %d cycles persisted, by length: %s",
-                 len(cycles_found), sorted(by_len.items()))
+        log.info(
+            "done. %d cycles persisted, by length: %s", len(cycles_found), sorted(by_len.items())
+        )
     return counters
 
 
@@ -163,16 +164,12 @@ def detect_communities(settings: Settings) -> dict[str, int]:
     with connect(settings) as conn:
         g, _ = _load_subgraph(conn)
         g_und = g.to_undirected()
-        g_active = g_und.subgraph(
-            [n for n in g_und.nodes() if g_und.degree(n) > 0]
-        ).copy()
+        g_active = g_und.subgraph([n for n in g_und.nodes() if g_und.degree(n) > 0]).copy()
         counters["nodes"] = g_active.number_of_nodes()
         counters["edges"] = g_active.number_of_edges()
 
         log.info("running Louvain on %d connected nodes...", g_active.number_of_nodes())
-        communities = list(
-            nx.community.louvain_communities(g_active, seed=LOUVAIN_SEED)
-        )
+        communities = list(nx.community.louvain_communities(g_active, seed=LOUVAIN_SEED))
         communities.sort(key=len, reverse=True)
         counters["communities"] = len(communities)
 

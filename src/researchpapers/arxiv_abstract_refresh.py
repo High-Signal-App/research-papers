@@ -167,13 +167,15 @@ def refresh_suspect_abstracts(
         if new_abstract.strip() == old_abstract.strip():
             counters["unchanged"] += 1
             continue
-        inserts.append([
-            paper_id,
-            arxiv_id,
-            new_abstract,
-            fetched.get("title") or "",
-            reason_by_paper[paper_id],
-        ])
+        inserts.append(
+            [
+                paper_id,
+                arxiv_id,
+                new_abstract,
+                fetched.get("title") or "",
+                reason_by_paper[paper_id],
+            ]
+        )
         refreshed_ids.append(paper_id)
         counters["refreshed"] += 1
 
@@ -221,7 +223,9 @@ def _reembed_papers(paper_ids: list[str]) -> int:
     model = SentenceTransformer("all-MiniLM-L6-v2")
     batch = clamp_batch_size(64)
     texts = [f"{r[1] or ''}. {(r[2] or '')[:1000]}" for r in rows]
-    embeddings = model.encode(texts, batch_size=batch, normalize_embeddings=True, show_progress_bar=False)
+    embeddings = model.encode(
+        texts, batch_size=batch, normalize_embeddings=True, show_progress_bar=False
+    )
     payload = [[r[0], embeddings[i].tolist(), "all-MiniLM-L6-v2"] for i, r in enumerate(rows)]
     with ch_connect() as ch:
         ch.insert(

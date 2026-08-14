@@ -37,6 +37,33 @@ def ping() -> bool:
         return False
 
 
+PAPER_COLS = [
+    "paper_id",
+    "source",
+    "source_id",
+    "arxiv_id",
+    "openalex_id",
+    "doi",
+    "title",
+    "abstract",
+    "submitted_date",
+    "publication_year",
+    "citation_count",
+    "primary_category",
+    "authors",
+    "openalex_tags",
+    "openalex_keywords",
+    "pagerank_score",
+    "katz_score",
+    "community_id",
+    "semantic_cluster",
+    "in_corpus_degree",
+    "ingested_at",
+    "updated_at",
+    "abstract_embedding",
+]
+
+
 def write_paper_tags(
     rows: list[tuple[str, str, list[str], str | None]],
     *,
@@ -50,8 +77,11 @@ def write_paper_tags(
     if not rows:
         return 0
     from datetime import UTC, datetime
+
     now = datetime.now(UTC)
-    payload = [[pid, tagger, tags or [], tldr, model_version, now] for pid, tagger, tags, tldr in rows]
+    payload = [
+        [pid, tagger, tags or [], tldr, model_version, now] for pid, tagger, tags, tldr in rows
+    ]
     with connect() as c:
         c.insert(
             "paper_tags",

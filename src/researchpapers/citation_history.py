@@ -21,7 +21,7 @@ from researchpapers.config import load_settings
 log = logging.getLogger("researchpapers.citation_history")
 
 OPENALEX_WORKS_URL = "https://api.openalex.org/works"
-BATCH_SIZE = 50           # ids per OpenAlex call
+BATCH_SIZE = 50  # ids per OpenAlex call
 POLITE_INTERVAL = 0.2
 
 
