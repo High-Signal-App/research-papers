@@ -1,5 +1,3 @@
-import * as React from "react";
-
 import { fmt } from "@/lib/utils";
 
 type Node = { id: string; count: number };

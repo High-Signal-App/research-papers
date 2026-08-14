@@ -14,7 +14,6 @@ from __future__ import annotations
 import json
 from datetime import date
 from pathlib import Path
-from typing import Any
 
 from researchpapers.ch_db import connect as ch_connect
 from researchpapers.clusters import clean_abstract
@@ -272,7 +271,7 @@ def export_all(settings: Settings, out_dir: Path, *, top: int = 200) -> list[Pat
 
         # ---------- 7d. Top authors ----------
         rows = c.query(
-            f"""
+            """
             SELECT
                 arrayJoin(authors) AS author,
                 count() AS n_papers,

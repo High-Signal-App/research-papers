@@ -17,9 +17,9 @@ import re
 import subprocess
 import time
 
-from researchpapers.ch_db import connect as ch_connect, write_paper_tags
+from researchpapers.ch_db import connect as ch_connect
+from researchpapers.ch_db import write_paper_tags
 from researchpapers.config import Settings
-
 
 # RAM-aware throttling — yield CPU/GPU when other processes (e.g. an LLM
 # training run) need the headroom.

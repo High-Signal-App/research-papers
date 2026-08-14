@@ -20,6 +20,7 @@ uv run papers api-serve --port 8000    # FastAPI on :8000
 cd web && pnpm install && pnpm dev      # Astro on :4321
 uv run pytest                          # hermetic tests (skips golden)
 uv run pytest -m golden                # live RAG regression (needs GOLDEN_RAG_URL)
+npm run check                          # complete code-health gate
 ./scripts/check-docs.sh                # validate docs/ links
 ```
 

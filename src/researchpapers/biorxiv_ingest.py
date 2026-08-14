@@ -12,8 +12,8 @@ from __future__ import annotations
 
 import logging
 import time
+from collections.abc import Iterator
 from datetime import UTC, date, datetime, timedelta
-from typing import Iterator
 
 import httpx
 from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_exponential

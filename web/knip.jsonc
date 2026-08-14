@@ -1,0 +1,27 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": [
+    "astro.config.mjs",
+    "functions/**/*.ts",
+    "scripts/**/*.mjs",
+    "src/pages/**/*.{astro,ts}",
+    "../tests/**/*.test.mjs"
+  ],
+  "project": [
+    "astro.config.mjs",
+    "functions/**/*.ts",
+    "scripts/**/*.mjs",
+    "src/**/*.{astro,ts,tsx}",
+    "../tests/**/*.test.mjs"
+  ],
+  "ignoreDependencies": [
+    "@astrojs/check",
+    "@biomejs/biome",
+    "jscpd",
+    "knip",
+    "lightningcss",
+    "tailwindcss",
+    "tw-animate-css",
+    "typescript"
+  ]
+}

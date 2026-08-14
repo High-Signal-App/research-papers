@@ -31,6 +31,7 @@ uv run papers api-serve --host 0.0.0.0 --port 8000  # FastAPI (operator-only)
 cd web && pnpm install && pnpm dev                  # Astro on :4321
 uv run pytest                                       # hermetic tests (skips golden)
 uv run pytest -m golden                             # live RAG regression (GOLDEN_RAG_URL)
+npm run check                                       # complete local code-health gate
 ./scripts/deploy.sh /path/to/researchpapers_data_*.tar.gz  # warm restore (preferred)
 ./scripts/check-docs.sh                             # validate docs/ links
 ```
@@ -95,6 +96,10 @@ Root canonical docs (not duplicated in `docs/`): [`README.md`](README.md),
 7. When code changes, update the matching doc in the same diff. See
    [`docs/development/workflow.md`](docs/development/workflow.md) for the
    code-change → doc-update map.
+8. Run `npm run check` before handoff. Existing formatter, lint, Python type,
+   coverage, unused-code, complexity, duplication, advisory, and suppression
+   debt is ratcheted against GitHub issue #29; lower a baseline whenever the
+   measurement improves and never raise one without explicit review.
 
 ## Repository operating rules
 

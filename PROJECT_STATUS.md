@@ -1,6 +1,6 @@
 # researchPapers — PROJECT STATUS
 
-Last updated: 2026-07-18
+Last updated: 2026-08-12
 
 > **Scope of this file:** durable product identity — Why/What, Dependencies,
 > Products, Features, Timeline. Live operating state (objective, active work,
@@ -66,6 +66,12 @@ See `DEPLOY.md` for LAN/CDN deployment shapes.
 
 ## Timeline
 
+- **2026-08-12:** Adopted the Fleet code-health contract across Python and the
+  Astro/Pages surface. CI now blocks regressions in formatting, lint, types,
+  hermetic tests and coverage, unused code and dependencies, complexity,
+  duplication, dependency risk, import cycles, suppressions, repository
+  hygiene, docs, and the static build; existing debt remains explicit in
+  GitHub issue #29.
 - **2026-07-31:** Removed the broken Postgres-only KeyBERT and tagger-evaluation
   commands plus the unused KeyBERT dependency; ADR-009 preserves the decision.
 - **2026-07-29:** Added a same-origin `/changelog` that summarizes verified
@@ -99,6 +105,8 @@ See `DEPLOY.md` for LAN/CDN deployment shapes.
 
 ### Architecture
 
+- One repository-native `npm run check` command enforces the mixed Python and
+  Astro code-health contract locally and in CI with ratcheted legacy debt.
 - Ingest sources: arxiv, OpenAlex, OpenReview, bioRxiv/medRxiv → Typer CLI overlay/ingest jobs.
 - ClickHouse 24.10 (Docker) stores papers, references, embeddings, clusters, `paper_scores_v2`, `citation_overlay_v2`, `abstract_overlay_v2`, `authors_v2`.
 - FastAPI on `:8000` serves search, paper detail, semantic search, sleepers, hot papers, similar papers, tags, authors, reviews.

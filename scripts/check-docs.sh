@@ -40,7 +40,7 @@ done < <(grep -rEn --include='*.md' '\]\([^)]+\)' "$DOCS" || true)
 while IFS= read -r mdfile; do
   dir="$(dirname "$mdfile")"
   # Use grep -oE to extract link targets, then filter.
-  grep -oE '\]\([^)]+\)' "$mdfile" | sed 's/^](//; s/)$//' | while IFS= read -r target; do
+  while IFS= read -r target; do
     # Skip external, anchor-only, mailto, and bare-URL fragments.
     case "$target" in
       http://*|https://*|\#*|mailto:*) continue ;;
@@ -58,26 +58,8 @@ while IFS= read -r mdfile; do
       echo "FAIL: broken link in $mdfile: [$target] -> $real" >&2
       FAIL=1
     fi
-  done
+  done < <(grep -oE '\]\([^)]+\)' "$mdfile" | sed 's/^](//; s/)$//')
 done < <(find "$DOCS" -type f -name '*.md')
-# Propagate FAIL from the subshell (pipefail + the while runs in current shell for the find loop,
-# but the inner grep|while is a pipeline). Re-scan with a single pass to be safe.
-broken=$(find "$DOCS" -type f -name '*.md' -print0 | while IFS= read -r -d '' mdfile; do
-  dir="$(dirname "$mdfile")"
-  grep -oE '\]\([^)]+\)' "$mdfile" | sed 's/^](//; s/)$//' | while IFS= read -r target; do
-    case "$target" in
-      http://*|https://*|\#*|mailto:*) continue ;;
-    esac
-    path="${target%%#*}"
-    [ -z "$path" ] && continue
-    real="$(python3 -c "import os,sys; print(os.path.normpath(os.path.join(sys.argv[1], sys.argv[2])))" "$dir" "$path" 2>/dev/null || echo "$dir/$path")"
-    [ -e "$real" ] || echo "$mdfile:[$target]->$real"
-  done
-done)
-if [ -n "$broken" ]; then
-  echo "$broken" >&2
-  FAIL=1
-fi
 
 echo "==> [2/6] Checking for orphaned markdown files under $DOCS/"
 # A file is reachable if docs/index.md links to it directly or transitively.
@@ -140,22 +122,18 @@ while IFS= read -r d; do
 done < <(find "$DOCS" -mindepth 1 -type d)
 
 echo "==> [6/6] Checking links from root canonical docs (README/DEPLOY/PROJECT_STATUS/STATUS/AGENTS)"
-broken_root=$(for f in README.md DEPLOY.md PROJECT_STATUS.md STATUS.md AGENTS.md; do
+for f in README.md DEPLOY.md PROJECT_STATUS.md STATUS.md AGENTS.md; do
   [ -f "$f" ] || continue
-  grep -oE '\]\([^)]+\)' "$f" | sed 's/^](//; s/)$//' | while IFS= read -r target; do
+  while IFS= read -r target; do
     case "$target" in
       http://*|https://*|\#*|mailto:*) continue ;;
     esac
     path="${target%%#*}"
     [ -z "$path" ] && continue
     # Root files link repo-relative (e.g. docs/index.md, DEPLOY.md).
-    [ -e "$path" ] || echo "$f:[$target]->$path"
-  done
-done)
-if [ -n "$broken_root" ]; then
-  echo "$broken_root" >&2
-  FAIL=1
-fi
+    [ -e "$path" ] || fail "broken link in $f: [$target] -> $path"
+  done < <(grep -oE '\]\([^)]+\)' "$f" | sed 's/^](//; s/)$//')
+done
 
 if [ "$FAIL" -ne 0 ]; then
   echo >&2

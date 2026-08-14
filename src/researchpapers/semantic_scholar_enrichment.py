@@ -14,9 +14,9 @@ import httpx
 from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_exponential
 
 from researchpapers.ch_db import connect as ch_connect
-from researchpapers.config import load_settings
-from researchpapers.ram import wait_for_ram
+from researchpapers.config import Settings, load_settings
 from researchpapers.overlays import ensure_citation_overlay_table
+from researchpapers.ram import wait_for_ram
 
 log = logging.getLogger("researchpapers.semantic_scholar_enrichment")
 

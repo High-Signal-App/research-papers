@@ -127,7 +127,7 @@ export function SemanticSearch() {
         setResults(await staticSearch(query));
       }
     } catch (e: unknown) {
-      setError(e?.message || "request failed");
+      setError(e instanceof Error ? e.message : "request failed");
       setResults([]);
     } finally {
       setLoading(false);

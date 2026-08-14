@@ -29,7 +29,8 @@ import sys
 import time
 from datetime import UTC, datetime, timedelta
 
-from researchpapers import clusters, exporter, graph as graph_mod, openalex
+from researchpapers import clusters, exporter, openalex
+from researchpapers import graph as graph_mod
 from researchpapers.config import DATA_DIR, PROJECT_ROOT, Settings, load_settings
 from researchpapers.db import connect
 

@@ -108,7 +108,7 @@ def tag_papers(
     # Process sequentially — MLX shares model state, no per-request startup cost.
     updates: list[tuple] = []
     now = datetime.now(UTC)
-    for i, r in enumerate(rows):
+    for _i, r in enumerate(rows):
         prompt = _build_prompt(tokenizer, r)
         try:
             raw = generate(

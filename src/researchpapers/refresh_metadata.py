@@ -17,13 +17,11 @@ touching the partition-keyed papers table.
 
 from __future__ import annotations
 
-import json
 import logging
 import time
-from typing import Iterable
 
 import httpx
-from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
+from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_exponential
 
 from researchpapers.ch_db import connect as ch_connect
 
@@ -57,6 +55,7 @@ def _ensure_metadata_table() -> None:
 def _arxiv_titles_batch(client: httpx.Client, arxiv_ids: list[str]) -> dict[str, str]:
     """Batch fetch titles from arXiv API via feedparser (proper Atom XML)."""
     import re
+
     import feedparser
     out: dict[str, str] = {}
     if not arxiv_ids:

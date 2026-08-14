@@ -195,7 +195,11 @@ def refresh_suspect_abstracts(
 def _reembed_papers(paper_ids: list[str]) -> int:
     from sentence_transformers import SentenceTransformer
 
-    from researchpapers.overlays import EFFECTIVE_ABSTRACT_SQL, EFFECTIVE_TITLE_SQL, OVERLAY_JOINS_SQL
+    from researchpapers.overlays import (
+        EFFECTIVE_ABSTRACT_SQL,
+        EFFECTIVE_TITLE_SQL,
+        OVERLAY_JOINS_SQL,
+    )
     from researchpapers.ram import clamp_batch_size, wait_for_ram
 
     wait_for_ram()

@@ -68,7 +68,7 @@ BLACKLIST_SINGLE = {
     "abstract", "introduction", "conclusion", "background", "related",
     "context", "contexts", "instance", "instances", "example", "examples",
     "fact", "facts", "part", "parts", "section", "sections", "chapter",
-    "respect", "regards", "addition", "order", "term", "course", "form", "forms",
+    "respect", "regards", "addition", "order", "course", "form", "forms",
     "name", "names", "scope", "field", "fields", "area", "areas",
     "author", "authors", "user", "users", "people", "person", "team", "world",
     "year", "years", "month", "day", "time", "times", "period", "moment",

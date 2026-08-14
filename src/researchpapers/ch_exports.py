@@ -25,7 +25,7 @@ def export_review_data(out_dir: Path) -> list[Path]:
     written: list[Path] = []
     with ch_connect() as c:
         # 1. Summary across venues
-        result = c.query(f"""
+        result = c.query("""
             SELECT
                 venue,
                 count() AS n_reviews,
@@ -54,7 +54,7 @@ def export_review_data(out_dir: Path) -> list[Path]:
         written.append(p)
 
         # 2. Top-rated submissions: best reviewer-average per paper
-        result = c.query(f"""
+        result = c.query("""
             SELECT
                 r.paper_id,
                 p.title,
@@ -86,7 +86,7 @@ def export_review_data(out_dir: Path) -> list[Path]:
         written.append(p)
 
         # 3. Rating distribution per venue
-        result = c.query(f"""
+        result = c.query("""
             SELECT venue, rating, count() AS n
             FROM openreview_reviews
             WHERE rating IS NOT NULL
@@ -101,7 +101,7 @@ def export_review_data(out_dir: Path) -> list[Path]:
         written.append(p)
 
         # 4. Source breakdown (papers across sources) — useful for the header card
-        result = c.query(f"""
+        result = c.query("""
             SELECT source, count() AS n FROM papers GROUP BY source ORDER BY n DESC
         """).result_rows
         sources = [{"source": r[0], "n": int(r[1])} for r in result]
@@ -114,7 +114,7 @@ def export_review_data(out_dir: Path) -> list[Path]:
         # and known plural pairs ("language models"/"language model") are merged via the CASE map.
         # For each spaCy-extracted tag, mean ICLR/NeurIPS reviewer rating across
         # papers tagged with it. Includes sample top-rated papers per tag for drilldown.
-        result = c.query(f"""
+        result = c.query("""
             WITH paper_avg_rating AS (
                 SELECT
                     r.paper_id,

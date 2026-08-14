@@ -69,8 +69,8 @@ export function SleepersTable({ data }: { data: Row[] }) {
       header: "venue outcome",
       cell: ({ getValue }) => {
         const d = getValue<string | null>();
+        if (!d) return null;
         const label = decisionLabel(d);
-        if (!label) return null;
         const lc = d.toLowerCase();
         if (lc.includes("oral")) return <Badge variant="default" className="whitespace-nowrap">{label}</Badge>;
         if (lc.includes("accept")) return <Badge variant="secondary" className="whitespace-nowrap">{label}</Badge>;

@@ -1,10 +1,26 @@
 {
   "private": true,
   "scripts": {
+    "build": "node scripts/check-code-health.mjs build",
+    "check": "npm run quality",
     "deploy": "node scripts/manual-deploy.mjs deploy.yml ci.yml",
     "docs:check": "bash scripts/check-docs.sh",
     "docs:build": "bash scripts/build-docs.sh build",
     "docs:dev": "bash scripts/build-docs.sh dev",
-    "docs:preview": "bash scripts/build-docs.sh preview"
+    "docs:preview": "bash scripts/build-docs.sh preview",
+    "format:check": "node scripts/check-code-health.mjs format",
+    "knip": "pnpm --dir web exec knip --no-exit-code --reporter symbols --no-config-hints",
+    "lint": "node scripts/check-code-health.mjs lint",
+    "quality": "node scripts/check-code-health.mjs all",
+    "quality:complexity": "node scripts/check-code-health.mjs complexity",
+    "quality:cycles": "node scripts/check-code-health.mjs cycles",
+    "quality:dependencies": "node scripts/check-code-health.mjs dependencies",
+    "quality:duplication": "node scripts/check-code-health.mjs duplication",
+    "quality:hygiene": "node scripts/check-code-health.mjs hygiene",
+    "quality:suppressions": "node scripts/check-code-health.mjs suppressions",
+    "quality:unused": "node scripts/check-code-health.mjs unused",
+    "test": "node scripts/check-code-health.mjs tests",
+    "test:coverage": "node scripts/check-code-health.mjs coverage",
+    "typecheck": "node scripts/check-code-health.mjs types"
   }
 }
