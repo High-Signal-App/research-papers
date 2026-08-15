@@ -55,6 +55,18 @@ if (paperIds.some((id) => !/^[a-z0-9./-]+$/i.test(id))) {
 }
 
 const htmlPaths = [...topLevel.map((surface) => surface.path), ...paperIds.map((id) => `/paper/${id}`)];
+
+// Cloudflare Pages serves `route.html` (Astro `build.format: "file"`) directly at
+// `/route` with a 200. A trailing slash or `.html` suffix would 308-redirect to
+// the canonical no-slash route, so every non-home sitemap URL must be the final
+// direct form. Reject any future entry that would reintroduce a redirect hop.
+const redirectHops = htmlPaths.filter(
+  (path) => path !== "/" && (path.endsWith("/") || path.endsWith(".html")),
+);
+if (redirectHops.length) {
+  throw new Error(`Sitemap URLs would redirect (not direct): ${redirectHops.join(", ")}`);
+}
+
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${htmlPaths.map((path) => `  <url><loc>${origin}${path}</loc></url>`).join("\n")}
