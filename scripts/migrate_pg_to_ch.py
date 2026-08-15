@@ -15,6 +15,8 @@ import clickhouse_connect
 import psycopg
 from psycopg.rows import dict_row
 
+from researchpapers.ch_db import PAPER_COLS as _PAPERS_COLS
+
 PG_DSN = "postgresql://papers:papers@localhost:5433/papers"
 CH = dict(host="localhost", port=8123, database="papers", username="papers", password="papers")
 BATCH = 5000
@@ -51,6 +53,38 @@ def _flatten_authors(authors_json) -> list[str]:
     return [a.get("name") for a in authors_json if isinstance(a, dict) and a.get("name")]
 
 
+def _paper_row(r) -> list:
+    """Builds a single CH papers row from a PG cursor dict."""
+    pid = _arxiv_pid(r["arxiv_id"])
+    sub_date = r["submitted_date"]
+    pub_year = sub_date.year if sub_date else None
+    return [
+        pid,
+        "arxiv",
+        r["arxiv_id"],
+        r["arxiv_id"],
+        r["openalex_id"],
+        r["doi"],
+        r["title"] or "",
+        r["abstract"],
+        sub_date,
+        pub_year,
+        int(r["citation_count"] or 0),
+        r["primary_category"],
+        _flatten_authors(r["authors_json"]),
+        _flatten_tags(r["tags_json"]),
+        _flatten_keywords(r["keywords_json"]),
+        r["pagerank_score"],
+        r["katz_score"],
+        int(r["community_id"]) if r["community_id"] is not None else None,
+        int(r["semantic_cluster"]) if r["semantic_cluster"] is not None else None,
+        int(r["in_corpus_degree"] or 0),
+        datetime.now(UTC),
+        datetime.now(UTC),
+        [],  # abstract_embedding placeholder
+    ]
+
+
 def migrate_papers(pg, ch) -> int:
     """Pulls from PG papers → CH papers."""
     print("migrating papers...", flush=True)
@@ -70,59 +104,18 @@ def migrate_papers(pg, ch) -> int:
         )
         batch_rows: list[list] = []
         for r in cur:
-            pid = _arxiv_pid(r["arxiv_id"])
-            sub_date = r["submitted_date"]
-            pub_year = sub_date.year if sub_date else None
-            batch_rows.append([
-                pid,
-                "arxiv",
-                r["arxiv_id"],
-                r["arxiv_id"],
-                r["openalex_id"],
-                r["doi"],
-                r["title"] or "",
-                r["abstract"],
-                sub_date,
-                pub_year,
-                int(r["citation_count"] or 0),
-                r["primary_category"],
-                _flatten_authors(r["authors_json"]),
-                _flatten_tags(r["tags_json"]),
-                _flatten_keywords(r["keywords_json"]),
-                r["pagerank_score"],
-                r["katz_score"],
-                int(r["community_id"]) if r["community_id"] is not None else None,
-                int(r["semantic_cluster"]) if r["semantic_cluster"] is not None else None,
-                int(r["in_corpus_degree"] or 0),
-                datetime.now(UTC),
-                datetime.now(UTC),
-                [],  # abstract_embedding placeholder
-            ])
+            batch_rows.append(_paper_row(r))
             if len(batch_rows) >= BATCH:
-                ch.insert("papers", batch_rows, column_names=[
-                    "paper_id", "source", "source_id", "arxiv_id", "openalex_id",
-                    "doi", "title", "abstract", "submitted_date", "publication_year",
-                    "citation_count", "primary_category", "authors",
-                    "openalex_tags", "openalex_keywords",
-                    "pagerank_score", "katz_score", "community_id", "semantic_cluster",
-                    "in_corpus_degree", "ingested_at", "updated_at", "abstract_embedding",
-                ])
+                ch.insert("papers", batch_rows, column_names=_PAPERS_COLS)
                 n += len(batch_rows)
                 batch_rows = []
                 if n % 25000 == 0:
                     elapsed = time.monotonic() - t0
-                    print(f"  {n:,} papers ({n/elapsed:.0f}/sec)", flush=True)
+                    print(f"  {n:,} papers ({n / elapsed:.0f}/sec)", flush=True)
         if batch_rows:
-            ch.insert("papers", batch_rows, column_names=[
-                "paper_id", "source", "source_id", "arxiv_id", "openalex_id",
-                "doi", "title", "abstract", "submitted_date", "publication_year",
-                "citation_count", "primary_category", "authors",
-                "openalex_tags", "openalex_keywords",
-                "pagerank_score", "katz_score", "community_id", "semantic_cluster",
-                "in_corpus_degree", "ingested_at", "updated_at", "abstract_embedding",
-            ])
+            ch.insert("papers", batch_rows, column_names=_PAPERS_COLS)
             n += len(batch_rows)
-    print(f"  done: {n:,} papers in {time.monotonic()-t0:.1f}s", flush=True)
+    print(f"  done: {n:,} papers in {time.monotonic() - t0:.1f}s", flush=True)
     return n
 
 
@@ -132,9 +125,9 @@ def migrate_paper_tags(pg, ch) -> int:
     t0 = time.monotonic()
     n = 0
     tagger_map = [
-        ("noun_tags_v2_json",    "spacy_v2",       "noun_v2_tagged_at"),
-        ("mlx_llm_v2_tags_json", "mlx_qwen3b_v2",  "mlx_llm_v2_tagged_at"),
-        ("llm_tags_json",        "lm_qwen30b_oracle", "llm_tagged_at"),
+        ("noun_tags_v2_json", "spacy_v2", "noun_v2_tagged_at"),
+        ("mlx_llm_v2_tags_json", "mlx_qwen3b_v2", "mlx_llm_v2_tagged_at"),
+        ("llm_tags_json", "lm_qwen30b_oracle", "llm_tagged_at"),
     ]
     with pg.cursor(row_factory=dict_row) as cur:
         for col, tagger, ts_col in tagger_map:
@@ -157,27 +150,47 @@ def migrate_paper_tags(pg, ch) -> int:
             for r in cur:
                 tags = r["tags"] if isinstance(r["tags"], list) else []
                 tags = [str(t) for t in tags if t]
-                batch.append([
-                    _arxiv_pid(r["arxiv_id"]),
-                    tagger,
-                    tags,
-                    r.get("tldr"),
-                    None,
-                    r["ts"] or datetime.now(UTC),
-                ])
+                batch.append(
+                    [
+                        _arxiv_pid(r["arxiv_id"]),
+                        tagger,
+                        tags,
+                        r.get("tldr"),
+                        None,
+                        r["ts"] or datetime.now(UTC),
+                    ]
+                )
                 if len(batch) >= BATCH:
-                    ch.insert("paper_tags", batch, column_names=[
-                        "paper_id", "tagger", "tags", "tldr", "model_version", "computed_at",
-                    ])
+                    ch.insert(
+                        "paper_tags",
+                        batch,
+                        column_names=[
+                            "paper_id",
+                            "tagger",
+                            "tags",
+                            "tldr",
+                            "model_version",
+                            "computed_at",
+                        ],
+                    )
                     n += len(batch)
                     batch = []
             if batch:
-                ch.insert("paper_tags", batch, column_names=[
-                    "paper_id", "tagger", "tags", "tldr", "model_version", "computed_at",
-                ])
+                ch.insert(
+                    "paper_tags",
+                    batch,
+                    column_names=[
+                        "paper_id",
+                        "tagger",
+                        "tags",
+                        "tldr",
+                        "model_version",
+                        "computed_at",
+                    ],
+                )
                 n += len(batch)
             print(f"  {tagger}: cumulative {n:,}", flush=True)
-    print(f"  done: {n:,} tag rows in {time.monotonic()-t0:.1f}s", flush=True)
+    print(f"  done: {n:,} tag rows in {time.monotonic() - t0:.1f}s", flush=True)
     return n
 
 
@@ -197,31 +210,49 @@ def migrate_references(pg, ch) -> int:
         )
         batch: list[list] = []
         for r in cur:
-            batch.append([
-                _arxiv_pid(r["citing_arxiv_id"]),
-                r["cited_openalex_id"],
-                r["cited_arxiv_id"],
-                r["cited_doi"],
-                r["cited_title"],
-                r["fetched_at"] or datetime.now(UTC),
-            ])
+            batch.append(
+                [
+                    _arxiv_pid(r["citing_arxiv_id"]),
+                    r["cited_openalex_id"],
+                    r["cited_arxiv_id"],
+                    r["cited_doi"],
+                    r["cited_title"],
+                    r["fetched_at"] or datetime.now(UTC),
+                ]
+            )
             if len(batch) >= BATCH:
-                ch.insert("references_paper", batch, column_names=[
-                    "citing_paper_id", "cited_openalex_id", "cited_arxiv_id",
-                    "cited_doi", "cited_title", "backfilled_at",
-                ])
+                ch.insert(
+                    "references_paper",
+                    batch,
+                    column_names=[
+                        "citing_paper_id",
+                        "cited_openalex_id",
+                        "cited_arxiv_id",
+                        "cited_doi",
+                        "cited_title",
+                        "backfilled_at",
+                    ],
+                )
                 n += len(batch)
                 batch = []
                 if n % 250_000 == 0:
                     elapsed = time.monotonic() - t0
-                    print(f"  {n:,} edges ({n/elapsed:.0f}/sec)", flush=True)
+                    print(f"  {n:,} edges ({n / elapsed:.0f}/sec)", flush=True)
         if batch:
-            ch.insert("references_paper", batch, column_names=[
-                "citing_paper_id", "cited_openalex_id", "cited_arxiv_id",
-                "cited_doi", "cited_title", "backfilled_at",
-            ])
+            ch.insert(
+                "references_paper",
+                batch,
+                column_names=[
+                    "citing_paper_id",
+                    "cited_openalex_id",
+                    "cited_arxiv_id",
+                    "cited_doi",
+                    "cited_title",
+                    "backfilled_at",
+                ],
+            )
             n += len(batch)
-    print(f"  done: {n:,} edges in {time.monotonic()-t0:.1f}s", flush=True)
+    print(f"  done: {n:,} edges in {time.monotonic() - t0:.1f}s", flush=True)
     return n
 
 
@@ -239,18 +270,35 @@ def migrate_cited_works(pg, ch) -> int:
         )
         batch = []
         for r in cur:
-            batch.append([
-                r["openalex_id"], r["title"], int(r["cited_by_count"] or 0),
-                r["doi"], r["publication_year"], r["arxiv_id"], r["primary_topic"],
-                r["resolved_at"] or datetime.now(UTC),
-            ])
+            batch.append(
+                [
+                    r["openalex_id"],
+                    r["title"],
+                    int(r["cited_by_count"] or 0),
+                    r["doi"],
+                    r["publication_year"],
+                    r["arxiv_id"],
+                    r["primary_topic"],
+                    r["resolved_at"] or datetime.now(UTC),
+                ]
+            )
         if batch:
-            ch.insert("cited_works", batch, column_names=[
-                "openalex_id", "title", "cited_by_count", "doi",
-                "publication_year", "arxiv_id", "primary_topic", "resolved_at",
-            ])
+            ch.insert(
+                "cited_works",
+                batch,
+                column_names=[
+                    "openalex_id",
+                    "title",
+                    "cited_by_count",
+                    "doi",
+                    "publication_year",
+                    "arxiv_id",
+                    "primary_topic",
+                    "resolved_at",
+                ],
+            )
             n = len(batch)
-    print(f"  done: {n:,} cited_works in {time.monotonic()-t0:.1f}s", flush=True)
+    print(f"  done: {n:,} cited_works in {time.monotonic() - t0:.1f}s", flush=True)
     return n
 
 
@@ -265,17 +313,29 @@ def migrate_cycles(pg, ch) -> int:
             ids = [_arxiv_pid(a) for a in (r["arxiv_ids"] or [])]
             batch.append([int(r["cycle_length"]), ids, r["detected_at"] or datetime.now(UTC)])
             if len(batch) >= BATCH:
-                ch.insert("citation_cycles", batch, column_names=[
-                    "cycle_length", "paper_ids", "detected_at",
-                ])
+                ch.insert(
+                    "citation_cycles",
+                    batch,
+                    column_names=[
+                        "cycle_length",
+                        "paper_ids",
+                        "detected_at",
+                    ],
+                )
                 n += len(batch)
                 batch = []
         if batch:
-            ch.insert("citation_cycles", batch, column_names=[
-                "cycle_length", "paper_ids", "detected_at",
-            ])
+            ch.insert(
+                "citation_cycles",
+                batch,
+                column_names=[
+                    "cycle_length",
+                    "paper_ids",
+                    "detected_at",
+                ],
+            )
             n += len(batch)
-    print(f"  done: {n:,} cycles in {time.monotonic()-t0:.1f}s", flush=True)
+    print(f"  done: {n:,} cycles in {time.monotonic() - t0:.1f}s", flush=True)
     return n
 
 

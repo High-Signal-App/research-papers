@@ -95,6 +95,26 @@ def _papers_count(settings: Settings) -> int:
         return int(cur.fetchone()["n"])
 
 
+def _run_build_step() -> dict:
+    """Runs the Astro build and returns a result dict for the analytics report."""
+    try:
+        result = subprocess.run(
+            ["npm", "run", "build"],
+            cwd=str(PROJECT_ROOT / "web"),
+            capture_output=True,
+            text=True,
+            timeout=180,
+        )
+        if result.returncode == 0:
+            log.info("  astro build OK")
+            return {"ok": True}
+        log.warning("  astro build failed: %s", result.stderr[-500:])
+        return {"ok": False, "error": result.stderr[-500:]}
+    except Exception as e:  # noqa: BLE001
+        log.warning("  astro build error: %s", e)
+        return {"ok": False, "error": str(e)}
+
+
 def _run_analytics(settings: Settings, *, papers_count_before: int) -> dict:
     log.info("running analytics chain at %d papers...", papers_count_before)
     t0 = time.time()
@@ -123,7 +143,9 @@ def _run_analytics(settings: Settings, *, papers_count_before: int) -> dict:
 
     try:
         c = graph_mod.compute_scores(settings)
-        log.info("  graph: %d nodes, %d edges, %d cycles", c["nodes"], c["edges"], c["cycles_found"])
+        log.info(
+            "  graph: %d nodes, %d edges, %d cycles", c["nodes"], c["edges"], c["cycles_found"]
+        )
         report["steps"]["graph"] = {"ok": True, **c}
     except Exception as e:  # noqa: BLE001
         log.warning("  compute-graph-scores failed: %s", e)
@@ -154,23 +176,7 @@ def _run_analytics(settings: Settings, *, papers_count_before: int) -> dict:
         log.warning("  export failed: %s", e)
         report["steps"]["export"] = {"ok": False, "error": str(e)}
 
-    try:
-        result = subprocess.run(
-            ["npm", "run", "build"],
-            cwd=str(PROJECT_ROOT / "web"),
-            capture_output=True,
-            text=True,
-            timeout=180,
-        )
-        if result.returncode == 0:
-            log.info("  astro build OK")
-            report["steps"]["build"] = {"ok": True}
-        else:
-            log.warning("  astro build failed: %s", result.stderr[-500:])
-            report["steps"]["build"] = {"ok": False, "error": result.stderr[-500:]}
-    except Exception as e:  # noqa: BLE001
-        log.warning("  astro build error: %s", e)
-        report["steps"]["build"] = {"ok": False, "error": str(e)}
+    report["steps"]["build"] = _run_build_step()
 
     elapsed = time.time() - t0
     report["elapsed_seconds"] = round(elapsed, 1)
@@ -206,7 +212,9 @@ def watch_loop(threshold: int = 10_000, *, force_boot_run: bool = False) -> None
     last_count = _papers_count(settings)
     log.info(
         "watcher starting: current=%d papers, persisted_last_run=%d, persisted_at=%s",
-        last_count, persisted_count, persisted_at,
+        last_count,
+        persisted_count,
+        persisted_at,
     )
 
     # Skip boot-time run if nothing has changed and we ran recently.
@@ -219,18 +227,22 @@ def watch_loop(threshold: int = 10_000, *, force_boot_run: bool = False) -> None
             stale = True
     if force_boot_run or last_count != persisted_count or stale:
         reason = (
-            "force flag" if force_boot_run
-            else "papers count changed" if last_count != persisted_count
+            "force flag"
+            if force_boot_run
+            else "papers count changed"
+            if last_count != persisted_count
             else f"analytics stale (>{MAX_STALENESS_HOURS}h old)"
         )
         log.info("running boot-time analytics (%s)", reason)
         _run_analytics(settings, papers_count_before=last_count)
         last_run_at_count = (last_count // threshold) * threshold
-        _save_state({
-            "last_run_at_count": last_run_at_count,
-            "last_run_at": datetime.now(UTC).isoformat(),
-            "last_papers_count": last_count,
-        })
+        _save_state(
+            {
+                "last_run_at_count": last_run_at_count,
+                "last_run_at": datetime.now(UTC).isoformat(),
+                "last_papers_count": last_count,
+            }
+        )
     else:
         log.info("skipping boot-time analytics (nothing changed since last run)")
         last_run_at_count = persisted_count
@@ -246,18 +258,22 @@ def watch_loop(threshold: int = 10_000, *, force_boot_run: bool = False) -> None
             next_threshold = (count // threshold) * threshold
             log.info(
                 "crossed threshold: %d (was %d) — running analytics",
-                count, last_run_at_count,
+                count,
+                last_run_at_count,
             )
             _run_analytics(settings, papers_count_before=count)
             last_run_at_count = next_threshold
-            _save_state({
-                "last_run_at_count": last_run_at_count,
-                "last_run_at": datetime.now(UTC).isoformat(),
-                "last_papers_count": count,
-            })
+            _save_state(
+                {
+                    "last_run_at_count": last_run_at_count,
+                    "last_run_at": datetime.now(UTC).isoformat(),
+                    "last_papers_count": count,
+                }
+            )
         else:
             log.debug(
                 "no threshold crossing: count=%d, next=%d (%.1f%% to go)",
-                count, last_run_at_count + threshold,
+                count,
+                last_run_at_count + threshold,
                 100 * (count - last_run_at_count) / threshold,
             )

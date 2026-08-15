@@ -24,8 +24,8 @@ from researchpapers.config import Settings
 # RAM-aware throttling — yield CPU/GPU when other processes (e.g. an LLM
 # training run) need the headroom.
 _PAGE_SIZE = 4096
-RAM_FULL_SPEED_MB = 6000   # > this much free → no throttle
-RAM_PAUSE_MB = 3000        # < this much free → pause for RAM_PAUSE_SECONDS
+RAM_FULL_SPEED_MB = 6000  # > this much free → no throttle
+RAM_PAUSE_MB = 3000  # < this much free → pause for RAM_PAUSE_SECONDS
 RAM_PAUSE_SECONDS = 10
 
 
@@ -53,9 +53,15 @@ def _ram_throttle() -> tuple[int, int]:
         free_mb = _free_ram_mb()
         if free_mb >= RAM_PAUSE_MB:
             return free_mb, paused
-        log.info("RAM throttle: free=%d MB < %d MB, sleeping %ds", free_mb, RAM_PAUSE_MB, RAM_PAUSE_SECONDS)
+        log.info(
+            "RAM throttle: free=%d MB < %d MB, sleeping %ds",
+            free_mb,
+            RAM_PAUSE_MB,
+            RAM_PAUSE_SECONDS,
+        )
         time.sleep(RAM_PAUSE_SECONDS)
         paused += RAM_PAUSE_SECONDS
+
 
 log = logging.getLogger("researchpapers.mlx_tag_v3")
 
@@ -65,7 +71,7 @@ log = logging.getLogger("researchpapers.mlx_tag_v3")
 DEFAULT_MODEL = "mlx-community/Qwen2.5-3B-Instruct-4bit"
 SMALLER_MODEL = "mlx-community/Qwen2.5-1.5B-Instruct-4bit"  # 30% faster but 3× skip rate
 GROUP_SIZE = 4
-MAX_TOKENS = 700        # ~150 tokens × 4 papers + JSON overhead
+MAX_TOKENS = 700  # ~150 tokens × 4 papers + JSON overhead
 
 GROUP_SYSTEM_PROMPT = """You are tagging academic papers for a research database.
 For each paper provided, return a one-sentence TLDR (max 30 words) and 5-8 specific
@@ -116,7 +122,7 @@ def _parse_group_response(raw: str, expected_n: int) -> list[tuple[str | None, l
         idx = lc.get("id")
         if not isinstance(idx, int) or not (1 <= idx <= expected_n):
             continue
-        tldr = (lc.get("tldr") or "")
+        tldr = lc.get("tldr") or ""
         if isinstance(tldr, str):
             tldr = tldr[:500] or None
         else:
@@ -152,7 +158,10 @@ def tag_papers(
     from mlx_lm import generate, load
 
     counters: dict[str, int | float] = {
-        "tagged": 0, "failed": 0, "skipped": 0, "groups": 0,
+        "tagged": 0,
+        "failed": 0,
+        "skipped": 0,
+        "groups": 0,
         "completion_tokens": 0,
     }
 
@@ -197,7 +206,9 @@ def tag_papers(
             parameters={"tagger": tagger},
         ).result_rows
 
-    log.info("queue: %d papers (group_size=%d, shard=%d/%d)", len(rows), group_size, shard, total_shards)
+    log.info(
+        "queue: %d papers (group_size=%d, shard=%d/%d)", len(rows), group_size, shard, total_shards
+    )
     if not rows:
         return counters
 
@@ -254,7 +265,10 @@ def tag_papers(
             rate = counters["tagged"] / elapsed if elapsed else 0
             log.info(
                 "progress: %d tagged, %d skipped, %d groups, %.2f papers/sec",
-                counters["tagged"], counters["skipped"], counters["groups"], rate,
+                counters["tagged"],
+                counters["skipped"],
+                counters["groups"],
+                rate,
             )
 
     if pending:
@@ -263,5 +277,7 @@ def tag_papers(
     elapsed = time.monotonic() - t0
     counters["elapsed_seconds"] = round(elapsed, 2)
     counters["papers_per_sec"] = round(int(counters["tagged"]) / elapsed, 2) if elapsed else 0
-    counters["completion_tok_per_sec"] = round(int(counters["completion_tokens"]) / elapsed, 1) if elapsed else 0
+    counters["completion_tok_per_sec"] = (
+        round(int(counters["completion_tokens"]) / elapsed, 1) if elapsed else 0
+    )
     return counters

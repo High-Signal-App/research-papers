@@ -50,7 +50,9 @@ def build_author_graph(*, expand_metadata_limit: int = 10000) -> dict[str, int]:
             ARRAY JOIN m.authors AS a, arrayEnumerate(m.authors) AS idx
             WHERE length(a.2) > 0 AND length(a.1) > 0
         """)
-        counters["authorships"] = ch.query("SELECT count() FROM paper_authorships_v2").result_rows[0][0]
+        counters["authorships"] = ch.query("SELECT count() FROM paper_authorships_v2").result_rows[
+            0
+        ][0]
 
         # 2. Aggregate canonical author records.
         ch.command("""
@@ -97,7 +99,9 @@ def build_author_graph(*, expand_metadata_limit: int = 10000) -> dict[str, int]:
             "SELECT count() FROM paper_authorships_v2 WHERE source = 'inferred'"
         ).result_rows[0][0]
         counters["inferred"] = int(inferred_authorships)
-        counters["authorships"] = ch.query("SELECT count() FROM paper_authorships_v2").result_rows[0][0]
+        counters["authorships"] = ch.query("SELECT count() FROM paper_authorships_v2").result_rows[
+            0
+        ][0]
 
         ch.command("""
             INSERT INTO authors_v2 (

@@ -105,8 +105,10 @@ def render() -> str:
         """).result_rows
         if rows:
             out.append("## Tags reviewers are most excited about\n")
-            out.append("Mean ICLR/NeurIPS reviewer rating across papers tagged with each topic. "
-                       "Min 10 papers per tag, min 3 reviews per paper.\n")
+            out.append(
+                "Mean ICLR/NeurIPS reviewer rating across papers tagged with each topic. "
+                "Min 10 papers per tag, min 3 reviews per paper.\n"
+            )
             out.append("| Tag | Avg rating | Papers |")
             out.append("|---|---:|---:|")
             for tag, rating, n in rows:

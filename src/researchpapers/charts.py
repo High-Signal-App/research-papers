@@ -20,55 +20,55 @@ def _short(s: str, n: int) -> str:
 # Mapping from substring → category. First match wins. Order matters.
 HOST_CATEGORIES: list[tuple[str, str]] = [
     # Code hosting
-    ("github.com",        "code"),
-    ("gitlab.com",        "code"),
-    ("bitbucket.org",     "code"),
+    ("github.com", "code"),
+    ("gitlab.com", "code"),
+    ("bitbucket.org", "code"),
     # Datasets / model hubs
-    ("huggingface.co",    "datasets/models"),
-    ("kaggle.com",        "datasets/models"),
-    ("zenodo.org",        "datasets/models"),
-    ("figshare.com",      "datasets/models"),
-    ("openml.org",        "datasets/models"),
+    ("huggingface.co", "datasets/models"),
+    ("kaggle.com", "datasets/models"),
+    ("zenodo.org", "datasets/models"),
+    ("figshare.com", "datasets/models"),
+    ("openml.org", "datasets/models"),
     ("paperswithcode.com", "datasets/models"),
     # Academic / preprints
-    ("arxiv.org",         "academic"),
-    ("aclanthology.org",  "academic"),
-    ("aclweb.org",        "academic"),
-    ("openreview.net",    "academic"),
+    ("arxiv.org", "academic"),
+    ("aclanthology.org", "academic"),
+    ("aclweb.org", "academic"),
+    ("openreview.net", "academic"),
     ("openaccess.thecvf.com", "academic"),
     ("proceedings.mlr.press", "academic"),
-    ("dl.acm.org",        "academic"),
+    ("dl.acm.org", "academic"),
     ("ieeexplore.ieee.org", "academic"),
     ("link.springer.com", "academic"),
     ("sciencedirect.com", "academic"),
-    ("nature.com",        "academic"),
-    ("ncbi.nlm.nih.gov",  "academic"),
-    ("biorxiv.org",       "academic"),
-    ("medrxiv.org",       "academic"),
+    ("nature.com", "academic"),
+    ("ncbi.nlm.nih.gov", "academic"),
+    ("biorxiv.org", "academic"),
+    ("medrxiv.org", "academic"),
     ("semanticscholar.org", "academic"),
-    ("dblp.org",          "academic"),
-    ("crossref.org",      "academic"),
-    ("doi.org",           "academic"),
+    ("dblp.org", "academic"),
+    ("crossref.org", "academic"),
+    ("doi.org", "academic"),
     # Reference / standards / docs
-    ("wikipedia.org",     "reference"),
-    ("rfc-editor.org",    "reference"),
-    ("ietf.org",          "reference"),
-    ("w3.org",            "reference"),
+    ("wikipedia.org", "reference"),
+    ("rfc-editor.org", "reference"),
+    ("ietf.org", "reference"),
+    ("w3.org", "reference"),
     # Cloud / vendor docs
-    ("microsoft.com",     "vendor"),
-    ("google.com",        "vendor"),
-    ("googleblog.com",    "vendor"),
-    ("amazon.com",        "vendor"),
-    ("aws.amazon.com",    "vendor"),
-    ("openai.com",        "vendor"),
-    ("anthropic.com",     "vendor"),
-    ("nvidia.com",        "vendor"),
+    ("microsoft.com", "vendor"),
+    ("google.com", "vendor"),
+    ("googleblog.com", "vendor"),
+    ("amazon.com", "vendor"),
+    ("aws.amazon.com", "vendor"),
+    ("openai.com", "vendor"),
+    ("anthropic.com", "vendor"),
+    ("nvidia.com", "vendor"),
     # Media / blogs
-    ("youtube.com",       "media"),
-    ("medium.com",        "media"),
-    ("substack.com",      "media"),
-    ("twitter.com",       "media"),
-    ("x.com",             "media"),
+    ("youtube.com", "media"),
+    ("medium.com", "media"),
+    ("substack.com", "media"),
+    ("twitter.com", "media"),
+    ("x.com", "media"),
 ]
 
 
@@ -136,7 +136,13 @@ def chart_top_urls(settings: Settings, out_dir: Path, top: int = 30) -> Path:
     labels = [_short(r["url_canonical"], 70) for r in rows]
     values = [r["papers"] for r in rows]
     out = out_dir / "02_top_urls.png"
-    _bar(out, labels, values, f"Top {top} exact URLs (by # of citing papers)", "papers citing this URL")
+    _bar(
+        out,
+        labels,
+        values,
+        f"Top {top} exact URLs (by # of citing papers)",
+        "papers citing this URL",
+    )
     return out
 
 

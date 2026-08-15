@@ -121,6 +121,7 @@ def ingest_biorxiv_cmd(
 ) -> None:
     """Pull bioRxiv or medRxiv preprints into ClickHouse."""
     from datetime import date, timedelta
+
     until = date.today()
     since = until - timedelta(days=days)
     n = biorxiv_mod.ingest_biorxiv_medrxiv(server=server, since=since, until=until)
@@ -148,7 +149,9 @@ def snapshot_citations_cmd(
 @app.command("select-top")
 def select_top_cmd(
     n: Annotated[int, typer.Option(help="Number of top-cited papers to select")] = 10000,
-    all_fields: Annotated[bool, typer.Option(help="Drop the CS-only filter — pull ALL arxiv works")] = False,
+    all_fields: Annotated[
+        bool, typer.Option(help="Drop the CS-only filter — pull ALL arxiv works")
+    ] = False,
 ) -> None:
     """Pick the top-N papers by citation count via OpenAlex; upsert into papers."""
     settings = load_settings()
@@ -164,9 +167,7 @@ def ingest(
 ) -> None:
     """Streaming: download PDFs (rate-limited 3s/req), extract text+URLs in parallel, gzip into DB."""
     settings = load_settings()
-    c = ingest_mod.ingest_all(
-        settings, limit=limit, workers=workers, max_in_flight=max_in_flight
-    )
+    c = ingest_mod.ingest_all(settings, limit=limit, workers=workers, max_in_flight=max_in_flight)
     typer.echo(
         f"processed={c['processed']} urls_inserted={c['urls_inserted']} "
         f"pdf_failed={c['pdf_failed']} empty_text={c['empty_text']}"
@@ -254,8 +255,12 @@ def detect_communities_cmd() -> None:
 
 @app.command("watch")
 def watch_cmd(
-    threshold: Annotated[int, typer.Option(help="Re-run analytics chain every N new papers")] = 10000,
-    force_boot: Annotated[bool, typer.Option(help="Force analytics run at boot even if no new papers")] = False,
+    threshold: Annotated[
+        int, typer.Option(help="Re-run analytics chain every N new papers")
+    ] = 10000,
+    force_boot: Annotated[
+        bool, typer.Option(help="Force analytics run at boot even if no new papers")
+    ] = False,
 ) -> None:
     """Long-running loop: re-runs analytics + rebuilds web every THRESHOLD new papers ingested."""
     watcher_mod.watch_loop(threshold=threshold, force_boot_run=force_boot)
@@ -263,13 +268,17 @@ def watch_cmd(
 
 @app.command("spacy-tag")
 def spacy_tag_cmd(
-    model: Annotated[str, typer.Option(help="en_core_web_sm | en_core_web_lg | en_core_sci_lg")] = "en_core_web_sm",
+    model: Annotated[
+        str, typer.Option(help="en_core_web_sm | en_core_web_lg | en_core_sci_lg")
+    ] = "en_core_web_sm",
     limit: Annotated[int | None, typer.Option(help="Max papers this run")] = None,
     any_order: Annotated[bool, typer.Option(help="Don't prioritize high-citation papers")] = False,
 ) -> None:
     """Extract noun-chunk + PROPN tags via spaCy."""
     settings = load_settings()
-    c = noun_tag_mod.tag_papers(settings, model_name=model, limit=limit, only_top_cited=not any_order)
+    c = noun_tag_mod.tag_papers(
+        settings, model_name=model, limit=limit, only_top_cited=not any_order
+    )
     typer.echo(
         f"tagged={c.get('tagged')} skipped={c.get('skipped')} "
         f"elapsed={c.get('elapsed_seconds')}s papers/sec={c.get('papers_per_sec')}"
@@ -295,8 +304,12 @@ def mlx_tag_v2_cmd(
 def spacy_tag_v2_cmd(
     limit: Annotated[int | None, typer.Option(help="Max papers this run")] = None,
     any_order: Annotated[bool, typer.Option(help="Don't prioritize high-citation papers")] = False,
-    batch_papers: Annotated[int | None, typer.Option(help="Process in chunks of this size (default 3000 for 16 GB RAM)")] = None,
-    n_process: Annotated[int | None, typer.Option(help="Override spaCy worker count (skips RAM picker)")] = None,
+    batch_papers: Annotated[
+        int | None, typer.Option(help="Process in chunks of this size (default 3000 for 16 GB RAM)")
+    ] = None,
+    n_process: Annotated[
+        int | None, typer.Option(help="Override spaCy worker count (skips RAM picker)")
+    ] = None,
     max_procs: Annotated[int | None, typer.Option(help="Cap for the RAM-aware picker")] = None,
 ) -> None:
     """Faster spaCy: parser disabled, POS-only chunker. Stores in noun_tags_v2_json + CH paper_tags."""
@@ -326,7 +339,9 @@ def api_serve_cmd(
     ] = True,
     eager_embed: Annotated[
         bool,
-        typer.Option("--eager-embed", help="Disable lean mode; keep embedder loaded in API process"),
+        typer.Option(
+            "--eager-embed", help="Disable lean mode; keep embedder loaded in API process"
+        ),
     ] = False,
 ) -> None:
     """Serve the researchPapers HTTP API (FastAPI + uvicorn over ClickHouse)."""
@@ -341,14 +356,22 @@ def api_serve_cmd(
 @app.command("mlx-tag-v3")
 def mlx_tag_v3_cmd(
     limit: Annotated[int | None, typer.Option(help="Max papers this run")] = None,
-    premium_only: Annotated[bool, typer.Option(help="Restrict to hybrid-filter premium subset")] = False,
+    premium_only: Annotated[
+        bool, typer.Option(help="Restrict to hybrid-filter premium subset")
+    ] = False,
     group_size: Annotated[int, typer.Option(help="Papers per LLM call")] = 4,
     max_tokens: Annotated[int, typer.Option(help="Max output tokens per group")] = 700,
     any_order: Annotated[bool, typer.Option(help="Don't prioritize high-citation papers")] = False,
-    shard: Annotated[int, typer.Option(help="Shard index (0..total_shards-1) for parallel runs")] = 0,
-    total_shards: Annotated[int, typer.Option(help="Total parallel shards; >1 enables sharded queue")] = 1,
+    shard: Annotated[
+        int, typer.Option(help="Shard index (0..total_shards-1) for parallel runs")
+    ] = 0,
+    total_shards: Annotated[
+        int, typer.Option(help="Total parallel shards; >1 enables sharded queue")
+    ] = 1,
     model: Annotated[str | None, typer.Option(help="Override MLX model.")] = None,
-    throttle_seconds: Annotated[float, typer.Option(help="Sleep between groups to yield GPU time")] = 0.0,
+    throttle_seconds: Annotated[
+        float, typer.Option(help="Sleep between groups to yield GPU time")
+    ] = 0.0,
 ) -> None:
     """MLX v3: grouped-prompt batching for fast LLM tagging.
 
@@ -356,6 +379,7 @@ def mlx_tag_v3_cmd(
     They tag disjoint paper subsets via cityHash64(paper_id) % total_shards.
     """
     from researchpapers import mlx_tag_v3 as mod
+
     settings = load_settings()
     c = mod.tag_papers(
         settings,
@@ -369,7 +393,9 @@ def mlx_tag_v3_cmd(
         model_name=model,
         throttle_seconds=throttle_seconds,
     )
-    typer.echo(f"tagged={c.get('tagged')} skipped={c.get('skipped')} failed={c.get('failed')} groups={c.get('groups')}")
+    typer.echo(
+        f"tagged={c.get('tagged')} skipped={c.get('skipped')} failed={c.get('failed')} groups={c.get('groups')}"
+    )
     typer.echo(f"elapsed={c.get('elapsed_seconds')}s  papers/sec={c.get('papers_per_sec')}")
     typer.echo(f"completion_tok/sec={c.get('completion_tok_per_sec')}")
 
@@ -378,21 +404,31 @@ def mlx_tag_v3_cmd(
 def cluster_embeddings_cmd(
     n_clusters: Annotated[int, typer.Option(help="Number of clusters")] = 64,
     batch_size: Annotated[int, typer.Option(help="MiniBatchKMeans batch")] = 2048,
-    sample: Annotated[int | None, typer.Option(help="Limit to first N papers (for testing)")] = None,
+    sample: Annotated[
+        int | None, typer.Option(help="Limit to first N papers (for testing)")
+    ] = None,
 ) -> None:
     """MiniBatchKMeans over paper_embeddings → paper_clusters table."""
     from researchpapers import cluster_embeddings
-    c = cluster_embeddings.cluster_papers(n_clusters=n_clusters, batch_size=batch_size, sample_size=sample)
-    typer.echo(f"clustered={c.get('clustered')} k={c.get('n_clusters')} elapsed={c.get('elapsed_seconds')}s")
+
+    c = cluster_embeddings.cluster_papers(
+        n_clusters=n_clusters, batch_size=batch_size, sample_size=sample
+    )
+    typer.echo(
+        f"clustered={c.get('clustered')} k={c.get('n_clusters')} elapsed={c.get('elapsed_seconds')}s"
+    )
 
 
 @app.command("pagerank-full")
 def pagerank_full_cmd() -> None:
     """Recompute PageRank on the full 488k-paper citation graph and write back."""
     from researchpapers import pagerank_full
+
     c = pagerank_full.compute_and_write()
-    typer.echo(f"computed={c.get('computed')} edges={c.get('edges')} "
-               f"iters={c.get('iters')} elapsed={c.get('elapsed_seconds')}s")
+    typer.echo(
+        f"computed={c.get('computed')} edges={c.get('edges')} "
+        f"iters={c.get('iters')} elapsed={c.get('elapsed_seconds')}s"
+    )
 
 
 @app.command("refresh-metadata")
@@ -401,22 +437,32 @@ def refresh_metadata_cmd(
 ) -> None:
     """Refresh title + citation_count + authors-with-OpenAlex-IDs for top-cited papers."""
     from researchpapers import refresh_metadata
+
     c = refresh_metadata.refresh_top_papers(limit=limit)
-    typer.echo(f"refreshed={c.get('refreshed')} title_corrected={c.get('title_corrected')} "
-               f"citation_changed={c.get('citation_changed')} authors_disambiguated={c.get('authors_disambiguated')} "
-               f"elapsed={c.get('elapsed_seconds')}s")
+    typer.echo(
+        f"refreshed={c.get('refreshed')} title_corrected={c.get('title_corrected')} "
+        f"citation_changed={c.get('citation_changed')} authors_disambiguated={c.get('authors_disambiguated')} "
+        f"elapsed={c.get('elapsed_seconds')}s"
+    )
 
 
 @app.command("enrich-citations")
 def enrich_citations_cmd(
-    limit: Annotated[int, typer.Option(help="Top-N papers to enrich from Semantic Scholar")] = 10000,
-    force: Annotated[bool, typer.Option(help="Re-enrich papers that already have overlay rows")] = False,
+    limit: Annotated[
+        int, typer.Option(help="Top-N papers to enrich from Semantic Scholar")
+    ] = 10000,
+    force: Annotated[
+        bool, typer.Option(help="Re-enrich papers that already have overlay rows")
+    ] = False,
 ) -> None:
     """Enrich top papers with Semantic Scholar citation counts → citation_overlay_v2."""
     from researchpapers import semantic_scholar_enrichment
+
     settings = load_settings()
     c = semantic_scholar_enrichment.enrich_top_papers(
-        limit=limit, settings=settings, skip_existing=not force,
+        limit=limit,
+        settings=settings,
+        skip_existing=not force,
     )
     typer.echo(
         f"enriched={c.get('enriched')} improved={c.get('improved')} "
@@ -429,12 +475,17 @@ def enrich_citations_cmd(
 def refresh_abstracts_cmd(
     detect_limit: Annotated[int, typer.Option(help="Max suspect papers to scan")] = 5000,
     reembed: Annotated[bool, typer.Option(help="Re-embed papers with corrected abstracts")] = False,
-    force: Annotated[bool, typer.Option(help="Re-refresh papers that already have overlay rows")] = False,
+    force: Annotated[
+        bool, typer.Option(help="Re-refresh papers that already have overlay rows")
+    ] = False,
 ) -> None:
     """Detect and refresh contaminated arXiv abstracts → abstract_overlay_v2."""
     from researchpapers import arxiv_abstract_refresh
+
     c = arxiv_abstract_refresh.refresh_suspect_abstracts(
-        detect_limit=detect_limit, skip_existing=not force, reembed=reembed,
+        detect_limit=detect_limit,
+        skip_existing=not force,
+        reembed=reembed,
     )
     typer.echo(
         f"detected={c.get('detected')} refreshed={c.get('refreshed')} "
@@ -445,7 +496,9 @@ def refresh_abstracts_cmd(
 
 @app.command("build-author-graph")
 def build_author_graph_cmd(
-    metadata_limit: Annotated[int, typer.Option(help="Expand metadata refresh to this many top papers")] = 10000,
+    metadata_limit: Annotated[
+        int, typer.Option(help="Expand metadata refresh to this many top papers")
+    ] = 10000,
 ) -> None:
     """Build authors_v2 + paper_authorships_v2 from metadata and inferred buckets."""
     from researchpapers import author_graph
@@ -498,9 +551,12 @@ def embed_cmd(
 ) -> None:
     """Embed papers (title+abstract) into CH paper_embeddings via all-MiniLM-L6-v2."""
     from researchpapers import embed
+
     c = embed.embed_papers(source=source, limit=limit, batch_size=batch_size)
-    typer.echo(f"embedded={c.get('embedded')} elapsed={c.get('elapsed_seconds')}s "
-               f"papers/sec={c.get('papers_per_sec')}")
+    typer.echo(
+        f"embedded={c.get('embedded')} elapsed={c.get('elapsed_seconds')}s "
+        f"papers/sec={c.get('papers_per_sec')}"
+    )
 
 
 @app.command("spacy-tag-source")
@@ -530,7 +586,9 @@ def llm_tag_cmd(
     limit: Annotated[int | None, typer.Option(help="Max papers this run")] = None,
     any_order: Annotated[bool, typer.Option(help="Don't prioritize high-citation papers")] = False,
     concurrency: Annotated[int, typer.Option(help="Parallel in-flight requests to the LLM")] = 4,
-    premium_only: Annotated[bool, typer.Option(help="Restrict to hybrid-filter premium subset (~102k papers)")] = False,
+    premium_only: Annotated[
+        bool, typer.Option(help="Restrict to hybrid-filter premium subset (~102k papers)")
+    ] = False,
 ) -> None:
     """Tag papers via local LLM (LM Studio default). Needs the server running with parallelism enabled."""
     settings = load_settings()
@@ -558,14 +616,14 @@ def llm_tag_cmd(
 
 @app.command("compute-graph-scores")
 def compute_graph_scores_cmd(
-    katz_alpha: Annotated[float, typer.Option(help="Katz decay (smaller = more weight on direct cites)")] = 0.05,
+    katz_alpha: Annotated[
+        float, typer.Option(help="Katz decay (smaller = more weight on direct cites)")
+    ] = 0.05,
     pagerank_damping: Annotated[float, typer.Option(help="PageRank damping factor")] = 0.85,
 ) -> None:
     """Compute PageRank + Katz + in-corpus-degree per paper. Detect cycles. Stores in papers + citation_cycles."""
     settings = load_settings()
-    c = graph_mod.compute_scores(
-        settings, katz_alpha=katz_alpha, pagerank_damping=pagerank_damping
-    )
+    c = graph_mod.compute_scores(settings, katz_alpha=katz_alpha, pagerank_damping=pagerank_damping)
     typer.echo(
         f"nodes={c['nodes']} edges={c['edges']} scored={c['scored']} cycles={c['cycles_found']}"
     )
@@ -573,7 +631,9 @@ def compute_graph_scores_cmd(
 
 @app.command("resolve-cited-works")
 def resolve_cited_cmd(
-    top: Annotated[int, typer.Option(help="Resolve the top-N most-cited works in our corpus")] = 200,
+    top: Annotated[
+        int, typer.Option(help="Resolve the top-N most-cited works in our corpus")
+    ] = 200,
 ) -> None:
     """Resolves the head of the cited-works distribution to titles via OpenAlex (200 ≈ 4 batched calls)."""
     settings = load_settings()
@@ -596,10 +656,13 @@ def export_json_cmd(
 
 @app.command("highsignal-report")
 def highsignal_report_cmd(
-    out: Annotated[str | None, typer.Option(help="Write to this file (markdown). Stdout if omitted")] = None,
+    out: Annotated[
+        str | None, typer.Option(help="Write to this file (markdown). Stdout if omitted")
+    ] = None,
 ) -> None:
     """Render a sample HighSignal-style markdown digest from ClickHouse."""
     from researchpapers import highsignal_report
+
     md = highsignal_report.render()
     if out:
         Path(out).write_text(md)
@@ -614,6 +677,7 @@ def export_ch_cmd(
 ) -> None:
     """Export review/source aggregations from ClickHouse to JSON for the Astro app."""
     from researchpapers import ch_exports
+
     out_dir = Path(out) if out else PROJECT_ROOT / "web" / "public" / "data"
     paths = ch_exports.export_review_data(out_dir)
     for p in paths:
@@ -626,6 +690,7 @@ def refresh_web_cmd(
 ) -> None:
     """Re-export JSON + rebuild the Astro site. Run after ingest progresses to see fresh data."""
     import subprocess
+
     settings = load_settings()
     out_dir = PROJECT_ROOT / "web" / "public" / "data"
     exporter.export_all(settings, out_dir, top=top)

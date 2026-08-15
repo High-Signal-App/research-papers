@@ -84,9 +84,13 @@ def cluster_papers(
     n_written = 0
     for paper_ids, X in _embedding_chunks(chunk_rows=chunk_rows, sample_size=sample_size):
         labels = km.predict(X)
-        payload = [[pid, int(c), "minibatch_kmeans_v1"] for pid, c in zip(paper_ids, labels, strict=True)]
+        payload = [
+            [pid, int(c), "minibatch_kmeans_v1"] for pid, c in zip(paper_ids, labels, strict=True)
+        ]
         with ch_connect() as ch:
-            ch.insert("paper_clusters", payload, column_names=["paper_id", "cluster_id", "algorithm"])
+            ch.insert(
+                "paper_clusters", payload, column_names=["paper_id", "cluster_id", "algorithm"]
+            )
         n_written += len(payload)
         wait_for_ram()
 

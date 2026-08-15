@@ -20,6 +20,7 @@ from datetime import date, datetime
 import openreview
 import openreview.api
 
+from researchpapers.ch_db import PAPER_COLS
 from researchpapers.ch_db import connect as ch_connect
 
 log = logging.getLogger("researchpapers.openreview_ingest")
@@ -28,9 +29,9 @@ log = logging.getLogger("researchpapers.openreview_ingest")
 DEFAULT_VENUES = [
     ("NeurIPS-2024", "NeurIPS.cc/2024/Conference", 2024),
     ("NeurIPS-2023", "NeurIPS.cc/2023/Conference", 2023),
-    ("ICLR-2025",    "ICLR.cc/2025/Conference",    2025),
-    ("ICLR-2024",    "ICLR.cc/2024/Conference",    2024),
-    ("ICML-2024",    "ICML.cc/2024/Conference",    2024),
+    ("ICLR-2025", "ICLR.cc/2025/Conference", 2025),
+    ("ICLR-2024", "ICLR.cc/2024/Conference", 2024),
+    ("ICML-2024", "ICML.cc/2024/Conference", 2024),
     # COLM venue id format unclear; verify before adding.
 ]
 
@@ -76,13 +77,18 @@ def _venue_papers(client, venue_id: str, year: int) -> Iterator[dict]:
     log.info("%s: %d submissions", venue_id, len(submissions))
     for sub in submissions:
         replies = sub.details.get("directReplies", []) or []
+
         def _inv(r):
-            invs = _reply_attr(r, "invitations") if not isinstance(r, dict) else r.get("invitations")
+            invs = (
+                _reply_attr(r, "invitations") if not isinstance(r, dict) else r.get("invitations")
+            )
             return (invs or [""])[0]
+
         # ICLR/NeurIPS use 'Official_Review'; ICML uses just 'Official_Review' inside a different
         # path; broaden the substring to include any 'Review' invitation, exclude meta-reviews.
         def _is_review(inv: str) -> bool:
             return ("Review" in inv) and ("Meta" not in inv) and ("Comment" not in inv)
+
         reviews = [r for r in replies if _is_review(_inv(r))]
         decisions = [r for r in replies if "Decision" in _inv(r)]
         yield {
@@ -104,24 +110,26 @@ def _to_papers_row(record: dict) -> list:
         pid,
         "openreview",
         sub.id,
-        None,                                       # arxiv_id
-        None,                                       # openalex_id
-        None,                                       # doi
+        None,  # arxiv_id
+        None,  # openalex_id
+        None,  # doi
         title,
         abstract,
-        _coerce_date(sub.cdate),                    # submitted_date (Date)
-        record["year"],                             # publication_year
-        0,                                          # citation_count
-        venue_field,                                # primary_category
+        _coerce_date(sub.cdate),  # submitted_date (Date)
+        record["year"],  # publication_year
+        0,  # citation_count
+        venue_field,  # primary_category
         _flatten_authors(c),
-        [],                                         # openalex_tags
-        [],                                         # openalex_keywords
-        None,                                       # pagerank_score
-        None,                                       # katz_score
-        None, None, 0,                              # community, semantic_cluster, in_corpus_degree
+        [],  # openalex_tags
+        [],  # openalex_keywords
+        None,  # pagerank_score
+        None,  # katz_score
+        None,
+        None,
+        0,  # community, semantic_cluster, in_corpus_degree
         datetime.utcnow(),
         datetime.utcnow(),
-        [],                                         # abstract_embedding
+        [],  # abstract_embedding
     ]
 
 
@@ -142,6 +150,7 @@ def _to_review_rows(record: dict, venue_display: str) -> list[list]:
         decision_text = (dc.get("decision") or {}).get("value")
     for r in record["reviews"]:
         rc = _reply_attr(r, "content") or {}
+
         def _v(key: str, content: dict = rc):
             return (content.get(key) or {}).get("value")
 
@@ -159,40 +168,46 @@ def _to_review_rows(record: dict, venue_display: str) -> list[list]:
         presentation = _v("presentation")
         contribution = _v("contribution")
         signatures = _reply_attr(r, "signatures") or []
-        rows.append([
-            sub_pid,
-            _reply_attr(r, "id") or "",
-            signatures[0] if signatures else None,
-            venue_display,
-            soundness if isinstance(soundness, int) else _int_field(soundness),
-            presentation if isinstance(presentation, int) else _int_field(presentation),
-            contribution if isinstance(contribution, int) else _int_field(contribution),
-            rating_int,
-            confidence_int,
-            _v("summary"),
-            _v("strengths"),
-            _v("weaknesses"),
-            _v("questions"),
-            decision_text,
-            _coerce_datetime(_reply_attr(r, "cdate")),
-            datetime.utcnow(),
-        ])
+        rows.append(
+            [
+                sub_pid,
+                _reply_attr(r, "id") or "",
+                signatures[0] if signatures else None,
+                venue_display,
+                soundness if isinstance(soundness, int) else _int_field(soundness),
+                presentation if isinstance(presentation, int) else _int_field(presentation),
+                contribution if isinstance(contribution, int) else _int_field(contribution),
+                rating_int,
+                confidence_int,
+                _v("summary"),
+                _v("strengths"),
+                _v("weaknesses"),
+                _v("questions"),
+                decision_text,
+                _coerce_datetime(_reply_attr(r, "cdate")),
+                datetime.utcnow(),
+            ]
+        )
     return rows
 
 
-PAPER_COLS = [
-    "paper_id", "source", "source_id", "arxiv_id", "openalex_id",
-    "doi", "title", "abstract", "submitted_date", "publication_year",
-    "citation_count", "primary_category", "authors",
-    "openalex_tags", "openalex_keywords",
-    "pagerank_score", "katz_score", "community_id", "semantic_cluster",
-    "in_corpus_degree", "ingested_at", "updated_at", "abstract_embedding",
-]
 REVIEW_COLS = [
-    "paper_id", "review_id", "reviewer_id", "venue",
-    "soundness", "presentation", "contribution", "rating", "confidence",
-    "summary", "strengths", "weaknesses", "questions",
-    "decision", "posted_at", "ingested_at",
+    "paper_id",
+    "review_id",
+    "reviewer_id",
+    "venue",
+    "soundness",
+    "presentation",
+    "contribution",
+    "rating",
+    "confidence",
+    "summary",
+    "strengths",
+    "weaknesses",
+    "questions",
+    "decision",
+    "posted_at",
+    "ingested_at",
 ]
 
 
@@ -223,8 +238,12 @@ def ingest(venues: list[tuple[str, str, int]] | None = None) -> dict[str, int]:
                 if reviews_batch:
                     ch.insert("openreview_reviews", reviews_batch, column_names=REVIEW_COLS)
                     counters["reviews"] += len(reviews_batch)
-                log.info("%s: cumulative %d subs, %d reviews", display,
-                         counters["submissions"], counters["reviews"])
+                log.info(
+                    "%s: cumulative %d subs, %d reviews",
+                    display,
+                    counters["submissions"],
+                    counters["reviews"],
+                )
             except Exception as e:  # noqa: BLE001
                 log.warning("%s failed: %s", display, e)
             time.sleep(0.5)

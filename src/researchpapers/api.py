@@ -164,7 +164,9 @@ def healthz() -> dict:
 
     t0 = time.time()
     ch_ok = ch_ping()
-    ch_error: str | None = None if ch_ok else "ClickHouse ping failed (see /healthz indexing.clickhouse_reachable)"
+    ch_error: str | None = (
+        None if ch_ok else "ClickHouse ping failed (see /healthz indexing.clickhouse_reachable)"
+    )
 
     manifest = refresh_manifest.read_manifest()
     last_failure = manifest.get("last_failure")
@@ -300,7 +302,9 @@ def search(
     q: Annotated[str, Query(min_length=2, max_length=200, description="Search keyword(s)")],
     limit: Annotated[int, Query(ge=1, le=100)] = 20,
     offset: Annotated[int, Query(ge=0, le=1_000_000)] = 0,
-    sources: Annotated[str | None, Query(description="Comma-separated sources to filter (e.g. arxiv,openreview)")] = None,
+    sources: Annotated[
+        str | None, Query(description="Comma-separated sources to filter (e.g. arxiv,openreview)")
+    ] = None,
     min_citations: Annotated[int, Query(ge=0)] = 0,
 ) -> dict:
     """Keyword search over titles + abstracts. Substring match (case-insensitive)."""
@@ -466,7 +470,12 @@ def tags_top_rated(
         return {
             "count": len(rows),
             "tags": [
-                {"tag": r[0], "mean_rating": float(r[1] or 0), "n_papers": int(r[2]), "p90_rating": float(r[3] or 0)}
+                {
+                    "tag": r[0],
+                    "mean_rating": float(r[1] or 0),
+                    "n_papers": int(r[2]),
+                    "p90_rating": float(r[3] or 0),
+                }
                 for r in rows
             ],
         }
@@ -598,11 +607,14 @@ def semantic_search(
         "count": len(rows),
         "results": [
             {
-                "paper_id": r[0], "source": r[1], "title": r[2],
+                "paper_id": r[0],
+                "source": r[1],
+                "title": r[2],
                 "abstract_preview": r[3],
                 "submitted_date": str(r[4]) if r[4] else None,
                 "citation_count": int(r[5] or 0),
-                "doi": r[6], "arxiv_id": r[7],
+                "doi": r[6],
+                "arxiv_id": r[7],
                 "similarity": float(r[8]),
             }
             for r in rows
@@ -671,9 +683,16 @@ def sleepers(
                 "nextOffset": offset + len(rows) if has_more else None,
             },
             "results": [
-                {"paper_id": r[0], "title": r[1], "avg_rating": round(float(r[2]), 2),
-                 "n_reviews": int(r[3]), "citation_count": int(r[4] or 0),
-                 "venue": r[5], "decision": r[6], "submitted_date": str(r[7]) if r[7] else None}
+                {
+                    "paper_id": r[0],
+                    "title": r[1],
+                    "avg_rating": round(float(r[2]), 2),
+                    "n_reviews": int(r[3]),
+                    "citation_count": int(r[4] or 0),
+                    "venue": r[5],
+                    "decision": r[6],
+                    "submitted_date": str(r[7]) if r[7] else None,
+                }
                 for r in rows
             ],
         }
@@ -751,17 +770,26 @@ def similar_papers(
                     ORDER BY citation_count DESC
                     LIMIT %(limit)s
                     """,
-                    parameters={"pid": paper_id, "cid": cid, "tags": list(tags or []), "limit": limit},
+                    parameters={
+                        "pid": paper_id,
+                        "cid": cid,
+                        "tags": list(tags or []),
+                        "limit": limit,
+                    },
                 ).result_rows
     return {
         "anchor": {"paper_id": paper_id, "title": anchor_title},
         "method": "embedding" if rows and rows[0][5] > 0 else "tag_overlap",
         "count": len(rows),
         "results": [
-            {"paper_id": r[0], "title": r[1], "source": r[2],
-             "citation_count": int(r[3] or 0),
-             "submitted_date": str(r[4]) if r[4] else None,
-             "similarity": float(r[5])}
+            {
+                "paper_id": r[0],
+                "title": r[1],
+                "source": r[2],
+                "citation_count": int(r[3] or 0),
+                "submitted_date": str(r[4]) if r[4] else None,
+                "similarity": float(r[5]),
+            }
             for r in rows
         ],
     }
@@ -836,13 +864,17 @@ def hot_papers(
                 "nextOffset": offset + len(rows) if has_more else None,
             },
             "results": [
-                {"paper_id": r[0], "source": r[1], "title": r[2],
-                 "citation_count": int(r[3] or 0),
-                 "submitted_date": str(r[4]) if r[4] else None,
-                 "cites_per_year": float(r[5]),
-                 "avg_rating": round(float(r[6]), 2) if r[6] else None,
-                 "pagerank": float(r[7]),
-                 "hotness": float(r[8])}
+                {
+                    "paper_id": r[0],
+                    "source": r[1],
+                    "title": r[2],
+                    "citation_count": int(r[3] or 0),
+                    "submitted_date": str(r[4]) if r[4] else None,
+                    "cites_per_year": float(r[5]),
+                    "avg_rating": round(float(r[6]), 2) if r[6] else None,
+                    "pagerank": float(r[7]),
+                    "hotness": float(r[8]),
+                }
                 for r in rows
             ],
         }
@@ -898,13 +930,16 @@ def authors_by_tag(
         "tag": tag,
         "count": len(rows),
         "results": [
-            {"author": r[0], "n_papers": int(r[1]),
-             "avg_rating_when_reviewed": float(r[2]) if r[2] else None,
-             "n_reviewed": int(r[3]),
-             "sum_citations": int(r[4] or 0),
-             "n_communities": int(r[5] or 0),
-             "n_semantic_clusters": int(r[6] or 0),
-             "likely_multiple_people": int(r[5] or 0) >= 3 and int(r[1]) >= 5}
+            {
+                "author": r[0],
+                "n_papers": int(r[1]),
+                "avg_rating_when_reviewed": float(r[2]) if r[2] else None,
+                "n_reviewed": int(r[3]),
+                "sum_citations": int(r[4] or 0),
+                "n_communities": int(r[5] or 0),
+                "n_semantic_clusters": int(r[6] or 0),
+                "likely_multiple_people": int(r[5] or 0) >= 3 and int(r[1]) >= 5,
+            }
             for r in rows
         ],
     }
@@ -940,8 +975,12 @@ def author_by_openalex_id(openalex_id: str) -> dict:
         "display_name_sample": rows[0][4],
         "n_papers": len(rows),
         "papers": [
-            {"paper_id": r[0], "title": r[1], "citation_count": int(r[2] or 0),
-             "submitted_date": str(r[3]) if r[3] else None}
+            {
+                "paper_id": r[0],
+                "title": r[1],
+                "citation_count": int(r[2] or 0),
+                "submitted_date": str(r[3]) if r[3] else None,
+            }
             for r in rows
         ],
     }
@@ -1019,7 +1058,7 @@ def disambiguate_author(
         "author": author,
         "n_buckets": len(rows),
         "interpretation": f"This name appears in {len(rows)} community/cluster bucket(s). "
-                          f"Buckets with very different topic mixes are likely different real people.",
+        f"Buckets with very different topic mixes are likely different real people.",
         "buckets": [
             {
                 "community_id": int(r[0]) if r[0] != 9999 else None,
@@ -1038,26 +1077,28 @@ def disambiguate_author(
 
 @app.get("/")
 def root() -> JSONResponse:
-    return JSONResponse({
-        "name": "researchPapers API",
-        "version": "0.2.0",
-        "endpoints": [
-            "GET /healthz",
-            "GET /stats",
-            "GET /semantic-search?q=...&limit=20",
-            "GET /search?q=transformer&limit=20&sources=arxiv,openreview&min_citations=10",
-            "GET /papers/{paper_id}",
-            "GET /similar/{paper_id}?limit=10",
-            "GET /sleepers?min_rating=7&max_citations=20&since_year=2024",
-            "GET /hot?since_year=2023&limit=25",
-            "GET /tags/top-rated?limit=25&min_papers=10",
-            "GET /tags/{tag}?limit=20",
-            "GET /authors/by-tag/{tag}?limit=25",
-            "GET /authors/v2/{author_id} — canonical author profile",
-            "GET /authors/v2/{author_id}/coauthors — coauthor neighborhood",
-            "GET /authors/resolve?name=... — resolve a name to canonical IDs",
-            "GET /authors/{author}/disambiguate — split a name into community/cluster buckets",
-            "GET /reviews/top-rated?limit=25&venue=ICLR-2025",
-        ],
-        "docs": "/docs",
-    })
+    return JSONResponse(
+        {
+            "name": "researchPapers API",
+            "version": "0.2.0",
+            "endpoints": [
+                "GET /healthz",
+                "GET /stats",
+                "GET /semantic-search?q=...&limit=20",
+                "GET /search?q=transformer&limit=20&sources=arxiv,openreview&min_citations=10",
+                "GET /papers/{paper_id}",
+                "GET /similar/{paper_id}?limit=10",
+                "GET /sleepers?min_rating=7&max_citations=20&since_year=2024",
+                "GET /hot?since_year=2023&limit=25",
+                "GET /tags/top-rated?limit=25&min_papers=10",
+                "GET /tags/{tag}?limit=20",
+                "GET /authors/by-tag/{tag}?limit=25",
+                "GET /authors/v2/{author_id} — canonical author profile",
+                "GET /authors/v2/{author_id}/coauthors — coauthor neighborhood",
+                "GET /authors/resolve?name=... — resolve a name to canonical IDs",
+                "GET /authors/{author}/disambiguate — split a name into community/cluster buckets",
+                "GET /reviews/top-rated?limit=25&venue=ICLR-2025",
+            ],
+            "docs": "/docs",
+        }
+    )

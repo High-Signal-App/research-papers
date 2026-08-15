@@ -27,9 +27,9 @@ log = logging.getLogger("researchpapers.openalex")
 
 OPENALEX_WORKS_URL = "https://api.openalex.org/works"
 ARXIV_SOURCE_ID = "S4306400194"  # arXiv
-CS_FIELD_ID = "17"               # Computer Science
+CS_FIELD_ID = "17"  # Computer Science
 PAGE_SIZE = 200
-POLITE_INTERVAL_SECONDS = 0.5    # polite pool tolerates ~10 RPS; 2 RPS is safe and visible
+POLITE_INTERVAL_SECONDS = 0.5  # polite pool tolerates ~10 RPS; 2 RPS is safe and visible
 
 _ARXIV_LANDING_RE = re.compile(r"arxiv\.org/abs/([^v\s/?#]+)(?:v\d+)?", re.IGNORECASE)
 
@@ -96,10 +96,7 @@ def _keywords(work: dict[str, Any]) -> list[dict[str, Any]]:
 @retry(stop=stop_after_attempt(5), wait=wait_exponential(multiplier=2, min=4, max=60))
 def _fetch_page(client, cursor: str, *, cs_only: bool = True) -> dict[str, Any]:
     if cs_only:
-        flt = (
-            f"primary_topic.field.id:fields/{CS_FIELD_ID},"
-            f"locations.source.id:{ARXIV_SOURCE_ID}"
-        )
+        flt = f"primary_topic.field.id:fields/{CS_FIELD_ID},locations.source.id:{ARXIV_SOURCE_ID}"
     else:
         flt = f"locations.source.id:{ARXIV_SOURCE_ID}"
     resp = client.get(
@@ -133,7 +130,9 @@ def _reconstruct_abstract(inv: dict[str, list[int]] | None) -> str | None:
     return " ".join(w for _, w in positions)
 
 
-def _iter_works(settings: Settings, target: int, *, cs_only: bool = True) -> Iterator[dict[str, Any]]:
+def _iter_works(
+    settings: Settings, target: int, *, cs_only: bool = True
+) -> Iterator[dict[str, Any]]:
     """Page through Works sorted by citation count. Yields raw work objects."""
     cursor = "*"
     seen = 0
@@ -250,9 +249,7 @@ def _fetch_works_full(client, oa_ids: list[str]) -> list[dict[str, Any]]:
         params={
             "filter": f"ids.openalex:{'|'.join(short_ids)}",
             "per-page": len(short_ids),
-            "select": (
-                "id,title,doi,cited_by_count,publication_year,primary_topic,locations"
-            ),
+            "select": ("id,title,doi,cited_by_count,publication_year,primary_topic,locations"),
         },
     )
     resp.raise_for_status()

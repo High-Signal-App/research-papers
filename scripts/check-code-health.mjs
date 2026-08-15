@@ -64,7 +64,7 @@ function checkFormat() {
   console.log(
     `Format: ${observed.pythonFiles} Python files and ${observed.webFiles} web files outside formatter baselines.`
   );
-  failRegressions("Format", observed, { pythonFiles: 31, webFiles: 41 });
+  failRegressions("Format", observed, { pythonFiles: 0, webFiles: 41 });
 }
 
 function checkLint() {
@@ -85,7 +85,7 @@ function checkLint() {
       `${observed.webErrors} web errors and ${observed.webWarnings} web warnings.`
   );
   failRegressions("Lint", observed, {
-    pythonFindings: 143,
+    pythonFindings: 66,
     pythonUndefined: 0,
     webErrors: 22,
     webWarnings: 83,
@@ -202,7 +202,7 @@ function checkComplexity() {
   failRegressions("Complexity", observed, {
     violations: 22,
     maxCcn: 77,
-    maxLength: 385,
+    maxLength: 353,
     maxParams: 11,
   });
 }
@@ -237,9 +237,9 @@ function checkDuplication() {
       `(${observed.percentage.toFixed(4)}%), ${observed.clones} groups across ${observed.sources} files.`
   );
   failRegressions("Duplication", observed, {
-    clones: 12,
-    duplicatedLines: 122,
-    percentage: 0.9139261367892726,
+    clones: 11,
+    duplicatedLines: 113,
+    percentage: 0.8031843059208189,
   });
 }
 

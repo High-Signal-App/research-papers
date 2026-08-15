@@ -75,10 +75,7 @@ def embed_papers(
             normalize_embeddings=True,
             show_progress_bar=False,
         )
-        payload = [
-            [r[0], embeddings[i].tolist(), MODEL_NAME]
-            for i, r in enumerate(rows)
-        ]
+        payload = [[r[0], embeddings[i].tolist(), MODEL_NAME] for i, r in enumerate(rows)]
         with ch_connect() as ch:
             ch.insert(
                 "paper_embeddings",

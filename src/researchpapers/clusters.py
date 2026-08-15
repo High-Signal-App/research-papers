@@ -41,7 +41,9 @@ def clean_abstract(text: str | None) -> str:
     return text.strip()
 
 
-def cluster_abstracts(settings: Settings, *, n_clusters: int = DEFAULT_N_CLUSTERS) -> dict[str, int]:
+def cluster_abstracts(
+    settings: Settings, *, n_clusters: int = DEFAULT_N_CLUSTERS
+) -> dict[str, int]:
     counters = {"docs": 0, "clusters": 0}
     with connect(settings) as conn:
         with conn.cursor() as cur:

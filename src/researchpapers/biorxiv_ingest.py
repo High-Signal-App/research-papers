@@ -18,6 +18,7 @@ from datetime import UTC, date, datetime, timedelta
 import httpx
 from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_exponential
 
+from researchpapers.ch_db import PAPER_COLS
 from researchpapers.ch_db import connect as ch_connect
 
 log = logging.getLogger("researchpapers.biorxiv_ingest")
@@ -48,6 +49,7 @@ def _coerce_date(s: str | None) -> date | None:
 
 # ---------- bioRxiv / medRxiv (api.biorxiv.org) ----------
 
+
 @retry(
     stop=stop_after_attempt(5),
     wait=wait_exponential(multiplier=2, min=2, max=30),
@@ -59,7 +61,9 @@ def _fetch_one_page(client: httpx.Client, url: str) -> dict:
     return resp.json() or {}
 
 
-def _bio_med_pages(client: httpx.Client, server: str, since: date, until: date) -> Iterator[list[dict]]:
+def _bio_med_pages(
+    client: httpx.Client, server: str, since: date, until: date
+) -> Iterator[list[dict]]:
     """Yields successive pages from bioRxiv/medRxiv. ~30 papers per page."""
     cursor = 0
     last_request_at = 0.0
@@ -107,21 +111,15 @@ def _to_paper_row(server: str, item: dict) -> list:
         authors,
         [],
         [],
-        None, None, None, None, 0,
+        None,
+        None,
+        None,
+        None,
+        0,
         datetime.now(UTC),
         datetime.now(UTC),
         [],
     ]
-
-
-PAPER_COLS = [
-    "paper_id", "source", "source_id", "arxiv_id", "openalex_id",
-    "doi", "title", "abstract", "submitted_date", "publication_year",
-    "citation_count", "primary_category", "authors",
-    "openalex_tags", "openalex_keywords",
-    "pagerank_score", "katz_score", "community_id", "semantic_cluster",
-    "in_corpus_degree", "ingested_at", "updated_at", "abstract_embedding",
-]
 
 
 def ingest_biorxiv_medrxiv(
@@ -158,6 +156,7 @@ def ingest_biorxiv_medrxiv(
 
 # ---------- chemRxiv (different API) ----------
 
+
 def ingest_chemrxiv(limit: int | None = None, page_size: int = 50) -> int:
     log.info("ingesting chemrxiv")
     n = 0
@@ -189,23 +188,38 @@ def ingest_chemrxiv(limit: int | None = None, page_size: int = 50) -> int:
                     doi = item.get("doi") or item.get("id") or ""
                     sub_date = _coerce_date(item.get("publishedDate") or item.get("submittedDate"))
                     authors = [
-                        f"{a.get('firstName','').strip()} {a.get('lastName','').strip()}".strip()
+                        f"{a.get('firstName', '').strip()} {a.get('lastName', '').strip()}".strip()
                         for a in (item.get("authors") or [])
                     ]
                     authors = [a for a in authors if a]
                     pid = _make_paper_id("chemrxiv", doi)
-                    batch.append([
-                        pid, "chemrxiv", doi, None, None, doi,
-                        item.get("title") or "",
-                        item.get("abstract"),
-                        sub_date,
-                        sub_date.year if sub_date else None,
-                        0,
-                        ((item.get("category") or {}).get("name")),
-                        authors,
-                        [], [], None, None, None, None, 0,
-                        datetime.now(UTC), datetime.now(UTC), [],
-                    ])
+                    batch.append(
+                        [
+                            pid,
+                            "chemrxiv",
+                            doi,
+                            None,
+                            None,
+                            doi,
+                            item.get("title") or "",
+                            item.get("abstract"),
+                            sub_date,
+                            sub_date.year if sub_date else None,
+                            0,
+                            ((item.get("category") or {}).get("name")),
+                            authors,
+                            [],
+                            [],
+                            None,
+                            None,
+                            None,
+                            None,
+                            0,
+                            datetime.now(UTC),
+                            datetime.now(UTC),
+                            [],
+                        ]
+                    )
                     if len(batch) >= 500:
                         ch.insert("papers", batch, column_names=PAPER_COLS)
                         n += len(batch)

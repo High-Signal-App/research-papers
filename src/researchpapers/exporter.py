@@ -38,6 +38,77 @@ def _isodate(d) -> str | None:
     return str(d)
 
 
+def _export_temporal(c, out_dir: Path) -> Path:
+    """Exports temporal evolution data (papers/year, community years, top paper/year, cites/year)."""
+    ppy = c.query(
+        "SELECT effective_year(source, arxiv_id, submitted_date) AS year, count() AS n FROM papers FINAL WHERE source='arxiv' AND submitted_date IS NOT NULL GROUP BY year ORDER BY year"
+    ).result_rows
+    papers_per_year = [{"year": int(r[0]), "n": int(r[1])} for r in ppy]
+
+    top6_rows = c.query(
+        "SELECT community_id, count() AS n FROM papers FINAL WHERE source='arxiv' AND community_id IS NOT NULL GROUP BY community_id ORDER BY n DESC LIMIT 6"
+    ).result_rows
+    top6_cids = [int(r[0]) for r in top6_rows]
+
+    cy = c.query(
+        "SELECT effective_year(source, arxiv_id, submitted_date) AS year, community_id, count() AS n FROM papers FINAL WHERE source='arxiv' AND submitted_date IS NOT NULL AND community_id IN %(cids)s GROUP BY year, community_id ORDER BY year, community_id",
+        parameters={"cids": top6_cids},
+    ).result_rows
+    community_years = [{"year": int(r[0]), "community_id": int(r[1]), "n": int(r[2])} for r in cy]
+
+    tpy = c.query(
+        """
+        SELECT year, argMax(arxiv_id, pagerank_score) AS arxiv_id,
+               argMax(title, pagerank_score) AS title, max(pagerank_score) AS max_pr,
+               argMax(citation_count, pagerank_score) AS citation_count
+        FROM (
+          SELECT effective_year(source, arxiv_id, submitted_date) AS year,
+                 arxiv_id, title, pagerank_score, citation_count
+          FROM papers FINAL
+          WHERE source='arxiv' AND submitted_date IS NOT NULL AND pagerank_score IS NOT NULL
+        )
+        GROUP BY year ORDER BY year
+        """
+    ).result_rows
+    top_paper_per_year = [
+        {
+            "year": int(r[0]),
+            "arxiv_id": r[1],
+            "title": r[2],
+            "pagerank_score": round(float(r[3] or 0), 6),
+            "citation_count": int(r[4] or 0),
+        }
+        for r in tpy
+    ]
+
+    cpy = c.query(
+        """
+        SELECT effective_year(source, arxiv_id, submitted_date) AS year, count() AS n,
+               round(avg(citation_count / greatest((today() - effective_date(source, arxiv_id, submitted_date)) / 365.25, 0.25)), 1) AS mean_cpy,
+               round(quantile(0.9)(citation_count / greatest((today() - effective_date(source, arxiv_id, submitted_date)) / 365.25, 0.25)), 1) AS p90_cpy
+        FROM papers FINAL
+        WHERE source='arxiv' AND submitted_date IS NOT NULL AND citation_count IS NOT NULL
+          AND effective_year(source, arxiv_id, submitted_date) >= 2005
+        GROUP BY year ORDER BY year
+        """
+    ).result_rows
+    cites_per_year = [
+        {"year": int(r[0]), "n": int(r[1]), "mean_cpy": float(r[2]), "p90_cpy": float(r[3])}
+        for r in cpy
+    ]
+
+    temporal = {
+        "papers_per_year": papers_per_year,
+        "top_communities": top6_cids,
+        "community_years": community_years,
+        "top_paper_per_year": top_paper_per_year,
+        "cites_per_year_by_year": cites_per_year,
+    }
+    path = out_dir / "temporal.json"
+    path.write_text(json.dumps(temporal, indent=2))
+    return path
+
+
 def export_all(settings: Settings, out_dir: Path, *, top: int = 200) -> list[Path]:
     out_dir.mkdir(parents=True, exist_ok=True)
     written: list[Path] = []
@@ -55,9 +126,12 @@ def export_all(settings: Settings, out_dir: Path, *, top: int = 200) -> list[Pat
         tagged = c.query(
             "SELECT count(DISTINCT paper_id) FROM paper_tags WHERE tagger='spacy_v2'"
         ).result_rows[0][0]
-        bytes_on_disk = c.query(
-            "SELECT sum(bytes_on_disk) FROM system.parts WHERE active AND database='papers'"
-        ).result_rows[0][0] or 0
+        bytes_on_disk = (
+            c.query(
+                "SELECT sum(bytes_on_disk) FROM system.parts WHERE active AND database='papers'"
+            ).result_rows[0][0]
+            or 0
+        )
 
         summary = {
             "papers_total": int(papers_total),
@@ -84,7 +158,12 @@ def export_all(settings: Settings, out_dir: Path, *, top: int = 200) -> list[Pat
         written.append(out_dir / "summary.json")
 
         # ---------- 2/3/5/6/8. URL-leaderboard stubs (table dropped) ----------
-        for fname in ("top_hosts.json", "top_urls.json", "host_categories.json", "urls_per_paper_hist.json"):
+        for fname in (
+            "top_hosts.json",
+            "top_urls.json",
+            "host_categories.json",
+            "urls_per_paper_hist.json",
+        ):
             (out_dir / fname).write_text("[]")
             written.append(out_dir / fname)
         (out_dir / "host_drilldowns.json").write_text("{}")
@@ -119,21 +198,23 @@ def export_all(settings: Settings, out_dir: Path, *, top: int = 200) -> list[Pat
             year = sd.year if sd else None
             age = max((today - sd).days / 365.25, 0.25) if sd else 1.0
             cites_per_year = round(float(r[2] or 0) / age, 1) if sd else None
-            papers.append({
-                "arxiv_id": r[0],
-                "title": r[1],
-                "citation_count": int(r[2] or 0),
-                "primary_category": r[3],
-                "submitted_date": _isodate(sd),
-                "in_corpus_degree": int(r[5] or 0),
-                "pagerank_score": round(float(r[6]), 6) if r[6] is not None else None,
-                "katz_score": round(float(r[7]), 6) if r[7] is not None else None,
-                "n_urls": 0,
-                "year": year,
-                "cites_per_year": cites_per_year,
-                "topic_tags": list(r[8] or [])[:6],
-                "top_keywords": list(r[9] or [])[:5],
-            })
+            papers.append(
+                {
+                    "arxiv_id": r[0],
+                    "title": r[1],
+                    "citation_count": int(r[2] or 0),
+                    "primary_category": r[3],
+                    "submitted_date": _isodate(sd),
+                    "in_corpus_degree": int(r[5] or 0),
+                    "pagerank_score": round(float(r[6]), 6) if r[6] is not None else None,
+                    "katz_score": round(float(r[7]), 6) if r[7] is not None else None,
+                    "n_urls": 0,
+                    "year": year,
+                    "cites_per_year": cites_per_year,
+                    "topic_tags": list(r[8] or [])[:6],
+                    "top_keywords": list(r[9] or [])[:5],
+                }
+            )
         (out_dir / "top_papers.json").write_text(json.dumps(papers, indent=2))
         written.append(out_dir / "top_papers.json")
 
@@ -188,19 +269,24 @@ def export_all(settings: Settings, out_dir: Path, *, top: int = 200) -> list[Pat
                 for m in members[:5]
             ]
             cluster_texts.append(" ".join((m[1] or "") for m in members))
-            communities.append({
-                "id": int(cid),
-                "size": len(members),
-                "anchor_arxiv_id": anchor[0],
-                "anchor_title": anchor[1],
-                "year_range": [years[0], years[-1]] if years else None,
-                "top_hosts": [],  # URL data dropped
-                "top_papers": top_papers,
-            })
+            communities.append(
+                {
+                    "id": int(cid),
+                    "size": len(members),
+                    "anchor_arxiv_id": anchor[0],
+                    "anchor_title": anchor[1],
+                    "year_range": [years[0], years[-1]] if years else None,
+                    "top_hosts": [],  # URL data dropped
+                    "top_papers": top_papers,
+                }
+            )
 
         if cluster_texts:
             from sklearn.feature_extraction.text import TfidfVectorizer
-            vec = TfidfVectorizer(stop_words="english", ngram_range=(1, 2), max_features=3000, min_df=2)
+
+            vec = TfidfVectorizer(
+                stop_words="english", ngram_range=(1, 2), max_features=3000, min_df=2
+            )
             tfidf = vec.fit_transform(cluster_texts)
             feature_names = vec.get_feature_names_out()
             for i, com in enumerate(communities):
@@ -211,63 +297,7 @@ def export_all(settings: Settings, out_dir: Path, *, top: int = 200) -> list[Pat
         written.append(out_dir / "communities.json")
 
         # ---------- 7c. Temporal evolution ----------
-        ppy = c.query(
-            "SELECT effective_year(source, arxiv_id, submitted_date) AS year, count() AS n FROM papers FINAL WHERE source='arxiv' AND submitted_date IS NOT NULL GROUP BY year ORDER BY year"
-        ).result_rows
-        papers_per_year = [{"year": int(r[0]), "n": int(r[1])} for r in ppy]
-
-        top6_rows = c.query(
-            "SELECT community_id, count() AS n FROM papers FINAL WHERE source='arxiv' AND community_id IS NOT NULL GROUP BY community_id ORDER BY n DESC LIMIT 6"
-        ).result_rows
-        top6_cids = [int(r[0]) for r in top6_rows]
-
-        cy = c.query(
-            "SELECT effective_year(source, arxiv_id, submitted_date) AS year, community_id, count() AS n FROM papers FINAL WHERE source='arxiv' AND submitted_date IS NOT NULL AND community_id IN %(cids)s GROUP BY year, community_id ORDER BY year, community_id",
-            parameters={"cids": top6_cids},
-        ).result_rows
-        community_years = [{"year": int(r[0]), "community_id": int(r[1]), "n": int(r[2])} for r in cy]
-
-        tpy = c.query(
-            """
-            SELECT year, argMax(arxiv_id, pagerank_score) AS arxiv_id,
-                   argMax(title, pagerank_score) AS title, max(pagerank_score) AS max_pr,
-                   argMax(citation_count, pagerank_score) AS citation_count
-            FROM (
-              SELECT effective_year(source, arxiv_id, submitted_date) AS year,
-                     arxiv_id, title, pagerank_score, citation_count
-              FROM papers FINAL
-              WHERE source='arxiv' AND submitted_date IS NOT NULL AND pagerank_score IS NOT NULL
-            )
-            GROUP BY year ORDER BY year
-            """
-        ).result_rows
-        top_paper_per_year = [
-            {"year": int(r[0]), "arxiv_id": r[1], "title": r[2], "pagerank_score": round(float(r[3] or 0), 6), "citation_count": int(r[4] or 0)}
-            for r in tpy
-        ]
-
-        cpy = c.query(
-            """
-            SELECT effective_year(source, arxiv_id, submitted_date) AS year, count() AS n,
-                   round(avg(citation_count / greatest((today() - effective_date(source, arxiv_id, submitted_date)) / 365.25, 0.25)), 1) AS mean_cpy,
-                   round(quantile(0.9)(citation_count / greatest((today() - effective_date(source, arxiv_id, submitted_date)) / 365.25, 0.25)), 1) AS p90_cpy
-            FROM papers FINAL
-            WHERE source='arxiv' AND submitted_date IS NOT NULL AND citation_count IS NOT NULL
-              AND effective_year(source, arxiv_id, submitted_date) >= 2005
-            GROUP BY year ORDER BY year
-            """
-        ).result_rows
-        cites_per_year = [{"year": int(r[0]), "n": int(r[1]), "mean_cpy": float(r[2]), "p90_cpy": float(r[3])} for r in cpy]
-
-        temporal = {
-            "papers_per_year": papers_per_year,
-            "top_communities": top6_cids,
-            "community_years": community_years,
-            "top_paper_per_year": top_paper_per_year,
-            "cites_per_year_by_year": cites_per_year,
-        }
-        (out_dir / "temporal.json").write_text(json.dumps(temporal, indent=2))
-        written.append(out_dir / "temporal.json")
+        written.append(_export_temporal(c, out_dir))
 
         # ---------- 7d. Top authors ----------
         rows = c.query(
@@ -321,7 +351,9 @@ def export_all(settings: Settings, out_dir: Path, *, top: int = 200) -> list[Pat
                 "author": name,
                 "papers": [
                     {
-                        "arxiv_id": r[0], "title": r[1], "citation_count": int(r[2] or 0),
+                        "arxiv_id": r[0],
+                        "title": r[1],
+                        "citation_count": int(r[2] or 0),
                         "submitted_date": _isodate(r[3]),
                         "community_id": int(r[4]) if r[4] is not None else None,
                         "pagerank_score": round(float(r[5] or 0), 6),
@@ -353,7 +385,9 @@ def export_all(settings: Settings, out_dir: Path, *, top: int = 200) -> list[Pat
                 "id": int(cid),
                 "papers": [
                     {
-                        "arxiv_id": r[0], "title": r[1], "citation_count": int(r[2] or 0),
+                        "arxiv_id": r[0],
+                        "title": r[1],
+                        "citation_count": int(r[2] or 0),
                         "submitted_date": _isodate(r[3]),
                         "pagerank_score": round(float(r[4] or 0), 6),
                     }
@@ -382,17 +416,22 @@ def export_all(settings: Settings, out_dir: Path, *, top: int = 200) -> list[Pat
                 continue
             anchor = members[0]
             sem_texts.append(" ".join(clean_abstract(m[2] or "") for m in members[:50]))
-            sem_clusters.append({
-                "id": int(cid),
-                "size": len(members),
-                "anchor_arxiv_id": anchor[0],
-                "anchor_title": anchor[1],
-                "top_papers": [{"arxiv_id": m[0], "title": m[1]} for m in members[:5]],
-            })
+            sem_clusters.append(
+                {
+                    "id": int(cid),
+                    "size": len(members),
+                    "anchor_arxiv_id": anchor[0],
+                    "anchor_title": anchor[1],
+                    "top_papers": [{"arxiv_id": m[0], "title": m[1]} for m in members[:5]],
+                }
+            )
 
         if sem_texts:
             from sklearn.feature_extraction.text import TfidfVectorizer
-            vec = TfidfVectorizer(stop_words="english", ngram_range=(1, 2), max_features=3000, min_df=2)
+
+            vec = TfidfVectorizer(
+                stop_words="english", ngram_range=(1, 2), max_features=3000, min_df=2
+            )
             tfidf = vec.fit_transform(sem_texts)
             feature_names = vec.get_feature_names_out()
             for i, com in enumerate(sem_clusters):

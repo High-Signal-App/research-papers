@@ -121,7 +121,9 @@ def enrich_top_papers(
             last_request_at = time.monotonic()
 
             inserts: list[list[object]] = []
-            for (paper_id, _arxiv_id, _doi, old_cites), paper in zip(chunk_rows, results, strict=True):
+            for (paper_id, _arxiv_id, _doi, old_cites), paper in zip(
+                chunk_rows, results, strict=True
+            ):
                 if not paper:
                     counters["skipped"] += 1
                     continue
