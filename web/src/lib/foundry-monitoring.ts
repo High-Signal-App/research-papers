@@ -41,6 +41,7 @@ export function installBrowserMonitoring() {
     capture_pageview: false,
     autocapture: false,
   });
+  posthog.capture('page_view', { project_id: PROJECT_SLUG });
 
   const onError = (event: ErrorEvent) =>
     capturePageCrash(event.error ?? event.message, 'window_error');
