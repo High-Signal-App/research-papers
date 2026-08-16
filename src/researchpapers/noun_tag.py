@@ -14,6 +14,9 @@ from datetime import UTC, datetime
 
 import spacy
 
+from researchpapers.config import Settings
+from researchpapers.db import connect
+
 
 def _detect_cpu_count() -> int:
     # On macOS, os.cpu_count() returns logical cores; for P-cores only, query sysctl-style.
@@ -23,9 +26,6 @@ def _detect_cpu_count() -> int:
     except Exception:
         return 4
 
-
-from researchpapers.config import Settings
-from researchpapers.db import connect
 
 log = logging.getLogger("researchpapers.noun_tag")
 

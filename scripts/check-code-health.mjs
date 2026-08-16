@@ -85,7 +85,7 @@ function checkLint() {
       `${observed.webErrors} web errors and ${observed.webWarnings} web warnings.`
   );
   failRegressions("Lint", observed, {
-    pythonFindings: 66,
+    pythonFindings: 60,
     pythonUndefined: 0,
     webErrors: 22,
     webWarnings: 83,

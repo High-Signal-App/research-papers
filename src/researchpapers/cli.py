@@ -62,7 +62,11 @@ app.add_typer(rank_app, name="rank", help="Leaderboards over the ingested data."
 
 @app.command("init-db")
 def init_db_cmd() -> None:
-    """Apply any pending Postgres migrations."""
+    """Legacy Postgres operator path: apply pending migrations.
+
+    Not the ClickHouse product. mlx_tag_v2 and a few leftover CLIs still need
+    the schema this command applies via POSTGRES_URL.
+    """
     settings = load_settings()
     applied = db.init_db(settings)
     if applied:

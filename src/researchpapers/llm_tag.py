@@ -16,7 +16,7 @@ import asyncio
 import json
 import logging
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum
 
 import httpx
 
@@ -26,7 +26,7 @@ from researchpapers.db import connect
 log = logging.getLogger("researchpapers.llm_tag")
 
 
-class Backend(str, Enum):
+class Backend(StrEnum):
     LM_STUDIO = "lm-studio"
     OLLAMA = "ollama"
     MLX = "mlx"
