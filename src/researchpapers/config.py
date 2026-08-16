@@ -16,9 +16,8 @@ MIGRATIONS_DIR = PROJECT_ROOT / "migrations"
 
 @dataclass(frozen=True)
 class Settings:
-    # Postgres is the legacy store; kept optional for the few remaining tools that
-    # still touch it (ingest writers, migration scripts). The dashboard / API / taggers
-    # are ClickHouse-only.
+    # Postgres is a leftover operator store (init-db, ingest writers, mlx_tag_v2).
+    # The dashboard / API / ClickHouse product path do not use it.
     postgres_url: str | None
     contact_email: str
     semantic_scholar_api_key: str | None

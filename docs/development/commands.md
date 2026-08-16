@@ -55,6 +55,12 @@ Run in this order; see [`README.md`](../../README.md) for the canonical sequence
 See [`DEPLOY.md`](../../DEPLOY.md) and [`operations/`](../operations/index.md)
 for the three deployment shapes.
 
+## Legacy Postgres (not the product path)
+
+`papers init-db` applies `migrations/*.sql` via psycopg. ClickHouse is the
+runtime; this command stays because `mlx_tag_v2` and a few leftover CLIs still
+need `POSTGRES_URL`. Do not add new product work here.
+
 ## Tests
 
 | Command | Purpose |

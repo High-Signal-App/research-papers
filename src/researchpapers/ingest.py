@@ -19,6 +19,7 @@ Idempotent + resumable: re-runs only pick up papers with urls_extracted_at IS NU
 
 from __future__ import annotations
 
+import contextlib
 import gzip
 import logging
 import os
@@ -79,10 +80,8 @@ def _extract_worker(pdf_bytes: bytes) -> tuple[str, list[tuple[str, str, str, st
         except Exception:  # noqa: BLE001 — pdfminer raises a broad family on malformed PDFs
             text = ""
     finally:
-        try:
+        with contextlib.suppress(OSError):
             os.unlink(path)
-        except OSError:
-            pass
     urls = extract_urls_from_text(text) if text else []
     return text, urls
 

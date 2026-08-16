@@ -19,6 +19,7 @@ Idempotency:
 
 from __future__ import annotations
 
+import contextlib
 import errno
 import fcntl
 import json
@@ -75,7 +76,7 @@ def _acquire_lock() -> int:
 
 def _notify_macos(title: str, message: str) -> None:
     """Best-effort macOS desktop notification. Silent on failure."""
-    try:
+    with contextlib.suppress(Exception):
         subprocess.run(
             [
                 "osascript",
@@ -85,8 +86,6 @@ def _notify_macos(title: str, message: str) -> None:
             capture_output=True,
             timeout=5,
         )
-    except Exception:
-        pass
 
 
 def _papers_count(settings: Settings) -> int:
