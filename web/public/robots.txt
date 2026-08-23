@@ -1,9 +1,29 @@
 User-agent: *
 Allow: /
 
+# AI crawlers and agents — explicitly allowed
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
 Sitemap: https://papers.highsignal.app/sitemap.xml
 # Agent indexing
 Allow: /llms.txt
 Allow: /index.md
 Allow: /api/ai
+Allow: /openapi.json
 Allow: /llms-full.txt
