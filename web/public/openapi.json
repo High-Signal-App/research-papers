@@ -1,0 +1,253 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "researchPapers",
+    "version": "1.0.0",
+    "description": "Academic paper platform over a high-citation OpenAlex CS corpus — search, analytics, and RAG demo (~488k papers).",
+    "contact": { "url": "https://papers.highsignal.app" }
+  },
+  "servers": [{ "url": "https://papers.highsignal.app" }],
+  "tags": [
+    { "name": "agent-surfaces", "description": "Machine-readable discovery surfaces" },
+    { "name": "public-pages", "description": "Public HTML pages with Markdown alternates" },
+    { "name": "data", "description": "Public JSON data resources" },
+    { "name": "api", "description": "Public API endpoints" }
+  ],
+  "paths": {
+    "/llms.txt": {
+      "get": {
+        "tags": ["agent-surfaces"],
+        "summary": "Short LLM index",
+        "responses": {
+          "200": {
+            "description": "Plain-text LLM index",
+            "content": { "text/plain": { "schema": { "type": "string" } } }
+          }
+        }
+      }
+    },
+    "/llms-full.txt": {
+      "get": {
+        "tags": ["agent-surfaces"],
+        "summary": "Full LLM brief",
+        "responses": {
+          "200": {
+            "description": "Plain-text full agent brief",
+            "content": { "text/plain": { "schema": { "type": "string" } } }
+          }
+        }
+      }
+    },
+    "/api/ai": {
+      "get": {
+        "tags": ["agent-surfaces"],
+        "summary": "Agent catalog",
+        "description": "JSON inventory of all public agent surfaces, collections, and data resources.",
+        "responses": {
+          "200": {
+            "description": "Agent catalog JSON",
+            "content": { "application/json": { "schema": { "type": "object" } } }
+          }
+        }
+      }
+    },
+    "/openapi.json": {
+      "get": {
+        "tags": ["agent-surfaces"],
+        "summary": "OpenAPI specification",
+        "description": "This document.",
+        "responses": {
+          "200": {
+            "description": "OpenAPI 3.1 JSON",
+            "content": { "application/json": { "schema": { "type": "object" } } }
+          }
+        }
+      }
+    },
+    "/index.md": {
+      "get": {
+        "tags": ["agent-surfaces"],
+        "summary": "Homepage Markdown",
+        "responses": {
+          "200": {
+            "description": "Markdown product brief",
+            "content": { "text/markdown": { "schema": { "type": "string" } } }
+          }
+        }
+      }
+    },
+    "/api/health": {
+      "get": {
+        "tags": ["api"],
+        "summary": "Health check",
+        "description": "Public health endpoint checking search asset availability.",
+        "responses": {
+          "200": {
+            "description": "Healthy",
+            "content": { "application/json": { "schema": { "type": "object" } } }
+          },
+          "503": {
+            "description": "Search assets unavailable",
+            "content": { "application/json": { "schema": { "type": "object" } } }
+          }
+        }
+      }
+    },
+    "/api/rag/query": {
+      "post": {
+        "tags": ["api"],
+        "summary": "RAG query",
+        "description": "Ask a research question and get a cited answer. May require Turnstile validation.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "question": { "type": "string" },
+                  "turnstile_token": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Cited research answer",
+            "content": { "application/json": { "schema": { "type": "object" } } }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": ["public-pages"],
+        "summary": "Home",
+        "description": "Search, citation analytics, reviewer signals, and cited research answers.",
+        "responses": {
+          "200": {
+            "description": "HTML page (Markdown alternate at /index.md)",
+            "content": {
+              "text/html": { "schema": { "type": "string" } },
+              "text/markdown": { "schema": { "type": "string" } }
+            }
+          }
+        }
+      }
+    },
+    "/changelog": {
+      "get": {
+        "tags": ["public-pages"],
+        "summary": "Changelog",
+        "description": "Verified product releases and public outcomes.",
+        "responses": {
+          "200": {
+            "description": "HTML page (Markdown alternate at /changelog.md)",
+            "content": {
+              "text/html": { "schema": { "type": "string" } },
+              "text/markdown": { "schema": { "type": "string" } }
+            }
+          }
+        }
+      }
+    },
+    "/data": {
+      "get": {
+        "tags": ["public-pages"],
+        "summary": "Data",
+        "description": "Corpus statistics, provenance, and downloadable data exports.",
+        "responses": {
+          "200": {
+            "description": "HTML page (Markdown alternate at /data.md)",
+            "content": {
+              "text/html": { "schema": { "type": "string" } },
+              "text/markdown": { "schema": { "type": "string" } }
+            }
+          }
+        }
+      }
+    },
+    "/digest": {
+      "get": {
+        "tags": ["public-pages"],
+        "summary": "Digest",
+        "description": "Hot papers, reviewer-loved early work, and topic signals.",
+        "responses": {
+          "200": {
+            "description": "HTML page (Markdown alternate at /digest.md)",
+            "content": {
+              "text/html": { "schema": { "type": "string" } },
+              "text/markdown": { "schema": { "type": "string" } }
+            }
+          }
+        }
+      }
+    },
+    "/paths": {
+      "get": {
+        "tags": ["public-pages"],
+        "summary": "Paths",
+        "description": "Curated research reading paths with source notes.",
+        "responses": {
+          "200": {
+            "description": "HTML page (Markdown alternate at /paths.md)",
+            "content": {
+              "text/html": { "schema": { "type": "string" } },
+              "text/markdown": { "schema": { "type": "string" } }
+            }
+          }
+        }
+      }
+    },
+    "/paper/{arxiv_id}": {
+      "get": {
+        "tags": ["public-pages"],
+        "summary": "Paper detail",
+        "description": "One paper with citation analytics and reviewer signals.",
+        "parameters": [
+          {
+            "name": "arxiv_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "arXiv identifier (e.g. 2401.12345)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTML page (Markdown alternate at /paper/{arxiv_id}.md)",
+            "content": {
+              "text/html": { "schema": { "type": "string" } },
+              "text/markdown": { "schema": { "type": "string" } }
+            }
+          }
+        }
+      }
+    },
+    "/data/top_papers.json": {
+      "get": {
+        "tags": ["data"],
+        "summary": "Top papers JSON",
+        "responses": {
+          "200": {
+            "description": "JSON array of top papers",
+            "content": { "application/json": { "schema": { "type": "array" } } }
+          }
+        }
+      }
+    },
+    "/data/summary.json": {
+      "get": {
+        "tags": ["data"],
+        "summary": "Corpus summary JSON",
+        "responses": {
+          "200": {
+            "description": "Corpus statistics JSON",
+            "content": { "application/json": { "schema": { "type": "object" } } }
+          }
+        }
+      }
+    }
+  }
+}
