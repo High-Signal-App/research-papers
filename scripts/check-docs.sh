@@ -8,8 +8,7 @@
 #   1. Every relative .md / .png / .svg link inside docs/ resolves on disk.
 #   2. Every markdown file under docs/ is reachable from docs/index.md (orphan check).
 #   3. Required root canonical docs exist (README, DEPLOY, PROJECT_STATUS, STATUS, AGENTS).
-#   4. blume.config.ts exists.
-#   5. No empty docs/ subdirectories.
+#   4. No empty docs/ subdirectories.
 #
 # Exit code is non-zero if any check fails.
 set -euo pipefail
@@ -26,7 +25,7 @@ if [ ! -d "$DOCS" ]; then
   exit 1
 fi
 
-echo "==> [1/6] Checking relative markdown/media links inside $DOCS/"
+echo "==> [1/5] Checking relative markdown/media links inside $DOCS/"
 # Extract [text](target) where target does not start with http://, https://, or #
 # and does not contain a space (mailto). Resolve relative to the linking file.
 while IFS= read -r line; do
@@ -61,7 +60,7 @@ while IFS= read -r mdfile; do
   done < <(grep -oE '\]\([^)]+\)' "$mdfile" | sed 's/^](//; s/)$//')
 done < <(find "$DOCS" -type f -name '*.md')
 
-echo "==> [2/6] Checking for orphaned markdown files under $DOCS/"
+echo "==> [2/5] Checking for orphaned markdown files under $DOCS/"
 # A file is reachable if docs/index.md links to it directly or transitively.
 # Build the reachable set via a BFS over relative .md links.
 reachable=$(python3 - "$DOCS/index.md" <<'PY'
@@ -106,22 +105,19 @@ if [ -n "$orphans" ]; then
   FAIL=1
 fi
 
-echo "==> [3/6] Checking required root canonical docs"
+echo "==> [3/5] Checking required root canonical docs"
 for f in README.md DEPLOY.md PROJECT_STATUS.md STATUS.md AGENTS.md; do
   [ -f "$f" ] || fail "missing root canonical doc: $f"
 done
 
-echo "==> [4/6] Checking blume.config.ts"
-[ -f "blume.config.ts" ] || fail "missing blume.config.ts"
-
-echo "==> [5/6] Checking for empty docs/ subdirectories"
+echo "==> [4/5] Checking for empty docs/ subdirectories"
 while IFS= read -r d; do
   # A directory is empty if it contains no files (recursively).
   count=$(find "$d" -type f | wc -l | tr -d ' ')
   [ "$count" -eq 0 ] && fail "empty docs subdirectory: $d"
 done < <(find "$DOCS" -mindepth 1 -type d)
 
-echo "==> [6/6] Checking links from root canonical docs (README/DEPLOY/PROJECT_STATUS/STATUS/AGENTS)"
+echo "==> [5/5] Checking links from root canonical docs (README/DEPLOY/PROJECT_STATUS/STATUS/AGENTS)"
 for f in README.md DEPLOY.md PROJECT_STATUS.md STATUS.md AGENTS.md; do
   [ -f "$f" ] || continue
   while IFS= read -r target; do

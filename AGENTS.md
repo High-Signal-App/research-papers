@@ -79,9 +79,7 @@ Root canonical docs (not duplicated in `docs/`): [`README.md`](README.md),
 
 ## Documentation maintenance rules
 
-1. **Markdown is the source of truth.** Blume (configured in `blume.config.ts`)
-   is the presentation and search layer only — never edit generated Blume
-   output directly.
+1. **Markdown is the source of truth.** Never edit generated output directly.
 2. **No two homes for the same fact.** If a fact lives in `README.md`,
    `DEPLOY.md`, or `PROJECT_STATUS.md`, link to it from `docs/` instead of
    restating it. If a fact moves, update or archive the old location.

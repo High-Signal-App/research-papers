@@ -9,7 +9,8 @@ are not yet ready to be archived.
 
 - [`timeline.md`](timeline.md) — chronological log of shipped changes, mirrored
   from `PROJECT_STATUS.md` → Timeline. The canonical source is
-  `PROJECT_STATUS.md`; this page exists so Blume surfaces it in the docs site.
+  `PROJECT_STATUS.md`; this page keeps the timeline discoverable from the docs
+  index.
 
 ## What does NOT live here
 

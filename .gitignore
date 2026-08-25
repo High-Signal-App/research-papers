@@ -31,11 +31,6 @@ web/node_modules/
 web/dist/
 web/.astro/
 
-# Blume docs build output (presentation layer only; source of truth is docs/)
-.blume/
-blume-dist/
-docs-dist/
-
 # Agent / local tool logs
 *.agent.log
 .devin/

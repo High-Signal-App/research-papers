@@ -1,9 +1,7 @@
 # researchPapers — knowledge system
 
 This directory is the canonical, agent- and human-readable knowledge base for
-the `research-papers` repository. Markdown here is the source of truth;
-[Blume](https://useblume.dev/) (configured in `blume.config.ts` at the repo
-root) is only the presentation and search layer.
+the `research-papers` repository. Markdown here is the source of truth.
 
 For the agent bootloader, see [`../AGENTS.md`](../AGENTS.md). For the live
 operating state, see [`../STATUS.md`](../STATUS.md). For the fleet-facing
@@ -35,8 +33,7 @@ rather than copied:
 
 ## Maintenance rules
 
-1. **Markdown is the source of truth.** Blume is presentation only; never edit
-   generated Blume output directly.
+1. **Markdown is the source of truth.** Never edit generated output directly.
 2. **No two homes for the same fact.** If a fact lives in `README.md` or
    `DEPLOY.md`, link to it from `docs/` instead of restating it. If a fact
    moves, update or archive the old location.
