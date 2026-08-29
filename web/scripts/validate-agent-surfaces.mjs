@@ -48,7 +48,22 @@ for (const route of paths) {
   try {
     await stat(htmlPath);
     const markdown = await readFile(markdownPath, "utf8");
-    if (!markdown.startsWith("# ")) failures.push(`${route}: Markdown has no H1`);
+    let markdownBody = markdown;
+    if (markdown.startsWith("---\n")) {
+      const frontmatterEnd = markdown.indexOf("\n---\n", 4);
+      if (frontmatterEnd === -1) {
+        failures.push(`${route}: Markdown frontmatter is not closed`);
+      } else {
+        const frontmatter = markdown.slice(4, frontmatterEnd);
+        for (const field of ["title", "description", "canonical", "last_updated"]) {
+          if (!new RegExp(`^${field}:`, "m").test(frontmatter)) {
+            failures.push(`${route}: Markdown frontmatter is missing ${field}`);
+          }
+        }
+        markdownBody = markdown.slice(frontmatterEnd + 5);
+      }
+    }
+    if (!/^#\s+\S/m.test(markdownBody)) failures.push(`${route}: Markdown has no H1`);
     const html = await readFile(htmlPath, "utf8");
     const expectedCanonical = `${origin}${route}`;
     if (!html.includes(`<link rel="canonical" href="${expectedCanonical}">`)) {

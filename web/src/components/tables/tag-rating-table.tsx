@@ -12,6 +12,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { fmt } from "@/lib/utils";
+import { useJsonData } from "@/lib/use-json-data";
 
 type Sample = {
   avg_rating: number;
@@ -67,7 +68,8 @@ function TagDrilldown({ row }: { row: Row }) {
   );
 }
 
-export function TagRatingTable({ data }: { data: Row[] }) {
+export function TagRatingTable({ data, src }: { data?: Row[]; src?: string }) {
+  const rows = useJsonData(data, src);
   const columns: ColumnDef<Row>[] = React.useMemo(() => [
     {
       id: "rank",
@@ -105,10 +107,13 @@ export function TagRatingTable({ data }: { data: Row[] }) {
     },
   ], []);
 
+  if (rows.loading) return <p className="text-sm text-muted-foreground">Loading reviewer topics...</p>;
+  if (rows.error) return <p className="text-sm text-destructive">Reviewer topics are unavailable: {rows.error}</p>;
+
   return (
     <DataTable
       columns={columns}
-      data={data}
+      data={rows.data}
       searchPlaceholder="Filter tags..."
       initialSort={[{ id: "mean_rating", desc: true }]}
       pageSize={20}

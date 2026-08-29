@@ -1,18 +1,22 @@
-# researchPapers — full agent brief
+# Research Papers: full agent brief
 
-Academic paper platform over a high-citation OpenAlex CS corpus — search, analytics, and RAG demo (~488k papers).
+Academic research library with a 488,491-record operator corpus, a 478,991-record public analytics snapshot, selected public indexes, citation analytics, reading paths, and a cited-answer demo.
 
 ## Index
 
 # researchPapers
 
-~488k papers with semantic search, analytics, and paid answers demo.
+The operator corpus retains 488,491 papers from arXiv, OpenReview, bioRxiv, and medRxiv for concrete technical and market questions. The deployed public analytics snapshot contains 478,991 records.
 
 ## What it is
 
-- High-citation OpenAlex Computer Science corpus
-- Semantic search and analytics
-- RAG-style Q&A paths
+- Operator-maintained ClickHouse corpus with 488,491 records
+- Deployed public analytics snapshot with 478,991 records
+- Selected public indexes with citation, reviewer, topic, and graph signals
+- Curated reading paths with source notes
+- Public cited-answer route protected by Turnstile
+
+The complete semantic index is an operator-side capability. Public browser search uses selected static exports.
 
 ## Agent entrypoints
 
@@ -20,11 +24,11 @@ Academic paper platform over a high-citation OpenAlex CS corpus — search, anal
 - https://papers.highsignal.app/api/ai
 - https://papers.highsignal.app/index.md
 
-Do not invent paper claims — cite corpus results.
+Do not invent paper claims. Keep citations attached to corpus results.
 
 ## Product links
 
-- Home: https://papers.highsignal.app/ — Search and analytics
+- Home: https://papers.highsignal.app/ (search, citation analytics, and cited answers)
 
 ## Machine surfaces
 

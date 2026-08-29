@@ -3,6 +3,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 
 import { DataTable } from "@/components/data-table";
 import { fmt } from "@/lib/utils";
+import { useJsonData } from "@/lib/use-json-data";
 
 type Row = {
   title: string;
@@ -14,7 +15,8 @@ type Row = {
   primary_topic: string | null;
 };
 
-export function CitedWorksTable({ data }: { data: Row[] }) {
+export function CitedWorksTable({ data, src }: { data?: Row[]; src?: string }) {
+  const rows = useJsonData(data, src);
   const columns: ColumnDef<Row>[] = React.useMemo(() => [
     {
       id: "rank",
@@ -55,5 +57,8 @@ export function CitedWorksTable({ data }: { data: Row[] }) {
     },
   ], []);
 
-  return <DataTable columns={columns} data={data} searchPlaceholder="Filter cited works..." initialSort={[{ id: "in_corpus_citations", desc: true }]} pageSize={20} />;
+  if (rows.loading) return <p className="text-sm text-muted-foreground">Loading cited foundations...</p>;
+  if (rows.error) return <p className="text-sm text-destructive">Cited foundations are unavailable: {rows.error}</p>;
+
+  return <DataTable columns={columns} data={rows.data} searchPlaceholder="Filter cited works..." initialSort={[{ id: "in_corpus_citations", desc: true }]} pageSize={20} />;
 }

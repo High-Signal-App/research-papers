@@ -4,6 +4,8 @@
     "astro.config.mjs",
     "functions/**/*.ts",
     "scripts/**/*.mjs",
+    "src/lib/api-timing.ts",
+    "src/lib/foundry-monitoring.ts",
     "src/pages/**/*.{astro,ts}",
     "../tests/**/*.test.mjs"
   ],

@@ -3,6 +3,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 
 import { DataTable } from "@/components/data-table";
 import { Badge } from "@/components/ui/badge";
+import { useJsonData } from "@/lib/use-json-data";
 import { fmt } from "@/lib/utils";
 
 type Row = {
@@ -27,7 +28,8 @@ function paperUrl(paper_id: string): string {
   return "#";
 }
 
-export function HotTable({ data }: { data: Row[] }) {
+export function HotTable({ data, src }: { data?: Row[]; src?: string }) {
+  const rows = useJsonData(data, src);
   const columns: ColumnDef<Row>[] = React.useMemo(() => [
     {
       id: "rank",
@@ -87,10 +89,13 @@ export function HotTable({ data }: { data: Row[] }) {
     },
   ], []);
 
+  if (rows.loading) return <p className="text-sm text-muted-foreground">Loading recent paper signals...</p>;
+  if (rows.error) return <p className="text-sm text-destructive">Recent paper signals are unavailable: {rows.error}</p>;
+
   return (
     <DataTable
       columns={columns}
-      data={data}
+      data={rows.data}
       searchPlaceholder="Filter titles..."
       initialSort={[{ id: "hotness", desc: true }]}
       pageSize={20}

@@ -71,10 +71,11 @@ const uniqueTags = [...new Set(paper.topic_tags)];
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={`${paper.title} — ${paper.citation_count} citations, PageRank ${paper.pagerank_score.toFixed(6)}. Part of the researchPapers 479k-paper CS corpus.`} />
+    <meta name="description" content={`${paper.title}. See ${paper.citation_count} citations, PageRank ${paper.pagerank_score.toFixed(6)}, and related signals from the 478,991-paper public analytics snapshot.`} />
     <link rel="canonical" href={pageUrl} />
+    <link rel="alternate" type="text/markdown" href={`${pageUrl}.md`} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <title>{paper.title} · researchPapers</title>
+    <title>{paper.title} | Research Papers</title>
 
     <!-- citation_* meta tags (Google Scholar / refman compatible) -->
     <meta name="citation_title" content={paper.title} />
@@ -193,7 +194,7 @@ const uniqueTags = [...new Set(paper.topic_tags)];
           <h2 class="text-sm font-semibold text-foreground/80 uppercase tracking-wider mb-3">Corpus metrics</h2>
           <p>
             Ranked #{(topPapers as Paper[]).findIndex((p) => p.arxiv_id === paper.arxiv_id) + 1} by
-            PageRank in the 479k-paper OpenAlex CS corpus. Katz centrality score:
+            PageRank in the 478,991-paper public analytics snapshot. Katz centrality score:
             <span class="tabular-nums text-foreground/70">{paper.katz_score.toFixed(6)}</span>.
           </p>
           <p>

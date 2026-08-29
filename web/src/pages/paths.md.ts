@@ -6,7 +6,14 @@ import { markdownResponse } from "@/lib/markdown-response";
 export const prerender = true;
 
 export const GET: APIRoute = () =>
-  markdownResponse(`# researchPapers reading paths
+  markdownResponse(`---
+title: "Research Papers reading paths"
+description: "Ordered research reading paths with source notes and citation-manager exports."
+canonical: "https://papers.highsignal.app/paths"
+last_updated: "2026-08-27"
+---
+
+# Research Papers reading paths
 
 Ordered, copyright-safe research paths built from bibliographic metadata,
 source links, and original notes. The catalog does not host PDFs or copy
@@ -27,7 +34,7 @@ ${path.subtitle}
 
 ${path.papers
   .map(
-    (paper, index) => `${index + 1}. [${paper.title}](${paper.url}) — ${paper.relation}
+    (paper, index) => `${index + 1}. [${paper.title}](${paper.url}): ${paper.relation}
    - ${paper.brief}
    - Read for: ${paper.focus}`,
   )

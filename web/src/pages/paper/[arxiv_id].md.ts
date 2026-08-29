@@ -16,7 +16,14 @@ export const GET: APIRoute = ({ props }) => {
   const arxivUrl = `https://arxiv.org/abs/${paper.arxiv_id}`;
   const pdfUrl = `https://arxiv.org/pdf/${paper.arxiv_id}`;
 
-  return markdownResponse(`# ${paper.title}
+  return markdownResponse(`---
+title: ${JSON.stringify(paper.title)}
+description: ${JSON.stringify(`Citation and graph signals for ${paper.title} from the Research Papers public analytics snapshot.`)}
+canonical: "https://papers.highsignal.app/paper/${paper.arxiv_id}"
+last_updated: "${paper.submitted_date}"
+---
+
+# ${paper.title}
 
 - arXiv ID: ${paper.arxiv_id}
 - Published: ${paper.submitted_date}

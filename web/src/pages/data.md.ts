@@ -8,9 +8,16 @@ import { markdownResponse } from "@/lib/markdown-response";
 export const prerender = true;
 
 export const GET: APIRoute = () =>
-  markdownResponse(`# researchPapers corpus data
+  markdownResponse(`---
+title: "Research Papers public analytics snapshot"
+description: "Statistics, provenance, and downloadable JSON for the public research snapshot."
+canonical: "https://papers.highsignal.app/data"
+last_updated: "2026-08-27"
+---
 
-The public dataset surface describes ${summary.papers_total.toLocaleString("en-US")} papers,
+# Research Papers public analytics snapshot
+
+The public snapshot describes ${summary.papers_total.toLocaleString("en-US")} papers,
 ${summary.paper_edges.toLocaleString("en-US")} citation edges, and the static analytics
 exports generated from the operator-side ClickHouse corpus.
 
@@ -23,7 +30,7 @@ ${chSources.map((source) => `- ${source.source}: ${Number(source.n).toLocaleStri
 ${downloadableFiles
   .map(
     (file) =>
-      `- [${file.name}](https://papers.highsignal.app/data/${file.name}) — ${file.desc}`,
+      `- [${file.name}](https://papers.highsignal.app/data/${file.name}): ${file.desc}`,
   )
   .join("\n")}
 

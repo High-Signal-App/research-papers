@@ -1,9 +1,9 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "researchPapers",
+    "title": "Research Papers",
     "version": "1.0.0",
-    "description": "Academic paper platform over a high-citation OpenAlex CS corpus — search, analytics, and RAG demo (~488k papers).",
+    "description": "A maintained research library with a 488,491-record operator corpus, a 478,991-record public analytics snapshot, selected indexes, citation analytics, reading paths, and cited answers.",
     "contact": { "url": "https://papers.highsignal.app" }
   },
   "servers": [{ "url": "https://papers.highsignal.app" }],
@@ -18,6 +18,7 @@
       "get": {
         "tags": ["agent-surfaces"],
         "summary": "Short LLM index",
+        "operationId": "getLlmIndex",
         "responses": {
           "200": {
             "description": "Plain-text LLM index",
@@ -30,6 +31,7 @@
       "get": {
         "tags": ["agent-surfaces"],
         "summary": "Full LLM brief",
+        "operationId": "getFullLlmBrief",
         "responses": {
           "200": {
             "description": "Plain-text full agent brief",
@@ -42,6 +44,7 @@
       "get": {
         "tags": ["agent-surfaces"],
         "summary": "Agent catalog",
+        "operationId": "getAgentCatalog",
         "description": "JSON inventory of all public agent surfaces, collections, and data resources.",
         "responses": {
           "200": {
@@ -55,6 +58,7 @@
       "get": {
         "tags": ["agent-surfaces"],
         "summary": "OpenAPI specification",
+        "operationId": "getOpenApiSpecification",
         "description": "This document.",
         "responses": {
           "200": {
@@ -68,6 +72,7 @@
       "get": {
         "tags": ["agent-surfaces"],
         "summary": "Homepage Markdown",
+        "operationId": "getHomepageMarkdown",
         "responses": {
           "200": {
             "description": "Markdown product brief",
@@ -80,6 +85,7 @@
       "get": {
         "tags": ["api"],
         "summary": "Health check",
+        "operationId": "getHealth",
         "description": "Public health endpoint checking search asset availability.",
         "responses": {
           "200": {
@@ -97,6 +103,7 @@
       "post": {
         "tags": ["api"],
         "summary": "RAG query",
+        "operationId": "askCitedResearchQuestion",
         "description": "Ask a research question and get a cited answer. May require Turnstile validation.",
         "requestBody": {
           "required": true,
@@ -124,6 +131,7 @@
       "get": {
         "tags": ["public-pages"],
         "summary": "Home",
+        "operationId": "getHomePage",
         "description": "Search, citation analytics, reviewer signals, and cited research answers.",
         "responses": {
           "200": {
@@ -140,6 +148,7 @@
       "get": {
         "tags": ["public-pages"],
         "summary": "Changelog",
+        "operationId": "getChangelogPage",
         "description": "Verified product releases and public outcomes.",
         "responses": {
           "200": {
@@ -156,6 +165,7 @@
       "get": {
         "tags": ["public-pages"],
         "summary": "Data",
+        "operationId": "getDataPage",
         "description": "Corpus statistics, provenance, and downloadable data exports.",
         "responses": {
           "200": {
@@ -172,6 +182,7 @@
       "get": {
         "tags": ["public-pages"],
         "summary": "Digest",
+        "operationId": "getDigestPage",
         "description": "Hot papers, reviewer-loved early work, and topic signals.",
         "responses": {
           "200": {
@@ -188,6 +199,7 @@
       "get": {
         "tags": ["public-pages"],
         "summary": "Paths",
+        "operationId": "getReadingPathsPage",
         "description": "Curated research reading paths with source notes.",
         "responses": {
           "200": {
@@ -204,6 +216,7 @@
       "get": {
         "tags": ["public-pages"],
         "summary": "Paper detail",
+        "operationId": "getPaperDetail",
         "description": "One paper with citation analytics and reviewer signals.",
         "parameters": [
           {
@@ -229,6 +242,7 @@
       "get": {
         "tags": ["data"],
         "summary": "Top papers JSON",
+        "operationId": "getTopPapersData",
         "responses": {
           "200": {
             "description": "JSON array of top papers",
@@ -241,6 +255,7 @@
       "get": {
         "tags": ["data"],
         "summary": "Corpus summary JSON",
+        "operationId": "getCorpusSummaryData",
         "responses": {
           "200": {
             "description": "Corpus statistics JSON",

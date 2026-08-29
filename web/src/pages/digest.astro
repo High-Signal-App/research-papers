@@ -44,6 +44,15 @@ function releaseLabel(paper: any) {
   }
   return venueYear(paper.venue) || "date unknown";
 }
+
+const digestJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: `High Signal Research Digest, ${today}`,
+  description: "Papers with citation momentum, promising early work, and topic signals from the Research Papers corpus.",
+  url: "https://papers.highsignal.app/digest",
+  dateModified: today,
+};
 ---
 
 <html lang="en" class="dark">
@@ -51,19 +60,21 @@ function releaseLabel(paper: any) {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="canonical" href={new URL(Astro.url.pathname.replace(/\.html$/, ""), Astro.site)} />
-    <title>HighSignal — Research Digest, {today}</title>
-    <meta name="description" content="A research digest of hot papers, reviewer-loved early work, and topic signals from the researchPapers corpus." />
+    <link rel="alternate" type="text/markdown" href="https://papers.highsignal.app/digest.md" />
+    <title>High Signal Research Digest, {today}</title>
+    <meta name="description" content="See recent papers with citation momentum, promising early work with strong reviewer scores, and topic signals from the Research Papers corpus." />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
-    <meta property="og:title" content={`HighSignal — Research Digest, ${today}`} />
-    <meta property="og:description" content="Hot papers, reviewer-loved early work, and topic signals from the researchPapers corpus." />
+    <meta property="og:title" content={`High Signal Research Digest, ${today}`} />
+    <meta property="og:description" content="See papers with citation momentum, promising early work, and topic signals from the Research Papers corpus." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://papers.highsignal.app/digest" />
     <meta property="og:image" content="https://papers.highsignal.app/icon.svg" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={`HighSignal — Research Digest, ${today}`} />
-    <meta name="twitter:description" content="Hot papers, reviewer-loved early work, and topic signals from the researchPapers corpus." />
+    <meta name="twitter:title" content={`High Signal Research Digest, ${today}`} />
+    <meta name="twitter:description" content="See papers with citation momentum, promising early work, and topic signals from the Research Papers corpus." />
     <meta name="twitter:image" content="https://papers.highsignal.app/icon.svg" />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(digestJsonLd)} />
   </head>
   <body class="bg-background text-foreground min-h-screen">
     <SiteNav active="digest" />
@@ -71,8 +82,8 @@ function releaseLabel(paper: any) {
     <header class="max-w-5xl mx-auto px-6 pt-16 pb-12 text-center">
       <h1 class="text-5xl md:text-6xl font-bold tracking-tight">High<span class="text-primary">Signal</span></h1>
       <p class="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
-        What the field is paying attention to — distilled from {fmt.format(totalPapers)} papers across arxiv,
-        OpenReview, bioRxiv and medRxiv. {fmt.format(totalReviews)} peer reviews aggregated.
+        See where research attention is moving across {fmt.format(totalPapers)} records from arXiv,
+        OpenReview, bioRxiv, and medRxiv. The reviewer signals include {fmt.format(totalReviews)} peer reviews.
       </p>
     </header>
 

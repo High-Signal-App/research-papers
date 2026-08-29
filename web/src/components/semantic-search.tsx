@@ -144,7 +144,7 @@ export function SemanticSearch() {
           type="text"
           value={q}
           onInput={(e) => setQ((e.target as HTMLInputElement).value)}
-          placeholder="Search the corpus by meaning — e.g. 'emergent capabilities in language models'"
+          placeholder="Search the public index, for example: emergent capabilities in language models"
           className="flex-1 rounded-lg border bg-card px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-primary/50 placeholder:text-muted-foreground/60"
         />
         <button

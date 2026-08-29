@@ -12,6 +12,22 @@ import SiteNav from "@/components/site-nav.astro";
 
 const fmt = new Intl.NumberFormat("en-US");
 const today = new Date().toISOString().slice(0, 10);
+const pathsJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Research Papers reading paths",
+  description: "Ordered research reading paths with source notes and citation-manager exports.",
+  url: "https://papers.highsignal.app/paths",
+  mainEntity: {
+    "@type": "ItemList",
+    numberOfItems: readingPathCount,
+    itemListElement: readingPaths.map((path, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: path.title,
+    })),
+  },
+};
 ---
 
 <!doctype html>
@@ -24,17 +40,19 @@ const today = new Date().toISOString().slice(0, 10);
       content="Curated research paper reading paths with ordered briefs, provenance notes, and JSON/BibTeX/RIS/Markdown exports."
     />
     <link rel="canonical" href={new URL(Astro.url.pathname.replace(/\.html$/, ""), Astro.site)} />
+    <link rel="alternate" type="text/markdown" href="https://papers.highsignal.app/paths.md" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <title>researchPapers · Reading paths</title>
-    <meta property="og:title" content="researchPapers · Reading paths" />
+    <title>Research Papers: Reading paths</title>
+    <meta property="og:title" content="Research Papers: Reading paths" />
     <meta property="og:description" content="Curated research paper reading paths with ordered briefs, provenance notes, and citation-manager exports." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://papers.highsignal.app/paths" />
     <meta property="og:image" content="https://papers.highsignal.app/icon.svg" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="researchPapers · Reading paths" />
+    <meta name="twitter:title" content="Research Papers: Reading paths" />
     <meta name="twitter:description" content="Curated research paper reading paths with ordered briefs, provenance notes, and citation-manager exports." />
     <meta name="twitter:image" content="https://papers.highsignal.app/icon.svg" />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(pathsJsonLd)} />
   </head>
   <body class="min-h-screen bg-background text-foreground antialiased font-sans">
     <SiteNav active="paths" />
@@ -49,7 +67,7 @@ const today = new Date().toISOString().slice(0, 10);
             </h1>
             <p class="mt-5 max-w-3xl text-base md:text-lg leading-8 text-muted-foreground">
               Ordered research paths with short briefs, source links, provenance notes, and citation-manager exports.
-              researchPapers is the discovery layer for deciding what to read and why.
+              Research Papers helps you decide what to read, in what order, and why each paper matters.
             </p>
             <p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
               Copyright-safe by design: the catalog contains bibliographic metadata, source links, and original notes only.

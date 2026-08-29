@@ -2,8 +2,9 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "research-papers",
-  "target": "tablet search and data-table touch targets",
-  "mode": "preserve",
+  "target": "Research Papers public landing and research-library entry",
+  "surfaceMode": "persuade",
+  "mode": "overhaul",
   "register": "product",
   "context": {
     "product": "PROJECT_STATUS.md",
@@ -12,31 +13,58 @@
   "direction": {
     "references": [],
     "probes": [],
-    "selected": "existing-design",
-    "approval": "not-required",
-    "before": ".fleet/evidence/tablet-search-touch/before-1440.png"
+    "selected": "editorial-research-ledger",
+    "approval": "delegated",
+    "before": ".fleet/evidence/tablet-search-touch/before-1440.png",
+    "library": {
+      "strategy": "upstream-first",
+      "primary": "existing-project-system",
+      "sources": [
+        "https://www.radix-ui.com/primitives",
+        "https://ui.shadcn.com/docs"
+      ],
+      "runtime": "existing",
+      "customReplacement": {
+        "used": false,
+        "authorization": "not-required",
+        "reason": ""
+      }
+    },
+    "contract": {
+      "purpose": "Help an operator start from a concrete technical, product, or market question and find the research evidence that shapes the answer.",
+      "purposeSource": "site-health purposeContract for research-papers plus repository PROJECT_STATUS.md and the deployed corpus surfaces",
+      "canonicalPurpose": "Research Papers helps the Fleet owner investigating a concrete product, technical, or market question find relevant papers and grounded context by searching a retained, source-structured research corpus.",
+      "purposeAlignment": "match",
+      "driftNote": "",
+      "audience": "The Fleet owner first, with researchers, product builders, and operators as the useful public audience.",
+      "job": "Begin with a real question, search the public index or request a cited synthesis, and move into paper evidence or curated reading paths without mistaking the public slice for the complete operator corpus.",
+      "thesis": "The landing should feel like an editorial research ledger rather than a generic analytics dashboard: a paper-like field, a decisive question-led headline, visible corpus accounting, and compact research tools.",
+      "system": "Preserve the existing Radix UI and shadcn component foundation while using warm paper surfaces, archival green, serif editorial hierarchy, square ledgers, one-pixel rules, compact sans metadata, and 44px interaction targets.",
+      "signature": "A large question-led serif opening sits over a faint analytical grid and corpus rings, followed immediately by a four-cell corpus ledger and two real research entry points.",
+      "risk": "The large editorial headline consumes more first-viewport space than a conventional SaaS hero, but the product is a maintained research instrument and the search action, audience, corpus proof, lifecycle, and public-slice caveat remain visible without decorative filler."
+    }
   },
   "evidence": {
     "screenshots": [
       {
         "width": 390,
-        "path": ".fleet/evidence/tablet-search-touch/after-390.png"
+        "path": ".fleet/evidence/landing-audit/after-390.png"
       },
       {
         "width": 768,
-        "path": ".fleet/evidence/tablet-search-touch/after-768.png"
+        "path": ".fleet/evidence/landing-audit/after-768.png"
       },
       {
         "width": 1440,
-        "path": ".fleet/evidence/tablet-search-touch/after-1440.png"
+        "path": ".fleet/evidence/landing-audit/after-1440.png"
       }
     ],
     "projectCheck": {
-      "command": "pnpm -C web build",
+      "command": "npm run check && npm --prefix web run build",
       "status": "pass"
     },
     "critique": {
-      "score": 36,
+      "score": 38,
       "maximum": 40
     },
     "audit": {
@@ -49,18 +77,51 @@
     },
     "detector": {
       "posture": "advisory",
-      "findings": []
+      "findings": [
+        "The candidate has no product-purpose, hierarchy, interaction, overflow, SEO, GEO, or internal-link P0/P1 finding. The first tablet pass did strand Browse on a separate row; the breakpoint was changed so tablet and compact layouts use an intentional two-row navigation model.",
+        "macOS headless Chrome enforces a 500 CSS-pixel minimum layout width. The 390 artifact is the verified compact layout rendered at that minimum with device scaling and normalized to 390 pixels; the same sub-700 CSS rules are exercised, and PSI Swarm independently ran ten mobile profiles with zero CLS and TBT."
+      ]
     },
-    "browserReview": {
-      "tool": "Browser control",
-      "viewports": [390, 768, 1440],
-      "horizontalOverflow": false,
-      "consoleErrors": 0,
-      "note": "Tablet interactive targets below 44px fell from 157 in the live baseline to zero in the local production build; search remains compact at desktop widths."
+    "comprehension": {
+      "status": "pass",
+      "reviewer": "fresh-visitor browser review A1",
+      "answers": {
+        "product": "A maintained, searchable research-paper library with public indexes, reviewer and citation signals, reading paths, and a cited-answer route.",
+        "audience": "The owner and other researchers, product builders, or operators investigating a concrete technical or market question.",
+        "value": "It turns a real question into relevant research and grounded context without starting from an undifferentiated paper dump.",
+        "mechanism": "Public semantic search, curated paths, citation and reviewer signals, a research map, and a protected cited-answer endpoint sit over selected exports from a larger retained corpus.",
+        "proof": "The first view names all four source collections and shows exact operator-corpus, public-snapshot, and semantic-cluster counts; the primary search returns real OpenReview papers locally.",
+        "nextAction": "Search the public index or browse a curated reading path; asking for a cited synthesis is clearly presented as a protected secondary route."
+      },
+      "purposeScore": {
+        "product": 25,
+        "audience": 14,
+        "value": 15,
+        "mechanism": 15,
+        "proof": 15,
+        "nextAction": 14,
+        "total": 98
+      },
+      "mismatches": []
+    },
+    "performance": {
+      "report": ".fleet/evidence/landing-audit/performance.html",
+      "validRuns": 20,
+      "attemptedRuns": 20,
+      "slowMobileP75LcpMs": 4812,
+      "mobileMidP75LcpMs": 2265,
+      "weightedLcpMs": 1640,
+      "cls": 0,
+      "tbtMs": 0
+    },
+    "visualQuality": {
+      "priority": "P2",
+      "score": 96,
+      "minimum": 85
     }
   },
   "ownerFeedback": {
     "decision": "delegated",
-    "note": "The owner explicitly delegated final judgment for the responsive remediation wave; the established research console styling was preserved."
+    "note": "The owner delegated end-to-end judgment, asked for one-shot high-quality landing pages in SaaSMaker priority order, and explicitly asked not to pause for routine feedback. Production release remains outside this local audit."
   }
 }

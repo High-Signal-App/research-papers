@@ -1,0 +1,26 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Research Papers",
+    "identifier": "https://papers.highsignal.app",
+    "documentationUrl": "https://papers.highsignal.app/index.md"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:papers.highsignal.app:api:research-papers",
+      "displayName": "Research Papers public API",
+      "type": "application/vnd.oai.openapi+json;version=3.1",
+      "url": "https://papers.highsignal.app/openapi.json",
+      "description": "Read the public research catalog, health status, and cited-answer contract.",
+      "tags": ["research", "papers", "citations", "openapi"]
+    },
+    {
+      "identifier": "urn:air:papers.highsignal.app:catalog:public-surfaces",
+      "displayName": "Research Papers agent catalog",
+      "type": "application/json",
+      "url": "https://papers.highsignal.app/api/ai",
+      "description": "Find public pages, Markdown twins, paper routes, and downloadable datasets.",
+      "tags": ["research", "catalog", "datasets", "markdown"]
+    }
+  ]
+}

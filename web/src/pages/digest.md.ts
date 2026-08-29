@@ -21,7 +21,14 @@ function paperUrl(paperId: string) {
 }
 
 export const GET: APIRoute = () =>
-  markdownResponse(`# HighSignal research digest
+  markdownResponse(`---
+title: "High Signal research digest"
+description: "Papers with citation momentum, promising early work, and reviewer topic signals."
+canonical: "https://papers.highsignal.app/digest"
+last_updated: "2026-08-27"
+---
+
+# High Signal research digest
 
 A compact view of what the research corpus and ${totalReviews.toLocaleString("en-US")}
 aggregated peer reviews currently signal.
@@ -32,7 +39,7 @@ ${sleepers
   .slice(0, 8)
   .map(
     (paper) =>
-      `- [${paper.title}](${paperUrl(paper.paper_id)}) — rating ${paper.avg_rating.toFixed(2)} at ${paper.venue}`,
+      `- [${paper.title}](${paperUrl(paper.paper_id)}): rating ${paper.avg_rating.toFixed(2)} at ${paper.venue}`,
   )
   .join("\n")}
 
@@ -42,7 +49,7 @@ ${hot
   .slice(0, 10)
   .map(
     (paper, index) =>
-      `${index + 1}. [${paper.title}](${paperUrl(paper.paper_id)}) — hotness ${paper.hotness.toFixed(2)}, ${Math.round(paper.cites_per_year).toLocaleString("en-US")} citations/year`,
+      `${index + 1}. [${paper.title}](${paperUrl(paper.paper_id)}): hotness ${paper.hotness.toFixed(2)}, ${Math.round(paper.cites_per_year).toLocaleString("en-US")} citations/year`,
   )
   .join("\n")}
 

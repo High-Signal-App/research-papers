@@ -6,7 +6,14 @@ import { markdownResponse } from "@/lib/markdown-response";
 export const prerender = true;
 
 export const GET: APIRoute = () =>
-  markdownResponse(`# researchPapers changelog
+  markdownResponse(`---
+title: "Research Papers changelog"
+description: "Verified improvements available on the public Research Papers site."
+canonical: "https://papers.highsignal.app/changelog"
+last_updated: "2026-08-27"
+---
+
+# Research Papers changelog
 
 Verified improvements to the public research experience, newest first.
 
@@ -15,7 +22,7 @@ Verified improvements to the public research experience, newest first.
 
 ${changelogEntries
   .map(
-    (entry) => `## ${entry.date} — ${entry.title}
+    (entry) => `## ${entry.date}: ${entry.title}
 
 ${entry.outcomes.map((outcome) => `- ${outcome}`).join("\n")}`,
   )

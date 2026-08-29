@@ -4,12 +4,11 @@
   "url": "https://papers.highsignal.app",
   "llms": "https://papers.highsignal.app/llms.txt",
   "llmsFull": "https://papers.highsignal.app/llms-full.txt",
-  "openapi": "https://papers.highsignal.app/openapi.json",
   "sitemap": "https://papers.highsignal.app/sitemap.xml",
   "robots": "https://papers.highsignal.app/robots.txt",
   "markdown": {
     "suffix": ".md",
-    "negotiation": true
+    "negotiation": false
   },
   "surfaces": [
     {

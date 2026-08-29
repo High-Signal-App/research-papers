@@ -2,6 +2,23 @@
 import "../styles/globals.css";
 import SiteNav from "@/components/site-nav.astro";
 import { changelogEntries } from "@/data/changelog";
+
+const changelogJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Research Papers changelog",
+  description: "Verified improvements available on the public Research Papers site.",
+  url: "https://papers.highsignal.app/changelog",
+  mainEntity: {
+    "@type": "ItemList",
+    numberOfItems: changelogEntries.length,
+    itemListElement: changelogEntries.map((entry, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: entry.title,
+    })),
+  },
+};
 ---
 
 <!doctype html>
@@ -11,20 +28,22 @@ import { changelogEntries } from "@/data/changelog";
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Verified, user-visible improvements shipped by researchPapers."
+      content="Verified improvements that are available on the public Research Papers site."
     />
     <link rel="canonical" href={new URL("/changelog", Astro.site)} />
+    <link rel="alternate" type="text/markdown" href="https://papers.highsignal.app/changelog.md" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <title>researchPapers · Changelog</title>
-    <meta property="og:title" content="researchPapers · Changelog" />
-    <meta property="og:description" content="Verified, user-visible improvements shipped by researchPapers." />
+    <title>Research Papers: Changelog</title>
+    <meta property="og:title" content="Research Papers: Changelog" />
+    <meta property="og:description" content="Verified improvements that are available on the public Research Papers site." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://papers.highsignal.app/changelog" />
     <meta property="og:image" content="https://papers.highsignal.app/icon.svg" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="researchPapers · Changelog" />
-    <meta name="twitter:description" content="Verified, user-visible improvements shipped by researchPapers." />
+    <meta name="twitter:title" content="Research Papers: Changelog" />
+    <meta name="twitter:description" content="Verified improvements that are available on the public Research Papers site." />
     <meta name="twitter:image" content="https://papers.highsignal.app/icon.svg" />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(changelogJsonLd)} />
   </head>
   <body class="min-h-screen bg-background text-foreground antialiased font-sans">
     <SiteNav active="changelog" />

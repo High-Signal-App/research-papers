@@ -12,6 +12,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { fmt } from "@/lib/utils";
+import { useJsonData } from "@/lib/use-json-data";
 
 type Row = {
   arxiv_id: string;
@@ -164,7 +165,8 @@ function SimilarButton({ paper }: { paper: Row }) {
   );
 }
 
-export function PapersTable({ data }: { data: Row[] }) {
+export function PapersTable({ data, src }: { data?: Row[]; src?: string }) {
+  const rows = useJsonData(data, src);
   const columns: ColumnDef<Row>[] = React.useMemo(() => [
     {
       id: "rank",
@@ -226,5 +228,8 @@ export function PapersTable({ data }: { data: Row[] }) {
     },
   ], []);
 
-  return <DataTable columns={columns} data={data} searchPlaceholder="Filter papers..." initialSort={[{ id: "pagerank_score", desc: true }]} pageSize={20} />;
+  if (rows.loading) return <p className="text-sm text-muted-foreground">Loading ranked papers...</p>;
+  if (rows.error) return <p className="text-sm text-destructive">Ranked papers are unavailable: {rows.error}</p>;
+
+  return <DataTable columns={columns} data={rows.data} searchPlaceholder="Filter papers..." initialSort={[{ id: "pagerank_score", desc: true }]} pageSize={20} />;
 }

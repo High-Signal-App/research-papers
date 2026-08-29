@@ -8,6 +8,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { fmt } from "@/lib/utils";
+import { useJsonData } from "@/lib/use-json-data";
 
 type Cluster = {
   id: number;
@@ -78,10 +79,15 @@ function ClusterCard({ c }: { c: Cluster }) {
   );
 }
 
-export function EmbeddingClusters({ data }: { data: Cluster[] }) {
+export function EmbeddingClusters({ data, src }: { data?: Cluster[]; src?: string }) {
+  const rows = useJsonData(data, src);
+
+  if (rows.loading) return <p className="text-sm text-muted-foreground">Loading the research map...</p>;
+  if (rows.error) return <p className="text-sm text-destructive">The research map is unavailable: {rows.error}</p>;
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-      {data.map((c) => <ClusterCard key={c.id} c={c} />)}
+      {rows.data.map((c) => <ClusterCard key={c.id} c={c} />)}
     </div>
   );
 }

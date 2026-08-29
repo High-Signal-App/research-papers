@@ -2,7 +2,7 @@
 type ActivePage = "dashboard" | "digest" | "paths" | "data" | "changelog";
 
 type Props = {
-  active: ActivePage;
+  active?: ActivePage;
 };
 
 const { active } = Astro.props;
@@ -26,13 +26,14 @@ const dropdownLink =
 ---
 
 <nav class="sticky top-0 z-40 border-b bg-background/85 backdrop-blur-md">
-  <div class="mx-auto flex max-w-7xl flex-col items-start gap-2 px-6 py-3 sm:flex-row sm:items-center sm:gap-4">
-    <a href="/" class="inline-flex min-h-11 shrink-0 items-center text-sm font-semibold tracking-tight text-foreground/90 hover:text-primary lg:min-h-0">
-      researchPapers
+  <div class="mx-auto flex max-w-7xl flex-col items-start gap-2 px-6 py-3 lg:flex-row lg:items-center lg:gap-4">
+    <a href="/" class="inline-flex min-h-11 shrink-0 items-center gap-2 text-sm tracking-tight text-foreground/90 hover:text-primary lg:min-h-0">
+      <span class="text-[9px] font-bold uppercase tracking-[0.18em] text-primary">High Signal</span>
+      <strong class="font-serif text-base font-normal">Research Papers</strong>
     </a>
-    <ul class="flex w-full flex-wrap items-center gap-1 sm:min-w-0 sm:flex-1">
+    <ul class="flex w-full flex-wrap items-center gap-1 lg:min-w-0 lg:flex-1">
       <li>
-        <a href="/" class={linkClass("dashboard")}>Dashboard</a>
+        <a href="/" class={linkClass("dashboard")}>Library</a>
       </li>
       <li>
         <a href="/digest" class={linkClass("digest")}>Digest</a>
@@ -43,7 +44,7 @@ const dropdownLink =
       <li>
         <a href="/data" class={linkClass("data")}>Data</a>
       </li>
-      <li class="relative sm:ml-auto">
+      <li class="relative lg:ml-auto">
         <details class="group">
           <summary class={dropdownSummary}>
             Research

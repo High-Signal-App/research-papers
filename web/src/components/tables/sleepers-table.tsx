@@ -3,6 +3,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 
 import { DataTable } from "@/components/data-table";
 import { Badge } from "@/components/ui/badge";
+import { useJsonData } from "@/lib/use-json-data";
 
 type Row = {
   paper_id: string;
@@ -24,7 +25,8 @@ function decisionLabel(value: string | null) {
   return value;
 }
 
-export function SleepersTable({ data }: { data: Row[] }) {
+export function SleepersTable({ data, src }: { data?: Row[]; src?: string }) {
+  const rows = useJsonData(data, src);
   const columns: ColumnDef<Row>[] = React.useMemo(() => [
     {
       id: "rank",
@@ -79,10 +81,13 @@ export function SleepersTable({ data }: { data: Row[] }) {
     },
   ], []);
 
+  if (rows.loading) return <p className="text-sm text-muted-foreground">Loading reviewer signals...</p>;
+  if (rows.error) return <p className="text-sm text-destructive">Reviewer signals are unavailable: {rows.error}</p>;
+
   return (
     <DataTable
       columns={columns}
-      data={data}
+      data={rows.data}
       searchPlaceholder="Filter titles..."
       initialSort={[{ id: "avg_rating", desc: true }]}
       pageSize={20}

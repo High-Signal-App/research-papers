@@ -7,6 +7,7 @@ const webRoot = join(scriptDir, "..");
 const publicDir = join(webRoot, "public");
 const origin = "https://papers.highsignal.app";
 const topPapers = JSON.parse(await readFile(join(publicDir, "data/top_papers.json"), "utf8"));
+const publicSurfaceUpdated = "2026-08-27";
 
 const topLevel = [
   {
@@ -54,7 +55,14 @@ if (paperIds.some((id) => !/^[a-z0-9./-]+$/i.test(id))) {
   throw new Error("top_papers.json contains an unsafe arXiv route ID");
 }
 
-const htmlPaths = [...topLevel.map((surface) => surface.path), ...paperIds.map((id) => `/paper/${id}`)];
+const sitemapEntries = [
+  ...topLevel.map((surface) => ({ path: surface.path, lastmod: publicSurfaceUpdated })),
+  ...topPapers.map((paper) => ({
+    path: `/paper/${String(paper.arxiv_id)}`,
+    lastmod: String(paper.submitted_date || publicSurfaceUpdated),
+  })),
+];
+const htmlPaths = sitemapEntries.map((entry) => entry.path);
 
 // Cloudflare Pages serves `route.html` (Astro `build.format: "file"`) directly at
 // `/route` with a 200. A trailing slash or `.html` suffix would 308-redirect to
@@ -69,7 +77,7 @@ if (redirectHops.length) {
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${htmlPaths.map((path) => `  <url><loc>${origin}${path}</loc></url>`).join("\n")}
+${sitemapEntries.map((entry) => `  <url><loc>${origin}${entry.path}</loc><lastmod>${entry.lastmod}</lastmod></url>`).join("\n")}
 </urlset>
 `;
 

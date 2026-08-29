@@ -1,0 +1,30 @@
+---
+import "../styles/globals.css";
+import SiteNav from "@/components/site-nav.astro";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>Page not found | Research Papers</title>
+  </head>
+  <body class="min-h-screen bg-background text-foreground antialiased font-sans">
+    <SiteNav />
+    <main class="mx-auto max-w-3xl px-6 py-20 sm:py-28">
+      <p class="research-kicker">404 / Page not found</p>
+      <h1 class="mt-4 font-serif text-5xl font-bold tracking-tight sm:text-7xl">This path is not in the public library.</h1>
+      <p class="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
+        Start with the research library, browse a reading path, or use the machine-readable index to find a public surface.
+      </p>
+      <div class="research-actions mt-8">
+        <a href="/" class="research-primary-action">Return to the library</a>
+        <a href="/paths" class="research-secondary-action">Browse reading paths</a>
+        <a href="/llms.txt" class="research-secondary-action">Open the agent index</a>
+      </div>
+    </main>
+  </body>
+</html>
