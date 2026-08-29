@@ -1,0 +1,85 @@
+{
+  "$schema": "fleet.landing-audit.scorecard.v1",
+  "project": "research-papers",
+  "priority": "P2",
+  "candidate": "http://127.0.0.1:4321/",
+  "productionChanged": false,
+  "checkedAt": "2026-08-28",
+  "purpose": {
+    "score": 98,
+    "minimum": 85,
+    "p0": 0,
+    "p1": 0,
+    "note": "The opening now starts from the product's real job: investigate a concrete question. It identifies the public research instrument, audience, retained and public corpus boundaries, source collections, evidence mechanisms, lifecycle, and two honest next actions without claiming that every retained record is exposed publicly."
+  },
+  "design": {
+    "score": 96,
+    "minimum": 85,
+    "p0": 0,
+    "p1": 0,
+    "note": "The editorial research-ledger system is product-specific and polished: warm paper, archival green, analytical grid and corpus rings, serif question hierarchy, exact corpus accounting, restrained controls, and an intentional two-row compact navigation. Existing Radix UI and shadcn primitives remain the component foundation."
+  },
+  "seo": {
+    "score": 99,
+    "passed": 17,
+    "failed": 0,
+    "warnings": 1,
+    "linkGraph": {
+      "sitemapPages": 205,
+      "crawledPages": 205,
+      "internalErrors": 0,
+      "internalRedirects": 0,
+      "orphanCandidates": 0,
+      "externalLinksDiscovered": 445,
+      "externalLinksChecked": 0
+    },
+    "note": "All critical landing checks pass and every sitemap route crawls through the local candidate without an internal error, redirect, or orphan candidate. The sole warning is expected because the local candidate keeps the production canonical and sitemap origin. External citations were inventoried but not turned into a broad Ahrefs-style crawl for this pass."
+  },
+  "geo": {
+    "score": 100,
+    "productionTier": "S",
+    "productionScore": 100,
+    "note": "The public origin passes llms.txt, /api/ai, homepage Markdown, robots policy, sitemap, JSON-LD, per-route Markdown, and catalog-integrity gates. The candidate build generates and validates 205 HTML routes, 200 paper Markdown routes, and 24 data resources."
+  },
+  "performance": {
+    "score": 98,
+    "successfulCoverageRuns": 20,
+    "weightedLcpMs": 1640,
+    "weightedCls": 0,
+    "weightedTbtMs": 0,
+    "profiles": {
+      "mobileSlowScore": 77,
+      "mobileSlowLcpMs": 4812,
+      "mobileMidScore": 98,
+      "mobileMidLcpMs": 2265,
+      "mobileFastScore": 100,
+      "mobileFastLcpMs": 994,
+      "desktopScore": 100,
+      "desktopLcpMs": 537
+    },
+    "note": "Twenty production-style Cloudflare Pages Lighthouse runs pass the weighted good gate at 1.64 seconds LCP with zero CLS and TBT. The extreme slow-3G profile remains 4.81 seconds, but PSI Swarm found no meaningful blocking-code opportunity: the only suggestion is roughly 1 KB of effective JavaScript savings, so removing working research capability would be a poor trade."
+  },
+  "verification": {
+    "primaryJourney": "Public search returns relevant OpenReview papers for diffusion model training instability.",
+    "repositoryCheck": "npm run check passes the repository's checked-in quality baselines and Pages health tests.",
+    "build": "Astro static build passes and validates 205 of 205 HTML routes with Markdown, OG images, and no visible template leaks.",
+    "seoAudit": "17 passed, 0 failed, 1 expected local-canonical warning.",
+    "agentIndex": "Production S-tier, 100 percent.",
+    "footer": {
+      "askAi": "pass",
+      "projectStrip": "pass",
+      "note": "The Ask AI loader now preserves the separately mounted fleet project strip. Both render in the local candidate."
+    },
+    "responsiveScreenshots": [
+      ".fleet/evidence/landing-audit/after-390.png",
+      ".fleet/evidence/landing-audit/after-768.png",
+      ".fleet/evidence/landing-audit/after-1440.png"
+    ]
+  },
+  "limitations": [
+    "No deployment, commit, push, corpus mutation, account action, DNS change, or production configuration change was performed.",
+    "The cited-answer route was not submitted locally because its public endpoint is intentionally protected by Turnstile; the static search journey and production agent surfaces were verified without bypassing that boundary.",
+    "The 445 discovered external paper and source links were not all re-crawled in this pass; the complete internal graph was crawled instead.",
+    "The extreme slow-3G laboratory profile is slower than the good LCP band, while weighted coverage, mid-mobile, fast-mobile, desktop, CLS, and TBT pass."
+  ]
+}
