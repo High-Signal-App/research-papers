@@ -1,20 +1,20 @@
 ---
 import "../styles/globals.css";
-import tagRating from "../../public/data/tag_rating.json";
-import sleepers from "../../public/data/sleepers.json";
-import hot from "../../public/data/hot.json";
-import embeddingClusters from "../../public/data/embedding_clusters.json";
+import { EmbeddingClusters } from "@/components/embedding-clusters";
+import { RagAsk } from "@/components/rag-ask";
+import { SemanticSearch } from "@/components/semantic-search";
+import SiteNav from "@/components/site-nav.astro";
 
 import { CitedWorksTable } from "@/components/tables/cited-works-table";
-import { PapersTable } from "@/components/tables/papers-table";
-import { TagRatingTable } from "@/components/tables/tag-rating-table";
-import { SleepersTable } from "@/components/tables/sleepers-table";
 import { HotTable } from "@/components/tables/hot-table";
-import { SemanticSearch } from "@/components/semantic-search";
-import { RagAsk } from "@/components/rag-ask";
-import { EmbeddingClusters } from "@/components/embedding-clusters";
-import SiteNav from "@/components/site-nav.astro";
+import { PapersTable } from "@/components/tables/papers-table";
+import { SleepersTable } from "@/components/tables/sleepers-table";
+import { TagRatingTable } from "@/components/tables/tag-rating-table";
 import { makeInlineSafe } from "@/lib/inline-safe-data";
+import embeddingClusters from "../../public/data/embedding_clusters.json";
+import hot from "../../public/data/hot.json";
+import sleepers from "../../public/data/sleepers.json";
+import tagRating from "../../public/data/tag_rating.json";
 
 const inlineSafeTagRating = makeInlineSafe(tagRating);
 const inlineSafeSleepers = makeInlineSafe(sleepers);
@@ -89,7 +89,7 @@ const inlineSafeEmbeddingClusters = makeInlineSafe(embeddingClusters);
       </p>
     </section>
 
-    <section id="search" class="max-w-7xl mx-auto px-6 pb-8">
+    <section id="search" class="max-w-7xl mx-auto px-6 pb-8" data-clarity-mask="true">
       <div class="research-tool p-6 md:p-8 space-y-4">
         <div class="research-tool-label">
           <h2>Public corpus search</h2>
@@ -105,7 +105,7 @@ const inlineSafeEmbeddingClusters = makeInlineSafe(embeddingClusters);
       </div>
     </section>
 
-    <section id="rag" class="max-w-7xl mx-auto px-6 pb-8">
+    <section id="rag" class="max-w-7xl mx-auto px-6 pb-8" data-clarity-mask="true">
       <div class="research-tool p-6 md:p-8 space-y-4">
         <div class="research-tool-label">
           <h2>Cited research answer</h2>
@@ -222,7 +222,6 @@ const inlineSafeEmbeddingClusters = makeInlineSafe(embeddingClusters);
       is:inline
       src="https://sassmaker.com/ai-chat-footer.js"
       data-name="Research Papers"
-      data-compose="false"
       defer
     ></script>
   </body>

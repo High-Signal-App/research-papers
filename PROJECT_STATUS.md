@@ -1,6 +1,6 @@
 # researchPapers — PROJECT STATUS
 
-Last updated: 2026-08-12
+Last updated: 2026-09-01
 
 > **Scope of this file:** durable product identity — Why/What, Dependencies,
 > Products, Features, Timeline. Live operating state (objective, active work,
@@ -66,6 +66,11 @@ See `DEPLOY.md` for LAN/CDN deployment shapes.
 
 ## Timeline
 
+- **2026-09-01:** Wired the product's dedicated Microsoft Clarity project
+  through the shared public navigation, added a discoverable analytics
+  disclosure, and explicitly masked the semantic-search and cited-answer
+  subtrees so query text and rendered answers stay out of session replay;
+  production remains unchanged pending deploy.
 - **2026-08-12:** Adopted the Fleet code-health contract across Python and the
   Astro/Pages surface. CI now blocks regressions in formatting, lint, types,
   hermetic tests and coverage, unused code and dependencies, complexity,

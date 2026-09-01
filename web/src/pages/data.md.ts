@@ -1,9 +1,8 @@
 import type { APIRoute } from "astro";
-
-import chSources from "../../public/data/ch_sources_summary.json";
-import summary from "../../public/data/summary.json";
 import { downloadableFiles } from "@/data/downloadable-files";
 import { markdownResponse } from "@/lib/markdown-response";
+import chSources from "../../public/data/ch_sources_summary.json";
+import summary from "../../public/data/summary.json";
 
 export const prerender = true;
 
@@ -12,7 +11,7 @@ export const GET: APIRoute = () =>
 title: "Research Papers public analytics snapshot"
 description: "Statistics, provenance, and downloadable JSON for the public research snapshot."
 canonical: "https://papers.highsignal.app/data"
-last_updated: "2026-08-27"
+last_updated: "2026-09-01"
 ---
 
 # Research Papers public analytics snapshot
@@ -28,10 +27,7 @@ ${chSources.map((source) => `- ${source.source}: ${Number(source.n).toLocaleStri
 ## Downloadable JSON
 
 ${downloadableFiles
-  .map(
-    (file) =>
-      `- [${file.name}](https://papers.highsignal.app/data/${file.name}): ${file.desc}`,
-  )
+  .map((file) => `- [${file.name}](https://papers.highsignal.app/data/${file.name}): ${file.desc}`)
   .join("\n")}
 
 ## Provenance
@@ -40,4 +36,11 @@ The corpus combines arXiv, OpenReview, bioRxiv, and medRxiv metadata. Citation
 analytics, semantic communities, reviewer signals, and static exports are built
 from the repository's documented ingestion and ClickHouse pipelines. JSON
 exports are data resources and are intentionally separate from the HTML sitemap.
+
+## Public-site analytics
+
+PostHog measures bounded product events and Microsoft Clarity measures aggregate
+usage and session replay on this public, no-account research library. The
+semantic-search and cited-answer sections are explicitly masked, so their query
+text and rendered results are not uploaded to Clarity.
 `);
