@@ -46,7 +46,7 @@ async function checkAsset(context: PagesContext, path: string): Promise<AssetEvi
         method: "GET",
         headers: { Range: "bytes=0-0", Accept: "application/json" },
         signal: controller.signal,
-      })
+      }),
     );
     const contentLength = Number(response.headers.get("content-length") ?? "0");
     const contentRange = response.headers.get("content-range") ?? "";
@@ -84,12 +84,11 @@ export async function onRequestGet(context: PagesContext): Promise<Response> {
   const t0 = Date.now();
   const url = new URL(context.request.url);
   const assetEvidence = await Promise.all(
-    REQUIRED_SEARCH_ASSETS.map((path) => checkAsset(context, path))
+    REQUIRED_SEARCH_ASSETS.map((path) => checkAsset(context, path)),
   );
   const missingAssets = assetEvidence.filter((asset) => !asset.available);
   const searchBundlePresent = missingAssets.length === 0;
-  const revision =
-    context.env.CF_PAGES_COMMIT_SHA ?? context.env.PAPERS_REVISION ?? "unknown";
+  const revision = context.env.CF_PAGES_COMMIT_SHA ?? context.env.PAPERS_REVISION ?? "unknown";
   const ragConfigured = Boolean(context.env.RAG_SERVICE_KEY);
 
   return Response.json(
@@ -128,6 +127,6 @@ export async function onRequestGet(context: PagesContext): Promise<Response> {
     {
       status: searchBundlePresent ? 200 : 503,
       headers: { "Cache-Control": "no-store" },
-    }
+    },
   );
 }

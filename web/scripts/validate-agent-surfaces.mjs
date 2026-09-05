@@ -6,9 +6,9 @@ const scriptDir = dirname(fileURLToPath(import.meta.url));
 const webRoot = join(scriptDir, "..");
 const origin = "https://papers.highsignal.app";
 const sitemap = await readFile(join(webRoot, "public/sitemap.xml"), "utf8");
-const paths = [
-  ...sitemap.matchAll(/<loc>https:\/\/papers\.highsignal\.app([^<]*)<\/loc>/g),
-].map((match) => match[1]);
+const paths = [...sitemap.matchAll(/<loc>https:\/\/papers\.highsignal\.app([^<]*)<\/loc>/g)].map(
+  (match) => match[1],
+);
 
 const failures = [];
 
@@ -31,7 +31,7 @@ for (const route of paths) {
 // non-home sitemap URL.
 const astroConfig = await readFile(join(webRoot, "astro.config.mjs"), "utf8");
 if (!/build:\s*\{[^}]*format:\s*"file"/s.test(astroConfig)) {
-  failures.push("astro.config.mjs build.format is not \"file\" — sitemap URLs would 308-redirect");
+  failures.push('astro.config.mjs build.format is not "file" — sitemap URLs would 308-redirect');
 }
 
 function outputPath(route, extension) {
@@ -42,9 +42,7 @@ function outputPath(route, extension) {
 for (const route of paths) {
   const htmlPath = outputPath(route, "html");
   const markdownPath =
-    route === "/"
-      ? join(webRoot, "dist/index.md")
-      : join(webRoot, "dist", `${route.slice(1)}.md`);
+    route === "/" ? join(webRoot, "dist/index.md") : join(webRoot, "dist", `${route.slice(1)}.md`);
   try {
     await stat(htmlPath);
     const markdown = await readFile(markdownPath, "utf8");

@@ -28,11 +28,11 @@ let _extraPatterns: RegExp[] = [];
 let _intervalMs = 30_000;
 let _flushTimer: ReturnType<typeof setInterval> | null = null;
 let _lastSeenStart = 0;
-let _projectSlug = 'research-papers';
+let _projectSlug = "research-papers";
 
 /** True for fetch() and XMLHttpRequest calls only (not scripts, images, etc.). */
 function isApiCall(entry: PerformanceResourceTiming): boolean {
-  return entry.initiatorType === 'fetch' || entry.initiatorType === 'xmlhttprequest';
+  return entry.initiatorType === "fetch" || entry.initiatorType === "xmlhttprequest";
 }
 
 /** Match same-origin /api/ paths OR any configured extra patterns. */
@@ -40,7 +40,7 @@ function matchesPatterns(url: string): boolean {
   try {
     const u = new URL(url, window.location.origin);
     // Same-origin /api/ — always include.
-    if (u.origin === window.location.origin && u.pathname.startsWith('/api/')) return true;
+    if (u.origin === window.location.origin && u.pathname.startsWith("/api/")) return true;
     // Extra patterns (e.g. cross-origin API hosts).
     return _extraPatterns.some((p) => p.test(url));
   } catch {
@@ -55,15 +55,15 @@ function matchesPatterns(url: string): boolean {
 function normalizeRoute(url: string): string {
   try {
     const u = new URL(url, window.location.origin);
-    const segments = u.pathname.split('/').map((seg) => {
-      if (/^\d+$/.test(seg)) return ':id';
-      if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(seg)) return ':id';
-      if (/^[a-zA-Z0-9_-]{20,}$/.test(seg)) return ':id';
+    const segments = u.pathname.split("/").map((seg) => {
+      if (/^\d+$/.test(seg)) return ":id";
+      if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(seg)) return ":id";
+      if (/^[a-zA-Z0-9_-]{20,}$/.test(seg)) return ":id";
       return seg;
     });
     // Include host for cross-origin calls, omit for same-origin.
-    const prefix = u.origin === window.location.origin ? '' : `${u.host}`;
-    return `${prefix}${segments.join('/')}`;
+    const prefix = u.origin === window.location.origin ? "" : `${u.host}`;
+    return `${prefix}${segments.join("/")}`;
   } catch {
     return url;
   }
@@ -76,7 +76,7 @@ function percentile(sorted: number[], p: number): number {
 }
 
 function collectAndFlush(): void {
-  const entries = performance.getEntriesByType('resource') as PerformanceResourceTiming[];
+  const entries = performance.getEntriesByType("resource") as PerformanceResourceTiming[];
   if (entries.length === 0) return;
 
   const samples: ApiTimingSample[] = [];
@@ -116,7 +116,7 @@ function collectAndFlush(): void {
     const durations = group.map((s) => s.durationMs).sort((a, b) => a - b);
     const ttfbs = group.map((s) => s.ttfbMs).sort((a, b) => a - b);
 
-    posthog.capture('api_call_timing', {
+    posthog.capture("api_call_timing", {
       project_id: _projectSlug,
       route,
       sample_count: group.length,
@@ -144,7 +144,7 @@ export interface ApiTimingOptions {
  * Safe to call in SSR — no-ops if `window` is undefined.
  */
 export function initApiTiming(options?: ApiTimingOptions): void {
-  if (typeof window === 'undefined') return;
+  if (typeof window === "undefined") return;
 
   if (options?.urlPatterns) _extraPatterns = options.urlPatterns;
   if (options?.intervalMs) _intervalMs = options.intervalMs;
@@ -154,8 +154,8 @@ export function initApiTiming(options?: ApiTimingOptions): void {
   _flushTimer = setInterval(collectAndFlush, _intervalMs);
 
   // Best-effort flush when the page is hidden or unloaded.
-  document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden') collectAndFlush();
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") collectAndFlush();
   });
 }
 

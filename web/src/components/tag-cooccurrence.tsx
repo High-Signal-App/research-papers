@@ -60,7 +60,9 @@ export function TagCooccurrence({ data }: { data: { nodes: Node[]; edges: Edge[]
                 style={{ minWidth: "180px", maxWidth: "180px" }}
               >
                 <span className="truncate inline-block w-full text-right">{row_n.id}</span>
-                <span className="text-[9px] text-muted-foreground ml-1">{fmt.format(row_n.count)}</span>
+                <span className="text-[9px] text-muted-foreground ml-1">
+                  {fmt.format(row_n.count)}
+                </span>
               </th>
               {nodes.map((col_n, j) => {
                 const v = matrix[i][j];
@@ -68,7 +70,11 @@ export function TagCooccurrence({ data }: { data: { nodes: Node[]; edges: Edge[]
                 return (
                   <td
                     key={col_n.id}
-                    title={isDiag ? `${row_n.id}: ${row_n.count} papers` : `${row_n.id} ↔ ${col_n.id}: ${v} co-occurrences`}
+                    title={
+                      isDiag
+                        ? `${row_n.id}: ${row_n.count} papers`
+                        : `${row_n.id} ↔ ${col_n.id}: ${v} co-occurrences`
+                    }
                     className="text-center align-middle"
                     style={{
                       width: "24px",
@@ -78,7 +84,9 @@ export function TagCooccurrence({ data }: { data: { nodes: Node[]; edges: Edge[]
                     }}
                   >
                     {v > 0 && !isDiag && v >= maxEdge * 0.05 ? (
-                      <span className="text-[8px] font-semibold text-slate-950">{v >= 1000 ? `${Math.round(v / 100) / 10}k` : v}</span>
+                      <span className="text-[8px] font-semibold text-slate-950">
+                        {v >= 1000 ? `${Math.round(v / 100) / 10}k` : v}
+                      </span>
                     ) : null}
                   </td>
                 );

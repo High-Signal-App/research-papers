@@ -30,67 +30,96 @@ function paperUrl(paper_id: string): string {
 
 export function HotTable({ data, src }: { data?: Row[]; src?: string }) {
   const rows = useJsonData(data, src);
-  const columns: ColumnDef<Row>[] = React.useMemo(() => [
-    {
-      id: "rank",
-      header: "#",
-      enableSorting: false,
-      cell: ({ row }) => <span className="text-muted-foreground tabular-nums">{row.index + 1}</span>,
-    },
-    {
-      accessorKey: "hotness",
-      header: "hotness",
-      cell: ({ getValue }) => <span className="tabular-nums font-semibold text-orange-400">{getValue<number>().toFixed(3)}</span>,
-    },
-    {
-      accessorKey: "title",
-      header: "paper",
-      cell: ({ row }) => (
-        <a
-          href={paperUrl(row.original.paper_id)}
-          target="_blank"
-          rel="noopener"
-          className="text-sm hover:text-primary"
-        >
-          {row.original.title}
-        </a>
-      ),
-    },
-    {
-      accessorKey: "source",
-      header: "source",
-      cell: ({ getValue }) => <Badge variant="outline" className="font-mono text-[10px]">{getValue<string>()}</Badge>,
-    },
-    {
-      accessorKey: "cites_per_year",
-      header: "cites/yr",
-      cell: ({ getValue }) => <span className="tabular-nums">{fmt.format(Math.round(getValue<number>()))}</span>,
-    },
-    {
-      accessorKey: "citation_count",
-      header: "total cites",
-      cell: ({ getValue }) => <span className="tabular-nums text-muted-foreground">{fmt.format(getValue<number>())}</span>,
-    },
-    {
-      accessorKey: "avg_rating",
-      header: "rating",
-      cell: ({ getValue }) => {
-        const v = getValue<number | null>();
-        return v ? <span className="tabular-nums text-emerald-500">{v.toFixed(2)}</span> : <span className="text-muted-foreground">—</span>;
+  const columns: ColumnDef<Row>[] = React.useMemo(
+    () => [
+      {
+        id: "rank",
+        header: "#",
+        enableSorting: false,
+        cell: ({ row }) => (
+          <span className="text-muted-foreground tabular-nums">{row.index + 1}</span>
+        ),
       },
-    },
-    {
-      accessorKey: "submitted_date",
-      header: "year",
-      cell: ({ getValue }) => {
-        const d = getValue<string | null>();
-        return d ? <span className="tabular-nums text-muted-foreground">{d.slice(0, 4)}</span> : null;
+      {
+        accessorKey: "hotness",
+        header: "hotness",
+        cell: ({ getValue }) => (
+          <span className="tabular-nums font-semibold text-orange-400">
+            {getValue<number>().toFixed(3)}
+          </span>
+        ),
       },
-    },
-  ], []);
+      {
+        accessorKey: "title",
+        header: "paper",
+        cell: ({ row }) => (
+          <a
+            href={paperUrl(row.original.paper_id)}
+            target="_blank"
+            rel="noopener"
+            className="text-sm hover:text-primary"
+          >
+            {row.original.title}
+          </a>
+        ),
+      },
+      {
+        accessorKey: "source",
+        header: "source",
+        cell: ({ getValue }) => (
+          <Badge variant="outline" className="font-mono text-[10px]">
+            {getValue<string>()}
+          </Badge>
+        ),
+      },
+      {
+        accessorKey: "cites_per_year",
+        header: "cites/yr",
+        cell: ({ getValue }) => (
+          <span className="tabular-nums">{fmt.format(Math.round(getValue<number>()))}</span>
+        ),
+      },
+      {
+        accessorKey: "citation_count",
+        header: "total cites",
+        cell: ({ getValue }) => (
+          <span className="tabular-nums text-muted-foreground">
+            {fmt.format(getValue<number>())}
+          </span>
+        ),
+      },
+      {
+        accessorKey: "avg_rating",
+        header: "rating",
+        cell: ({ getValue }) => {
+          const v = getValue<number | null>();
+          return v ? (
+            <span className="tabular-nums text-emerald-500">{v.toFixed(2)}</span>
+          ) : (
+            <span className="text-muted-foreground">—</span>
+          );
+        },
+      },
+      {
+        accessorKey: "submitted_date",
+        header: "year",
+        cell: ({ getValue }) => {
+          const d = getValue<string | null>();
+          return d ? (
+            <span className="tabular-nums text-muted-foreground">{d.slice(0, 4)}</span>
+          ) : null;
+        },
+      },
+    ],
+    [],
+  );
 
-  if (rows.loading) return <p className="text-sm text-muted-foreground">Loading recent paper signals...</p>;
-  if (rows.error) return <p className="text-sm text-destructive">Recent paper signals are unavailable: {rows.error}</p>;
+  if (rows.loading)
+    return <p className="text-sm text-muted-foreground">Loading recent paper signals...</p>;
+  if (rows.error)
+    return (
+      <p className="text-sm text-destructive">Recent paper signals are unavailable: {rows.error}</p>
+    );
 
   return (
     <DataTable

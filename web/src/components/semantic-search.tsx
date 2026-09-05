@@ -38,13 +38,18 @@ type StaticPaper = {
 
 function paperUrl(paper_id: string, arxiv_id: string | null): string {
   if (arxiv_id) return `https://arxiv.org/abs/${arxiv_id}`;
-  if (paper_id.startsWith("arxiv:")) return `https://arxiv.org/abs/${paper_id.replace("arxiv:", "")}`;
-  if (paper_id.startsWith("openreview:")) return `https://openreview.net/forum?id=${paper_id.replace("openreview:", "")}`;
+  if (paper_id.startsWith("arxiv:"))
+    return `https://arxiv.org/abs/${paper_id.replace("arxiv:", "")}`;
+  if (paper_id.startsWith("openreview:"))
+    return `https://openreview.net/forum?id=${paper_id.replace("openreview:", "")}`;
   return "#";
 }
 
 function textScore(query: string, row: StaticPaper): number {
-  const tokens = query.toLowerCase().split(/\s+/).filter((token) => token.length > 2);
+  const tokens = query
+    .toLowerCase()
+    .split(/\s+/)
+    .filter((token) => token.length > 2);
   const haystack = [
     row.title,
     row.source,
@@ -67,12 +72,12 @@ function textScore(query: string, row: StaticPaper): number {
 }
 
 async function staticSearch(query: string): Promise<Result[]> {
-  const [topPapers, hot, sleepers, reviewed] = await Promise.all([
+  const [topPapers, hot, sleepers, reviewed] = (await Promise.all([
     fetch("/data/top_papers.json").then((r) => r.json()),
     fetch("/data/hot.json").then((r) => r.json()),
     fetch("/data/sleepers.json").then((r) => r.json()),
     fetch("/data/review_top_papers.json").then((r) => r.json()),
-  ]) as [StaticPaper[], StaticPaper[], StaticPaper[], StaticPaper[]];
+  ])) as [StaticPaper[], StaticPaper[], StaticPaper[], StaticPaper[]];
   const byId = new Map<string, StaticPaper>();
   for (const row of [...topPapers, ...hot, ...sleepers, ...reviewed]) {
     const paperId = row.paper_id ?? (row.arxiv_id ? `arxiv:${row.arxiv_id}` : row.title);
@@ -84,19 +89,24 @@ async function staticSearch(query: string): Promise<Result[]> {
     .sort((a, b) => b.score - a.score)
     .slice(0, 15)
     .map(({ row, score }) => {
-      const paperId = row.paper_id ?? (row.arxiv_id ? `arxiv:${row.arxiv_id}` : row.title ?? "paper");
-      const arxivId = row.arxiv_id ?? (paperId?.startsWith("arxiv:") ? paperId.replace("arxiv:", "") : null);
+      const paperId =
+        row.paper_id ?? (row.arxiv_id ? `arxiv:${row.arxiv_id}` : (row.title ?? "paper"));
+      const arxivId =
+        row.arxiv_id ?? (paperId?.startsWith("arxiv:") ? paperId.replace("arxiv:", "") : null);
       const details = [
         row.venue,
         row.decision,
         row.topic_tags?.slice(0, 4).join(", "),
         row.top_keywords?.slice(0, 4).join(", "),
-      ].filter(Boolean).join(" · ");
+      ]
+        .filter(Boolean)
+        .join(" · ");
       return {
         paper_id: paperId,
         source: row.source ?? (paperId?.startsWith("openreview:") ? "openreview" : "static"),
         title: row.title ?? paperId,
-        abstract_preview: details || "Bundled researchPapers signal from the deployed static export.",
+        abstract_preview:
+          details || "Bundled researchPapers signal from the deployed static export.",
         submitted_date: row.submitted_date ?? null,
         citation_count: Number(row.citation_count ?? 0),
         arxiv_id: arxivId,
@@ -119,7 +129,9 @@ export function SemanticSearch() {
     setDidSearch(true);
     try {
       if (API_BASE) {
-        const r = await fetch(`${API_BASE}/semantic-search?q=${encodeURIComponent(query)}&limit=15`);
+        const r = await fetch(
+          `${API_BASE}/semantic-search?q=${encodeURIComponent(query)}&limit=15`,
+        );
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         const data = await r.json();
         setResults(data.results || []);
@@ -137,7 +149,10 @@ export function SemanticSearch() {
   return (
     <div className="space-y-4">
       <form
-        onSubmit={(e) => { e.preventDefault(); run(q); }}
+        onSubmit={(e) => {
+          e.preventDefault();
+          run(q);
+        }}
         className="flex gap-2"
       >
         <input
@@ -159,7 +174,9 @@ export function SemanticSearch() {
       {error && <div className="text-sm text-destructive">Error: {error}</div>}
 
       {didSearch && !loading && results.length === 0 && !error && (
-        <div className="text-sm text-muted-foreground">No matches in the deployed demo slice. Try a broader topic.</div>
+        <div className="text-sm text-muted-foreground">
+          No matches in the deployed demo slice. Try a broader topic.
+        </div>
       )}
 
       {results.length > 0 && (
@@ -173,13 +190,21 @@ export function SemanticSearch() {
               className="block rounded-lg border bg-card p-3 hover:bg-muted/40 transition-colors"
             >
               <div className="flex items-center gap-2 text-xs mb-1">
-                <span className="tabular-nums text-primary font-semibold">{r.similarity.toFixed(3)}</span>
-                <Badge variant="outline" className="font-mono text-[10px]">{r.source}</Badge>
+                <span className="tabular-nums text-primary font-semibold">
+                  {r.similarity.toFixed(3)}
+                </span>
+                <Badge variant="outline" className="font-mono text-[10px]">
+                  {r.source}
+                </Badge>
                 {r.citation_count > 0 && (
-                  <span className="tabular-nums text-muted-foreground">{r.citation_count.toLocaleString()} cites</span>
+                  <span className="tabular-nums text-muted-foreground">
+                    {r.citation_count.toLocaleString()} cites
+                  </span>
                 )}
                 {r.submitted_date && (
-                  <span className="text-muted-foreground tabular-nums">{r.submitted_date.slice(0, 4)}</span>
+                  <span className="text-muted-foreground tabular-nums">
+                    {r.submitted_date.slice(0, 4)}
+                  </span>
                 )}
               </div>
               <div className="text-sm text-foreground/90 mb-1">{r.title}</div>

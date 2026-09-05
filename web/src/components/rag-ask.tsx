@@ -5,8 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TurnstileWidget } from "@/components/turnstile-widget";
 
-const TURNSTILE_SITE_KEY =
-  import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? "0x4AAAAAAECKLi5Ke0ylWglf";
+const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? "0x4AAAAAAECKLi5Ke0ylWglf";
 
 type Citation = {
   chunk_id: string;
@@ -81,7 +80,7 @@ async function getJson<T>(path: string): Promise<T> {
 }
 
 function paperId(paper: StaticPaper): string {
-  return paper.paper_id ?? (paper.arxiv_id ? `arxiv:${paper.arxiv_id}` : paper.title ?? "paper");
+  return paper.paper_id ?? (paper.arxiv_id ? `arxiv:${paper.arxiv_id}` : (paper.title ?? "paper"));
 }
 
 function paperMeta(paper: StaticPaper): string {
@@ -89,8 +88,12 @@ function paperMeta(paper: StaticPaper): string {
     paper.venue,
     paper.decision,
     typeof paper.avg_rating === "number" ? `rating ${paper.avg_rating.toFixed(1)}` : null,
-    typeof paper.citation_count === "number" ? `${paper.citation_count.toLocaleString()} citations` : null,
-    typeof paper.cites_per_year === "number" ? `${paper.cites_per_year.toFixed(1)} cites/year` : null,
+    typeof paper.citation_count === "number"
+      ? `${paper.citation_count.toLocaleString()} citations`
+      : null,
+    typeof paper.cites_per_year === "number"
+      ? `${paper.cites_per_year.toFixed(1)} cites/year`
+      : null,
     paper.submitted_date,
   ];
   return parts.filter(Boolean).join(" | ");
@@ -167,7 +170,10 @@ async function staticDemoAnswer(question: string): Promise<RagResult> {
         paperEvidence("citation_graph", paper, Math.min((paper.cites_per_year ?? 0) / 500, 3)),
       ),
     ...clusters.slice(0, 40).map((cluster) => {
-      const tags = (cluster.top_tags ?? []).slice(0, 6).map((tag) => tag.tag).join(", ");
+      const tags = (cluster.top_tags ?? [])
+        .slice(0, 6)
+        .map((tag) => tag.tag)
+        .join(", ");
       const papers = (cluster.top_papers ?? [])
         .slice(0, 3)
         .map((paper) => paper.title)
@@ -303,10 +309,7 @@ export function RagAsk() {
           onTokenChange={setTurnstileToken}
         />
         <div className="flex flex-wrap items-center gap-2">
-          <Button
-            type="submit"
-            disabled={loading || question.trim().length < 3 || !turnstileToken}
-          >
+          <Button type="submit" disabled={loading || question.trim().length < 3 || !turnstileToken}>
             {loading ? (
               <>
                 <Loader2 className="animate-spin" /> Asking...

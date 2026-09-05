@@ -46,8 +46,8 @@ function overlapScore(anchor: Row, candidate: Row): number {
       item.toLowerCase(),
     ),
   );
-  const candidateTerms = [...(candidate.topic_tags ?? []), ...(candidate.top_keywords ?? [])].map((item) =>
-    item.toLowerCase(),
+  const candidateTerms = [...(candidate.topic_tags ?? []), ...(candidate.top_keywords ?? [])].map(
+    (item) => item.toLowerCase(),
   );
   let score = 0;
   for (const term of candidateTerms) {
@@ -76,7 +76,7 @@ function SimilarButton({ paper }: { paper: Row }) {
         setResults(data.results || []);
         setMethod(data.method || "");
       } else {
-        const rows = await fetch("/data/top_papers.json").then((r) => r.json()) as Row[];
+        const rows = (await fetch("/data/top_papers.json").then((r) => r.json())) as Row[];
         const fallback = rows
           .filter((candidate) => candidate.arxiv_id !== paper.arxiv_id)
           .map((candidate) => ({ candidate, score: overlapScore(paper, candidate) }))
@@ -122,7 +122,9 @@ function SimilarButton({ paper }: { paper: Row }) {
       }}
     >
       <DialogTrigger asChild>
-        <button className="text-xs text-muted-foreground hover:text-primary font-mono">similar↗</button>
+        <button className="text-xs text-muted-foreground hover:text-primary font-mono">
+          similar↗
+        </button>
       </DialogTrigger>
       <DialogContent className="max-w-3xl">
         <DialogHeader>
@@ -134,7 +136,11 @@ function SimilarButton({ paper }: { paper: Row }) {
         {!loading && results.length > 0 && (
           <>
             <div className="text-xs text-muted-foreground">
-              Ranked by {method === "embedding" ? "cosine similarity over all-MiniLM-L6-v2 embeddings" : "shared tags, keywords, and citation signal"}.
+              Ranked by{" "}
+              {method === "embedding"
+                ? "cosine similarity over all-MiniLM-L6-v2 embeddings"
+                : "shared tags, keywords, and citation signal"}
+              .
             </div>
             <div className="space-y-1 max-h-[60vh] overflow-y-auto pr-2">
               {results.map((r) => {
@@ -142,15 +148,26 @@ function SimilarButton({ paper }: { paper: Row }) {
                   ? `https://arxiv.org/abs/${r.paper_id.replace("arxiv:", "")}`
                   : `https://openreview.net/forum?id=${r.paper_id.replace("openreview:", "")}`;
                 return (
-                  <a key={r.paper_id} href={url} target="_blank" rel="noopener"
-                     className="block p-2 rounded-md hover:bg-muted text-sm">
+                  <a
+                    key={r.paper_id}
+                    href={url}
+                    target="_blank"
+                    rel="noopener"
+                    className="block p-2 rounded-md hover:bg-muted text-sm"
+                  >
                     <div className="flex items-center gap-2 mb-0.5">
                       {r.similarity > 0 && (
-                        <span className="tabular-nums text-primary font-semibold">{r.similarity.toFixed(3)}</span>
+                        <span className="tabular-nums text-primary font-semibold">
+                          {r.similarity.toFixed(3)}
+                        </span>
                       )}
-                      <Badge variant="outline" className="font-mono text-[10px]">{r.source}</Badge>
+                      <Badge variant="outline" className="font-mono text-[10px]">
+                        {r.source}
+                      </Badge>
                       {r.citation_count > 0 && (
-                        <span className="tabular-nums text-xs text-muted-foreground">{fmt.format(r.citation_count)} cites</span>
+                        <span className="tabular-nums text-xs text-muted-foreground">
+                          {fmt.format(r.citation_count)} cites
+                        </span>
                       )}
                     </div>
                     <div className="text-foreground/85">{r.title}</div>
@@ -167,69 +184,106 @@ function SimilarButton({ paper }: { paper: Row }) {
 
 export function PapersTable({ data, src }: { data?: Row[]; src?: string }) {
   const rows = useJsonData(data, src);
-  const columns: ColumnDef<Row>[] = React.useMemo(() => [
-    {
-      id: "rank",
-      header: "#",
-      enableSorting: false,
-      cell: ({ row }) => <span className="text-muted-foreground tabular-nums">{row.index + 1}</span>,
-    },
-    {
-      accessorKey: "arxiv_id",
-      header: "arxiv id",
-      cell: ({ getValue }) => (
-        <a href={`https://arxiv.org/abs/${getValue<string>()}`} target="_blank" rel="noopener"
-           className="font-mono text-xs text-primary hover:underline">
-          {getValue<string>()}
-        </a>
-      ),
-    },
-    {
-      accessorKey: "title",
-      header: "title",
-      cell: ({ row }) => (
-        <div className="space-y-1">
-          <div className="text-sm">{row.original.title}</div>
-          {(row.original.topic_tags ?? []).slice(0, 3).length > 0 && (
-            <div className="flex flex-wrap gap-1">
-              {row.original.topic_tags!.slice(0, 3).map((t, i) => (
-                <Badge key={i} variant="secondary" className="text-[10px] font-normal">{t}</Badge>
-              ))}
-            </div>
-          )}
-        </div>
-      ),
-    },
-    {
-      accessorKey: "citation_count",
-      header: "global",
-      cell: ({ getValue }) => <span className="tabular-nums text-muted-foreground">{getValue<number>() != null ? fmt.format(getValue<number>()) : ""}</span>,
-    },
-    {
-      accessorKey: "in_corpus_degree",
-      header: "in-corpus",
-      cell: ({ getValue }) => <span className="tabular-nums">{getValue<number>() != null ? fmt.format(getValue<number>()) : ""}</span>,
-    },
-    {
-      accessorKey: "pagerank_score",
-      header: "PageRank",
-      cell: ({ getValue }) => <span className="tabular-nums text-primary">{getValue<number>() != null ? getValue<number>().toFixed(6) : ""}</span>,
-    },
-    {
-      accessorKey: "katz_score",
-      header: "Katz",
-      cell: ({ getValue }) => <span className="tabular-nums text-muted-foreground">{getValue<number>() != null ? getValue<number>().toFixed(4) : ""}</span>,
-    },
-    {
-      id: "similar",
-      header: "",
-      enableSorting: false,
-      cell: ({ row }) => <SimilarButton paper={row.original} />,
-    },
-  ], []);
+  const columns: ColumnDef<Row>[] = React.useMemo(
+    () => [
+      {
+        id: "rank",
+        header: "#",
+        enableSorting: false,
+        cell: ({ row }) => (
+          <span className="text-muted-foreground tabular-nums">{row.index + 1}</span>
+        ),
+      },
+      {
+        accessorKey: "arxiv_id",
+        header: "arxiv id",
+        cell: ({ getValue }) => (
+          <a
+            href={`https://arxiv.org/abs/${getValue<string>()}`}
+            target="_blank"
+            rel="noopener"
+            className="font-mono text-xs text-primary hover:underline"
+          >
+            {getValue<string>()}
+          </a>
+        ),
+      },
+      {
+        accessorKey: "title",
+        header: "title",
+        cell: ({ row }) => (
+          <div className="space-y-1">
+            <div className="text-sm">{row.original.title}</div>
+            {(row.original.topic_tags ?? []).slice(0, 3).length > 0 && (
+              <div className="flex flex-wrap gap-1">
+                {row.original.topic_tags?.slice(0, 3).map((t, i) => (
+                  <Badge key={i} variant="secondary" className="text-[10px] font-normal">
+                    {t}
+                  </Badge>
+                ))}
+              </div>
+            )}
+          </div>
+        ),
+      },
+      {
+        accessorKey: "citation_count",
+        header: "global",
+        cell: ({ getValue }) => (
+          <span className="tabular-nums text-muted-foreground">
+            {getValue<number>() != null ? fmt.format(getValue<number>()) : ""}
+          </span>
+        ),
+      },
+      {
+        accessorKey: "in_corpus_degree",
+        header: "in-corpus",
+        cell: ({ getValue }) => (
+          <span className="tabular-nums">
+            {getValue<number>() != null ? fmt.format(getValue<number>()) : ""}
+          </span>
+        ),
+      },
+      {
+        accessorKey: "pagerank_score",
+        header: "PageRank",
+        cell: ({ getValue }) => (
+          <span className="tabular-nums text-primary">
+            {getValue<number>() != null ? getValue<number>().toFixed(6) : ""}
+          </span>
+        ),
+      },
+      {
+        accessorKey: "katz_score",
+        header: "Katz",
+        cell: ({ getValue }) => (
+          <span className="tabular-nums text-muted-foreground">
+            {getValue<number>() != null ? getValue<number>().toFixed(4) : ""}
+          </span>
+        ),
+      },
+      {
+        id: "similar",
+        header: "",
+        enableSorting: false,
+        cell: ({ row }) => <SimilarButton paper={row.original} />,
+      },
+    ],
+    [],
+  );
 
-  if (rows.loading) return <p className="text-sm text-muted-foreground">Loading ranked papers...</p>;
-  if (rows.error) return <p className="text-sm text-destructive">Ranked papers are unavailable: {rows.error}</p>;
+  if (rows.loading)
+    return <p className="text-sm text-muted-foreground">Loading ranked papers...</p>;
+  if (rows.error)
+    return <p className="text-sm text-destructive">Ranked papers are unavailable: {rows.error}</p>;
 
-  return <DataTable columns={columns} data={rows.data} searchPlaceholder="Filter papers..." initialSort={[{ id: "pagerank_score", desc: true }]} pageSize={20} />;
+  return (
+    <DataTable
+      columns={columns}
+      data={rows.data}
+      searchPlaceholder="Filter papers..."
+      initialSort={[{ id: "pagerank_score", desc: true }]}
+      pageSize={20}
+    />
+  );
 }

@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
@@ -29,14 +29,28 @@ export function DrillRow({ children }: { children: React.ReactNode }) {
   return <div className="border-b border-border/40 pb-3 last:border-0">{children}</div>;
 }
 
-export function DrillPillRow({ label, items, render }: { label: string; items: any[]; render: (i: any) => string }) {
+export function DrillPillRow({
+  label,
+  items,
+  render,
+}: {
+  label: string;
+  items: any[];
+  render: (i: any) => string;
+}) {
   return (
     <DrillRow>
       <div className="text-xs text-muted-foreground mb-2">{label}</div>
       <div className="flex flex-wrap gap-1.5">
-        {items.length > 0 ? items.map((it, i) => (
-          <Badge key={i} variant="secondary" className="font-mono text-[11px]">{render(it)}</Badge>
-        )) : <span className="text-xs text-muted-foreground italic">(none)</span>}
+        {items.length > 0 ? (
+          items.map((it, i) => (
+            <Badge key={i} variant="secondary" className="font-mono text-[11px]">
+              {render(it)}
+            </Badge>
+          ))
+        ) : (
+          <span className="text-xs text-muted-foreground italic">(none)</span>
+        )}
       </div>
     </DrillRow>
   );

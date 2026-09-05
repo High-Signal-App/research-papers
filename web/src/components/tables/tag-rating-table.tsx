@@ -34,19 +34,24 @@ function TagDrilldown({ row }: { row: Row }) {
     <Dialog>
       <DialogTrigger asChild>
         <button className="font-mono text-left hover:text-primary">
-          <Badge variant="secondary" className="font-mono cursor-pointer">{row.tag}</Badge>
+          <Badge variant="secondary" className="font-mono cursor-pointer">
+            {row.tag}
+          </Badge>
         </button>
       </DialogTrigger>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
           <DialogTitle className="font-mono">{row.tag}</DialogTitle>
           <DialogDescription>
-            mean rating <span className="text-primary font-semibold">{row.mean_rating.toFixed(2)}</span>{" "}
-            across {fmt.format(row.n_papers)} reviewed papers · p90 rating {row.p90_rating.toFixed(2)}
+            mean rating{" "}
+            <span className="text-primary font-semibold">{row.mean_rating.toFixed(2)}</span> across{" "}
+            {fmt.format(row.n_papers)} reviewed papers · p90 rating {row.p90_rating.toFixed(2)}
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-2 pt-2">
-          <div className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Top-rated papers in this tag</div>
+          <div className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">
+            Top-rated papers in this tag
+          </div>
           {row.samples.map((s) => (
             <a
               key={s.paper_id}
@@ -56,8 +61,12 @@ function TagDrilldown({ row }: { row: Row }) {
               className="block p-2 rounded-md hover:bg-muted text-sm"
             >
               <div className="flex items-center gap-2 mb-1">
-                <span className="tabular-nums text-primary font-semibold">{s.avg_rating.toFixed(2)}</span>
-                <Badge variant="outline" className="font-mono text-[10px]">{s.venue}</Badge>
+                <span className="tabular-nums text-primary font-semibold">
+                  {s.avg_rating.toFixed(2)}
+                </span>
+                <Badge variant="outline" className="font-mono text-[10px]">
+                  {s.venue}
+                </Badge>
               </div>
               <div className="text-foreground/80">{s.title || s.paper_id}</div>
             </a>
@@ -70,45 +79,56 @@ function TagDrilldown({ row }: { row: Row }) {
 
 export function TagRatingTable({ data, src }: { data?: Row[]; src?: string }) {
   const rows = useJsonData(data, src);
-  const columns: ColumnDef<Row>[] = React.useMemo(() => [
-    {
-      id: "rank",
-      header: "#",
-      enableSorting: false,
-      cell: ({ row }) => <span className="text-muted-foreground tabular-nums">{row.index + 1}</span>,
-    },
-    {
-      accessorKey: "tag",
-      header: "tag",
-      cell: ({ row }) => <TagDrilldown row={row.original} />,
-    },
-    {
-      accessorKey: "mean_rating",
-      header: "mean rating",
-      cell: ({ getValue }) => (
-        <span className="tabular-nums text-primary font-semibold">
-          {getValue<number>().toFixed(2)}
-        </span>
-      ),
-    },
-    {
-      accessorKey: "p90_rating",
-      header: "p90 rating",
-      cell: ({ getValue }) => (
-        <span className="tabular-nums text-muted-foreground">
-          {getValue<number>().toFixed(2)}
-        </span>
-      ),
-    },
-    {
-      accessorKey: "n_papers",
-      header: "papers",
-      cell: ({ getValue }) => <span className="tabular-nums">{fmt.format(getValue<number>())}</span>,
-    },
-  ], []);
+  const columns: ColumnDef<Row>[] = React.useMemo(
+    () => [
+      {
+        id: "rank",
+        header: "#",
+        enableSorting: false,
+        cell: ({ row }) => (
+          <span className="text-muted-foreground tabular-nums">{row.index + 1}</span>
+        ),
+      },
+      {
+        accessorKey: "tag",
+        header: "tag",
+        cell: ({ row }) => <TagDrilldown row={row.original} />,
+      },
+      {
+        accessorKey: "mean_rating",
+        header: "mean rating",
+        cell: ({ getValue }) => (
+          <span className="tabular-nums text-primary font-semibold">
+            {getValue<number>().toFixed(2)}
+          </span>
+        ),
+      },
+      {
+        accessorKey: "p90_rating",
+        header: "p90 rating",
+        cell: ({ getValue }) => (
+          <span className="tabular-nums text-muted-foreground">
+            {getValue<number>().toFixed(2)}
+          </span>
+        ),
+      },
+      {
+        accessorKey: "n_papers",
+        header: "papers",
+        cell: ({ getValue }) => (
+          <span className="tabular-nums">{fmt.format(getValue<number>())}</span>
+        ),
+      },
+    ],
+    [],
+  );
 
-  if (rows.loading) return <p className="text-sm text-muted-foreground">Loading reviewer topics...</p>;
-  if (rows.error) return <p className="text-sm text-destructive">Reviewer topics are unavailable: {rows.error}</p>;
+  if (rows.loading)
+    return <p className="text-sm text-muted-foreground">Loading reviewer topics...</p>;
+  if (rows.error)
+    return (
+      <p className="text-sm text-destructive">Reviewer topics are unavailable: {rows.error}</p>
+    );
 
   return (
     <DataTable

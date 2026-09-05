@@ -86,7 +86,7 @@ async function fetchAssetJson<T>(request: Request, path: string): Promise<T> {
 }
 
 function paperId(paper: StaticPaper): string {
-  return paper.paper_id ?? (paper.arxiv_id ? `arxiv:${paper.arxiv_id}` : paper.title ?? "paper");
+  return paper.paper_id ?? (paper.arxiv_id ? `arxiv:${paper.arxiv_id}` : (paper.title ?? "paper"));
 }
 
 function paperMeta(paper: StaticPaper): string {
@@ -94,8 +94,12 @@ function paperMeta(paper: StaticPaper): string {
     paper.venue,
     paper.decision,
     typeof paper.avg_rating === "number" ? `rating ${paper.avg_rating.toFixed(1)}` : null,
-    typeof paper.citation_count === "number" ? `${paper.citation_count.toLocaleString()} citations` : null,
-    typeof paper.cites_per_year === "number" ? `${paper.cites_per_year.toFixed(1)} cites/year` : null,
+    typeof paper.citation_count === "number"
+      ? `${paper.citation_count.toLocaleString()} citations`
+      : null,
+    typeof paper.cites_per_year === "number"
+      ? `${paper.cites_per_year.toFixed(1)} cites/year`
+      : null,
     paper.submitted_date,
   ]
     .filter(Boolean)
@@ -133,8 +137,7 @@ function tokens(value: string): string[] {
 function matchScore(questionTerms: string[], text: string, boost = 0): number {
   const haystack = text.toLowerCase();
   return (
-    boost +
-    questionTerms.reduce((score, term) => score + (haystack.includes(term) ? 1 : 0), 0)
+    boost + questionTerms.reduce((score, term) => score + (haystack.includes(term) ? 1 : 0), 0)
   );
 }
 
@@ -142,11 +145,17 @@ type PaperIntent = "general" | "sleepers" | "ratings" | "clusters" | "recent" | 
 
 function paperIntent(question: string): PaperIntent {
   const lower = question.toLowerCase();
-  if (/\b(sleeper|sleepers|underrated|under-read|under read|accepted)\b/.test(lower)) return "sleepers";
-  if (/\b(rating|ratings|reviewer|reviewers|openreview|peer review)\b/.test(lower)) return "ratings";
+  if (/\b(sleeper|sleepers|underrated|under-read|under read|accepted)\b/.test(lower))
+    return "sleepers";
+  if (/\b(rating|ratings|reviewer|reviewers|openreview|peer review)\b/.test(lower))
+    return "ratings";
   if (/\b(cluster|clusters|topic|topics|community|communities)\b/.test(lower)) return "clusters";
-  if (/\b(rag|retrieval[-\s]?augmented|augmented generation|grounded generation)\b/.test(lower)) return "rag";
-  if (/\b(recent|latest|hot|rising|trend|trends|signal|signals|velocity|cites per year)\b/.test(lower)) return "recent";
+  if (/\b(rag|retrieval[-\s]?augmented|augmented generation|grounded generation)\b/.test(lower))
+    return "rag";
+  if (
+    /\b(recent|latest|hot|rising|trend|trends|signal|signals|velocity|cites per year)\b/.test(lower)
+  )
+    return "recent";
   return "general";
 }
 
@@ -158,10 +167,27 @@ function topicAliases(question: string): string[] {
   const lower = question.toLowerCase();
   const aliases = new Set<string>();
   if (/\b(rag|retrieval[-\s]?augmented|augmented generation|grounded generation)\b/.test(lower)) {
-    ["retrieval-augmented generation", "retrieval augmented generation", "rag", "graph rag", "long-context retrieval"].forEach((term) => aliases.add(term));
+    [
+      "retrieval-augmented generation",
+      "retrieval augmented generation",
+      "rag",
+      "graph rag",
+      "long-context retrieval",
+    ].forEach((term) => aliases.add(term));
   }
-  if (/\b(llm|llms|language model|language models|gpt|llama|transformer|transformers)\b/.test(lower)) {
-    ["large language model", "language model", "llm", "llama", "gpt", "transformer", "instruct", "reasoning"].forEach((term) => aliases.add(term));
+  if (
+    /\b(llm|llms|language model|language models|gpt|llama|transformer|transformers)\b/.test(lower)
+  ) {
+    [
+      "large language model",
+      "language model",
+      "llm",
+      "llama",
+      "gpt",
+      "transformer",
+      "instruct",
+      "reasoning",
+    ].forEach((term) => aliases.add(term));
   }
   if (/\b(diffusion|image|vision|video|multimodal)\b/.test(lower)) {
     ["diffusion", "vision", "image", "video", "multimodal"].forEach((term) => aliases.add(term));
@@ -185,7 +211,10 @@ function containsAlias(text: string, alias: string): boolean {
 
 function topicScore(question: string, text: string): number {
   const lowerText = text.toLowerCase();
-  return topicAliases(question).reduce((score, alias) => score + (containsAlias(lowerText, alias) ? 10 : 0), 0);
+  return topicAliases(question).reduce(
+    (score, alias) => score + (containsAlias(lowerText, alias) ? 10 : 0),
+    0,
+  );
 }
 
 function offTopicPenalty(question: string, text: string): number {
@@ -267,10 +296,16 @@ function summarizeEvidence(evidence: Evidence[], intent: PaperIntent): string {
 
 function compactCitationSignal(citation: LiveCitation, index: number): string {
   const metadata = citation.metadata ?? {};
-  const title = metadata.title || citation.excerpt?.match(/^Title:\s*([^\n.]+)/)?.[1] || citation.chunk_id || `Evidence ${index + 1}`;
+  const title =
+    metadata.title ||
+    citation.excerpt?.match(/^Title:\s*([^\n.]+)/)?.[1] ||
+    citation.chunk_id ||
+    `Evidence ${index + 1}`;
   const details = [
     typeof metadata.publication_year === "number" ? String(metadata.publication_year) : null,
-    typeof metadata.citation_count === "number" ? `${metadata.citation_count.toLocaleString()} citations` : null,
+    typeof metadata.citation_count === "number"
+      ? `${metadata.citation_count.toLocaleString()} citations`
+      : null,
     metadata.primary_topic,
     metadata.source_name,
   ].filter(Boolean);
@@ -278,7 +313,8 @@ function compactCitationSignal(citation: LiveCitation, index: number): string {
     .replace(/^Title:\s*/i, "")
     .replace(/\s+/g, " ")
     .trim();
-  const clipped = excerpt.length > 220 ? `${excerpt.slice(0, 220).replace(/\s+\S*$/, "")}...` : excerpt;
+  const clipped =
+    excerpt.length > 220 ? `${excerpt.slice(0, 220).replace(/\s+\S*$/, "")}...` : excerpt;
   return `${index + 1}. ${title}${details.length ? ` (${details.join(" | ")})` : ""}: ${clipped}`;
 }
 
@@ -286,7 +322,9 @@ function polishLiveAnswer(body: unknown, question: string): unknown {
   if (!body || typeof body !== "object" || Array.isArray(body)) return body;
   const record = body as Record<string, unknown>;
   const citations = Array.isArray(record.citations)
-    ? (record.citations.filter((item): item is LiveCitation => Boolean(item && typeof item === "object")) as LiveCitation[])
+    ? (record.citations.filter((item): item is LiveCitation =>
+        Boolean(item && typeof item === "object"),
+      ) as LiveCitation[])
     : [];
   if (citations.length === 0) return body;
   if (
@@ -349,7 +387,10 @@ async function staticDemoAnswer(request: Request, question: string): Promise<Res
         paperEvidence("citation_graph", paper, Math.min((paper.cites_per_year ?? 0) / 500, 3)),
       ),
     ...clusters.slice(0, 64).map((cluster) => {
-      const tags = (cluster.top_tags ?? []).slice(0, 6).map((tag) => tag.tag).join(", ");
+      const tags = (cluster.top_tags ?? [])
+        .slice(0, 6)
+        .map((tag) => tag.tag)
+        .join(", ");
       const papers = (cluster.top_papers ?? [])
         .slice(0, 3)
         .map((paper) => paper.title)
@@ -395,9 +436,10 @@ async function staticDemoAnswer(request: Request, question: string): Promise<Res
       };
     })
     .sort((a, b) => b.score - a.score || a.title.localeCompare(b.title));
-  const selected = (intent === "rag"
-    ? ranked.filter((item) => topicScore(question, `${item.title} ${item.excerpt}`) > 0)
-    : ranked
+  const selected = (
+    intent === "rag"
+      ? ranked.filter((item) => topicScore(question, `${item.title} ${item.excerpt}`) > 0)
+      : ranked
   ).slice(0, 6);
 
   return Response.json(
@@ -444,10 +486,7 @@ export async function onRequestPost(context: PagesContext): Promise<Response> {
 
   const question = String(payload.question ?? payload.query ?? "").trim();
   if (question.length < 3) {
-    return Response.json(
-      { error: "question must be at least 3 characters" },
-      { status: 400 },
-    );
+    return Response.json({ error: "question must be at least 3 characters" }, { status: 400 });
   }
 
   const key = context.env.RAG_SERVICE_KEY;

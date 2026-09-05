@@ -59,7 +59,9 @@ function renderHostsChart() {
     type: "bar",
     data: {
       labels: data.map((d) => d.host),
-      datasets: [{ label: "papers citing", data: data.map((d) => d.papers), backgroundColor: ACCENT }],
+      datasets: [
+        { label: "papers citing", data: data.map((d) => d.papers), backgroundColor: ACCENT },
+      ],
     },
     options: {
       indexAxis: "y",
@@ -108,7 +110,10 @@ function renderHistChart() {
       maintainAspectRatio: false,
       plugins: { legend: { display: false } },
       scales: {
-        x: { title: { display: true, text: "URLs per paper (clipped at 100)", color: MUTED }, ticks: { color: MUTED } },
+        x: {
+          title: { display: true, text: "URLs per paper (clipped at 100)", color: MUTED },
+          ticks: { color: MUTED },
+        },
         y: { title: { display: true, text: "papers", color: MUTED }, ticks: { color: MUTED } },
       },
     },
@@ -146,8 +151,21 @@ function renderCitesPerYearChart() {
     data: {
       labels: rows.map((r) => r.year),
       datasets: [
-        { label: "mean cites/yr", data: rows.map((r) => r.mean_cpy ?? 0), backgroundColor: "#4ade80" },
-        { label: "p90 cites/yr", data: rows.map((r) => r.p90_cpy ?? 0), backgroundColor: "#facc15", type: "line", borderColor: "#facc15", fill: false, tension: 0.3, pointRadius: 3 },
+        {
+          label: "mean cites/yr",
+          data: rows.map((r) => r.mean_cpy ?? 0),
+          backgroundColor: "#4ade80",
+        },
+        {
+          label: "p90 cites/yr",
+          data: rows.map((r) => r.p90_cpy ?? 0),
+          backgroundColor: "#facc15",
+          type: "line",
+          borderColor: "#facc15",
+          fill: false,
+          tension: 0.3,
+          pointRadius: 3,
+        },
       ],
     },
     options: {
@@ -211,7 +229,7 @@ function wireFilter(inputId, tableId) {
 
 function wireSort(tableId) {
   const table = document.getElementById(tableId);
-  if (!table || !table.dataset.sortable) return;
+  if (!table?.dataset.sortable) return;
   const ths = table.tHead.rows[0].cells;
   Array.from(ths).forEach((th, idx) => {
     if (!th.dataset.key) return;
@@ -272,7 +290,7 @@ function showHostDrilldown(host) {
     const title = document.getElementById("modal-title");
     const body = document.getElementById("modal-body");
     title.textContent = `Papers citing ${host}`;
-    if (!data || !data.citations || !data.citations.length) {
+    if (!data?.citations?.length) {
       body.innerHTML = `<p>No drilldown data for this host (only top 30 hosts are pre-rendered).</p>`;
     } else {
       body.innerHTML = data.citations
@@ -281,7 +299,7 @@ function showHostDrilldown(host) {
           <div class="row">
             <div class="url"><a href="${c.url_canonical}" target="_blank" rel="noopener">${c.url_canonical}</a></div>
             <div class="title">${c.title || ""}</div>
-            <div class="meta">arxiv:${c.citing_arxiv_id} · ${c.citation_count != null ? c.citation_count.toLocaleString() + " citations" : ""}</div>
+            <div class="meta">arxiv:${c.citing_arxiv_id} · ${c.citation_count != null ? `${c.citation_count.toLocaleString()} citations` : ""}</div>
             ${c.context ? `<div class="ctx">"…${c.context}…"</div>` : ""}
           </div>`,
         )
@@ -298,7 +316,7 @@ function showAuthorDrilldown(author) {
     const title = document.getElementById("modal-title");
     const body = document.getElementById("modal-body");
     title.textContent = author;
-    if (!data || !data.papers) {
+    if (!data?.papers) {
       body.innerHTML = `<p>No drilldown for this author (only top 50 authors are pre-rendered).</p>`;
       modal.hidden = false;
       return;
@@ -310,7 +328,7 @@ function showAuthorDrilldown(author) {
           <div class="title">${p.title || ""}</div>
           <div class="meta">
             <a href="https://arxiv.org/abs/${p.arxiv_id}" target="_blank" rel="noopener">${p.arxiv_id}</a>
-            · ${p.citation_count != null ? p.citation_count.toLocaleString() + " citations" : ""}
+            · ${p.citation_count != null ? `${p.citation_count.toLocaleString()} citations` : ""}
             · ${p.submitted_date ? p.submitted_date.slice(0, 7) : ""}
             ${p.community_id != null ? ` · community ${p.community_id}` : ""}
           </div>
@@ -339,7 +357,7 @@ function showCommunityDrilldown(cid) {
     const title = document.getElementById("modal-title");
     const body = document.getElementById("modal-body");
     title.textContent = `Community ${cid}`;
-    if (!data || !data.papers) {
+    if (!data?.papers) {
       body.innerHTML = `<p>No drilldown for this community (only top 30 pre-rendered).</p>`;
       modal.hidden = false;
       return;
@@ -360,7 +378,7 @@ function showCommunityDrilldown(cid) {
           <div class="title">${p.title || ""}</div>
           <div class="meta">
             <a href="https://arxiv.org/abs/${p.arxiv_id}" target="_blank" rel="noopener">${p.arxiv_id}</a>
-            · ${p.citation_count != null ? p.citation_count.toLocaleString() + " citations" : ""}
+            · ${p.citation_count != null ? `${p.citation_count.toLocaleString()} citations` : ""}
             · PR ${p.pagerank_score != null ? p.pagerank_score.toFixed(6) : ""}
             · ${p.submitted_date ? p.submitted_date.slice(0, 7) : ""}
           </div>
@@ -419,9 +437,14 @@ function renderChartsOnce() {
 function bootCharts() {
   const canvases = Array.from(document.querySelectorAll("canvas[id^='chart-']"));
   if (canvases.length === 0) return;
-  const loadAndRender = () => loadChartJs().then(renderChartsOnce).catch(() => {});
+  const loadAndRender = () =>
+    loadChartJs()
+      .then(renderChartsOnce)
+      .catch(() => {});
   if (!("IntersectionObserver" in window)) {
-    window.requestIdleCallback ? window.requestIdleCallback(loadAndRender) : setTimeout(loadAndRender, 800);
+    window.requestIdleCallback
+      ? window.requestIdleCallback(loadAndRender)
+      : setTimeout(loadAndRender, 800);
     return;
   }
   const observer = new IntersectionObserver(
