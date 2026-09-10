@@ -28,7 +28,7 @@ const inlineSafeEmbeddingClusters = makeInlineSafe(embeddingClusters);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Investigate technical and market questions with a retained 488k-paper corpus, selected public research indexes, citation signals, and cited answers." />
-    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="canonical" href={new URL(Astro.url.pathname.replace(/^\/index(?:\.html)?$/, "/").replace(/\.html$/, ""), Astro.site)} />
     <link rel="alternate" type="text/markdown" href="https://papers.highsignal.app/index.md" />
     <link rel="service-desc" type="application/vnd.oai.openapi+json;version=3.1" href="https://papers.highsignal.app/openapi.json" />
     <link rel="ard" type="application/json" href="https://papers.highsignal.app/.well-known/ard.json" />

@@ -22,7 +22,7 @@
     "@tanstack/react-table": "^8.21.3",
     "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
-    "astro": "^5.0.0",
+    "astro": "^7.2.8",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.17.0",
@@ -40,5 +40,10 @@
     "knip": "6.32.2",
     "lightningcss": "^1.32.0",
     "typescript": "5.9.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "svgo": "^4.1.0"
+    }
   }
 }
