@@ -278,10 +278,10 @@ function summarizeEvidence(evidence: Evidence[], intent: PaperIntent): string {
             : "The strongest recent research signals are:";
   const note =
     intent === "sleepers"
-      ? "Source: OpenReview accepted-paper ratings plus current citation counts in the deployed paper analytics layer."
+      ? "Source: OpenReview accepted-paper ratings and citation counts from the deployed analytics snapshot."
       : intent === "clusters"
         ? "Source: semantic clusters computed from the deployed research-paper corpus."
-        : "Source: deployed paper analytics plus the live Knowledgebase corpus; ranking favors topical match, citation velocity, peer-review signal, and recency.";
+        : "Source: deployed paper analytics snapshot; ranking favors topical match, citation velocity, peer-review signal, and recency. This answer does not query the live Knowledgebase.";
   return [
     intro,
     ...evidence.slice(0, 5).map((item, index) => {
@@ -460,7 +460,7 @@ async function staticDemoAnswer(request: Request, question: string): Promise<Res
       })),
       trace_id: null,
       route: "paper_signals",
-      answer_mode: "analytics+rag",
+      answer_mode: "paper-analytics",
       confidence: {
         level: selected.length > 0 ? "high" : "none",
         result_count: selected.length,
