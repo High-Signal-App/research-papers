@@ -66,6 +66,8 @@ See `DEPLOY.md` for LAN/CDN deployment shapes.
 
 ## Timeline
 
+- **2026-09-10:** Removed the browser fallback that converted request and verification failures into unrelated ranked paper snippets. Failed requests now show an explicit no-answer state with retry and paper-search guidance; the server paper-intent route remains available.
+
 - **2026-09-10:** Verified the public cited-answer form returns ranked papers and citations. Paper-intent answers now identify the deployed analytics snapshot as their source rather than claiming a live Knowledgebase query; the response mode is `paper-analytics`. General live retrieval remains a separate path.
 
 - **2026-09-01:** Wired the product's dedicated Microsoft Clarity project
