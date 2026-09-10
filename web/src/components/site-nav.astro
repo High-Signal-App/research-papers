@@ -29,7 +29,7 @@ const dropdownLink =
   is:inline
   async
   src="https://www.clarity.ms/tag/y6btr00dl7"
-  onload="window.clarity('set', 'project_id', 'research-papers')"
+  onload="typeof window.clarity === 'function' && window.clarity('set', 'project_id', 'research-papers')"
 ></script>
 <nav class="sticky top-0 z-40 border-b bg-background/85 backdrop-blur-md">
   <div class="mx-auto flex max-w-7xl flex-col items-start gap-2 px-6 py-3 lg:flex-row lg:items-center lg:gap-4">
