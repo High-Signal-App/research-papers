@@ -324,6 +324,16 @@
     text-align: left;
   }
 
+  .research-footer-capture {
+    grid-column: 1 / -1;
+  }
+
+  .research-footer-capture p {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 3vw, 2rem);
+  }
+
   .research-footer strong {
     display: block;
     max-width: 35rem;

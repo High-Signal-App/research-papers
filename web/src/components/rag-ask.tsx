@@ -4,6 +4,7 @@ import { Loader2, MessageSquareText } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TurnstileWidget } from "@/components/turnstile-widget";
+import { trackAppHealth } from "@/lib/app-health";
 
 const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? "0x4AAAAAAECKLi5Ke0ylWglf";
 
@@ -46,6 +47,7 @@ export function RagAsk() {
   async function ask(nextQuestion = question) {
     const q = nextQuestion.trim();
     if (q.length < 3 || !turnstileToken) return;
+    trackAppHealth("cited_answer_requested");
     setLoading(true);
     setError(null);
     setResult(null);

@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { Badge } from "@/components/ui/badge";
+import { trackAppHealth } from "@/lib/app-health";
 
 type Result = {
   paper_id: string;
@@ -124,6 +125,7 @@ export function SemanticSearch() {
 
   const run = React.useCallback(async (query: string) => {
     if (query.length < 3) return;
+    trackAppHealth("paper_search_started");
     setLoading(true);
     setError(null);
     setDidSearch(true);
