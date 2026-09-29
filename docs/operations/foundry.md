@@ -31,6 +31,19 @@ It never sends:
 - Server emission uses a bounded in-memory queue and a daemon delivery worker,
   so network I/O never runs in the request path. Delivery remains best effort.
 
+## Separate App Health endpoint summaries
+
+When `APP_HEALTH_INGEST_KEY` is configured in the Cloudflare Pages runtime,
+the Pages middleware sends matched public API request summaries to App Health.
+It records only the HTTP method, fixed route template, status, duration, and
+generated timestamp. The allowlist covers `/api/health`, `/api/rag/status`,
+`/api/rag/query`, and `/api/ai` (GET/HEAD). It never sends query values,
+paper IDs, headers, cookies, request or response bodies, Turnstile data, IP
+addresses, or user identity. Missing configuration leaves telemetry disabled;
+delivery failures do not change the Pages response. The operator-only FastAPI
+service is not instrumented. See the Pages middleware in
+[`web/functions/_middleware.ts`](../../web/functions/_middleware.ts).
+
 ## Verification
 
 A future audit task (deferred — not blocking this capability) should grep

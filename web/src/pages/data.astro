@@ -228,6 +228,12 @@ const datasetJsonLd = {
           cited-answer sections are explicitly masked, so their query text and rendered results are
           not uploaded to Clarity.
         </p>
+        <p class="text-sm text-muted-foreground">
+          When server-side App Health telemetry is configured, it records only the method, fixed
+          route, response status, and latency for matched public API routes. It does not receive
+          search questions, paper identifiers, request or response content, IP addresses, or user
+          identity.
+        </p>
       </section>
     </main>
 
