@@ -103,7 +103,7 @@ quality gate implementation.
 | Surface | Health endpoint | Evidence |
 | --- | --- | --- |
 | FastAPI (operator-only) | `GET /healthz` | build, live, revision, errors, latency, CH reachability, per-step source watermark and completion evidence |
-| Cloudflare Pages (public) | `GET /api/health` (Pages Function) | build metadata from `context.env` plus bounded checks of required static search assets; returns 503 when unavailable |
+| Cloudflare Pages (public) | `GET /api/health` (Pages Function) | build metadata from `context.env` plus bounded streamed probes of required static search assets; reads one response chunk so asset-binding responses without range or length headers are still checked; returns 503 when unavailable |
 | Search API (Pages RAG) | `GET /api/rag/status` | RAG configured flag, domain, service URL (no key) |
 
 Landing availability and search availability are reported independently — a

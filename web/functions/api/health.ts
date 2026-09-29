@@ -48,12 +48,20 @@ async function checkAsset(context: PagesContext, path: string): Promise<AssetEvi
         signal: controller.signal,
       }),
     );
-    const contentLength = Number(response.headers.get("content-length") ?? "0");
-    const contentRange = response.headers.get("content-range") ?? "";
-    const rangeTotal = Number(contentRange.match(/\/(\d+)$/)?.[1] ?? "0");
-    const available =
-      (response.status === 206 && rangeTotal > 0) ||
-      (response.ok && Number.isFinite(contentLength) && contentLength > 0);
+    const reader = response.body?.getReader();
+    let hasBody = false;
+    if (reader) {
+      try {
+        if (response.ok) {
+          const firstChunk = await reader.read();
+          hasBody = !firstChunk.done && firstChunk.value.byteLength > 0;
+        }
+      } finally {
+        await reader.cancel().catch(() => {});
+        reader.releaseLock();
+      }
+    }
+    const available = response.ok && hasBody;
     return {
       path,
       available,
@@ -77,7 +85,9 @@ async function checkAsset(context: PagesContext, path: string): Promise<AssetEvi
  * Public health endpoint for the Cloudflare Pages surface.
  *
  * Uses the Pages environment for revision/config evidence and performs a
- * bounded byte-range fetch for each static JSON asset required by search.
+ * bounded streamed probe for each static JSON asset required by search. The
+ * Pages asset binding can ignore Range and omit Content-Length, so availability
+ * is based on the first non-empty response chunk instead of response headers.
  * Missing search data is a 503 even when the landing page itself is live.
  */
 export async function onRequestGet(context: PagesContext): Promise<Response> {
