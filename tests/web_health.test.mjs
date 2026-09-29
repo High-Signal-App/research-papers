@@ -4,8 +4,8 @@ import { dirname, join } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
-import { onRequestGet } from "../web/functions/api/health.ts";
 import { onRequest as pagesMiddleware } from "../web/functions/_middleware.ts";
+import { onRequestGet } from "../web/functions/api/health.ts";
 
 const request = new Request("https://papers.example/api/health");
 const webRoot = join(dirname(fileURLToPath(import.meta.url)), "..", "web");
@@ -45,15 +45,16 @@ test("Pages health returns 503 when a required search asset is unavailable", asy
     env: {
       ASSETS: {
         async fetch(assetRequest) {
-          return new URL(assetRequest.url).pathname.endsWith("/hot.json")
-            ? new Response(null, { status: 404 })
-            : new Response("{", {
-                status: 206,
-                headers: {
-                  "content-length": "1",
-                  "content-range": "bytes 0-0/100",
-                },
-              });
+          const pathname = new URL(assetRequest.url).pathname;
+          if (pathname.endsWith("/hot.json")) return new Response(null, { status: 404 });
+          if (pathname.endsWith("/sleepers.json")) return new Response("", { status: 200 });
+          return new Response("{", {
+            status: 206,
+            headers: {
+              "content-length": "1",
+              "content-range": "bytes 0-0/100",
+            },
+          });
         },
       },
     },
@@ -64,6 +65,40 @@ test("Pages health returns 503 when a required search asset is unavailable", asy
   assert.equal(body.ok, false);
   assert.equal(body.surfaces.search, "unavailable");
   assert.match(body.errors.search_bundle, /hot\.json/);
+  assert.match(body.errors.search_bundle, /sleepers\.json/);
+});
+
+test("Pages health accepts nonempty asset bodies without range or length headers", async () => {
+  let cancelledBodies = 0;
+  const response = await onRequestGet({
+    request,
+    env: {
+      ASSETS: {
+        async fetch(assetRequest) {
+          assert.equal(assetRequest.headers.get("range"), "bytes=0-0");
+          return new Response(
+            new ReadableStream({
+              start(controller) {
+                controller.enqueue(new TextEncoder().encode("["));
+              },
+              cancel() {
+                cancelledBodies += 1;
+              },
+            }),
+            { status: 200 },
+          );
+        },
+      },
+    },
+  });
+  const body = await response.json();
+
+  assert.equal(response.status, 200);
+  assert.equal(body.ok, true);
+  assert.equal(cancelledBodies, 4);
+  assert.ok(
+    body.indexing.required_search_assets.every((asset) => asset.available && asset.status === 200),
+  );
 });
 
 test("Pages health never exposes asset binding errors", async () => {
