@@ -1,3 +1,6 @@
+import { type AppHealthClient, createAppHealthClient } from "@saas-maker/app-health";
+import { type PagesFunctionContext, withPagesFunctionHealth } from "@saas-maker/app-health/pages";
+
 /**
  * Middleware: post-process responses for agent-friendliness.
  *
@@ -6,10 +9,44 @@
  *   catch-all function, which handles paths that don't match a static file).
  */
 
-interface PagesContext {
+interface PagesEnv extends Record<string, unknown> {
+  APP_HEALTH_INGEST_KEY?: string;
+  APP_HEALTH_ENVIRONMENT?: string;
+}
+
+interface PagesContext extends PagesFunctionContext<PagesEnv> {
   request: Request;
-  env: Record<string, unknown>;
+  env: PagesEnv;
   next: () => Promise<Response>;
+}
+
+const TELEMETRY_ROUTES = new Map<string, string>([
+  ["GET /api/health", "/api/health"],
+  ["GET /api/rag/status", "/api/rag/status"],
+  ["POST /api/rag/query", "/api/rag/query"],
+  ["GET /api/ai", "/api/ai"],
+  ["HEAD /api/ai", "/api/ai"],
+]);
+
+function telemetryRoute(request: Request): string | null {
+  const pathname = new URL(request.url).pathname;
+  return TELEMETRY_ROUTES.get(`${request.method} ${pathname}`) ?? null;
+}
+
+function telemetryClient(env: PagesEnv): AppHealthClient | null {
+  const key = env.APP_HEALTH_INGEST_KEY;
+  if (typeof key !== "string" || key.length === 0) return null;
+  return createAppHealthClient({
+    key,
+    ...(typeof env.APP_HEALTH_ENVIRONMENT === "string"
+      ? { environment: env.APP_HEALTH_ENVIRONMENT }
+      : {}),
+    endpoint: "https://ingest.sassmaker.com/v1/ingest",
+    runtime: "worker",
+    disableTimer: true,
+    requestTimeoutMs: 1_500,
+    maxRetries: 0,
+  });
 }
 
 function wantsMarkdown(request: Request): boolean {
@@ -20,7 +57,25 @@ function wantsMarkdown(request: Request): boolean {
 }
 
 export async function onRequest(context: PagesContext): Promise<Response> {
-  const response = await context.next();
+  const route = telemetryRoute(context.request);
+  let response: Response;
+  if (route) {
+    const instrumented = withPagesFunctionHealth<
+      PagesEnv,
+      string,
+      Record<string, unknown>,
+      Response
+    >(
+      {
+        route,
+        client: (pagesContext) => telemetryClient(pagesContext.env),
+      },
+      () => context.next(),
+    );
+    response = await instrumented(context);
+  } else {
+    response = await context.next();
+  }
   const url = new URL(context.request.url);
 
   if (response.status !== 404) return response;

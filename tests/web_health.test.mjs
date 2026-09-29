@@ -5,6 +5,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 import { onRequestGet } from "../web/functions/api/health.ts";
+import { onRequest as pagesMiddleware } from "../web/functions/_middleware.ts";
 
 const request = new Request("https://papers.example/api/health");
 const webRoot = join(dirname(fileURLToPath(import.meta.url)), "..", "web");
@@ -91,6 +92,120 @@ test("Pages health never exposes asset binding errors", async () => {
     );
   } finally {
     console.error = originalConsoleError;
+  }
+});
+
+test("Pages App Health telemetry sends only a matched route summary", async () => {
+  const originalFetch = globalThis.fetch;
+  const ingestCalls = [];
+  globalThis.fetch = async (input, init) => {
+    ingestCalls.push({ input, init });
+    return new Response(null, { status: 202 });
+  };
+  try {
+    const sensitive = [
+      "session-private",
+      "query-private",
+      "paper-private",
+      "turnstile-private",
+      "ip-private",
+      "response-private",
+      "test-only-ingest-key",
+    ];
+    const request = new Request(
+      `https://papers.example/api/rag/query?session=${sensitive[0]}&query=${sensitive[1]}&paper=${sensitive[2]}`,
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          "cf-connecting-ip": sensitive[4],
+        },
+        body: JSON.stringify({ question: sensitive[1], turnstileToken: sensitive[3] }),
+      },
+    );
+    const responseBody = JSON.stringify({ answer: sensitive[5] });
+    const response = new Response(responseBody, { status: 200 });
+    const pending = [];
+    const result = await pagesMiddleware({
+      request,
+      env: {
+        APP_HEALTH_INGEST_KEY: sensitive[6],
+        APP_HEALTH_ENVIRONMENT: "staging",
+      },
+      params: {},
+      data: {},
+      next: async () => response,
+      waitUntil: (delivery) => pending.push(delivery),
+    });
+    await Promise.all(pending);
+
+    assert.equal(result, response);
+    assert.equal(result.status, 200);
+    assert.equal(await result.text(), responseBody);
+    assert.equal(ingestCalls.length, 1);
+    const batch = JSON.parse(ingestCalls[0].init.body);
+    assert.deepEqual(
+      {
+        schema_version: batch.schema_version,
+        runtime: batch.runtime,
+        environment: batch.environment,
+      },
+      { schema_version: "v1", runtime: "worker", environment: "staging" },
+    );
+    assert.equal(batch.events.length, 1);
+    assert.deepEqual(
+      Object.keys(batch.events[0]).sort(),
+      ["duration_ms", "event_id", "method", "route", "status_code", "timestamp"],
+    );
+    assert.equal(batch.events[0].method, "POST");
+    assert.equal(batch.events[0].route, "/api/rag/query");
+    assert.equal(batch.events[0].status_code, 200);
+    assert.ok(Number.isInteger(batch.events[0].duration_ms));
+    const serialized = JSON.stringify(batch);
+    for (const value of sensitive) assert.ok(!serialized.includes(value));
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("Pages App Health telemetry is disabled without a key and ignores unknown routes", async () => {
+  const originalFetch = globalThis.fetch;
+  let ingestCount = 0;
+  globalThis.fetch = async () => {
+    ingestCount += 1;
+    return new Response(null, { status: 202 });
+  };
+  try {
+    const pending = [];
+    const request = new Request("https://papers.example/api/rag/query?query=private", {
+      method: "POST",
+      body: JSON.stringify({ question: "private question" }),
+    });
+    const response = new Response("same response", { status: 201 });
+    const noKey = await pagesMiddleware({
+      request,
+      env: {},
+      params: {},
+      data: {},
+      next: async () => response,
+      waitUntil: (delivery) => pending.push(delivery),
+    });
+    assert.equal(noKey, response);
+    assert.equal(pending.length, 0);
+
+    const unknown = await pagesMiddleware({
+      request: new Request("https://papers.example/api/papers/private-id"),
+      env: { APP_HEALTH_INGEST_KEY: "test-only-ingest-key" },
+      params: {},
+      data: {},
+      next: async () => new Response(null, { status: 404 }),
+      waitUntil: (delivery) => pending.push(delivery),
+    });
+    assert.equal(unknown.status, 404);
+    assert.equal(pending.length, 0);
+    assert.equal(ingestCount, 0);
+  } finally {
+    globalThis.fetch = originalFetch;
   }
 });
 
