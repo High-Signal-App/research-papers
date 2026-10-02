@@ -78,7 +78,18 @@ export function CitedWorksTable({ data, src }: { data?: Row[]; src?: string }) {
     return <p className="text-sm text-muted-foreground">Loading cited foundations...</p>;
   if (rows.error)
     return (
-      <p className="text-sm text-destructive">Cited foundations are unavailable: {rows.error}</p>
+      <div role="alert" className="space-y-2 text-sm">
+        <p className="text-destructive">Cited foundations are unavailable: {rows.error}</p>
+        <button type="button" className="underline underline-offset-4" onClick={rows.retry}>
+          Try again
+        </button>
+      </div>
+    );
+  if (rows.data.length === 0)
+    return (
+      <p role="status" className="py-6 text-sm text-muted-foreground">
+        No cited-foundation data is available yet.
+      </p>
     );
 
   return (

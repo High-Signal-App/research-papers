@@ -4,6 +4,7 @@ type JsonDataState<T> = {
   data: T[];
   error: string | null;
   loading: boolean;
+  retry: () => void;
 };
 
 export function useJsonData<T>(
@@ -14,6 +15,9 @@ export function useJsonData<T>(
   const [data, setData] = React.useState<T[]>(initialData ?? []);
   const [error, setError] = React.useState<string | null>(null);
   const [loading, setLoading] = React.useState(Boolean(src && !hasInitialData));
+  const [attempt, setAttempt] = React.useState(0);
+
+  const retry = React.useCallback(() => setAttempt((value) => value + 1), []);
 
   React.useEffect(() => {
     if (!src || hasInitialData) return;
@@ -22,7 +26,7 @@ export function useJsonData<T>(
     setLoading(true);
     setError(null);
 
-    fetch(src, { signal: controller.signal })
+    fetch(src, { signal: controller.signal, cache: attempt ? "reload" : "default" })
       .then((response) => {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         return response.json() as Promise<T[]>;
@@ -37,7 +41,7 @@ export function useJsonData<T>(
       });
 
     return () => controller.abort();
-  }, [hasInitialData, src]);
+  }, [attempt, hasInitialData, src]);
 
-  return { data, error, loading };
+  return { data, error, loading, retry };
 }
