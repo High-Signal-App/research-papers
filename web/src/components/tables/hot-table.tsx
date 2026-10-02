@@ -120,7 +120,11 @@ export function HotTable({ data, src }: { data?: Row[]; src?: string }) {
     return (
       <div role="alert" className="space-y-2 text-sm">
         <p className="text-destructive">Recent paper signals are unavailable: {rows.error}</p>
-        <button type="button" className="underline underline-offset-4" onClick={rows.retry}>
+        <button
+          type="button"
+          className="inline-flex min-h-11 min-w-11 items-center underline underline-offset-4"
+          onClick={rows.retry}
+        >
           Try again
         </button>
       </div>
