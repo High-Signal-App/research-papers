@@ -38,6 +38,9 @@ jobs:
           uv sync --frozen
           pnpm --dir web install --frozen-lockfile --ignore-scripts
 
+      - name: Run Pages health behavior tests
+        run: node --test tests/web_health.test.mjs
+
       - name: Run code-health gate
         run: npm run check
 
