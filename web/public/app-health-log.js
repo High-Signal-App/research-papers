@@ -3,7 +3,7 @@
 // Logs tab at health.sassmaker.com. window.appHealthLog(event, options) is
 // available for custom events. Source: app-health/examples/dropin-log-client.
 (() => {
-  var KEY = "ahk_pub_df990cae968dae7ec2e6819936c5ab9b1d5251e2d24db478",
+  var KEY = "ahk_pub_36415d625ac53d77a9f1122e1821bf625cd9679d16acf20a7894a22a80807ddb",
     ENV = "production",
     URL = "https://ingest.sassmaker.com/v1/logs";
   function id() {
