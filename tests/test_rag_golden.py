@@ -27,7 +27,9 @@ Run selectively (marker: ``golden``):
 Without ``GOLDEN_RAG_URL`` the whole module skips with this notice, so the
 default ``uv run pytest`` stays hermetic. CI runs this as the separate
 ``golden-rag-regression`` job (see ``.github/workflows/ci.yml``), which
-skips loudly when the endpoint is unreachable from the runner.
+FAILS (never skips) when the endpoint is unreachable or returns non-JSON.
+It authenticates with the ``GOLDEN_CI_BYPASS_TOKEN`` secret, which must also be
+set as a Pages environment secret of the same name.
 """
 
 from __future__ import annotations
@@ -42,6 +44,10 @@ import httpx
 import pytest
 
 GOLDEN_RAG_URL = os.environ.get("GOLDEN_RAG_URL", "").strip()
+# Optional CI bypass for the production Turnstile check (matches the Pages
+# secret GOLDEN_CI_BYPASS_TOKEN; sent as the X-Golden-CI-Token header).
+GOLDEN_CI_TOKEN = os.environ.get("GOLDEN_CI_BYPASS_TOKEN", "").strip()
+_ASK_HEADERS = {"X-Golden-CI-Token": GOLDEN_CI_TOKEN} if GOLDEN_CI_TOKEN else {}
 
 SKIP_REASON = (
     "GOLDEN_RAG_URL is not set — golden-question regression checks need a live "
@@ -234,7 +240,7 @@ def _ask(client: httpx.Client, question: str) -> httpx.Response:
     last = ""
     for _ in range(2):
         try:
-            resp = client.post(GOLDEN_RAG_URL, json={"question": question})
+            resp = client.post(GOLDEN_RAG_URL, json={"question": question}, headers=_ASK_HEADERS)
         except httpx.HTTPError as exc:
             last = repr(exc)
             continue

@@ -6,6 +6,8 @@ interface Env {
   RAG_DOMAIN?: string;
   TURNSTILE_HOSTNAMES?: string;
   TURNSTILE_SECRET?: string;
+  /** Optional. When set, requests carrying a matching X-Golden-CI-Token header skip Turnstile (CI golden regression only). */
+  GOLDEN_CI_BYPASS_TOKEN?: string;
 }
 
 type PagesContext = {
@@ -476,6 +478,23 @@ async function staticDemoAnswer(request: Request, question: string): Promise<Res
   );
 }
 
+function constantTimeEqual(a: string, b: string): boolean {
+  const enc = new TextEncoder();
+  const x = enc.encode(a);
+  const y = enc.encode(b);
+  let diff = x.length ^ y.length;
+  for (let i = 0; i < Math.max(x.length, y.length); i++) {
+    diff |= (x[i] ?? 0) ^ (y[i] ?? 0);
+  }
+  return diff === 0;
+}
+
+function hasCiBypass(context: PagesContext): boolean {
+  const expected = context.env.GOLDEN_CI_BYPASS_TOKEN;
+  const provided = context.request.headers.get("X-Golden-CI-Token");
+  return Boolean(expected && provided && constantTimeEqual(provided, expected));
+}
+
 export async function onRequestPost(context: PagesContext): Promise<Response> {
   let payload: Record<string, unknown>;
   try {
@@ -498,13 +517,15 @@ export async function onRequestPost(context: PagesContext): Promise<Response> {
     context.request.headers.get("CF-Connecting-IP") ??
     context.request.headers.get("X-Forwarded-For")?.split(",")[0]?.trim() ??
     "unknown";
-  const verified = await verifyTurnstile({
-    token: payload.turnstileToken,
-    action: "turnstile-spin-v2",
-    remoteIp,
-    secret: context.env.TURNSTILE_SECRET,
-    hostnameList: context.env.TURNSTILE_HOSTNAMES,
-  });
+  const verified =
+    hasCiBypass(context) ||
+    (await verifyTurnstile({
+      token: payload.turnstileToken,
+      action: "turnstile-spin-v2",
+      remoteIp,
+      secret: context.env.TURNSTILE_SECRET,
+      hostnameList: context.env.TURNSTILE_HOSTNAMES,
+    }));
   if (!verified) {
     return Response.json({ error: "Verification failed. Please try again." }, { status: 403 });
   }

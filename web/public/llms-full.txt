@@ -1,16 +1,16 @@
 # Research Papers: full agent brief
 
-Academic research library with a 488,491-record operator corpus, a 478,991-record public analytics snapshot, selected public indexes, citation analytics, reading paths, and a cited-answer demo.
+Academic research library with a 500k+-record operator corpus, a 478,991-record public analytics snapshot, selected public indexes, citation analytics, reading paths, and a cited-answer demo.
 
 ## Index
 
 # researchPapers
 
-The operator corpus retains 488,491 papers from arXiv, OpenReview, bioRxiv, and medRxiv for concrete technical and market questions. The deployed public analytics snapshot contains 478,991 records.
+The operator corpus retains 500k+ papers from arXiv, OpenReview, bioRxiv, and medRxiv for concrete technical and market questions. The deployed public analytics snapshot contains 478,991 records.
 
 ## What it is
 
-- Operator-maintained ClickHouse corpus with 488,491 records
+- Operator-maintained ClickHouse corpus with 500k+ records
 - Deployed public analytics snapshot with 478,991 records
 - Selected public indexes with citation, reviewer, topic, and graph signals
 - Curated reading paths with source notes

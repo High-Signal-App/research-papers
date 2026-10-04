@@ -50,10 +50,12 @@ Set `GOLDEN_RAG_URL` to point at a different endpoint (e.g. a preview deploy).
 
 1. **`test`** — installs the locked Python and web dependency graphs, then runs
    `npm run check`. Runs on push/PR/dispatch.
-2. **`golden-rag-regression`** — probes `GOLDEN_RAG_URL` reachability, then runs
-   `pytest -m golden tests/test_rag_golden.py` only if reachable. Skips loudly
-   with a warning + `$GITHUB_STEP_SUMMARY` notice when unreachable, so a
-   silent skip is visible.
+2. **`golden-rag-regression`** — probes `GOLDEN_RAG_URL` and **fails** (never
+   skips) if the API is unreachable, returns non-JSON, or rejects the CI token;
+   then runs `pytest -m golden tests/test_rag_golden.py`. It authenticates with
+   the `GOLDEN_CI_BYPASS_TOKEN` secret, sent as `X-Golden-CI-Token`. The same
+   secret name must be set as a Pages environment secret; the function skips
+   Turnstile only when the header matches it (unset secret = bypass disabled).
 
 `.github/workflows/deploy.yml` is `workflow_dispatch`-only (manual production
 deploy to Cloudflare Pages). See [`operations/`](../operations/index.md).
