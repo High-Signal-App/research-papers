@@ -7,12 +7,12 @@ last_updated: "2026-08-27"
 
 # Research Papers
 
-The operator corpus retains 488,491 papers from arXiv, OpenReview, bioRxiv, and
+The operator corpus retains 500k+ papers from arXiv, OpenReview, bioRxiv, and
 medRxiv for investigating concrete technical and market questions.
 
 ## What it is
 
-- An operator-side ClickHouse corpus with 488,491 retained records
+- An operator-side ClickHouse corpus with 500k+ retained records
 - A deployed public analytics snapshot with 478,991 records
 - Selected public indexes with citation, reviewer, topic, and graph signals
 - Curated reading paths with source notes and export options

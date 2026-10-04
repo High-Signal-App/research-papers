@@ -4,7 +4,7 @@
 
 
 Multi-source academic-paper data platform on ClickHouse.
-**488k papers** across arxiv, OpenReview, bioRxiv, medRxiv — with semantic
+**500k+ papers** across arxiv, OpenReview, bioRxiv, medRxiv — with semantic
 search, citation graph PageRank, peer-review aggregations, MLX/spaCy
 auto-tagging, and HighSignal-style insight surfaces (sleepers, hot now,
 papers-like-this, authors-by-tag).
@@ -14,7 +14,7 @@ Stack: ClickHouse 24.10 (Dockerized) · FastAPI · Astro 5 + React + Tailwind
 
 ## Status
 
-- 488,491 papers ingested, ~1.05M paper→paper edges, full-corpus PageRank
+- 500k+ papers ingested, ~1.05M paper→paper edges, full-corpus PageRank
   computed, all papers embedded (all-MiniLM-L6-v2, 384-dim) and clustered
   into 64 semantic clusters.
 - Runtime is **ClickHouse-only**. Postgres remains as an optional
@@ -169,7 +169,7 @@ Once `./scripts/deploy.sh` has the stack running (FastAPI on `:8000`, CH on
 ### Via the HTTP API (recommended)
 
 ```bash
-# Corpus stats — confirms data shape: 488k papers across 4 sources, ~1.05M
+# Corpus stats — confirms data shape: 500k+ papers across 4 sources, ~1.05M
 # paper→paper edges, ~478k embedded.
 curl -s http://127.0.0.1:8000/stats | jq
 

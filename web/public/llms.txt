@@ -1,6 +1,6 @@
 # Research Papers
 
-> A maintained research library with a 488,491-record operator corpus, a 478,991-record public analytics snapshot, selected indexes, citation analytics, reading paths, and cited answers.
+> A maintained research library with a 500k+-record operator corpus, a 478,991-record public analytics snapshot, selected indexes, citation analytics, reading paths, and cited answers.
 
 ## When to use this
 

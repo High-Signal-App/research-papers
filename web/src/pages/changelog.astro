@@ -2,6 +2,7 @@
 import "../styles/globals.css";
 import SiteNav from "@/components/site-nav.astro";
 import { changelogEntries } from "@/data/changelog";
+import { totalPapersLabel } from "@/lib/corpus-stats";
 
 const changelogJsonLd = {
   "@context": "https://schema.org",
@@ -108,7 +109,7 @@ const changelogJsonLd = {
     </main>
 
     <footer class="mx-auto max-w-5xl border-t px-6 py-10 text-xs text-muted-foreground">
-      <p>488,491 papers · 1.05M citation edges · 64 semantic clusters</p>
+      <p>{totalPapersLabel} papers · 1.05M citation edges · 64 semantic clusters</p>
     </footer>
   </body>
 </html>

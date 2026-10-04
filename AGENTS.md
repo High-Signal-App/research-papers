@@ -5,7 +5,7 @@ Concise agent bootloader. Read this first, then follow the links for depth.
 ## Purpose
 
 researchPapers is a ClickHouse-backed academic-paper intelligence platform
-(~488k papers across arXiv, OpenReview, bioRxiv, medRxiv) with semantic search,
+(500k+ papers across arXiv, OpenReview, bioRxiv, medRxiv) with semantic search,
 citation-graph PageRank, MLX/spaCy auto-tagging, and an Astro + React dashboard.
 Public production is `https://papers.highsignal.app` on Cloudflare Pages.
 Operator-side ClickHouse + FastAPI exist only to refresh static exports and run

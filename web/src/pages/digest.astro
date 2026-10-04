@@ -4,14 +4,13 @@ import reviewVenues from "../../public/data/review_venues.json";
 import tagRating from "../../public/data/tag_rating.json";
 import sleepers from "../../public/data/sleepers.json";
 import hot from "../../public/data/hot.json";
-import chSources from "../../public/data/ch_sources_summary.json";
+import { totalPapers } from "@/lib/corpus-stats";
 import SiteNav from "@/components/site-nav.astro";
 
 const fmt = new Intl.NumberFormat("en-US");
 const today = new Date().toISOString().slice(0, 10);
 
 // Quick aggregates for the headline
-const totalPapers = chSources.reduce((s: number, r: any) => s + Number(r.n || 0), 0);
 const totalReviews = reviewVenues.reduce((s: number, r: any) => s + Number(r.n_reviews || 0), 0);
 const topSleepers = sleepers.slice(0, 8);
 const topHot = hot.slice(0, 10);

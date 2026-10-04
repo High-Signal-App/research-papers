@@ -66,33 +66,25 @@ jobs:
       - name: Install golden-check dependencies
         run: pip install pytest pytest-asyncio httpx
 
-      - name: Probe Research Answer API reachability
-        id: probe
+      # Fail loudly (never skip) when the API is unreachable, returns non-JSON,
+      # or rejects the CI bypass token. Requires the GOLDEN_CI_BYPASS_TOKEN
+      # repo secret AND a Pages env secret of the same name (the function
+      # skips Turnstile only for a matching X-Golden-CI-Token header).
+      - name: Probe Research Answer API
+        env:
+          GOLDEN_CI_BYPASS_TOKEN: ${{ secrets.GOLDEN_CI_BYPASS_TOKEN }}
         run: |
-          if curl -sf -m 20 -X POST "$GOLDEN_RAG_URL" \
-               -H 'content-type: application/json' \
-               -d '{"question":"golden gate reachability probe"}' -o /dev/null; then
-            echo "reachable=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "reachable=false" >> "$GITHUB_OUTPUT"
+          code=$(curl -s -m 30 -o /tmp/probe.json -w '%{http_code}' -X POST "$GOLDEN_RAG_URL" \
+            -H 'content-type: application/json' \
+            -H "X-Golden-CI-Token: ${GOLDEN_CI_BYPASS_TOKEN}" \
+            -d '{"question":"golden gate reachability probe"}') || code=000
+          if [ "$code" != "200" ] || ! python3 -c 'import json; json.load(open("/tmp/probe.json"))' 2>/dev/null; then
+            echo "::error title=Golden RAG regression FAILED::Research Answer API at $GOLDEN_RAG_URL is unreachable, non-JSON, or rejected the CI token (HTTP $code). Cited-answer quality was NOT verified."
+            head -c 300 /tmp/probe.json || true
+            exit 1
           fi
 
       - name: Golden-question regression (pytest -m golden)
-        if: steps.probe.outputs.reachable == 'true'
+        env:
+          GOLDEN_CI_BYPASS_TOKEN: ${{ secrets.GOLDEN_CI_BYPASS_TOKEN }}
         run: python -m pytest -q -m golden tests/test_rag_golden.py
-
-      - name: Loud skip notice (endpoint unreachable)
-        if: steps.probe.outputs.reachable != 'true'
-        run: |
-          echo "::warning title=Golden RAG regression SKIPPED::Research Answer API at $GOLDEN_RAG_URL was unreachable from the runner. Cited-answer quality was NOT verified in this run."
-          {
-            echo "## ⚠️ Golden RAG regression SKIPPED"
-            echo ""
-            echo "\`$GOLDEN_RAG_URL\` was unreachable — cited-answer quality was **not** verified."
-            echo ""
-            echo "Run the gate locally:"
-            echo ""
-            echo '```bash'
-            echo "GOLDEN_RAG_URL=$GOLDEN_RAG_URL uv run pytest -m golden"
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
