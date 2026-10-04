@@ -302,6 +302,8 @@ function checkDependencies() {
     "GHSA-73wf-gq98-2v4g",
     "GHSA-8hv8-536x-4wqp",
     "GHSA-c83g-rgw3-j3cx",
+    // http-cache-semantics <=4.2.0 via dev tooling; no patched version exists. Re-review when upstream fixes.
+    "GHSA-ch52-4w7c-c8xp",
     "GHSA-f65p-4m7j-42xc",
     "GHSA-f88m-g3jw-g9cj",
     "GHSA-fph4-wmhf-6fwf",
