@@ -35,7 +35,7 @@ const inlineSafeEmbeddingClusters = makeInlineSafe(embeddingClusters);
     <link rel="ard" type="application/json" href="https://papers.highsignal.app/.well-known/ard.json" />
     <link rel="ai-catalog" type="application/json" href="https://papers.highsignal.app/.well-known/ai-catalog.json" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <script is:inline type="module" src="https://sassmaker.com/newsletter-capture.js"></script>
+    <script is:inline type="module" src="https://sassmaker.com/newsletter-capture.js?v=precise-b0adaa67"></script>
     <title>Research Papers: A {totalPapersShort}-paper library for concrete questions</title>
     <meta property="og:title" content={`Research Papers: A ${totalPapersShort}-paper library for concrete questions`} />
     <meta property="og:description" content="Use selected research indexes, citation signals, reading paths, and cited answers to investigate a technical or market question." />
@@ -190,15 +190,36 @@ const inlineSafeEmbeddingClusters = makeInlineSafe(embeddingClusters);
     </section>
     </main>
 
-    <footer class="research-footer">
+    <footer aria-label="Research Papers footer">
+    <fleet-footer-extension
+      data-fleet-footer-project="research-papers"
+      product-name="Research Papers"
+      art-src="/footer-art/research-papers.webp"
+      art-alt="A research reading gallery centers one open paper under a study lamp, with a visible citation thread leading back to its scholarly shelf. Indexed volumes, a magnifier and restrained specimen trays frame the study area."
+      art-width="2169"
+      art-height="725"
+      art-position="50% 50%"
+      art-credit="Original illustration for Research Papers"
+      surface="web"
+      theme="light"
+      font-base="/fonts/fleet-footer-precise-v1/"
+      signature-font="inherit"
+      style="font-family: Georgia, 'Times New Roman', serif;"
+    >
+      <a slot="cta" data-fleet-footer-cta href="#search">Search the public index →</a>
+      <saas-maker-newsletter-capture
+        slot="capture"
+        product-name="Research Papers"
+        catalog-id="research-papers"
+        kind="newsletter"
+        source="footer"
+        privacy-url="https://sassmaker.com/privacy"
+        theme="light"
+        layout="compact"
+        integrated
+      ></saas-maker-newsletter-capture>
+    <div slot="navigation" data-fleet-footer-navigation class="research-footer">
       <div class="research-footer-capture">
-        <saas-maker-newsletter-capture
-          product-name="Research Papers"
-          catalog-id="research-papers"
-          kind="newsletter"
-          source="footer"
-          privacy-url="https://sassmaker.com/privacy"
-        ></saas-maker-newsletter-capture>
         <p>Occasional notes when the public paper snapshot, curated paths, or cited-answer demo materially changes.</p>
       </div>
       <div>
@@ -226,6 +247,8 @@ const inlineSafeEmbeddingClusters = makeInlineSafe(embeddingClusters);
           ></a
         >
       </div>
+    </div>
+    </fleet-footer-extension>
     </footer>
 
     <script src="/api-config.js" is:inline></script>
@@ -243,14 +266,21 @@ const inlineSafeEmbeddingClusters = makeInlineSafe(embeddingClusters);
     </script>
     <script
       is:inline
-      src="https://sassmaker.com/project-strip.js"
+      src="https://sassmaker.com/project-strip.js?v=precise-b0adaa67"
       data-project="research-papers"
+      data-host-only="true"
+      data-theme="light"
       defer
     ></script>
     <script
       is:inline
-      src="https://sassmaker.com/ai-chat-footer.js"
+      src="https://sassmaker.com/ai-chat-footer.js?v=precise-b0adaa67"
       data-name="Research Papers"
+      data-project="research-papers"
+      data-host-only="true"
+      data-theme="light"
+      data-surface="web"
+      data-capture="false"
       defer
     ></script>
   </body>
