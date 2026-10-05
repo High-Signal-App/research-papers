@@ -15,8 +15,8 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v6
-      # web/ has no `packageManager` pin, but a committed pnpm v9 lockfile —
-      # pnpm is the package manager, so give action-setup an explicit version.
+      # web/ pins pnpm 10.33.2 against its committed lockfileVersion 9.
+      # Keep this workflow's current pnpm 10 major setup explicit.
       - uses: pnpm/action-setup@v6
         with:
           version: 10
