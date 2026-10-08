@@ -291,24 +291,13 @@ function checkDependencies() {
 
   const web = JSON.parse(run("pnpm", ["audit", "--json"], { cwd: webRoot, allowFailure: true }).stdout);
   const acceptedWebHigh = new Set([
-    "CVE-2026-9856",
     "GHSA-28wg-ghj8-5hjv",
-    "GHSA-2p49-hgcm-8545",
-    "GHSA-2pvr-wf23-7pc7",
     "GHSA-2v37-7h3g-55p8",
-    "GHSA-52cp-r559-cp3m",
-    "GHSA-5p4m-2wfm-xmqj",
-    "GHSA-5jgf-p345-68v8",
     "GHSA-73wf-gq98-2v4g",
-    "GHSA-8hv8-536x-4wqp",
     "GHSA-c83g-rgw3-j3cx",
     // http-cache-semantics <=4.2.0 via dev tooling; no patched version exists. Re-review when upstream fixes.
     "GHSA-ch52-4w7c-c8xp",
-    "GHSA-f65p-4m7j-42xc",
-    "GHSA-f88m-g3jw-g9cj",
-    "GHSA-fph4-wmhf-6fwf",
     "GHSA-fx2h-pf6j-xcff",
-    "GHSA-jqff-g426-hqxp",
     "GHSA-r28c-9q8g-f849",
   ]);
   const webAdvisories = Object.values(web.advisories ?? {});
@@ -338,7 +327,7 @@ function checkDependencies() {
       webCritical: web.metadata.vulnerabilities.critical,
       webHigh: web.metadata.vulnerabilities.high,
     },
-    { pythonAdvisories: 23, webCritical: 0, webHigh: 16 }
+    { pythonAdvisories: 22, webCritical: 0, webHigh: 7 }
   );
 }
 
