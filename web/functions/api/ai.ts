@@ -21,7 +21,7 @@ type PagesContext = {
  * answered a JSON 404. A named route outranks the catch-all and restores the
  * documented address without duplicating the catalog.
  */
-export async function onRequestGet(context: PagesContext): Promise<Response> {
+async function serveCatalog(context: PagesContext, headOnly: boolean): Promise<Response> {
   if (!context.env.ASSETS) {
     return Response.json(
       {
@@ -42,5 +42,13 @@ export async function onRequestGet(context: PagesContext): Promise<Response> {
   headers.set("Content-Type", "application/json; charset=utf-8");
   headers.set("Access-Control-Allow-Origin", "*");
 
-  return new Response(response.body, { status: response.status, headers });
+  return new Response(headOnly ? null : response.body, { status: response.status, headers });
+}
+
+export async function onRequestGet(context: PagesContext): Promise<Response> {
+  return serveCatalog(context, false);
+}
+
+export async function onRequestHead(context: PagesContext): Promise<Response> {
+  return serveCatalog(context, true);
 }

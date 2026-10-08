@@ -91,7 +91,7 @@ const dataResources = (await readdir(join(publicDir, "data")))
   }));
 
 const catalog = {
-  name: "researchPapers",
+  name: "Research Papers",
   version: "2",
   url: origin,
   llms: `${origin}/llms.txt`,

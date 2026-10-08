@@ -80,6 +80,9 @@ for (const route of paths) {
 }
 
 const catalog = JSON.parse(await readFile(join(webRoot, "public/api-ai.json"), "utf8"));
+if (catalog.name !== "Research Papers") {
+  failures.push(`Agent catalog declares ${JSON.stringify(catalog.name)} instead of Research Papers`);
+}
 for (const surface of catalog.surfaces) {
   const markdown = new URL(surface.md);
   if (new URL(surface.url).origin !== origin || markdown.origin !== origin) {
