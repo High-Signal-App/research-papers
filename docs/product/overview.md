@@ -9,6 +9,11 @@ FastAPI search and insight endpoints, and serves an Astro + React dashboard for
 semantic search, citation graph analysis, tags, reviews, hot papers, sleepers,
 similar papers, and HighSignal-style research digests.
 
+The public product name is **Research Papers**. The historical `researchPapers`
+spelling remains in repository and corpus identifiers. Public page metadata and
+the `/api/ai` catalog use the product name; the catalog responds to both GET and
+HEAD so clients can discover it without downloading the body.
+
 ## Users
 
 - **Researchers** browsing and searching the corpus.
