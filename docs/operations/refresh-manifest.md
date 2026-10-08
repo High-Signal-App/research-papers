@@ -65,7 +65,7 @@ error message). It is cleared when the failing step next succeeds.
 | `refresh_abstracts` | arXiv API | `abstract_overlay_v2` ReplacingMergeTree | 1 |
 | `build_author_graph` | `papers` metadata | `authors_v2` / `paper_authorships_v2` ReplacingMergeTree | 1 |
 | `export_ch` | Current CH state | Overwrite `web/public/data/*.json` | 1 |
-| `web_build` | `web/` source | `npm run build` overwrites `dist/` | 1 |
+| `web_build` | `web/` source | `pnpm run build` overwrites `dist/` | 1 |
 
 ## Activation counters
 

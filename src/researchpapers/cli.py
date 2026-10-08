@@ -518,7 +518,7 @@ def build_author_graph_cmd(
 
 @app.command("warm-update")
 def warm_update_cmd(
-    build_web: Annotated[bool, typer.Option(help="Also run npm run build in web/")] = False,
+    build_web: Annotated[bool, typer.Option(help="Also run pnpm run build in web/")] = False,
     skip_enrich: Annotated[bool, typer.Option(help="Skip Semantic Scholar enrichment")] = False,
     skip_abstracts: Annotated[bool, typer.Option(help="Skip arXiv abstract refresh")] = False,
     skip_author_graph: Annotated[bool, typer.Option(help="Skip author graph rebuild")] = False,
@@ -700,7 +700,7 @@ def refresh_web_cmd(
     exporter.export_all(settings, out_dir, top=top)
     typer.echo("exported JSON, building Astro site...")
     result = subprocess.run(
-        ["npm", "run", "build"], cwd=str(PROJECT_ROOT / "web"), capture_output=True, text=True
+        ["pnpm", "run", "build"], cwd=str(PROJECT_ROOT / "web"), capture_output=True, text=True
     )
     if result.returncode != 0:
         typer.echo(result.stderr)

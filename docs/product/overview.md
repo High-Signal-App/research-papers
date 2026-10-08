@@ -24,7 +24,7 @@ similar papers, and HighSignal-style research digests.
 | Curated reading paths | `/paths` | Static Astro + React; multi-format export. |
 | Research Answer API | `/api/rag/query` | Pages Function; live Knowledgebase RAG with bundled-data fallback. |
 | FastAPI (operator-only) | `http://0.0.0.0:8000` via `uv run papers api-serve` | Not a public runtime dependency. |
-| Astro dev | `http://127.0.0.1:4321` | `cd web && npm run dev`. |
+| Astro dev | `http://127.0.0.1:4321` | `cd web && pnpm run dev`. |
 
 ## In scope
 

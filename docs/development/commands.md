@@ -50,7 +50,7 @@ Run in this order; see [`README.md`](../../README.md) for the canonical sequence
 | `./scripts/deploy.sh /path/to/researchpapers_data_*.tar.gz` | Warm restore (preferred — minutes) |
 | `./scripts/dump_data.sh` | Produce a dump for transport |
 | `./scripts/manual-deploy.mjs deploy.yml ci.yml` | Local deploy helper |
-| `npm run deploy` (repo root) | Wrapper around `manual-deploy.mjs` |
+| `pnpm run deploy` (repo root) | Wrapper around `manual-deploy.mjs` |
 
 See [`DEPLOY.md`](../../DEPLOY.md) and [`operations/`](../operations/index.md)
 for the three deployment shapes.

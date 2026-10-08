@@ -35,7 +35,7 @@ cd researchPapers
 # CH on :8123, FastAPI on :8000
 
 # Frontend (separate terminal)
-cd web && npm install && npm run dev   # http://127.0.0.1:4321
+cd web && pnpm install && pnpm run dev   # http://127.0.0.1:4321
 ```
 
 For LAN/CDN deployments, see **[DEPLOY.md](DEPLOY.md)**.
@@ -274,7 +274,7 @@ ORDER BY p.citation_count DESC LIMIT 20;
 
 ### Via the Astro frontend
 
-`cd web && npm install && npm run dev` (then http://127.0.0.1:4321) is the
+`cd web && pnpm install && pnpm run dev` (then http://127.0.0.1:4321) is the
 visual entry point. Each table is a React island bound to either a static
 JSON in `web/public/data/` (built by `papers export-ch`) or a live FastAPI
 endpoint (search, semantic search, similar). The `/digest` page is the
@@ -290,7 +290,7 @@ re-tag run:
 
 ```bash
 uv run papers export-ch         # rewrites web/public/data/*.json from CH
-cd web && npm run build         # rebuild the static bundle
+cd web && pnpm run build         # rebuild the static bundle
 ```
 
 The live endpoints (search, semantic-search, similar, sleepers, hot, etc.)

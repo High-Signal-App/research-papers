@@ -137,7 +137,7 @@ degradation when the API blips (cached pages still load).
 two-domain setup:
 
 - Connect the GitHub repo in the CF Pages dashboard, point at `web/`
-- Build command: `npm run build`
+- Build command: `pnpm run build`
 - Output: `dist`
 - Env var: `PUBLIC_API_URL=https://api.<your-domain>` ← the tunnel from §4
 - Custom domain: `papers.<your-domain>` (same zone as `api.`)

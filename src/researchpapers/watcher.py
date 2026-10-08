@@ -98,7 +98,7 @@ def _run_build_step() -> dict:
     """Runs the Astro build and returns a result dict for the analytics report."""
     try:
         result = subprocess.run(
-            ["npm", "run", "build"],
+            ["pnpm", "run", "build"],
             cwd=str(PROJECT_ROOT / "web"),
             capture_output=True,
             text=True,

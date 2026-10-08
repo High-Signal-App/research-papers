@@ -27,9 +27,9 @@ Dump size is roughly the on-disk CH size (~700 MB compressed for 488k papers).
 After `deploy.sh` is running, in another terminal:
 ```bash
 cd web
-npm install
-npm run build && npm run preview      # serves dist/ on :4321
-# or for HMR dev:  npm run dev
+pnpm install
+pnpm run build && pnpm run preview      # serves dist/ on :4321
+# or for HMR dev:  pnpm run dev
 ```
 
 The Astro app defaults to `http://127.0.0.1:8000` for the API. If the API is on
@@ -44,12 +44,12 @@ Reload the page — no rebuild needed.
 Build Astro with the API URL baked in:
 ```bash
 cd web
-PUBLIC_API_URL=https://api.your-host.com npm run build
+PUBLIC_API_URL=https://api.your-host.com pnpm run build
 # upload dist/ to Cloudflare Pages, Vercel, Netlify, S3, ...
 ```
 
 Cloudflare Pages config:
-- Build command: `npm run build`
+- Build command: `pnpm run build`
 - Output directory: `dist`
 - Env var: `PUBLIC_API_URL=https://your-backend-url`
 
