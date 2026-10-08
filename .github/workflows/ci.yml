@@ -42,7 +42,7 @@ jobs:
         run: node --test tests/web_health.test.mjs
 
       - name: Run code-health gate
-        run: npm run check
+        run: pnpm run check
 
   # Golden-question regression gate for the Research Answer API.
   # Calls the deployed Pages Function with fixed reference questions and

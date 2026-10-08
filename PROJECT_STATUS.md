@@ -56,8 +56,8 @@ Corpus stats: 500k+ papers · full-corpus PageRank · 64 semantic clusters · ML
 | `uv run papers api-serve --host 0.0.0.0 --port 8000` | FastAPI server |
 | `uv run papers warm-update` / `--build-web` | Overlay maintenance |
 | `uv run papers enrich-citations` / `refresh-abstracts` / `build-author-graph` | Overlay jobs |
-| `cd web && npm install && npm run dev` | Astro dev |
-| `cd web && npm run build` | Frontend build |
+| `cd web && pnpm install && pnpm run dev` | Astro dev |
+| `cd web && pnpm run build` | Frontend build |
 | `uv run pytest` | Tests |
 
 See `DEPLOY.md` for LAN/CDN deployment shapes.
@@ -106,7 +106,7 @@ See `DEPLOY.md` for LAN/CDN deployment shapes.
 | Pages RAG Function | `/api/rag/query` on Pages; `RAG_SERVICE_KEY` configured for the live `research-papers-cs-cited1000-all` Knowledgebase path |
 | FastAPI (operator-only) | `http://0.0.0.0:8000` via `uv run papers api-serve` |
 | ClickHouse HTTP | `:8123` (Docker) |
-| Astro dev | `http://127.0.0.1:4321` (`cd web && npm run dev`) |
+| Astro dev | `http://127.0.0.1:4321` (`cd web && pnpm run dev`) |
 | GitHub | `https://github.com/High-Signal-App/research-papers` |
 | Static JSON export | `web/public/data/*.json` for Astro build |
 
@@ -114,7 +114,7 @@ See `DEPLOY.md` for LAN/CDN deployment shapes.
 
 ### Architecture
 
-- One repository-native `npm run check` command enforces the mixed Python and
+- One repository-native `pnpm run check` command enforces the mixed Python and
   Astro code-health contract locally and in CI with ratcheted legacy debt.
 - Ingest sources: arxiv, OpenAlex, OpenReview, bioRxiv/medRxiv → Typer CLI overlay/ingest jobs.
 - ClickHouse 24.10 (Docker) stores papers, references, embeddings, clusters, `paper_scores_v2`, `citation_overlay_v2`, `abstract_overlay_v2`, `authors_v2`.

@@ -22,7 +22,7 @@ marker.
 require network or a live ClickHouse instance. CI runs this tier on every push
 and PR via `.github/workflows/ci.yml` → `test` job.
 
-`npm run check` is the required aggregate gate. It runs the Python suite with
+`pnpm run check` is the required aggregate gate. It runs the Python suite with
 coverage, the Pages health tests, Ruff and Biome formatter/lint ratchets,
 Python and Astro type checks, Vulture and Knip unused-code checks, complexity,
 duplication, Python and web cycle detection, Python and web dependency audits,
@@ -49,7 +49,7 @@ Set `GOLDEN_RAG_URL` to point at a different endpoint (e.g. a preview deploy).
 `.github/workflows/ci.yml` defines two jobs:
 
 1. **`test`** — installs the locked Python and web dependency graphs, then runs
-   `npm run check`. Runs on push/PR/dispatch.
+   `pnpm run check`. Runs on push/PR/dispatch.
 2. **`golden-rag-regression`** — probes `GOLDEN_RAG_URL` and **fails** (never
    skips) if the API is unreachable, returns non-JSON, or rejects the CI token;
    then runs `pytest -m golden tests/test_rag_golden.py`. It authenticates with

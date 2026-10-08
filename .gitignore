@@ -41,3 +41,6 @@ web/.astro/
 # Editor
 .vscode/
 .idea/
+
+# Root has no dependencies; never commit an install tree
+node_modules/

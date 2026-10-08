@@ -82,5 +82,5 @@ Gotcha-focused stubs for novel tech encountered in this project. Concepts alread
 
 - What: Astro's partial hydration (islands) keeps JS bundle small; data-heavy tables are hydrated from pre-built `public/data/*.json` rather than live API calls.
 - Why here: TBD
-- Gotcha (from code): Static exports must be regenerated (`papers export-ch` + `npm run build`) after every ingestion or re-tag run — the dashboard does not auto-refresh. Live endpoints (search, semantic-search, similar) bypass the static files and always read from ClickHouse directly (documented in README "Refreshing the static JSON exports" section).
+- Gotcha (from code): Static exports must be regenerated (`papers export-ch` + `pnpm run build`) after every ingestion or re-tag run — the dashboard does not auto-refresh. Live endpoints (search, semantic-search, similar) bypass the static files and always read from ClickHouse directly (documented in README "Refreshing the static JSON exports" section).
 - Source: https://docs.astro.build/en/concepts/islands/

@@ -36,7 +36,7 @@ inlined (`inlineStylesheets: "always"`).
 
 ## Trade-offs
 
-- Static JSON exports must be regenerated (`papers export-ch` + `npm run
+- Static JSON exports must be regenerated (`papers export-ch` + `pnpm run
   build`) after each ingestion or re-tag run.
 - Production deploy target is Cloudflare Pages (static + Pages Functions for
   the RAG proxy). See [operations/host-setup.md](../../operations/host-setup.md)

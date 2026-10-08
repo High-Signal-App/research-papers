@@ -259,22 +259,22 @@ def run_warm_update(
         web_dir = PROJECT_ROOT / "web"
         log.info("building Astro site...")
         r = subprocess.run(
-            ["npm", "run", "build"],
+            ["pnpm", "run", "build"],
             cwd=str(web_dir),
             capture_output=True,
             text=True,
         )
         if r.returncode != 0:
-            log.error("npm build failed:\n%s", r.stderr)
+            log.error("pnpm build failed:\n%s", r.stderr)
             refresh_manifest.record_step(
                 "web_build",
                 source_watermark=None,
                 bounds={},
                 timeout_s=900,
-                idempotency="npm run build (overwrite dist/)",
+                idempotency="pnpm run build (overwrite dist/)",
                 output_count=0,
                 quality_signal={"expected_min_output": 1},
-                error=f"npm build exited {r.returncode}",
+                error=f"pnpm build exited {r.returncode}",
             )
             raise RuntimeError("web build failed")
         results["web_dist"] = str(web_dir / "dist")
@@ -283,7 +283,7 @@ def run_warm_update(
             source_watermark=None,
             bounds={},
             timeout_s=900,
-            idempotency="npm run build (overwrite dist/)",
+            idempotency="pnpm run build (overwrite dist/)",
             output_count=1,
             quality_signal={"expected_min_output": 1},
         )
