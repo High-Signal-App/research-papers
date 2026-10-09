@@ -12,8 +12,8 @@
 
 Non-trivial feature work uses the OpenSpec workflow configured in
 `openspec/config.yaml` (schema: `spec-driven`). The flow is
-explore → propose → apply → archive. See the openspec skills in
-`.codex/skills/openspec-*` for the agent tooling.
+explore → propose → apply → archive. Use the fleet `spec-driven` skill for
+the agent tooling (the per-repo `openspec-*` skill copies were retired).
 
 Active and archived specs:
 
