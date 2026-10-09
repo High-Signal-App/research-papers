@@ -10,20 +10,11 @@
 
 ## Spec-driven changes
 
-Non-trivial feature work uses the OpenSpec workflow configured in
-`openspec/config.yaml` (schema: `spec-driven`). The flow is
-explore → propose → apply → archive. Use the fleet `spec-driven` skill for
-the agent tooling (the per-repo `openspec-*` skill copies were retired).
-
-Active and archived specs:
-
-- `openspec/specs/curated-reading-paths/spec.md` — the `/paths` catalog spec.
-- `openspec/changes/archive/2026-07-09-*` — archived change proposals for the
-  reading-paths feature.
-
-When proposing a change, add a new `openspec/changes/<date>-<slug>/` directory
-with `proposal.md`, `design.md`, `tasks.md`, and a `specs/<name>/spec.md`
-delta. Archive completed changes under `openspec/changes/archive/`.
+Track work in GitHub Issues. For a large or cross-cutting change, write the
+proposal, design notes, requirements and task checklist in one tracking issue
+using the fleet `spec-driven` skill. Skip that for bug fixes, cleanup, copy
+edits and small tweaks. There is no repo-local spec directory or CLI; durable
+shipped truth goes in `PROJECT_STATUS.md`.
 
 ## Documentation maintenance
 
