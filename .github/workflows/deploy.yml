@@ -15,11 +15,11 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v6
-      # web/ pins pnpm 10.33.2 against its committed lockfileVersion 9.
-      # Keep this workflow's current pnpm 10 major setup explicit.
+      # Match the exact packageManager pin (pnpm@10.33.2) and ci.yml;
+      # pnpm/action-setup rejects a differing "version" input.
       - uses: pnpm/action-setup@v6
         with:
-          version: 10
+          version: 10.33.2
       - uses: actions/setup-node@v6
         with:
           node-version: '22'
