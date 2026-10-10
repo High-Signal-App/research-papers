@@ -1,6 +1,10 @@
-import { verifyTurnstile } from "../../_lib/turnstile";
+import { type StageTimings, sendStageTiming, timeStage } from "../../_lib/stage-timing.ts";
+import { verifyTurnstile } from "../../_lib/turnstile.ts";
 
 interface Env {
+  APP_HEALTH_INGEST_KEY?: string;
+  APP_HEALTH_ENVIRONMENT?: string;
+  APP_HEALTH_STAGE_SAMPLE_RATE?: string;
   RAG_SERVICE_KEY?: string;
   RAG_SERVICE_URL?: string;
   RAG_DOMAIN?: string;
@@ -13,6 +17,7 @@ interface Env {
 type PagesContext = {
   request: Request;
   env: Env;
+  waitUntil?: (delivery: Promise<unknown>) => void;
 };
 
 type StaticPaper = {
@@ -495,7 +500,24 @@ function hasCiBypass(context: PagesContext): boolean {
   return Boolean(expected && provided && constantTimeEqual(provided, expected));
 }
 
+let cold = true;
+
 export async function onRequestPost(context: PagesContext): Promise<Response> {
+  const started = performance.now();
+  const firstRequest = cold ? 1 : 0;
+  cold = false;
+  const stages: StageTimings = {};
+  let status = 500;
+  try {
+    const response = await handleRequest(context, stages);
+    status = response.status;
+    return response;
+  } finally {
+    sendStageTiming(context, started, status, firstRequest, stages);
+  }
+}
+
+async function handleRequest(context: PagesContext, stages: StageTimings): Promise<Response> {
   let payload: Record<string, unknown>;
   try {
     payload = await context.request.json();
@@ -510,7 +532,7 @@ export async function onRequestPost(context: PagesContext): Promise<Response> {
 
   const key = context.env.RAG_SERVICE_KEY;
   if (!key || (shouldUsePaperSignals(question) && payload.live_only !== true)) {
-    return staticDemoAnswer(context.request, question);
+    return timeStage(stages, "static_ms", () => staticDemoAnswer(context.request, question));
   }
 
   const remoteIp =
@@ -519,13 +541,15 @@ export async function onRequestPost(context: PagesContext): Promise<Response> {
     "unknown";
   const verified =
     hasCiBypass(context) ||
-    (await verifyTurnstile({
-      token: payload.turnstileToken,
-      action: "turnstile-spin-v2",
-      remoteIp,
-      secret: context.env.TURNSTILE_SECRET,
-      hostnameList: context.env.TURNSTILE_HOSTNAMES,
-    }));
+    (await timeStage(stages, "turnstile_ms", () =>
+      verifyTurnstile({
+        token: payload.turnstileToken,
+        action: "turnstile-spin-v2",
+        remoteIp,
+        secret: context.env.TURNSTILE_SECRET,
+        hostnameList: context.env.TURNSTILE_HOSTNAMES,
+      }),
+    ));
   if (!verified) {
     return Response.json({ error: "Verification failed. Please try again." }, { status: 403 });
   }
@@ -535,28 +559,29 @@ export async function onRequestPost(context: PagesContext): Promise<Response> {
   const topK = Math.min(Math.max(Number(payload.top_k ?? 8), 1), 20);
   const mode = String(payload.mode ?? "semantic");
 
-  const upstream = await fetch(`${baseUrl}/v1/kb/query`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${key}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      domain,
-      question,
-      mode,
-      min_score: mode === "semantic" ? Number(payload.min_score ?? 0) : payload.min_score,
-      answer_mode: String(payload.answer_mode ?? "extractive"),
-      top_k: topK,
-      rerank: true,
-      mmr: true,
-      query_rewrite: true,
-      query_decompose: true,
-      cache_mode: String(payload.cache_mode ?? "default"),
-    }),
+  const { upstream, text } = await timeStage(stages, "ext_rag_ms", async () => {
+    const upstream = await fetch(`${baseUrl}/v1/kb/query`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${key}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        domain,
+        question,
+        mode,
+        min_score: mode === "semantic" ? Number(payload.min_score ?? 0) : payload.min_score,
+        answer_mode: String(payload.answer_mode ?? "extractive"),
+        top_k: topK,
+        rerank: true,
+        mmr: true,
+        query_rewrite: true,
+        query_decompose: true,
+        cache_mode: String(payload.cache_mode ?? "default"),
+      }),
+    });
+    return { upstream, text: await upstream.text() };
   });
-
-  const text = await upstream.text();
   let body: unknown;
   try {
     body = text ? JSON.parse(text) : {};
@@ -565,7 +590,7 @@ export async function onRequestPost(context: PagesContext): Promise<Response> {
   }
 
   if (!upstream.ok) {
-    return staticDemoAnswer(context.request, question);
+    return timeStage(stages, "static_ms", () => staticDemoAnswer(context.request, question));
   }
 
   return Response.json(polishLiveAnswer(body, question), {
