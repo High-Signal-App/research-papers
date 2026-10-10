@@ -6,9 +6,144 @@ import { fileURLToPath } from "node:url";
 
 import { onRequest as pagesMiddleware } from "../web/functions/_middleware.ts";
 import { onRequestGet } from "../web/functions/api/health.ts";
+import { onRequestPost as ragQuery } from "../web/functions/api/rag/query.ts";
 
 const request = new Request("https://papers.example/api/health");
 const webRoot = join(dirname(fileURLToPath(import.meta.url)), "..", "web");
+
+test("RAG stage timing reports only fixed props and stages that ran", async () => {
+  const originalFetch = globalThis.fetch;
+  const batches = [];
+  globalThis.fetch = async (input, init) => {
+    if (input === "https://ingest.sassmaker.com/v1/logs") {
+      assert.equal(init.method, "POST");
+      assert.equal(init.headers.Authorization, "Bearer test-only-key");
+      batches.push(JSON.parse(init.body));
+      return new Response(null, { status: 202 });
+    }
+    if (String(input).includes("siteverify")) {
+      return Response.json({ success: false });
+    }
+    if (String(input).endsWith("/v1/kb/query")) {
+      return new Response("upstream-private", { status: 503 });
+    }
+    return Response.json([]);
+  };
+  try {
+    const cases = [
+      { env: {}, stages: ["static_ms"], status: 200 },
+      {
+        env: { RAG_SERVICE_KEY: "private-key", TURNSTILE_SECRET: "private-secret", TURNSTILE_HOSTNAMES: "papers.example" },
+        stages: ["turnstile_ms"],
+        status: 403,
+      },
+      {
+        env: { RAG_SERVICE_KEY: "private-key", GOLDEN_CI_BYPASS_TOKEN: "private-bypass" },
+        stages: ["ext_rag_ms", "static_ms"],
+        status: 200,
+      },
+    ];
+    for (const [index, scenario] of cases.entries()) {
+      const pending = [];
+      const request = new Request("https://papers.example/api/rag/query?session=private-session", {
+        method: "POST",
+        headers: { "X-Golden-CI-Token": "private-bypass" },
+        body: JSON.stringify({ question: "private-question", turnstileToken: "private-token" }),
+      });
+      Object.defineProperty(request, "cf", { value: { colo: index === 0 ? "BOM" : "private-colo" } });
+      const response = await ragQuery({
+        request,
+        env: {
+          APP_HEALTH_INGEST_KEY: "test-only-key",
+          APP_HEALTH_ENVIRONMENT: " staging ",
+          APP_HEALTH_STAGE_SAMPLE_RATE: "1",
+          ...scenario.env,
+        },
+        waitUntil: (delivery) => pending.push(delivery),
+      });
+      await Promise.all(pending);
+      assert.equal(response.status, scenario.status);
+      const batch = batches[index];
+      assert.deepEqual(Object.keys(batch).sort(), ["batch_id", "environment", "logs", "schema_version"]);
+      assert.equal(batch.schema_version, "v1");
+      assert.equal(batch.environment, "staging");
+      assert.match(batch.batch_id, /^[0-9a-f-]{36}$/);
+      assert.equal(batch.logs.length, 1);
+      const log = batch.logs[0];
+      assert.deepEqual(Object.keys(log).sort(), ["event", "level", "log_id", "props", "timestamp"]);
+      assert.equal(log.event, "api.stage_timing");
+      assert.equal(log.level, "debug");
+      assert.match(log.log_id, /^[0-9a-f-]{36}$/);
+      assert.ok(Number.isInteger(log.timestamp));
+      assert.deepEqual(Object.keys(log.props).sort(), [
+        "route", "status", "total_ms", "edge_cache", "inner_cache", "colo", "cold", ...scenario.stages,
+      ].sort());
+      assert.equal(log.props.route, "/api/rag/query");
+      assert.equal(log.props.status, response.status);
+      assert.equal(log.props.edge_cache, "NONE");
+      assert.equal(log.props.inner_cache, "NONE");
+      assert.equal(log.props.colo, index === 0 ? "BOM" : "unknown");
+      assert.equal(log.props.cold, index === 0 ? 1 : 0);
+      for (const name of ["total_ms", ...scenario.stages]) {
+        assert.match(name, /^[a-z][a-z0-9_]{0,31}_ms$/);
+        assert.ok(Number.isInteger(log.props[name]));
+        assert.ok(log.props[name] >= 0 && log.props[name] <= 600000);
+      }
+      assert.doesNotMatch(JSON.stringify(batch), /private-|test-only-key/);
+    }
+    assert.equal(batches.length, cases.length);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("RAG stage timing sends nothing at rate zero or without an ingest key", async () => {
+  const originalFetch = globalThis.fetch;
+  let calls = 0;
+  globalThis.fetch = async () => {
+    calls += 1;
+    throw new Error("unexpected fetch");
+  };
+  try {
+    for (const env of [
+      { APP_HEALTH_INGEST_KEY: "test-only-key", APP_HEALTH_STAGE_SAMPLE_RATE: "0" },
+      { APP_HEALTH_STAGE_SAMPLE_RATE: "1" },
+      { APP_HEALTH_INGEST_KEY: "", APP_HEALTH_STAGE_SAMPLE_RATE: "1" },
+    ]) {
+      const pending = [];
+      const response = await ragQuery({
+        request: new Request("https://papers.example/api/rag/query", { method: "POST", body: "invalid JSON" }),
+        env,
+        waitUntil: (delivery) => pending.push(delivery),
+      });
+      assert.equal(response.status, 400);
+      assert.equal(pending.length, 0);
+    }
+    assert.equal(calls, 0);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("RAG telemetry failure does not change or delay the response", async () => {
+  const originalFetch = globalThis.fetch;
+  let rejectDelivery;
+  globalThis.fetch = () => new Promise((_, reject) => { rejectDelivery = reject; });
+  try {
+    const pending = [];
+    const response = await ragQuery({
+      request: new Request("https://papers.example/api/rag/query", { method: "POST", body: "{}" }),
+      env: { APP_HEALTH_INGEST_KEY: "test-only-key", APP_HEALTH_STAGE_SAMPLE_RATE: "1" },
+      waitUntil: (delivery) => pending.push(delivery),
+    });
+    assert.equal(response.status, 400);
+    assert.deepEqual(await response.json(), { error: "question must be at least 3 characters" });
+    rejectDelivery(new Error("ingest unavailable"));
+    await Promise.all(pending);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
 
 test("Pages health checks real required assets using bounded byte ranges", async () => {
   const checked = [];
