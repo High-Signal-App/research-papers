@@ -63,6 +63,32 @@ for (const route of paths) {
     }
     if (!/^#\s+\S/m.test(markdownBody)) failures.push(`${route}: Markdown has no H1`);
     const html = await readFile(htmlPath, "utf8");
+    if (route === "/") {
+      if (!html.includes('<footer data-fleet-footer="studio" data-catalog-id="research-papers"')) {
+        failures.push("/: missing static StudioFooter catalog identity");
+      }
+      if (
+        !/<form\b[^>]*data-subscribe/.test(html) ||
+        !/<dialog\b[^>]*data-feedback-dialog/.test(html)
+      ) {
+        failures.push("/: missing static subscribe form or feedback dialog");
+      }
+      if (/fleet-footer-extension|saas-maker-newsletter-capture/.test(html)) {
+        failures.push("/: obsolete Precise footer markup");
+      }
+      const scriptSources = [...html.matchAll(/<script\b[^>]*src="([^"]+)"/g)].map(
+        (match) => match[1],
+      );
+      if (
+        scriptSources.some(
+          (src) =>
+            /^https:\/\/(?:[^/]+\.)?sassmaker\.com\//.test(src) &&
+            src !== "https://health.sassmaker.com/tracker.js",
+        )
+      ) {
+        failures.push("/: unexpected SaaS Maker script loader");
+      }
+    }
     const expectedCanonical = `${origin}${route}`;
     if (!html.includes(`<link rel="canonical" href="${expectedCanonical}">`)) {
       failures.push(`${route}: canonical does not match the direct sitemap URL`);
@@ -81,7 +107,9 @@ for (const route of paths) {
 
 const catalog = JSON.parse(await readFile(join(webRoot, "public/api-ai.json"), "utf8"));
 if (catalog.name !== "Research Papers") {
-  failures.push(`Agent catalog declares ${JSON.stringify(catalog.name)} instead of Research Papers`);
+  failures.push(
+    `Agent catalog declares ${JSON.stringify(catalog.name)} instead of Research Papers`,
+  );
 }
 for (const surface of catalog.surfaces) {
   const markdown = new URL(surface.md);

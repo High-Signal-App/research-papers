@@ -31,6 +31,16 @@ HEAD so clients can discover it without downloading the body.
 | FastAPI (operator-only) | `http://0.0.0.0:8000` via `uv run papers api-serve` | Not a public runtime dependency. |
 | Astro dev | `http://127.0.0.1:4321` | `cd web && pnpm run dev`. |
 
+The home page renders the shared `@saas-maker/ui` StudioFooter into static HTML,
+including newsletter signup, feedback and public-index links. Its bundled form
+script is copied verbatim from the v0.1.14 templates `Base.astro`; re-copy
+`web/src/scripts/studio-footer.js` when upgrading the library. A scoped CSS
+adapter preserves the dashboard's warm paper and deep green palette without
+importing the library's global theme. Forms resolve their publishable project
+key by catalog id at runtime; delivery requires SaaS Maker connectivity. The
+verbatim script has a file-specific formatter exemption and two lint-rule
+exceptions in `web/biome.json`; the upstream body stays unchanged.
+
 ## In scope
 
 ~488k paper corpus, FastAPI search/insights, overlay enrichment jobs, Astro

@@ -4,6 +4,7 @@ import { EmbeddingClusters } from "@/components/embedding-clusters";
 import { RagAsk } from "@/components/rag-ask";
 import { SemanticSearch } from "@/components/semantic-search";
 import SiteNav from "@/components/site-nav.astro";
+import StudioFooterIsland from "@/components/studio-footer";
 
 import { CitedWorksTable } from "@/components/tables/cited-works-table";
 import { HotTable } from "@/components/tables/hot-table";
@@ -35,7 +36,6 @@ const inlineSafeEmbeddingClusters = makeInlineSafe(embeddingClusters);
     <link rel="ard" type="application/json" href="https://papers.highsignal.app/.well-known/ard.json" />
     <link rel="ai-catalog" type="application/json" href="https://papers.highsignal.app/.well-known/ai-catalog.json" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <script is:inline type="module" src="https://sassmaker.com/newsletter-capture.js?v=precise-b0adaa67"></script>
     <title>Research Papers: A {totalPapersShort}-paper library for concrete questions</title>
     <meta property="og:title" content={`Research Papers: A ${totalPapersShort}-paper library for concrete questions`} />
     <meta property="og:description" content="Use selected research indexes, citation signals, reading paths, and cited answers to investigate a technical or market question." />
@@ -190,66 +190,14 @@ const inlineSafeEmbeddingClusters = makeInlineSafe(embeddingClusters);
     </section>
     </main>
 
-    <footer aria-label="Research Papers footer">
-    <fleet-footer-extension
-      data-fleet-footer-project="research-papers"
-      product-name="Research Papers"
-      art-src="/footer-art/research-papers.webp"
-      art-alt="A research reading gallery centers one open paper under a study lamp, with a visible citation thread leading back to its scholarly shelf. Indexed volumes, a magnifier and restrained specimen trays frame the study area."
-      art-width="2169"
-      art-height="725"
-      art-position="50% 50%"
-      art-credit="Original illustration for Research Papers"
-      surface="web"
-      theme="light"
-      font-base="/fonts/fleet-footer-precise-v1/"
-      signature-font="inherit"
-      style="font-family: Georgia, 'Times New Roman', serif;"
-    >
-      <a slot="cta" data-fleet-footer-cta href="#search">Search the public index →</a>
-      <saas-maker-newsletter-capture
-        slot="capture"
-        product-name="Research Papers"
-        catalog-id="research-papers"
-        kind="newsletter"
-        source="footer"
-        privacy-url="https://sassmaker.com/privacy"
-        theme="light"
-        layout="compact"
-        integrated
-      ></saas-maker-newsletter-capture>
-    <div slot="navigation" data-fleet-footer-navigation class="research-footer">
-      <div class="research-footer-capture">
-        <p>Occasional notes when the public paper snapshot, curated paths, or cited-answer demo materially changes.</p>
-      </div>
-      <div>
-        <p class="research-kicker">Research Papers</p>
-        <strong>A retained research library for questions worth investigating.</strong>
-      </div>
-      <div>
-        <p>Operator corpus: {totalPapersLabel} records. Deployed analytics snapshot: 478,991 records. Public search uses selected exports; operator-side ClickHouse maintains the complete corpus.</p>
-        <p class="mt-2">The public site and cited-answer demo currently need no account or checkout. No permanent pricing model is claimed.</p>
-      </div>
-      <div class="flex flex-col items-start gap-2">
-        <a href="/data">Corpus and provenance</a>
-        <a href="/paths">Curated reading paths</a>
-        <a href="/changelog">Changelog</a>
-        <a
-          href="https://github.com/High-Signal-App/research-papers"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="GitHub repository"
-          title="GitHub repository"
-          class="inline-flex items-center"
-          ><svg viewBox="0 0 16 16" width="20" height="20" fill="currentColor" aria-hidden="true"
-            ><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
-            ></path></svg
-          ></a
-        >
-      </div>
-    </div>
-    </fleet-footer-extension>
-    </footer>
+    <StudioFooterIsland
+      artAlt="A research reading gallery centers one open paper under a study lamp, with a visible citation thread leading back to its scholarly shelf. Indexed volumes, a magnifier and restrained specimen trays frame the study area."
+      summary={`A retained research library for questions worth investigating. Operator corpus: ${totalPapersLabel} records. Deployed analytics snapshot: 478,991 records. Public search uses selected exports; operator-side ClickHouse maintains the complete corpus.`}
+      legal="The public site and cited-answer demo currently need no account or checkout. No permanent pricing model is claimed."
+    />
+    <script>
+      import "../scripts/studio-footer.js";
+    </script>
 
     <script src="/api-config.js" is:inline></script>
 
@@ -264,24 +212,5 @@ const inlineSafeEmbeddingClusters = makeInlineSafe(embeddingClusters);
       installBrowserMonitoring();
       initApiTiming();
     </script>
-    <script
-      is:inline
-      src="https://sassmaker.com/project-strip.js?v=precise-b0adaa67"
-      data-project="research-papers"
-      data-host-only="true"
-      data-theme="light"
-      defer
-    ></script>
-    <script
-      is:inline
-      src="https://sassmaker.com/ai-chat-footer.js?v=precise-b0adaa67"
-      data-name="Research Papers"
-      data-project="research-papers"
-      data-host-only="true"
-      data-theme="light"
-      data-surface="web"
-      data-capture="false"
-      defer
-    ></script>
   </body>
 </html>

@@ -1,9 +1,14 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@source "../../node_modules/@saas-maker/ui/src/blocks/{footer,assistant-logos}.tsx";
+@source "../../node_modules/@saas-maker/ui/src/lib/utils.ts";
+
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  /* The verbatim feedback picker appends its highlight directly to body. */
+  --brand: var(--primary);
   --radius: 0.4rem;
   --background: oklch(0.965 0.018 86);
   --foreground: oklch(0.23 0.018 70);
@@ -39,6 +44,12 @@
 }
 
 @theme inline {
+  --color-surface: var(--surface);
+  --color-brand: var(--brand);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-ink: var(--brand-ink);
+  --font-display: var(--footer-font-display);
+  --font-text: var(--footer-font-text);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -314,44 +325,6 @@
     letter-spacing: -0.035em;
   }
 
-  .research-footer {
-    display: grid;
-    max-width: none;
-    margin: 0;
-    padding: 0;
-    gap: 1.25rem;
-    text-align: left;
-  }
-
-  .research-footer-capture {
-    min-width: 0;
-  }
-
-  .research-footer-capture p {
-    max-width: 72rem;
-    margin: 0 auto;
-    padding: 0 clamp(1rem, 3vw, 2rem);
-  }
-
-  .research-footer strong {
-    display: block;
-    max-width: 35rem;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(1.4rem, 3vw, 2.1rem);
-    font-weight: 400;
-    line-height: 1.2;
-  }
-
-  .research-footer p,
-  .research-footer a {
-    color: var(--muted-foreground);
-    font-size: 0.76rem;
-    line-height: 1.65;
-  }
-  .research-footer a:hover {
-    color: var(--primary);
-  }
-
   @media (min-width: 700px) {
     .corpus-ledger {
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -384,5 +357,48 @@
 
   [data-touch-targets] button {
     min-width: 44px;
+  }
+}
+
+/* Minimal StudioFooter theme adapter: preserve the page's paper/green tokens.
+   Keep these roles and helpers aligned with @saas-maker/ui theme.css on upgrade. */
+[data-fleet-footer] {
+  --surface: var(--background);
+  --brand: var(--primary);
+  --brand-soft: var(--accent);
+  --brand-ink: var(--accent-foreground);
+  --footer-font-display: Georgia, "Times New Roman", serif;
+  --footer-font-text: ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer components {
+  [data-fleet-footer] .font-display {
+    font-family: var(--footer-font-display);
+    font-weight: 420;
+    letter-spacing: -0.025em;
+    line-height: 1.04;
+    font-optical-sizing: auto;
+    text-wrap: balance;
+  }
+
+  [data-fleet-footer] :where(h1, h2, h3, h4).font-display,
+  [data-fleet-footer] .ui-case {
+    text-transform: lowercase;
+  }
+
+  [data-fleet-footer] .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 500;
+    text-transform: lowercase;
+    color: var(--muted-foreground);
+  }
+
+  [data-fleet-footer] .container-page {
+    width: 100%;
+    max-width: 76rem;
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 0.5rem + 2.5vw, 2.5rem);
   }
 }
